@@ -1,0 +1,89 @@
+<animations name="simon">
+  <!--candle-->
+  <animation ID="candle" defaultTime="100">
+    <frame spriteID="big_candle_1" time="100"/>
+    <frame spriteID="big_candle_2" time="100"/>
+  </animation>
+  
+  <!--whip-->
+  <animation ID="whip_ani" defaultTime="100">
+    <frame spriteID="normal_whip_1" time="100"/>
+    <frame spriteID="normal_whip_2" time="100"/>
+    <frame spriteID="normal_whip_3" time="100"/>
+    <frame spriteID="normal_whip_3" time="100"/>
+  </animation>
+  <animation ID="whip_ani_level_2" defaultTime="100">
+    <frame spriteID="short_chain_1" time="100"/>
+    <frame spriteID="short_chain_2" time="100"/>
+    <frame spriteID="short_chain_3" time="100"/>
+    <frame spriteID="short_chain_3" time="100"/>
+  </animation>
+  <animation ID="whip_ani_level_3" defaultTime="100">
+    <frame spriteID="long_chain_1" time="100"/>
+    <frame spriteID="long_chain_2" time="100"/>
+    <frame spriteID="long_chain_3" time="100"/>
+    <frame spriteID="long_chain_4" time="100"/>
+    <frame spriteID="long_chain_5" time="100"/>
+    <frame spriteID="long_chain_6" time="100"/>
+    <frame spriteID="long_chain_7" time="100"/>
+    <frame spriteID="long_chain_8" time="100"/>
+    <frame spriteID="long_chain_9" time="100"/>
+    <frame spriteID="long_chain_10" time="100"/>
+    <frame spriteID="long_chain_11" time="100"/>
+    <frame spriteID="long_chain_12" time="100"/>
+  </animation>
+  
+  <!--simon-->
+  <animation ID="simon_ani_idle" defaultTime="100">
+    <frame spriteID="simon_idle" time="100"/>
+  </animation>
+  <animation ID="simon_ani_walking" defaultTime="100">
+    <frame spriteID="simon_idle" time="100"/>
+    <frame spriteID="simon_walk_1" time="100"/>
+    <frame spriteID="simon_walk_2" time="100"/>
+    <frame spriteID="simon_walk_3" time="100"/>
+  </animation>
+
+  <animation ID="simon_ani_jumping" defaultTime="100">
+    <frame spriteID="simon_jump" time="100"/>
+  </animation>
+
+  <animation ID="simon_ani_sitting" defaultTime="100">
+    <frame spriteID="simon_sit" time="100"/>
+  </animation>
+
+  <animation ID="simon_ani_attacking" defaultTime="100">
+    <frame spriteID="simon_attack_1" time="100"/>
+    <frame spriteID="simon_attack_2" time="100"/>
+    <frame spriteID="simon_attack_3" time="100"/>
+    <frame spriteID="simon_attack_3" time="100"/>
+  </animation>
+  <animation ID="simon_ani_sit_attacking" defaultTime="100">
+    <frame spriteID="simon_attack_sit_1" time="100"/>
+    <frame spriteID="simon_attack_sit_2" time="100"/>
+    <frame spriteID="simon_attack_sit_3" time="100"/>
+    <frame spriteID="simon_attack_sit_3" time="100"/>
+  </animation>
+  <animation ID="simon_ani_attacking_lv" defaultTime="100">
+    <frame spriteID="simon_attack_1" time="100"/>
+    <frame spriteID="simon_attack_1" time="100"/>
+    <frame spriteID="simon_attack_1" time="100"/>
+    <frame spriteID="simon_attack_1" time="100"/>
+    <frame spriteID="simon_attack_2" time="100"/>
+    <frame spriteID="simon_attack_2" time="100"/>
+    <frame spriteID="simon_attack_2" time="100"/>
+    <frame spriteID="simon_attack_2" time="100"/>
+    <frame spriteID="simon_attack_3" time="100"/>
+    <frame spriteID="simon_attack_3" time="100"/>
+    <frame spriteID="simon_attack_3" time="100"/>
+    <frame spriteID="simon_attack_3" time="100"/>
+  </animation>
+  <animation ID="simon_ani_item" defaultTime="100">
+    <frame spriteID="simon_powerup_4" time="100"/>
+    <frame spriteID="simon_powerup_3" time="100"/>
+    <frame spriteID="simon_powerup_2" time="100"/>
+    <frame spriteID="simon_powerup_1" time="100"/>
+  </animation>
+
+
+</animations>

@@ -1,0 +1,7 @@
+<animations name="Effect">
+    <animation ID="effect" defaultTime="100">
+        <frame spriteID="DEAD_1" time="100"/>
+        <frame spriteID="DEAD_2" time="100"/>
+        <frame spriteID="DEAD_3" time="100"/>
+    </animation>
+</animations>

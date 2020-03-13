@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<TextureAtlas imagePath="item_money_xml.png" width="90" height="30">
+    <sprite n="money1" x="0" y="0" w="30" h="30"/>
+    <sprite n="money2" x="30" y="0" w="30" h="30"/>
+    <sprite n="money3" x="60" y="0" w="30" h="30"/>
+</TextureAtlas>
