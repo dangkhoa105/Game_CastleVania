@@ -46,6 +46,10 @@ public:
 
 	int state;
 
+	int id;
+	bool die;
+	bool fall;
+
 	DWORD dt; 
 
 	unordered_map<string, LPANIMATION> animations;
@@ -55,6 +59,15 @@ public:
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
 	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }
+
+	void SetDie(bool die) { this->die = die; }
+	bool GetDie() { return this->die; }
+
+	void SetFall(bool fall) { this->fall = fall; }
+	bool GetFall() { return this->fall; }
+
+	void SetId(int a) { this->id = a; }
+	int GetId() { return this->id; }
 
 	void SetNx(int nx) { this->nx = nx; }
 
@@ -81,6 +94,7 @@ public:
 	virtual void Render() = 0;
 	virtual void SetState(int state) { this->state = state; }
 
+	bool AABBx(LPGAMEOBJECT coO);
 
 	~CGameObject();
 };

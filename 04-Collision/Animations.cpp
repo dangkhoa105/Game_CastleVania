@@ -16,6 +16,7 @@ void CAnimation::Add(string spriteId, DWORD time)
 
 void CAnimation::Render(float x, float y, int alpha)
 {
+	isComplete = false;
 	DWORD now = GetTickCount();
 	if (currentFrame == -1)
 	{
@@ -29,6 +30,7 @@ void CAnimation::Render(float x, float y, int alpha)
 		{
 			currentFrame++;
 			lastFrameTime = now;
+			if (currentFrame == frames.size() - 1) isComplete = true;
 			if (currentFrame == frames.size()) currentFrame = 0;
 		}
 
@@ -53,10 +55,7 @@ void CAnimation::Render(int nx, float x, float y, int alpha)
 		{
 			currentFrame++;
 			lastFrameTime = now;
-			if (currentFrame == frames.size() - 1)
-			{
-				isComplete = true;
-			}
+			if (currentFrame == frames.size() - 1) isComplete = true;
 			if (currentFrame == frames.size()) currentFrame = 0;
 		}
 

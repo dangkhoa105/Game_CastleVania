@@ -137,6 +137,17 @@ void CGameObject::AddAnimation(string aniId)
 	animations.insert({ aniId, ani });
 }
 
+bool CGameObject::AABBx(LPGAMEOBJECT coO)
+{
+	float sl, st, sr, sb;
+	float ml, mt, mr, mb;
+	coO->GetBoundingBox(sl, st, sr, sb);
+	GetBoundingBox(ml, mt, mr, mb);
+	if (CGame::AABB(ml, mt, mr, mb, sl, st, sr, sb) == true)
+	{
+		return true;
+	}
+}
 
 CGameObject::~CGameObject()
 {

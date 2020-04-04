@@ -67,6 +67,16 @@ public:
 		float &nx, 
 		float &ny);
 
+	static bool AABB(
+		float ml,
+		float mt,
+		float mr,
+		float mb,
+		float sl,
+		float st,
+		float sr,
+		float sb);
+
 	LPDIRECT3DDEVICE9 GetDirect3DDevice() { return this->d3ddv; }
 	LPDIRECT3DSURFACE9 GetBackBuffer() { return backBuffer; }
 	LPD3DXSPRITE GetSpriteHandler() { return this->spriteHandler; }

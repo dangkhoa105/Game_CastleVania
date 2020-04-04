@@ -28,6 +28,9 @@
     <Filter Include="Weapon Files">
       <UniqueIdentifier>{c23f9505-8245-47fa-8339-88c69c5d9bbf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Item Files">
+      <UniqueIdentifier>{ad9e3dbc-db19-4278-b3d4-60090c4eb60e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Textures.h">
@@ -75,6 +78,12 @@
     <ClInclude Include="TileMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>Framework Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Heart.h">
+      <Filter>Item Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -121,6 +130,12 @@
     </ClCompile>
     <ClCompile Include="TileMap.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>Framework Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Heart.cpp">
+      <Filter>Item Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

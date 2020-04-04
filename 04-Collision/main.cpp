@@ -15,12 +15,17 @@
 #include "Whip.h"
 #include "Candle.h"
 #include "TileMap.h"
+#include "Effect.h"
+#include "Heart.h"
 
 CGame* game;
 
 CSimon* simon;
 CGoomba* goomba;
+CEffect* effect;
 CTileMap* tilemap;
+CCandle* candle;
+
 
 vector<LPGAMEOBJECT> objects;
 
@@ -120,6 +125,20 @@ void LoadResources()
 		objects.push_back(candle);
 	}
 
+	// iteam heart
+	ani = new CAnimation(100);
+	ani->Add("item_heart");
+	animations->Add("item_heart", ani);
+
+	for (int i = 0; i < 4; i += 3)
+	{
+		Heart* itemHeart = new Heart();
+		itemHeart->AddAnimation("item_heart");
+		itemHeart->SetId(i);
+		itemHeart->SetPosition(160 + i * 270, 320 - 64 - 32);
+		objects.push_back(itemHeart);
+	}
+
 	// simon
 	simon = new CSimon();			
 	simon->SetPosition(100, 200);
@@ -153,10 +172,15 @@ void Update(DWORD dt)
 	{
 		coObjects.push_back(objects[i]);
 	}
+	simon->whip->Update(dt, &objects);
 
 	for (int i = 0; i < objects.size(); i++)
 	{
 		objects[i]->Update(dt, &coObjects);
+		if (objects[i]->GetDie() == true)
+		{
+			objects.erase(objects.begin() + i);
+		}
 	}
 
 

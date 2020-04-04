@@ -127,9 +127,11 @@
     <ClInclude Include="Candle.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="Define.h" />
+    <ClInclude Include="Effect.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Goomba.h" />
+    <ClInclude Include="Heart.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="ReadResourceFile.h" />
     <ClInclude Include="Simon.h" />
@@ -143,9 +145,11 @@
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Candle.cpp" />
     <ClCompile Include="debug.cpp" />
+    <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Goomba.cpp" />
+    <ClCompile Include="Heart.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mario.cpp" />
     <ClCompile Include="ReadResourceFile.cpp" />

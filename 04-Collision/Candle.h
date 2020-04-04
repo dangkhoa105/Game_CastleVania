@@ -2,12 +2,14 @@
 #include "GameObject.h"
 #include "Define.h"
 #include "ReadResourceFile.h"
+#include "Effect.h"
 
 class CCandle : public CGameObject
 {
 	int id;
-	bool die;
+	bool destroyed;
 public:
+	CEffect* effect = new CEffect();
 
 	CCandle() : CGameObject()
 	{
@@ -19,12 +21,19 @@ public:
 			AddAnimation(animation);
 
 		}
+
+		vector<string> animationsCandleDestroyed = readResourceFile->GetAnimations("resources\\Effect\\Effect_ani.xml");
+		for each (string animation in animationsCandleDestroyed)
+		{
+			AddAnimation(animation);
+		}
 	}
+
 	virtual void Render();
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 
 	void SetState(int state);
-	bool GetDie() { return this->die; }
+	//bool IsDestroy();
 };
 

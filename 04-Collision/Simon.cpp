@@ -7,6 +7,7 @@
 #include "Goomba.h"
 #include "Brick.h"
 #include "Candle.h"
+#include "Heart.h"
 
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
@@ -66,6 +67,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					y += dy;
 				}
+			}
+			if (dynamic_cast<Heart*>(e->obj)) // if e->obj is Item Heart 
+			{
+				Heart* itemHeart = dynamic_cast<Heart*>(e->obj);
+				itemHeart->SetDie(true);
 			}
 		}
 	}

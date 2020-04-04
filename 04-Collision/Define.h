@@ -16,13 +16,18 @@
 
 #pragma region ID TEXTURE
 #define ID_TEX_SIMON		0
-#define ID_TEX_BRICK		10
-#define ID_TEX_WHIP			20
-#define ID_TEX_CANDLE		30
+#define ID_TEX_BRICK		1
+#define ID_TEX_WHIP			2
+#define ID_TEX_CANDLE		3
+#define ID_TEX_EFFECT		4
+#define ID_TEX_HEART		5
 
 #define ID_TEX_BBOX			-100		// special texture to draw object bounding box
 #pragma endregion
 
+#pragma region EFFECT
+#define EFFECT						1
+#pragma endregion
 
 #pragma region SIMON
 #define SIMON_WALKING_SPEED			0.15f 
@@ -62,6 +67,10 @@
 #pragma endregion
 
 #pragma region CANDLE
+#define CANDLE_STATE_BIG			0
+#define CANDLE_STATE_SMALL			1
+#define CANDLE_STATE_DESTROYED		2
+
 #define CANDLE_BBOX_WIDTH			32
 #define CANDLE_BBOX_HEIGHT			64
 
@@ -76,4 +85,12 @@
 
 #define WHIP_STATE_IDLE				1
 #define WHIP_STATE_FIGHT			2
+#pragma endregion
+
+#pragma region ITEMS
+// Heart
+#define HEART_BBOX_WIDTH			16
+#define HEART_BBOX_HEIGHT			16
+
+
 #pragma endregion

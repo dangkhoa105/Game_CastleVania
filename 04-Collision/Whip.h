@@ -10,6 +10,7 @@ class CWhip : public CGameObject
 	DWORD untouchable_start;
 	DWORD timeDelete;
 	int untouchable;
+	bool box;
 
 public:
 
@@ -27,10 +28,12 @@ public:
 
 	virtual void Render();
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects);
 	//void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 
 	void SetState(int state);
 	int GetState();
+
+	bool GetBox() { return this->box; }
 };
 

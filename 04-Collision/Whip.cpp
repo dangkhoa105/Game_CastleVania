@@ -1,4 +1,7 @@
-#include "Whip.h"
+﻿#include "Whip.h"
+#include "Candle.h"
+#include "Effect.h"
+#include "Heart.h"
 
 void CWhip::Render()
 {
@@ -12,8 +15,9 @@ void CWhip::Render()
 		else 
 			ani = "whip_ani_level_3";
 		animations[ani]->Render(nx, x, y);
+		this->box = animations[ani]->GetOver();
 
-		//	RenderBoundingBox();
+		RenderBoundingBox();
 	}
 }
 
@@ -57,7 +61,39 @@ void CWhip::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 
 void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 {
-	CGameObject::Update(dt);
+	if (this->GetBox() == true)
+	{
+		for (UINT i = 0; i < colliable_objects->size(); i++)
+		{
+			LPGAMEOBJECT obj = colliable_objects->at(i);
+
+			if (dynamic_cast<CCandle*>(obj))
+			{
+				CCandle* e = dynamic_cast<CCandle*> (obj);
+
+				if (this->AABBx(obj) == true)
+				{
+					if (e->GetState() != CANDLE_STATE_DESTROYED)
+					{
+						e->SetState(CANDLE_STATE_DESTROYED);
+						e->SetFall(true);
+						e->effect->SetState(EFFECT);
+						e->effect->SetPosition(e->x, e->y);
+						for (UINT j = i + 1; j < colliable_objects->size(); j++) {
+							LPGAMEOBJECT obj_1 = colliable_objects->at(j);
+							if (dynamic_cast<Heart*>(obj_1)) {
+								if (obj_1->GetId() == e->GetId()) {
+									obj_1->SetFall(e->GetFall());
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	this->box = false;
 }
 
 void CWhip::SetState(int state)
