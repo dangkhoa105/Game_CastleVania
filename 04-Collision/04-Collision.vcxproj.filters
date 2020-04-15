@@ -31,6 +31,9 @@
     <Filter Include="Item Files">
       <UniqueIdentifier>{ad9e3dbc-db19-4278-b3d4-60090c4eb60e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{c5df3e83-602a-4c16-b3ae-a2501cbd4ee1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Textures.h">
@@ -81,8 +84,23 @@
     <ClInclude Include="Effect.h">
       <Filter>Framework Files</Filter>
     </ClInclude>
-    <ClInclude Include="Heart.h">
+    <ClInclude Include="PlayScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="IHeart.h">
       <Filter>Item Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IWhip.h">
+      <Filter>Item Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IKnife.h">
+      <Filter>Item Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Knife.h">
+      <Filter>Weapon Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -134,11 +152,28 @@
     <ClCompile Include="Effect.cpp">
       <Filter>Framework Files</Filter>
     </ClCompile>
-    <ClCompile Include="Heart.cpp">
+    <ClCompile Include="PlayScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="IHeart.cpp">
       <Filter>Item Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IWhip.cpp">
+      <Filter>Item Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IKnife.cpp">
+      <Filter>Item Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Knife.cpp">
+      <Filter>Weapon Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="04-Collision.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-#include <windows.h>
+﻿#include <windows.h>
 #include <d3d9.h>
 #include <d3dx9.h>
 
@@ -9,25 +9,8 @@
 #include "Textures.h"
 #include "Define.h"
 
-#include "Simon.h"
-#include "Brick.h"
-#include "Goomba.h"
-#include "Whip.h"
-#include "Candle.h"
-#include "TileMap.h"
-#include "Effect.h"
-#include "Heart.h"
-
 CGame* game;
 
-CSimon* simon;
-CGoomba* goomba;
-CEffect* effect;
-CTileMap* tilemap;
-CCandle* candle;
-
-
-vector<LPGAMEOBJECT> objects;
 
 class CSampleKeyHander : public CKeyEventHandler
 {
@@ -40,17 +23,7 @@ CSampleKeyHander* keyHandler;
 
 void CSampleKeyHander::OnKeyDown(int KeyCode)
 {
-	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
-
- 	if (KeyCode == DIK_SPACE) {
-		if (simon->isGround == false || simon->IsHitting() == true) return;
-		simon->SetState(SIMON_STATE_JUMP);
-	}
-	else if (KeyCode == DIK_Z) {
-		if (simon->IsHitting() == true) return;
-		if (simon->GetState() == SIMON_STATE_SIT) simon->SetState(SIMON_STATE_SIT_ATTACK);
-		else if (simon->GetState() == SIMON_STATE_IDLE || simon->GetState() == SIMON_STATE_JUMP) simon->SetState(SIMON_STATE_STAND_ATTACK);
-	}
+	game->OnKeyDown(KeyCode);
 }
 
 void CSampleKeyHander::OnKeyUp(int KeyCode)
@@ -62,22 +35,7 @@ void CSampleKeyHander::KeyState(BYTE* states)
 {
 	// disable control key when Simon die 
 	//if (simon->isJumping == true) return;
-	if ((simon->GetState() == SIMON_STATE_STAND_ATTACK || simon->GetState() == SIMON_STATE_SIT_ATTACK) && !simon->IsComplete()) return;
-	if ((simon->GetState() == SIMON_STATE_JUMP || simon->GetState() == SIMON_STATE_IDLE) && simon->isGround == false) return;
-	if (simon->GetState() == SIMON_STATE_DIE) return;
-
-	if (game->IsKeyDown(DIK_RIGHT)) {
-		simon->SetState(SIMON_STATE_WALKING_RIGHT);
-	}
-	else if (game->IsKeyDown(DIK_LEFT)) {
-		simon->SetState(SIMON_STATE_WALKING_LEFT);
-	}
-	else if (game->IsKeyDown(DIK_DOWN)) {
-		simon->SetState(SIMON_STATE_SIT);
-	}
-	else {
-		simon->SetState(SIMON_STATE_IDLE);
-	}
+	game->KeyState(states);
 }
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -101,61 +59,7 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 */
 void LoadResources()
 {
-	CTextures* textures = CTextures::GetInstance();
-	textures->Add(400, L"resources\\Map\\map1.png", D3DCOLOR_XRGB(255, 0, 255));
-	auto texMap = textures->Get(400);
-	tilemap = new CTileMap(L"resources\\Map\\map1.txt", 1536, 320, 32, 32);
-	tilemap->SetTileMap(texMap);
-	tilemap->LoadResources();
-
-	CSprites* sprites = CSprites::GetInstance();
-	CAnimations* animations = CAnimations::GetInstance();
-
-	ReadResourceFile* ReadResourceFile = ReadResourceFile::GetInstance();
-
-	ReadResourceFile->LoadAllResource();
-
-	LPANIMATION ani;
-	
-	// candle
-	for (int i = 0; i < 5; i++)
-	{
-		CCandle* candle = new CCandle();
-		candle->SetPosition(160 + i * 270, 320 - 64 - 32);
-		objects.push_back(candle);
-	}
-
-	// iteam heart
-	ani = new CAnimation(100);
-	ani->Add("item_heart");
-	animations->Add("item_heart", ani);
-
-	for (int i = 0; i < 4; i += 3)
-	{
-		Heart* itemHeart = new Heart();
-		itemHeart->AddAnimation("item_heart");
-		itemHeart->SetId(i);
-		itemHeart->SetPosition(160 + i * 270, 320 - 64 - 32);
-		objects.push_back(itemHeart);
-	}
-
-	// simon
-	simon = new CSimon();			
-	simon->SetPosition(100, 200);
-	objects.push_back(simon);
-
-	// brick
-	ani = new CAnimation(100);		
-	ani->Add("brick");
-	animations->Add("brick", ani);
-
-	for (int i = 0; i < 100; i++)
-	{
-		CBrick* brick = new CBrick();
-		brick->AddAnimation("brick");
-		brick->SetPosition(0 + i * 16.0f, 320 - 32);
-		objects.push_back(brick);
-	}
+	game->LoadResource(); 
 }
 
 /*
@@ -164,37 +68,7 @@ void LoadResources()
 */
 void Update(DWORD dt)
 {
-	// We know that Simon is the first object in the list hence we won't add him into the colliable object list
-	// TO-DO: This is a "dirty" way, need a more organized way 
-
-	vector<LPGAMEOBJECT> coObjects;
-	for (int i = 1; i < objects.size(); i++)
-	{
-		coObjects.push_back(objects[i]);
-	}
-	simon->whip->Update(dt, &objects);
-
-	for (int i = 0; i < objects.size(); i++)
-	{
-		objects[i]->Update(dt, &coObjects);
-		if (objects[i]->GetDie() == true)
-		{
-			objects.erase(objects.begin() + i);
-		}
-	}
-
-
-	// Update camera to follow simon
-	if (simon->x > SCREEN_WIDTH / 2) {
-		CGame::GetInstance()->SetCamPos(simon->x - SCREEN_WIDTH /*cx*/, 0.0f /*cy*/);
-	}
-
-	float cx, cy;
-	simon->GetPosition(cx, cy);
-
-	if (cx > SCREEN_WIDTH / 2) {
-		CGame::GetInstance()->SetCamPos(cx - SCREEN_WIDTH / 2, 0.0f /*cy*/);
-	}
+	game->Update(dt);
 }
 
 /*
@@ -213,10 +87,8 @@ void Render()
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
-		tilemap->Draw(game->GetCamPos());
-		for (int i = 0; i < objects.size(); i++)
-			objects[i]->Render();
-
+		game->Render();
+	
 		//simon->Render();
 		spriteHandler->End();
 		d3ddv->EndScene();
@@ -299,9 +171,7 @@ int Run()
 		if (dt >= tickPerFrame)
 		{
 			frameStart = now;
-
 			game->ProcessKeyboard();
-
 			Update(dt);
 			Render();
 		}

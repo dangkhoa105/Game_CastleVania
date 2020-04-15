@@ -2,9 +2,10 @@
 #include <Windows.h>
 #include <d3d9.h>
 #include <d3dx9.h>
+#include <dinput.h>
+#include"PlayScene.h"
 
 #define DIRECTINPUT_VERSION 0x0800
-#include <dinput.h>
 
 #define KEYBOARD_BUFFER_SIZE 1024
 /*
@@ -40,16 +41,27 @@ class CGame
 	LPKEYEVENTHANDLER keyHandler;
 
 	float cam_x = 0.0f;
-	float cam_y = -90.0f;
-
+	float cam_y = 0.0f;
+	PlayScene* pScene;
 public:
+
+
+	void Update(DWORD dt);
+	void Render();
+	void LoadResource();
+
+	void KeyState(BYTE* states);
+	void OnKeyDown(int KeyCode);
+
+
+
 	void InitKeyboard(LPKEYEVENTHANDLER handler);
 	void Init(HWND hWnd);
 	void Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha = 255);
 	void Draw(int nx, float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha = 255);
 
 	int IsKeyDown(int KeyCode);
-
+	int IsKeyPress(int KeyCode);
 	void ProcessKeyboard();
 
 	static void SweptAABB(

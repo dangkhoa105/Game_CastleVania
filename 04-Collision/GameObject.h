@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <Windows.h>
 #include <d3dx9.h>
@@ -50,11 +50,18 @@ public:
 	bool die;
 	bool fall;
 
+	bool box;
+
 	DWORD dt; 
 
 	unordered_map<string, LPANIMATION> animations;
 
+	bool isDestroy = false; // cờ hiệu để biết object bị hủy trong quá trình update; 
+
 public: 
+
+	void SetDestroy() { this->isDestroy = true; }
+	bool IsDestroy() { return this->isDestroy; }
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
@@ -71,7 +78,10 @@ public:
 
 	void SetNx(int nx) { this->nx = nx; }
 
+	bool GetBox() { return this->box; }
+
 	int GetState() { return this->state; }
+	void SetState(int state) { this->state = state; }
 
 	void RenderBoundingBox();
 
@@ -85,14 +95,13 @@ public:
 		float &nx, 
 		float &ny);
 
-	void AddAnimation(string aniId);
+	void AddAnimation(string aniId,bool isLoop=true);
 
 	CGameObject();
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	virtual void Render() = 0;
-	virtual void SetState(int state) { this->state = state; }
 
 	bool AABBx(LPGAMEOBJECT coO);
 

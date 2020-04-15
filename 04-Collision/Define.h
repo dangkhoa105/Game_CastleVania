@@ -20,7 +20,9 @@
 #define ID_TEX_WHIP			2
 #define ID_TEX_CANDLE		3
 #define ID_TEX_EFFECT		4
-#define ID_TEX_HEART		5
+#define ID_TEX_IHEART		5
+#define ID_TEX_IWHIP		6
+#define ID_TEX_IKNIFE		7
 
 #define ID_TEX_BBOX			-100		// special texture to draw object bounding box
 #pragma endregion
@@ -30,21 +32,23 @@
 #pragma endregion
 
 #pragma region SIMON
+#define SIMON_ATTACK_TIME			350
+#define SIMON_UPGRADE_TIME			500
 #define SIMON_WALKING_SPEED			0.15f 
 #define SIMON_JUMP_SPEED_Y			0.5f
 #define SIMON_JUMP_DEFLECT_SPEED	0.2f
-#define SIMON_GRAVITY				0.002f
+#define SIMON_GRAVITY				0.0015f
 #define SIMON_DIE_DEFLECT_SPEED		0.5f
 
 #define SIMON_STATE_IDLE				0
-#define SIMON_STATE_WALKING_RIGHT		100
-#define SIMON_STATE_WALKING_LEFT		200
-#define SIMON_STATE_JUMP				300
-#define SIMON_STATE_SIT					400
-#define SIMON_STATE_STAND_ATTACK		500
-#define SIMON_STATE_SIT_ATTACK			600
-#define SIMON_STATE_JUMP_ATTACK			700
-#define SIMON_STATE_DIE					800
+#define SIMON_STATE_WALKING_RIGHT		10
+#define SIMON_STATE_WALKING_LEFT		20
+#define SIMON_STATE_JUMP				30
+#define SIMON_STATE_SIT					40
+#define SIMON_STATE_STAND_ATTACK		50
+#define SIMON_STATE_SIT_ATTACK			60
+#define SIMON_STATE_ITEM				70
+#define SIMON_STATE_DIE					8
 
 #define SIMON_ANI_IDLE_RIGHT			0
 #define SIMON_ANI_IDLE_LEFT				1
@@ -54,6 +58,7 @@
 #define SIMON_ANI_SIT					5
 #define SIMON_ANI_STAND_ATTACK			6
 #define SIMON_ANI_SIT_ATTACK			7
+#define SIMON_ANI_ITEM					8
 
 #define SIMON_BBOX_WIDTH			30
 #define SIMON_BBOX_HEIGHT			60
@@ -85,12 +90,29 @@
 
 #define WHIP_STATE_IDLE				1
 #define WHIP_STATE_FIGHT			2
+
+// Knife
+#define KNIFE_VX					0.5f
+
+#define KNIFE_BBOX_WIDTH			32
+#define KNIFE_BBOX_HEIGHT			16
+
+#define KNIFE_STATE_IDLE			1
+#define KNIFE_STATE_FIGHT			2
 #pragma endregion
 
 #pragma region ITEMS
+#define GRAVITY_ITEM				0.0003f
+
 // Heart
-#define HEART_BBOX_WIDTH			16
-#define HEART_BBOX_HEIGHT			16
+#define IHEART_BBOX_WIDTH			16
+#define IHEART_BBOX_HEIGHT			16
 
+// Whip
+#define IWHIP_BBOX_WIDTH			32
+#define IWHIP_BBOX_HEIGHT			32
 
+// Knife
+#define IKNIFE_BBOX_WIDTH			32
+#define IKNIFE_BBOX_HEIGHT			16
 #pragma endregion

@@ -3,7 +3,6 @@
 
 CTileMap::CTileMap(LPCWSTR filePath_data, int map_width, int map_height, int tile_width, int tile_height)
 {
-
 	this->filePath_data = filePath_data;
 
 	this->sprites = CSprites::GetInstance();
@@ -78,6 +77,7 @@ void CTileMap::LoadResources()
 void CTileMap::Draw(D3DXVECTOR2 camPosition)
 {
 	int start_col_to_draw = camPosition.x / 32;
+	
 	int end_col_to_draw = ((camPosition.x + SCREEN_WIDTH) / 32);
 
 	for (int i = 0; i < nums_row; i++)
@@ -85,7 +85,6 @@ void CTileMap::Draw(D3DXVECTOR2 camPosition)
 		for (int j = start_col_to_draw; j <= end_col_to_draw; j++)
 		{
 			// camx để luôn giữ camera ở chính giữa, vì trong hàm draw có trừ cho camPosition.x làm các object đều di chuyển theo
-
 			float x = tile_Width * (j - start_col_to_draw) + camPosition.x - (int)camPosition.x % 32; // vx*dt
 			float y = tile_Height * i; // xem lại cái x ,y này thử đúng k
 

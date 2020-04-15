@@ -1,0 +1,8 @@
+<objects>
+<candles>
+  <candle x="160" y="224" itemId="5" />
+  <candle x="430" y="224" itemId="6" />
+  <candle x="700" y="224" itemId="6" />
+  <candle x="970" y="224" itemId="7" />
+</candles>
+</objects>

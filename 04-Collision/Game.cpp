@@ -108,6 +108,35 @@ int CGame::IsKeyDown(int KeyCode)
 	return (keyStates[KeyCode] & 0x80) > 0;
 }
 
+void CGame::Update(DWORD dt)
+{
+	pScene->Update(dt);
+}
+
+void CGame::Render()
+{
+	pScene->Render();
+}
+
+void CGame::LoadResource()
+{
+	pScene = new PlayScene();
+	pScene->LoadResource();
+
+}
+
+void CGame::KeyState(BYTE* states)
+{
+	pScene->KeyState(states);
+}
+
+void CGame::OnKeyDown(int KeyCode)
+{
+	pScene->OnKeyDown(KeyCode);
+}
+
+
+
 void CGame::InitKeyboard(LPKEYEVENTHANDLER handler)
 {
 	HRESULT

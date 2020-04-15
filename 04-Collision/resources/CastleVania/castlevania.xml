@@ -10,25 +10,31 @@
   <sprite n="small_candle_1" x="443" y="96" w="459" h="128"/>
   <sprite n="small_candle_2" x="459" y="96" w="475" h="128"/>
   
-  <!--whip-->
-  <sprite n="normal_whip_1" x="1" y="626" w="241" h="692"/>
-  <sprite n="normal_whip_2" x="241" y="626" w="481" h="692"/>
-  <sprite n="normal_whip_3" x="481" y="626" w="721" h="692"/>
-  <sprite n="short_chain_1" x="1" y="692" w="241" h="758"/>
-  <sprite n="short_chain_2" x="241" y="692" w="481" h="758"/>
-  <sprite n="short_chain_3" x="481" y="692" w="721" h="758"/>
-  <sprite n="long_chain_1" x="1" y="758" w="241" h="824"/>
-  <sprite n="long_chain_2" x="241" y="758" w="481" h="824"/>
-  <sprite n="long_chain_3" x="481" y="758" w="721" h="824"/>
-  <sprite n="long_chain_4" x="1" y="824" w="241" h="890"/>
-  <sprite n="long_chain_5" x="241" y="824" w="481" h="890"/>
-  <sprite n="long_chain_6" x="481" y="824" w="721" h="890"/>
-  <sprite n="long_chain_7" x="1" y="890" w="241" h="956"/>
-  <sprite n="long_chain_8" x="241" y="890" w="481" h="956"/>
-  <sprite n="long_chain_9" x="481" y="890" w="721" h="956"/>
-  <sprite n="long_chain_10" x="1" y="956" w="241" h="1024"/>
-  <sprite n="long_chain_11" x="241" y="956" w="481" h="1024"/>
-  <sprite n="long_chain_12" x="481" y="956" w="721" h="1024"/>
+  <!--weapon-->
+    <!--whip-->
+    <sprite n="normal_whip_1" x="1" y="626" w="241" h="692"/>
+    <sprite n="normal_whip_2" x="241" y="626" w="481" h="692"/>
+    <sprite n="normal_whip_3" x="481" y="626" w="721" h="692"/>
+
+    <sprite n="short_chain_1" x="1" y="692" w="241" h="758"/>
+    <sprite n="short_chain_2" x="241" y="692" w="481" h="758"/>
+    <sprite n="short_chain_3" x="481" y="692" w="721" h="758"/>
+    
+    <sprite n="long_chain_1" x="1" y="758" w="241" h="824"/>
+    <sprite n="long_chain_2" x="241" y="758" w="481" h="824"/>
+    <sprite n="long_chain_3" x="481" y="758" w="721" h="824"/>
+    <sprite n="long_chain_4" x="1" y="824" w="241" h="890"/>
+    <sprite n="long_chain_5" x="241" y="824" w="481" h="890"/>
+    <sprite n="long_chain_6" x="481" y="824" w="721" h="890"/>
+    <sprite n="long_chain_7" x="1" y="890" w="241" h="956"/>
+    <sprite n="long_chain_8" x="241" y="890" w="481" h="956"/>
+    <sprite n="long_chain_9" x="481" y="890" w="721" h="956"/>
+    <sprite n="long_chain_10" x="1" y="956" w="241" h="1024"/>
+    <sprite n="long_chain_11" x="241" y="956" w="481" h="1024"/>
+    <sprite n="long_chain_12" x="481" y="956" w="721" h="1024"/>
+
+    <!--knife-->
+
   
   <!--simon-->
   <sprite n="simon_idle" x="0" y="162" w="61" h="226"/>
@@ -87,4 +93,19 @@
   <sprite n="simon_attack_stair_up_invisible_1" x="301" y="558" w="361" h="624"/>
   <sprite n="simon_55" x="361" y="558" w="421" h="624"/>
   <sprite n="simon_deflect_invisible" x="421" y="558" w="481" h="624"/>
+
+  <!--effect-->
+  <sprite n="effect_1" x="483" y="580" w="525" h="624"/>
+  <sprite n="effect_2" x="525" y="580" w="567" h="624"/>
+  <sprite n="effect_3" x="567" y="580" w="609" h="624"/>
+
+  <!--items-->
+    <!--item heart-->
+    <sprite n="item_heart" x="17" y="86" w="41" h="106"/>
+
+    <!--item whip-->
+    <sprite n="item_whip" x="131" y="86" w="163" h="118"/>
+
+    <!--item knife-->
+    <sprite n="item_knife" x="163" y="86" w="195" h="104"/>
 </TextureAtlas>

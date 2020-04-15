@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <Windows.h>
 #include <d3dx9.h>
 #include <unordered_map>
@@ -29,12 +29,17 @@ class CAnimation
 	vector<LPANIMATION_FRAME> frames;
 
 	bool isComplete = false;
+
+	bool isLoop;// ani có lặp lại không 
 public:
 	CAnimation(int defaultTime) { this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1; }
+	void ResetAnimation() { this->currentFrame = -1; }
+
+	int GetCurrentFrame() { return this->currentFrame; }
+	void SetLoop(bool flag=true){this->isLoop = flag; };
 	void Add(string spriteId, DWORD time = 0);
 	void Render(float x, float y, int alpha = 255);
 	void Render(int nx, float x, float y, int alpha = 255);
-	bool GetOver() { return this->isComplete;  }
 };
 
 typedef CAnimation* LPANIMATION;

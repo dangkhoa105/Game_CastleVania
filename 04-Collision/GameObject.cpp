@@ -7,7 +7,7 @@
 #include "Game.h"
 #include "GameObject.h"
 #include "Sprites.h"
-
+#include"Whip.h"
 CGameObject::CGameObject()
 {
 	x = y = 0;
@@ -128,13 +128,18 @@ void CGameObject::RenderBoundingBox()
 	rect.right = (int)r - (int)l;
 	rect.bottom = (int)b - (int)t;
 
-	CGame::GetInstance()->Draw(l, t, bbox, rect.left, rect.top, rect.right, rect.bottom, 32);
+	CGame::GetInstance()->Draw(l, t, bbox, rect.left, rect.top, rect.right, rect.bottom, 80);
 }
 
-void CGameObject::AddAnimation(string aniId)
+void CGameObject::AddAnimation(string aniId,bool isLoop)
 {
+	
 	LPANIMATION ani = CAnimations::GetInstance()->Get(aniId);
-	animations.insert({ aniId, ani });
+	ani->SetLoop(isLoop);
+	animations.insert(std::make_pair(aniId,ani));
+
+	CAnimations* anilist = CAnimations::GetInstance();
+	
 }
 
 bool CGameObject::AABBx(LPGAMEOBJECT coO)

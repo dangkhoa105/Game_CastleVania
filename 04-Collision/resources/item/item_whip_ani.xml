@@ -1,0 +1,5 @@
+<animations name="Whip">
+    <animation ID="whip_item" defaultTime="100">
+        <frame spriteID="item_whip" time="100"/>
+    </animation>
+</animations>

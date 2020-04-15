@@ -18,25 +18,26 @@
     <frame spriteID="short_chain_3" time="100"/>
     <frame spriteID="short_chain_3" time="100"/>
   </animation>
-  <animation ID="whip_ani_level_3" defaultTime="100">
-    <frame spriteID="long_chain_1" time="100"/>
-    <frame spriteID="long_chain_2" time="100"/>
-    <frame spriteID="long_chain_3" time="100"/>
-    <frame spriteID="long_chain_4" time="100"/>
-    <frame spriteID="long_chain_5" time="100"/>
-    <frame spriteID="long_chain_6" time="100"/>
-    <frame spriteID="long_chain_7" time="100"/>
-    <frame spriteID="long_chain_8" time="100"/>
-    <frame spriteID="long_chain_9" time="100"/>
-    <frame spriteID="long_chain_10" time="100"/>
-    <frame spriteID="long_chain_11" time="100"/>
-    <frame spriteID="long_chain_12" time="100"/>
+  <animation ID="whip_ani_level_3" defaultTime="25">
+    <frame spriteID="long_chain_1" time="0"/>
+    <frame spriteID="long_chain_2" time="0"/>
+    <frame spriteID="long_chain_3" time="0"/>
+    <frame spriteID="long_chain_4" time="0"/>
+    <frame spriteID="long_chain_5" time="0"/>
+    <frame spriteID="long_chain_6" time="0"/>
+    <frame spriteID="long_chain_7" time="0"/>
+    <frame spriteID="long_chain_8" time="0"/>
+    <frame spriteID="long_chain_9" time="0"/>
+    <frame spriteID="long_chain_10" time="0"/>
+    <frame spriteID="long_chain_11" time="0"/>
+    <frame spriteID="long_chain_12" time="0"/>
   </animation>
   
   <!--simon-->
   <animation ID="simon_ani_idle" defaultTime="100">
     <frame spriteID="simon_idle" time="100"/>
   </animation>
+
   <animation ID="simon_ani_walking" defaultTime="100">
     <frame spriteID="simon_idle" time="100"/>
     <frame spriteID="simon_walk_1" time="100"/>
@@ -78,6 +79,7 @@
     <frame spriteID="simon_attack_3" time="100"/>
     <frame spriteID="simon_attack_3" time="100"/>
   </animation>
+
   <animation ID="simon_ani_item" defaultTime="100">
     <frame spriteID="simon_powerup_4" time="100"/>
     <frame spriteID="simon_powerup_3" time="100"/>
@@ -85,5 +87,26 @@
     <frame spriteID="simon_powerup_1" time="100"/>
   </animation>
 
+  <!--effect-->
+  <animation ID="effect" defaultTime="100">
+    <frame spriteID="effect_1" time="100"/>
+    <frame spriteID="effect_2" time="100"/>
+    <frame spriteID="effect_3" time="100"/> 
+  </animation>
 
+  <!--items-->
+    <!--item heart-->
+    <animation ID="item_heart" defaultTime="100">
+        <frame spriteID="item_heart" time="100"/>
+    </animation>
+
+    <!--item whip-->
+    <animation ID="item_whip" defaultTime="100">
+        <frame spriteID="item_whip" time="100"/>
+    </animation>
+
+    <!--item knife-->
+    <animation ID="item_knife" defaultTime="100">
+        <frame spriteID="item_knife" time="100"/>
+    </animation>
 </animations>

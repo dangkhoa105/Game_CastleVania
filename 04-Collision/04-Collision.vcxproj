@@ -131,14 +131,19 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Goomba.h" />
-    <ClInclude Include="Heart.h" />
+    <ClInclude Include="IHeart.h" />
+    <ClInclude Include="IKnife.h" />
+    <ClInclude Include="Knife.h" />
     <ClInclude Include="Mario.h" />
+    <ClInclude Include="PlayScene.h" />
     <ClInclude Include="ReadResourceFile.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="Whip.h" />
+    <ClInclude Include="IWhip.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animations.cpp" />
@@ -149,18 +154,25 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Goomba.cpp" />
-    <ClCompile Include="Heart.cpp" />
+    <ClCompile Include="IHeart.cpp" />
+    <ClCompile Include="IKnife.cpp" />
+    <ClCompile Include="Knife.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mario.cpp" />
+    <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="ReadResourceFile.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="Whip.cpp" />
+    <ClCompile Include="IWhip.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="04-Collision.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

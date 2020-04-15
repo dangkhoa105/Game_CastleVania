@@ -1,22 +1,20 @@
-#pragma once
+﻿#pragma once
 #include "GameObject.h"
 #include "Define.h"
 #include "ReadResourceFile.h"
 
+#define EFFECT_TIME 500
+
 class CEffect : public CGameObject
 {
-public:
+	DWORD life_start; // bắt đầu đếm khi tạo ra effect
+public:	
 	CEffect() : CGameObject()
 	{
-		ReadResourceFile* readResourceFile = ReadResourceFile::GetInstance();
-
-		vector<string> animations = readResourceFile->GetAnimations("resources\\Effect\\Effect_ani.xml");
-		for each (string animation in animations)
-		{
-			AddAnimation(animation);
-		}
+		life_start = GetTickCount();
+		AddAnimation("effect");
 	}
-
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	virtual void Render();
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
 };

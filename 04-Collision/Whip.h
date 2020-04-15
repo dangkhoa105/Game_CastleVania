@@ -10,20 +10,20 @@ class CWhip : public CGameObject
 	DWORD untouchable_start;
 	DWORD timeDelete;
 	int untouchable;
-	bool box;
 
 public:
 
 	CWhip() : CGameObject()
 	{
-		ReadResourceFile* readResourceFile = ReadResourceFile::GetInstance();
+		AddAnimation("whip_ani", false);
+		AddAnimation("whip_ani_level_2", false);
+		AddAnimation("whip_ani_level_3", false);
+	}
 
-		vector<string> animationsWhip = readResourceFile->GetAnimations("resources\\Castlevania\\castlevania_ani.xml");
-		for each (string animation in animationsWhip)
-		{
-			AddAnimation(animation);
-
-		}
+	void ResetAttack() {
+		animations["whip_ani"]->ResetAnimation();
+		animations["whip_ani_level_2"]->ResetAnimation();
+		animations["whip_ani_level_3"]->ResetAnimation();
 	}
 
 	virtual void Render();
@@ -34,6 +34,6 @@ public:
 	void SetState(int state);
 	int GetState();
 
-	bool GetBox() { return this->box; }
+	void SetLevel(int level);
 };
 

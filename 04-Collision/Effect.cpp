@@ -1,9 +1,16 @@
 #include "Effect.h"
 
+void CEffect::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
+{
+	if (GetTickCount() - life_start > EFFECT_TIME)
+	{
+		this->SetDestroy();
+	}
+}
+
 void CEffect::Render()
 {
-	if (state == EFFECT)
-		animations["effect"]->Render(x, y);
+	animations["effect"]->Render(x, y);
 }
 
 void CEffect::GetBoundingBox(float& l, float& t, float& r, float& b)

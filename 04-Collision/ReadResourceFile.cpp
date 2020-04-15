@@ -1,4 +1,4 @@
-#include "ReadResourceFile.h"
+﻿#include "ReadResourceFile.h"
 #include <rapidxml\rapidxml_utils.hpp>
 #include "Sprites.h"
 #include "Textures.h"
@@ -73,8 +73,10 @@ void ReadResourceFile::LoadTextures()
 	textures->Add(ID_TEX_BRICK, L"resources\\Castlevania.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_WHIP, L"resources\\Castlevania.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_CANDLE, L"resources\\Castlevania.png", D3DCOLOR_XRGB(255, 0, 255));
-	textures->Add(ID_TEX_EFFECT, L"resources\\Effect\\Effect.png", D3DCOLOR_XRGB(255, 0, 255));
-	textures->Add(ID_TEX_HEART, L"resources\\item\\item_heart.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_EFFECT, L"resources\\Castlevania.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_IHEART, L"resources\\Castlevania.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_IWHIP, L"resources\\Castlevania.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_IKNIFE, L"resources\\Castlevania.png", D3DCOLOR_XRGB(255, 0, 255));
 
 	textures->Add(ID_TEX_BBOX, L"resources\\bbox.png", D3DCOLOR_XRGB(0, 0, 0));
 }
@@ -110,17 +112,18 @@ void ReadResourceFile::LoadAllResource()
 	auto texWhip = textures->Get(ID_TEX_WHIP);
 	auto texCandle = textures->Get(ID_TEX_CANDLE);
 	auto texEffect = textures->Get(ID_TEX_EFFECT);
-	auto texHeart = textures->Get(ID_TEX_HEART);
+	auto texIHeart = textures->Get(ID_TEX_IHEART);
+	auto texIWhip = textures->Get(ID_TEX_IWHIP);
+	auto texIKnife = textures->Get(ID_TEX_IKNIFE);
 
 	ReadResourceFile->LoadSpritesSheetFile("resources\\Castlevania\\castlevania.xml", texSimon);
 	ReadResourceFile->LoadSpritesSheetFile("resources\\Castlevania\\castlevania.xml", texBrick);
 	ReadResourceFile->LoadSpritesSheetFile("resources\\Castlevania\\castlevania.xml", texWhip);
 	ReadResourceFile->LoadSpritesSheetFile("resources\\Castlevania\\castlevania.xml", texCandle);
-	ReadResourceFile->LoadSpritesSheetFile("resources\\Effect\\Effect.xml", texEffect);
-	ReadResourceFile->LoadSpritesSheetFile("resources\\item\\item_heart.xml", texHeart);
+	ReadResourceFile->LoadSpritesSheetFile("resources\\Castlevania\\castlevania.xml", texEffect);
+	ReadResourceFile->LoadSpritesSheetFile("resources\\Castlevania\\castlevania.xml", texIHeart);
+	ReadResourceFile->LoadSpritesSheetFile("resources\\Castlevania\\castlevania.xml", texIWhip);
+	ReadResourceFile->LoadSpritesSheetFile("resources\\Castlevania\\castlevania.xml", texIKnife);
 	
 	ReadResourceFile->LoadAnimationsSheetFile("resources\\Castlevania\\castlevania_ani.xml");
-	ReadResourceFile->LoadAnimationsSheetFile("resources\\Effect\\Effect_ani.xml");
-	//ReadResourceFile->LoadAnimationsSheetFile("resources\\Whip\\whip_ani.xml");
-	//ReadResourceFile->LoadAnimationsSheetFile("resources\\Candle\\candle_ani.xml");
 }
