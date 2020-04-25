@@ -1,5 +1,0 @@
-<animations name="Heart">
-    <animation ID="heart_item" defaultTime="100">
-        <frame spriteID="item_heart" time="100"/>
-    </animation>
-</animations>

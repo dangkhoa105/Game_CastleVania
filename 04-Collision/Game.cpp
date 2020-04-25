@@ -120,7 +120,7 @@ void CGame::Render()
 
 void CGame::LoadResource()
 {
-	pScene = new PlayScene();
+	pScene = new CPlayScene();
 	pScene->LoadResource();
 
 }

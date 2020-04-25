@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<TextureAtlas imagePath="item_knife.png" width="32" height="18">
-    <sprite n="item_knife" x="0" y="0" w="32" h="18"/>
-</TextureAtlas>

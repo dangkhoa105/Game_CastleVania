@@ -42,7 +42,7 @@ class CGame
 
 	float cam_x = 0.0f;
 	float cam_y = 0.0f;
-	PlayScene* pScene;
+	CPlayScene* pScene;
 public:
 
 

@@ -142,7 +142,7 @@ void CGameObject::AddAnimation(string aniId,bool isLoop)
 	
 }
 
-bool CGameObject::AABBx(LPGAMEOBJECT coO)
+bool CGameObject::AABB(LPGAMEOBJECT coO)
 {
 	float sl, st, sr, sb;
 	float ml, mt, mr, mb;

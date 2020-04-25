@@ -16,22 +16,37 @@
     <Filter Include="Framework Files">
       <UniqueIdentifier>{4984f30f-e5d9-4e6d-9ffd-ddb356960a7b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Ultiltes Files">
+    <Filter Include="Source Files\Map">
+      <UniqueIdentifier>{7f76d0c3-b80e-4828-84cb-2f813c028093}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects Collection">
+      <UniqueIdentifier>{87ada56e-55ed-4674-bf24-40183f05f548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects Collection\Enemy">
+      <UniqueIdentifier>{353d229a-7ec1-4409-81bb-4bc4b1f1a503}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects Collection\Simon">
+      <UniqueIdentifier>{b2430dd8-196f-49f7-8c12-91a47ec59d5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects Collection\Static Object">
+      <UniqueIdentifier>{ad30e099-228f-4235-80e0-742eec14daf7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects Collection\Weapon">
+      <UniqueIdentifier>{c0b0ca75-ee74-426d-9fc8-57dc73aa7ad5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects Collection\Weapon\SupWeapon">
+      <UniqueIdentifier>{cddd2582-2b0f-4e92-8054-68455c9e9e71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects Collection\Static Object\Hidden">
+      <UniqueIdentifier>{a84f28ab-c3dd-4bab-a82b-f7b0569f7289}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects Collection\Item">
+      <UniqueIdentifier>{2360c3e7-2229-432b-ba37-434b444bdc02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Ultilty">
       <UniqueIdentifier>{ee1f515a-5d76-4474-a9ff-ddca4c8b6e57}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Simon Files">
-      <UniqueIdentifier>{7fbc9f98-6483-406d-b5e8-13a4692583e7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object Files">
-      <UniqueIdentifier>{0f0dda66-68ab-4f2b-98c7-2d11a9a12719}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Weapon Files">
-      <UniqueIdentifier>{c23f9505-8245-47fa-8339-88c69c5d9bbf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Item Files">
-      <UniqueIdentifier>{ad9e3dbc-db19-4278-b3d4-60090c4eb60e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene">
+    <Filter Include="Source Files\Scene">
       <UniqueIdentifier>{c5df3e83-602a-4c16-b3ae-a2501cbd4ee1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -43,13 +58,10 @@
       <Filter>Framework Files</Filter>
     </ClInclude>
     <ClInclude Include="debug.h">
-      <Filter>Ultiltes Files</Filter>
+      <Filter>Source Files\Ultilty</Filter>
     </ClInclude>
     <ClInclude Include="Define.h">
-      <Filter>Ultiltes Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Simon.h">
-      <Filter>Simon Files</Filter>
+      <Filter>Source Files\Ultilty</Filter>
     </ClInclude>
     <ClInclude Include="Animations.h">
       <Filter>Framework Files</Filter>
@@ -61,46 +73,64 @@
       <Filter>Framework Files</Filter>
     </ClInclude>
     <ClInclude Include="ReadResourceFile.h">
-      <Filter>Ultiltes Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Brick.h">
-      <Filter>Object Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Mario.h">
-      <Filter>Object Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Goomba.h">
-      <Filter>Object Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Whip.h">
-      <Filter>Weapon Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Candle.h">
-      <Filter>Object Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TileMap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Effect.h">
-      <Filter>Framework Files</Filter>
+      <Filter>Source Files\Ultilty</Filter>
     </ClInclude>
     <ClInclude Include="PlayScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="IHeart.h">
-      <Filter>Item Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IWhip.h">
-      <Filter>Item Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IKnife.h">
-      <Filter>Item Files</Filter>
+      <Filter>Source Files\Scene</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TileMap.h">
+      <Filter>Source Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Simon.h">
+      <Filter>Source Files\Objects Collection\Simon</Filter>
+    </ClInclude>
+    <ClInclude Include="Whip.h">
+      <Filter>Source Files\Objects Collection\Weapon</Filter>
+    </ClInclude>
     <ClInclude Include="Knife.h">
-      <Filter>Weapon Files</Filter>
+      <Filter>Source Files\Objects Collection\Weapon\SupWeapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Entrace.h">
+      <Filter>Source Files\Objects Collection\Static Object\Hidden</Filter>
+    </ClInclude>
+    <ClInclude Include="Goomba.h">
+      <Filter>Source Files\Objects Collection\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Mario.h">
+      <Filter>Source Files\Objects Collection\Simon</Filter>
+    </ClInclude>
+    <ClInclude Include="Candle.h">
+      <Filter>Source Files\Objects Collection\Static Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>Source Files\Objects Collection\Static Object</Filter>
+    </ClInclude>
+    <ClInclude Include="IHeart.h">
+      <Filter>Source Files\Objects Collection\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="IKnife.h">
+      <Filter>Source Files\Objects Collection\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="IWhip.h">
+      <Filter>Source Files\Objects Collection\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="MoneyBagTrigger.h">
+      <Filter>Source Files\Objects Collection\Static Object\Hidden</Filter>
+    </ClInclude>
+    <ClInclude Include="IMoneyBag.h">
+      <Filter>Source Files\Objects Collection\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>Source Files\Objects Collection\Static Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ChangeScene.h">
+      <Filter>Source Files\Objects Collection\Static Object\Hidden</Filter>
+    </ClInclude>
+    <ClInclude Include="PScene.h">
+      <Filter>Source Files\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -114,10 +144,7 @@
       <Filter>Framework Files</Filter>
     </ClCompile>
     <ClCompile Include="debug.cpp">
-      <Filter>Ultiltes Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Simon.cpp">
-      <Filter>Simon Files</Filter>
+      <Filter>Source Files\Ultilty</Filter>
     </ClCompile>
     <ClCompile Include="Animations.cpp">
       <Filter>Framework Files</Filter>
@@ -129,43 +156,61 @@
       <Filter>Framework Files</Filter>
     </ClCompile>
     <ClCompile Include="ReadResourceFile.cpp">
-      <Filter>Ultiltes Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>Object Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Goomba.cpp">
-      <Filter>Object Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Mario.cpp">
-      <Filter>Object Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Whip.cpp">
-      <Filter>Weapon Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Candle.cpp">
-      <Filter>Object Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TileMap.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Effect.cpp">
-      <Filter>Framework Files</Filter>
+      <Filter>Source Files\Ultilty</Filter>
     </ClCompile>
     <ClCompile Include="PlayScene.cpp">
-      <Filter>Scene</Filter>
+      <Filter>Source Files\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="IHeart.cpp">
-      <Filter>Item Files</Filter>
+    <ClCompile Include="TileMap.cpp">
+      <Filter>Source Files\Map</Filter>
     </ClCompile>
-    <ClCompile Include="IWhip.cpp">
-      <Filter>Item Files</Filter>
+    <ClCompile Include="Simon.cpp">
+      <Filter>Source Files\Objects Collection\Simon</Filter>
     </ClCompile>
-    <ClCompile Include="IKnife.cpp">
-      <Filter>Item Files</Filter>
+    <ClCompile Include="Whip.cpp">
+      <Filter>Source Files\Objects Collection\Weapon</Filter>
     </ClCompile>
     <ClCompile Include="Knife.cpp">
-      <Filter>Weapon Files</Filter>
+      <Filter>Source Files\Objects Collection\Weapon\SupWeapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Entrace.cpp">
+      <Filter>Source Files\Objects Collection\Static Object\Hidden</Filter>
+    </ClCompile>
+    <ClCompile Include="Goomba.cpp">
+      <Filter>Source Files\Objects Collection\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Mario.cpp">
+      <Filter>Source Files\Objects Collection\Simon</Filter>
+    </ClCompile>
+    <ClCompile Include="Candle.cpp">
+      <Filter>Source Files\Objects Collection\Static Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Source Files\Objects Collection\Static Object</Filter>
+    </ClCompile>
+    <ClCompile Include="IHeart.cpp">
+      <Filter>Source Files\Objects Collection\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="IKnife.cpp">
+      <Filter>Source Files\Objects Collection\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="IWhip.cpp">
+      <Filter>Source Files\Objects Collection\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="IMoneyBag.cpp">
+      <Filter>Source Files\Objects Collection\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="MoneyBagTrigger.cpp">
+      <Filter>Source Files\Objects Collection\Static Object\Hidden</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>Source Files\Objects Collection\Static Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ChangeScene.cpp">
+      <Filter>Source Files\Objects Collection\Static Object\Hidden</Filter>
+    </ClCompile>
+    <ClCompile Include="PScene.cpp">
+      <Filter>Source Files\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

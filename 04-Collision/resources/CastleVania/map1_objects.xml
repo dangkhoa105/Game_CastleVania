@@ -1,8 +1,13 @@
 <objects>
+<map1>
 <candles>
-  <candle x="160" y="224" itemId="5" />
-  <candle x="430" y="224" itemId="6" />
-  <candle x="700" y="224" itemId="6" />
-  <candle x="970" y="224" itemId="7" />
-</candles>
+    <candle x="160" y="224" itemId="1" />
+    <candle x="430" y="224" itemId="2" />
+    <candle x="700" y="224" itemId="2" />
+    <candle x="970" y="224" itemId="3" />
+  </candles>
+
+</map1>
+  <map2>
+  </map2>
 </objects>

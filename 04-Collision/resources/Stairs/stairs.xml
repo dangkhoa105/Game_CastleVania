@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<TextureAtlas imagePath="stairs.png" width="34" height="34">
-    <sprite n="stairs" x="1" y="1" w="32" h="32"/>
-</TextureAtlas>

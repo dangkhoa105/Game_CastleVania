@@ -1,41 +1,35 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<TextureAtlas imagePath="Castlevania.png" width="1024" height="1024">
+<textureAtlas imagePath="Castlevania.png" width="1024" height="1024">
   <!--brick-->
   <sprite n="brick" x="131" y="18" w="163" h="50"/>
-  
   <!--candle-->
   <sprite n="big_candle_1" x="379" y="96" w="411" h="160"/>
   <sprite n="big_candle_2" x="411" y="96" w="443" h="160"/>
   <sprite n="small_candle_1" x="443" y="96" w="459" h="128"/>
   <sprite n="small_candle_2" x="459" y="96" w="475" h="128"/>
-  
+
   <!--weapon-->
-    <!--whip-->
-    <sprite n="normal_whip_1" x="1" y="626" w="241" h="692"/>
-    <sprite n="normal_whip_2" x="241" y="626" w="481" h="692"/>
-    <sprite n="normal_whip_3" x="481" y="626" w="721" h="692"/>
+  <!--whip-->
+  <sprite n="normal_whip_1" x="1" y="626" w="241" h="692"/>
+  <sprite n="normal_whip_2" x="241" y="626" w="481" h="692"/>
+  <sprite n="normal_whip_3" x="481" y="626" w="721" h="692"/>
 
-    <sprite n="short_chain_1" x="1" y="692" w="241" h="758"/>
-    <sprite n="short_chain_2" x="241" y="692" w="481" h="758"/>
-    <sprite n="short_chain_3" x="481" y="692" w="721" h="758"/>
-    
-    <sprite n="long_chain_1" x="1" y="758" w="241" h="824"/>
-    <sprite n="long_chain_2" x="241" y="758" w="481" h="824"/>
-    <sprite n="long_chain_3" x="481" y="758" w="721" h="824"/>
-    <sprite n="long_chain_4" x="1" y="824" w="241" h="890"/>
-    <sprite n="long_chain_5" x="241" y="824" w="481" h="890"/>
-    <sprite n="long_chain_6" x="481" y="824" w="721" h="890"/>
-    <sprite n="long_chain_7" x="1" y="890" w="241" h="956"/>
-    <sprite n="long_chain_8" x="241" y="890" w="481" h="956"/>
-    <sprite n="long_chain_9" x="481" y="890" w="721" h="956"/>
-    <sprite n="long_chain_10" x="1" y="956" w="241" h="1024"/>
-    <sprite n="long_chain_11" x="241" y="956" w="481" h="1024"/>
-    <sprite n="long_chain_12" x="481" y="956" w="721" h="1024"/>
+  <sprite n="short_chain_1" x="1" y="692" w="241" h="758"/>
+  <sprite n="short_chain_2" x="241" y="692" w="481" h="758"/>
+  <sprite n="short_chain_3" x="481" y="692" w="721" h="758"/>
 
-    <!--knife-->
+  <sprite n="long_chain_1" x="1" y="758" w="241" h="824"/>
+  <sprite n="long_chain_2" x="241" y="758" w="481" h="824"/>
+  <sprite n="long_chain_3" x="481" y="758" w="721" h="824"/>
+  <sprite n="long_chain_4" x="1" y="824" w="241" h="890"/>
+  <sprite n="long_chain_5" x="241" y="824" w="481" h="890"/>
+  <sprite n="long_chain_6" x="481" y="824" w="721" h="890"/>
+  <sprite n="long_chain_7" x="1" y="890" w="241" h="956"/>
+  <sprite n="long_chain_8" x="241" y="890" w="481" h="956"/>
+  <sprite n="long_chain_9" x="481" y="890" w="721" h="956"/>
+  <sprite n="long_chain_10" x="1" y="956" w="241" h="1024"/>
+  <sprite n="long_chain_11" x="241" y="956" w="481" h="1024"/>
+  <sprite n="long_chain_12" x="481" y="956" w="721" h="1024"/>
 
-  
   <!--simon-->
   <sprite n="simon_idle" x="0" y="162" w="61" h="226"/>
   <sprite n="simon_walk_1" x="61" y="162" w="121" h="226"/>
@@ -100,12 +94,154 @@
   <sprite n="effect_3" x="567" y="580" w="609" h="624"/>
 
   <!--items-->
-    <!--item heart-->
-    <sprite n="item_heart" x="17" y="86" w="41" h="106"/>
+  <!--item heart-->
+  <sprite n="item_heart" x="17" y="86" w="41" h="106"/>
 
-    <!--item whip-->
-    <sprite n="item_whip" x="131" y="86" w="163" h="118"/>
+  <!--item whip-->
+  <sprite n="item_whip" x="131" y="86" w="163" h="118"/>
 
-    <!--item knife-->
-    <sprite n="item_knife" x="163" y="86" w="195" h="104"/>
-</TextureAtlas>
+  <!--item knife-->
+  <sprite n="item_knife" x="163" y="86" w="195" h="104"/>
+
+  <!--item money bag-->
+  <sprite n="item_money_bag" x="71" y="86" w="101" h="116"/>
+</textureAtlas>
+
+<animations>
+  <!--candle-->
+  <animation ID="candle" defaultTime="100">
+    <frame spriteID="big_candle_1" time="100"/>
+    <frame spriteID="big_candle_2" time="100"/>
+  </animation>
+
+  <!--whip-->
+  <animation ID="whip_ani" defaultTime="100">
+    <frame spriteID="normal_whip_1" time="100"/>
+    <frame spriteID="normal_whip_2" time="100"/>
+    <frame spriteID="normal_whip_3" time="100"/>
+    <frame spriteID="normal_whip_3" time="100"/>
+  </animation>
+  <animation ID="whip_ani_level_2" defaultTime="100">
+    <frame spriteID="short_chain_1" time="100"/>
+    <frame spriteID="short_chain_2" time="100"/>
+    <frame spriteID="short_chain_3" time="100"/>
+    <frame spriteID="short_chain_3" time="100"/>
+  </animation>
+  <animation ID="whip_ani_level_3" defaultTime="25">
+    <frame spriteID="long_chain_1" time="0"/>
+    <frame spriteID="long_chain_2" time="0"/>
+    <frame spriteID="long_chain_3" time="0"/>
+    <frame spriteID="long_chain_4" time="0"/>
+    <frame spriteID="long_chain_5" time="0"/>
+    <frame spriteID="long_chain_6" time="0"/>
+    <frame spriteID="long_chain_7" time="0"/>
+    <frame spriteID="long_chain_8" time="0"/>
+    <frame spriteID="long_chain_9" time="0"/>
+    <frame spriteID="long_chain_10" time="0"/>
+    <frame spriteID="long_chain_11" time="0"/>
+    <frame spriteID="long_chain_12" time="0"/>
+  </animation>
+
+  <!--simon-->
+  <animation ID="simon_ani_idle" defaultTime="100">
+    <frame spriteID="simon_idle" time="100"/>
+  </animation>
+
+  <animation ID="simon_ani_walking" defaultTime="100">
+    <frame spriteID="simon_idle" time="100"/>
+    <frame spriteID="simon_walk_1" time="100"/>
+    <frame spriteID="simon_walk_2" time="100"/>
+    <frame spriteID="simon_walk_3" time="100"/>
+  </animation>
+
+  <animation ID="simon_ani_jumping" defaultTime="100">
+    <frame spriteID="simon_jump" time="100"/>
+  </animation>
+
+  <animation ID="simon_ani_sitting" defaultTime="100">
+    <frame spriteID="simon_sit" time="100"/>
+  </animation>
+
+  <animation ID="simon_ani_attacking" defaultTime="100">
+    <frame spriteID="simon_attack_1" time="100"/>
+    <frame spriteID="simon_attack_2" time="100"/>
+    <frame spriteID="simon_attack_3" time="100"/>
+    <frame spriteID="simon_attack_3" time="100"/>
+  </animation>
+  <animation ID="simon_ani_sit_attacking" defaultTime="100">
+    <frame spriteID="simon_attack_sit_1" time="100"/>
+    <frame spriteID="simon_attack_sit_2" time="100"/>
+    <frame spriteID="simon_attack_sit_3" time="100"/>
+    <frame spriteID="simon_attack_sit_3" time="100"/>
+  </animation>
+  <animation ID="simon_ani_attacking_lv" defaultTime="100">
+    <frame spriteID="simon_attack_1" time="100"/>
+    <frame spriteID="simon_attack_1" time="100"/>
+    <frame spriteID="simon_attack_1" time="100"/>
+    <frame spriteID="simon_attack_1" time="100"/>
+    <frame spriteID="simon_attack_2" time="100"/>
+    <frame spriteID="simon_attack_2" time="100"/>
+    <frame spriteID="simon_attack_2" time="100"/>
+    <frame spriteID="simon_attack_2" time="100"/>
+    <frame spriteID="simon_attack_3" time="100"/>
+    <frame spriteID="simon_attack_3" time="100"/>
+    <frame spriteID="simon_attack_3" time="100"/>
+    <frame spriteID="simon_attack_3" time="100"/>
+  </animation>
+
+  <animation ID="simon_ani_item" defaultTime="100">
+    <frame spriteID="simon_powerup_4" time="100"/>
+    <frame spriteID="simon_powerup_3" time="100"/>
+    <frame spriteID="simon_powerup_2" time="100"/>
+    <frame spriteID="simon_powerup_1" time="100"/>
+  </animation>
+
+  <!--effect-->
+  <animation ID="effect" defaultTime="100">
+    <frame spriteID="effect_1" time="100"/>
+    <frame spriteID="effect_2" time="100"/>
+    <frame spriteID="effect_3" time="100"/>
+  </animation>
+
+  <!--items-->
+  <!--item heart-->
+  <animation ID="item_heart" defaultTime="100">
+    <frame spriteID="item_heart" time="100"/>
+  </animation>
+
+  <!--item whip-->
+  <animation ID="item_whip" defaultTime="100">
+    <frame spriteID="item_whip" time="100"/>
+  </animation>
+
+  <!--item knife-->
+  <animation ID="item_knife" defaultTime="100">
+    <frame spriteID="item_knife" time="100"/>
+  </animation>
+
+  <!--item money bag-->
+  <animation ID="item_money_bag" defaultTime="100">
+    <frame spriteID="item_money_bag" time="100"/>
+  </animation>
+</animations>
+
+<objects>
+  <candles>
+    <candle x="160" y="224" itemId="1" />
+    <candle x="430" y="224" itemId="2" />
+    <candle x="700" y="224" itemId="2" />
+    <candle x="970" y="224" itemId="3" />
+  </candles>
+</objects>
+
+<base>
+  <maps>
+    <map texId="400" id="0" tileWidth="32" tileHeight="32" mapWidth="1536" mapHeight="320" pathText="resources\Map\map1.txt" pathImg="resources\Map\map1.png"/>
+    <map texId="500" id="1" tileWidth="32" tileHeight="32" mapWidth="1024" mapHeight="768" pathText="resources\Map\map2.txt" pathImg="resources\Map\map2.png"/>
+  </maps>
+
+  <scenes activeID="0">
+    <scene id="0" mapId="0" objcollecid="0"/>
+    <scene id="1" mapId="1" objcollecid="1"/>
+  </scenes>
+</base>

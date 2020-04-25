@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<TextureAtlas imagePath="Effect.png" width="126" height="44">
-    <sprite n="DEAD_1" x="0" y="0" w="42" h="44"/>
-    <sprite n="DEAD_2" x="42" y="0" w="42" h="44"/>
-    <sprite n="DEAD_3" x="84" y="0" w="42" h="44"/>
-</TextureAtlas>

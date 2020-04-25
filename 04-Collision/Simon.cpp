@@ -8,6 +8,8 @@
 #include "Brick.h"
 #include "Candle.h"
 #include "IHeart.h"
+#include "IMoneyBag.h"
+#include "MoneyBagTrigger.h"
 
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
@@ -53,41 +55,110 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			if (dynamic_cast<CBrick*>(e->obj)) // if e->obj is Brick 
 			{
-				if (this->state == SIMON_STATE_SIT_ATTACK || this->state == SIMON_STATE_STAND_ATTACK)
-					vx = 0;
-
-				isGround = true;
-			
-
-				if (nx != 0) vx = 0;
-				if (ny != 0) vy = 0;
-			}
-			if (dynamic_cast<CCandle*>(e->obj)) // if e->obj is Candle 
-			{
-
-				x += dx;
 				if (e->ny != 0)
 				{
-					y += dy;
+					if (this->state == SIMON_STATE_SIT_ATTACK || this->state == SIMON_STATE_STAND_ATTACK)
+						vx = 0;
+
+					isGround = true;
+
+					if (this->state != SIMON_STATE_AUTO_WALKING)
+						if (nx != 0) vx = 0;
+
+					if (ny != 0) vy = 0;
 				}
+
+				if (this->state == SIMON_STATE_AUTO_WALKING)
+					break;
 			}
-			if (dynamic_cast<CIHeart*>(e->obj)) // if e->obj is Item Heart 
+			else if (dynamic_cast<CChangeScene*>(e->obj)) // if e->obj is Change Scene 
 			{
-				CIHeart* itemHeart = dynamic_cast<CIHeart*>(e->obj);
-				itemHeart->SetDestroy();
+				x += dx;
+				y += dy;
+
+				CChangeScene* changeScene = dynamic_cast<CChangeScene*>(e->obj);
+				idChangeScene = 1;
+				changeScene->SetDestroy();
 			}
-			if (dynamic_cast<CIWhip*>(e->obj)) // if e->obj is Item Whip 
+			else 
 			{
-				CIWhip* itemWhip = dynamic_cast<CIWhip*>(e->obj);
-				this->SetState(SIMON_STATE_ITEM);
-				this->level += 1;
-				this->whip->SetLevel(level);
-				itemWhip->SetDestroy();
-			}
-			if (dynamic_cast<CIKnife*>(e->obj)) // if e->obj is Item Knife 
-			{
-				CIKnife* itemKnife = dynamic_cast<CIKnife*>(e->obj);
-				itemKnife->SetDestroy();
+				if (dynamic_cast<CCandle*>(e->obj)) // if e->obj is Candle 
+				{
+					x += dx;
+					if (e->ny != 0)
+					{
+						y += dy;
+					}
+				}
+
+				if (dynamic_cast<CIHeart*>(e->obj)) // if e->obj is Item Heart 
+				{
+					CIHeart* itemHeart = dynamic_cast<CIHeart*>(e->obj);
+					itemHeart->SetDestroy();
+				}
+				if (dynamic_cast<CIWhip*>(e->obj)) // if e->obj is Item Whip 
+				{
+					CIWhip* itemWhip = dynamic_cast<CIWhip*>(e->obj);
+					this->SetState(SIMON_STATE_ITEM);
+					this->level += 1;
+					this->whip->SetLevel(level);
+					itemWhip->SetDestroy();
+				}
+				if (dynamic_cast<CIKnife*>(e->obj)) // if e->obj is Item Knife 
+				{
+					CIKnife* itemKnife = dynamic_cast<CIKnife*>(e->obj);
+					itemKnife->SetDestroy();
+					subWeapon = SUBWEAPON::KNIFE;
+				}
+				if (dynamic_cast<CEntrace*>(e->obj)) // if e->obj is Entrace
+				{
+					if (this->nx < 0)
+					{
+						CEntrace* entrace = dynamic_cast<CEntrace*>(e->obj);
+						entrace->SetDestroy();
+						this->SetState(SIMON_STATE_AUTO_WALKING);
+						this->vx = SIMON_WALKING_SPEED / 15;
+					}
+					else
+					{
+						CEntrace* entrace = dynamic_cast<CEntrace*>(e->obj);
+						entrace->SetDestroy();
+						this->SetState(SIMON_STATE_AUTO_WALKING);
+					}
+				}
+				if (dynamic_cast<CMoneyBagTrigger*>(e->obj)) // if e->obj is Money Bag Trigger
+				{
+					x += dx;
+					if (e->ny != 0)
+					{
+						y += dy;
+					}
+
+					for (UINT i = 0; i < coObjects->size(); i++)
+					{
+						LPGAMEOBJECT obj = coObjects->at(i);
+
+						if (dynamic_cast<CMoneyBagTrigger*>(obj))
+						{
+							CMoneyBagTrigger* e = dynamic_cast<CMoneyBagTrigger*> (obj);
+
+							if (this->AABB(obj) == true)
+							{
+								if (e->GetState() != MONEYBAG_STATE_TOUCH)
+								{
+									e->SetState(MONEYBAG_STATE_TOUCH);
+									e->SetDestroy();
+								}
+							}
+						}
+					}
+				}
+				if (dynamic_cast<CIMoneyBag*>(e->obj)) // if e->obj is Item Money Bag 
+				{
+					CIMoneyBag* itemMoneyBag = dynamic_cast<CIMoneyBag*>(e->obj);
+					itemMoneyBag->SetDestroy();
+					this->SetState(SIMON_STATE_ITEM);
+				}
 			}
 		}
 	}
@@ -104,7 +175,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			CIHeart* e = dynamic_cast<CIHeart*> (obj);
 
-			if (this->AABBx(obj) == true)
+			if (this->AABB(obj) == true)
 			{
 				CIHeart* itemHeart = dynamic_cast<CIHeart*>(obj);
 				itemHeart->SetDestroy();
@@ -114,7 +185,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			CIWhip* e = dynamic_cast<CIWhip*> (obj);
 
-			if (this->AABBx(obj) == true)
+			if (this->AABB(obj) == true)
 			{
 				CIWhip* itemWhip = dynamic_cast<CIWhip*>(obj);
 				this->SetState(SIMON_STATE_ITEM);
@@ -127,10 +198,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			CIKnife* e = dynamic_cast<CIKnife*> (obj);
 
-			if (this->AABBx(obj) == true)
+			if (this->AABB(obj) == true)
 			{
 				CIKnife* itemKnife = dynamic_cast<CIKnife*>(obj);
 				itemKnife->SetDestroy();
+				subWeapon = SUBWEAPON::KNIFE;
 			}
 		}
 	}
@@ -150,20 +222,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			this->whip->SetNx(this->nx);
 			this->whip->Update(dt, coObjects);
 		}
-		else
-		{
-			if (this->state == SIMON_STATE_SIT_ATTACK)
-			{
-				this->knife->SetPosition(this->x, this->y - 50);
-			}
-			else
-			{
-				this->knife->SetPosition(this->x, this->y);
-			}
-			this->knife->SetNx(this->nx);
-			this->knife->Update(dt, coObjects);
-			this->isKnife = true;
-		}
 	}
 }
 
@@ -174,6 +232,8 @@ void CSimon::Render()
 		if (nx > 0) ani = "simon_ani_idle";
 		else ani = "simon_ani_idle";
 	}
+	else if (state == SIMON_STATE_AUTO_WALKING)
+		ani = "simon_ani_walking";
 	else if (state == SIMON_STATE_WALKING_RIGHT)
 		ani = "simon_ani_walking";
 	else if (state == SIMON_STATE_WALKING_LEFT)
@@ -196,9 +256,7 @@ void CSimon::Render()
 	if (this->attack_start != 0 && !this->isKnife)
 		this->whip->Render();
 
-	//this->knife->Render();
-
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CSimon::SetState(int state)
@@ -209,6 +267,14 @@ void CSimon::SetState(int state)
 		this->whip->SetState(WHIP_STATE_IDLE);
 		this->knife->SetState(KNIFE_STATE_IDLE);
 		vx = 0;
+		break;
+	case SIMON_STATE_AUTO_WALKING:
+		this->ResetEntrace();
+		this->whip->SetState(WHIP_STATE_IDLE);
+		this->knife->SetState(KNIFE_STATE_IDLE);
+		this->entrace_start = GetTickCount();
+		nx = 1;
+		vx = SIMON_WALKING_SPEED / 2;	
 		break;
 	case SIMON_STATE_WALKING_RIGHT:
 		this->whip->SetState(WHIP_STATE_IDLE);
@@ -245,8 +311,8 @@ void CSimon::SetState(int state)
 		vx = 0;
 		if (isKnife == true)
 		{
-			this->knife->ResetAttack();
-			this->whip->SetState(WHIP_STATE_IDLE);
+			this->whip->ResetAttack();
+			this->whip->SetState(WHIP_STATE_FIGHT);
 			this->knife->SetState(KNIFE_STATE_FIGHT);
 		}
 		else
@@ -261,9 +327,9 @@ void CSimon::SetState(int state)
 		vx = this->state == SIMON_STATE_IDLE || this->state == SIMON_STATE_WALKING_LEFT
 			|| this->state == SIMON_STATE_WALKING_RIGHT ? 0 : vx;		
 		if (isKnife == true)
-		{
-			this->knife->ResetAttack();
-			this->whip->SetState(WHIP_STATE_IDLE);
+		{	
+			this->whip->ResetAttack();
+			this->whip->SetState(WHIP_STATE_FIGHT);
 			this->knife->SetState(KNIFE_STATE_FIGHT);
 		}
 		else

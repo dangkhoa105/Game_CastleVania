@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<TextureAtlas imagePath="panther.png" width="256" height="32">
-    <sprite n="black_leopard_1" x="0" y="0" w="64" h="32"/>
-    <sprite n="black_leopard_2" x="64" y="0" w="64" h="32"/>
-    <sprite n="black_leopard_3" x="128" y="0" w="64" h="32"/>
-    <sprite n="black_leopard_4" x="192" y="0" w="64" h="32"/>
-</TextureAtlas>

@@ -8,16 +8,16 @@ void CWhip::Render()
 	string ani;
 	if (state == WHIP_STATE_FIGHT)
 	{
-		if (this->level == 1) 
+		if (this->level == 1)
 			ani = "whip_ani";
-		else if (this->level == 2) 
+		else if (this->level == 2)
 			ani = "whip_ani_level_2";
-		else 
+		else
 			ani = "whip_ani_level_3";
 		animations[ani]->Render(nx, x, y);
-	//	this->box = animations[ani]->GetOver();
+		//	this->box = animations[ani]->GetOver();
 
-		RenderBoundingBox();
+		//RenderBoundingBox();
 	}
 }
 
@@ -64,7 +64,7 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 	switch (this->level)
 	{
 	case  1:
-		if (animations["whip_ani"]->GetCurrentFrame()<2)
+		if (animations["whip_ani"]->GetCurrentFrame() < 2)
 		{
 			return;
 		}
@@ -86,28 +86,28 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 		break;
 	}
 
-		for (UINT i = 0; i < colliable_objects->size(); i++)
+	for (UINT i = 0; i < colliable_objects->size(); i++)
+	{
+		LPGAMEOBJECT obj = colliable_objects->at(i);
+
+		if (dynamic_cast<CCandle*>(obj))
 		{
-			LPGAMEOBJECT obj = colliable_objects->at(i);
+			CCandle* e = dynamic_cast<CCandle*> (obj);
 
-			if (dynamic_cast<CCandle*>(obj))
+			if (this->AABB(obj) == true)
 			{
-				CCandle* e = dynamic_cast<CCandle*> (obj);
-
-				if (this->AABBx(obj) == true)
+				if (e->GetState() != CANDLE_STATE_DESTROYED)
 				{
-					if (e->GetState() != CANDLE_STATE_DESTROYED)
-					{
-						e->SetState(CANDLE_STATE_DESTROYED);
-						e->SetDestroy();
-						e->SetFall(true);
-						/*e->effect->SetState(EFFECT);
-						e->effect->SetPosition(e->x, e->y);*/
-					}
+					e->SetState(CANDLE_STATE_DESTROYED);
+					e->SetDestroy();
+					e->SetFall(true);
+					/*e->effect->SetState(EFFECT);
+					e->effect->SetPosition(e->x, e->y);*/
 				}
 			}
 		}
-	
+	}
+
 }
 
 void CWhip::SetState(int state)

@@ -15,6 +15,7 @@ public:
 	{
 		AddAnimation("candle");	
 	}
+
 	int GetItem() { return this->itemDef; }
 	void SetItem(int itemId) { this->itemDef = itemId; };
 

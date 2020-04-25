@@ -9,10 +9,10 @@ void CKnife::Render()
 	}
 	if (state == KNIFE_STATE_FIGHT)
 	{
-		animations["item_knife"]->Render(nx, x, y);
+		animations["item_knife"]->Render(-nx, x, y);
 	}
 
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CKnife::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -25,29 +25,40 @@ void CKnife::GetBoundingBox(float& left, float& top, float& right, float& bottom
 
 void CKnife::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 {
-	if (this->GetBox() == true)
+
+	CGameObject::Update(dt);
+
+	if (nx > 0)
 	{
-		for (UINT i = 0; i < colliable_objects->size(); i++)
+		vx = KNIFE_VX;
+	}
+	else
+	{
+		vx = -KNIFE_VX;
+	}
+
+	x += dx;
+	y += dy;
+	for (UINT i = 0; i < colliable_objects->size(); i++)
+	{
+		LPGAMEOBJECT obj = colliable_objects->at(i);
+
+		if (dynamic_cast<CCandle*>(obj))
 		{
-			LPGAMEOBJECT obj = colliable_objects->at(i);
+			CCandle* e = dynamic_cast<CCandle*> (obj);
 
-			if (dynamic_cast<CCandle*>(obj))
+			if (this->AABB(obj) == true)
 			{
-				CCandle* e = dynamic_cast<CCandle*> (obj);
-
-				if (this->AABBx(obj) == true)
+				if (e->GetState() != CANDLE_STATE_DESTROYED)
 				{
-					if (e->GetState() != CANDLE_STATE_DESTROYED)
-					{
-						e->SetState(CANDLE_STATE_DESTROYED);
-						e->SetDestroy();
-						e->SetFall(true);
-					}
+					e->SetState(CANDLE_STATE_DESTROYED);
+					e->SetDestroy();
+					e->SetFall(true);
 				}
 			}
 		}
 	}
-	this->box = false;
+
 }
 
 void CKnife::SetState(int state)
@@ -56,7 +67,7 @@ void CKnife::SetState(int state)
 	switch (state)
 	{
 	case KNIFE_STATE_FIGHT:
-		vx = nx > 0 ? this->vx = KNIFE_VX : this->vx = -KNIFE_VX;
+		/*vx = nx > 0 ? this->vx = KNIFE_VX : this->vx = -KNIFE_VX;*/
 		break;
 	}
 }

@@ -109,4 +109,9 @@
     <animation ID="item_knife" defaultTime="100">
         <frame spriteID="item_knife" time="100"/>
     </animation>
+
+    <!--item money bag-->
+    <animation ID="item_money_bag" defaultTime="100">
+        <frame spriteID="item_money_bag" time="100"/>
+    </animation>
 </animations>

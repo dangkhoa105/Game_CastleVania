@@ -1,7 +1,7 @@
 ﻿#include "TileMap.h"
 #include "define.h"
 
-CTileMap::CTileMap(LPCWSTR filePath_data, int map_width, int map_height, int tile_width, int tile_height)
+CTileMap::CTileMap(LPCWSTR filePath_data, int map_width, int map_height, int tile_width, int tile_height,int id)
 {
 	this->filePath_data = filePath_data;
 
@@ -15,6 +15,7 @@ CTileMap::CTileMap(LPCWSTR filePath_data, int map_width, int map_height, int til
 
 	nums_row = map_Height / tile_Height;
 	nums_col = map_Width / tile_Width;
+	this->mapID = id;
 }
 
 void CTileMap::LoadResources()
@@ -30,16 +31,18 @@ void CTileMap::LoadResources()
 
 	// thực hiện lưu danh sách các tile vô sprites theo thứ tự id_sprite
 	int id_sprite = 1; 
-	string a = "tilemap" + std::to_string(id_sprite);
+	string a = "tilemap" + std::to_string(mapID) + std::to_string(id_sprite);
+	
 	for (int i = 0; i < nums_rowToRead; i++)
 	{
 		for (int j = 0; j < nums_colToRead; j++)
 		{
 			sprites->Add(a, tile_Width * j, tile_Height * i, tile_Width * (j + 1), tile_Height * (i + 1), this->texMap);
 			id_sprite += 1;
-			a = "tilemap" + std::to_string(id_sprite);
+			a = "tilemap" + std::to_string(mapID) + std::to_string(id_sprite);
 		}
 	}
+
 	fstream fs;
 	fs.open(filePath_data, ios::in);
 
@@ -70,7 +73,6 @@ void CTileMap::LoadResources()
 		map_Data.push_back(numInLine);
 	}
 
-
 	fs.close();
 }
 
@@ -86,9 +88,9 @@ void CTileMap::Draw(D3DXVECTOR2 camPosition)
 		{
 			// camx để luôn giữ camera ở chính giữa, vì trong hàm draw có trừ cho camPosition.x làm các object đều di chuyển theo
 			float x = tile_Width * (j - start_col_to_draw) + camPosition.x - (int)camPosition.x % 32; // vx*dt
-			float y = tile_Height * i; // xem lại cái x ,y này thử đúng k
+			float y = tile_Height * i;
 
-			string a = "tilemap" + std::to_string(map_Data[i][j]);
+			string a = "tilemap" + std::to_string(mapID) + std::to_string(map_Data[i][j]);
 			sprites->Get(a)->Draw(x, y);
 		}
 	}
@@ -96,4 +98,18 @@ void CTileMap::Draw(D3DXVECTOR2 camPosition)
 
 CTileMap::~CTileMap()
 {
+}
+
+CTileMaps* CTileMaps::_instance = NULL;
+
+void CTileMaps::Add(CTileMap* tilemap)
+{
+
+	this->tilemaps.insert(std::make_pair(tilemap->GetMapId(), tilemap));
+}
+
+CTileMaps* CTileMaps::GetInstance()
+{
+	if (_instance == NULL) _instance = new CTileMaps();
+	return _instance;
 }

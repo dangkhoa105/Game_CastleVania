@@ -103,7 +103,7 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	virtual void Render() = 0;
 
-	bool AABBx(LPGAMEOBJECT coO);
+	bool AABB(LPGAMEOBJECT coO);
 
 	~CGameObject();
 };

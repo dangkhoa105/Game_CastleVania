@@ -1,7 +1,0 @@
-<animations name="item_oney">
-    <animation ID="item_money" defaultTime="100">
-        <frame spriteID="money1" time="100"/>
-        <frame spriteID="money2" time="100"/>
-        <frame spriteID="money3" time="100"/>
-    </animation>
-</animations>
