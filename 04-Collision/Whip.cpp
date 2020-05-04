@@ -99,7 +99,7 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 				if (e->GetState() != CANDLE_STATE_DESTROYED)
 				{
 					e->SetState(CANDLE_STATE_DESTROYED);
-					e->SetDestroy();
+					e->SetDestroy(true);
 					e->SetFall(true);
 					/*e->effect->SetState(EFFECT);
 					e->effect->SetPosition(e->x, e->y);*/

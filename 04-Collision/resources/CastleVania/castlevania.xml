@@ -105,6 +105,9 @@
 
   <!--item money bag-->
   <sprite n="item_money_bag" x="71" y="86" w="101" h="116"/>
+
+  <!--wall-->
+  <sprite n="wall" x="722" y="733" w="818" h="1022"/>
 </textureAtlas>
 
 <animations>
@@ -223,25 +226,26 @@
   <animation ID="item_money_bag" defaultTime="100">
     <frame spriteID="item_money_bag" time="100"/>
   </animation>
+
+   <animation ID="wall" defaultTime="100">
+    <frame spriteID="wall" time="100"/>
+  </animation>
 </animations>
 
-<objects>
-  <candles>
-    <candle x="160" y="224" itemId="1" />
-    <candle x="430" y="224" itemId="2" />
-    <candle x="700" y="224" itemId="2" />
-    <candle x="970" y="224" itemId="3" />
-  </candles>
-</objects>
+<objectsCollection>
+  <object objcollectid="0" path="resources\CastleVania\map1_objects.xml"/>
+  <object objcollectid="1" path="resources\CastleVania\map2_objects.xml"/>
+</objectsCollection>
 
 <base>
   <maps>
     <map texId="400" id="0" tileWidth="32" tileHeight="32" mapWidth="1536" mapHeight="320" pathText="resources\Map\map1.txt" pathImg="resources\Map\map1.png"/>
-    <map texId="500" id="1" tileWidth="32" tileHeight="32" mapWidth="1024" mapHeight="768" pathText="resources\Map\map2.txt" pathImg="resources\Map\map2.png"/>
+    <!-- <map texId="500" id="1" tileWidth="32" tileHeight="32" mapWidth="1024" mapHeight="768" pathText="resources\Map\map2.txt" pathImg="resources\Map\map2.png"/> -->
+    <map texId="500" id="1" tileWidth="32" tileHeight="32" mapWidth="512" mapHeight="384" pathText="resources\Map\map21.txt" pathImg="resources\Map\map21.png"/>
   </maps>
 
   <scenes activeID="0">
-    <scene id="0" mapId="0" objcollecid="0"/>
-    <scene id="1" mapId="1" objcollecid="1"/>
+    <scene id="0" mapId="0" objcollectid="0"/>
+    <scene id="1" mapId="1" objcollectid="1"/>
   </scenes>
 </base>

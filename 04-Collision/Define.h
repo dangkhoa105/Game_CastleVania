@@ -4,9 +4,9 @@
 #define WINDOW_CLASS_NAME	L"Castlevania"
 #define MAIN_WINDOW_TITLE	L"Castle Vania"
 
-#define BACKGROUND_COLOR	D3DCOLOR_XRGB(255, 255, 255)
-#define SCREEN_WIDTH			512
-#define SCREEN_HEIGHT			480
+#define BACKGROUND_COLOR	D3DCOLOR_XRGB(0, 0, 0)
+#define SCREEN_WIDTH			527
+#define SCREEN_HEIGHT			501
 
 #define DEFAULT_CELL_WIDTH		256
 #define DEFAULT_CELL_HEIGHT		240
@@ -34,8 +34,8 @@
 #pragma region SIMON
 #define SIMON_ATTACK_TIME				350
 #define SIMON_UPGRADE_TIME				500
-#define SIMON_WALKING_SPEED				0.15f 
-#define SIMON_JUMP_SPEED_Y				0.5f
+#define SIMON_WALKING_SPEED				0.13f 
+#define SIMON_JUMP_SPEED_Y				0.45f
 #define SIMON_JUMP_DEFLECT_SPEED		0.2f
 #define SIMON_GRAVITY					0.0015f
 #define SIMON_DIE_DEFLECT_SPEED			0.5f
@@ -70,6 +70,9 @@
 #pragma region CHANGE SCENE
 #define CHANGESCENE_BBOX_WIDTH			1
 #define CHANGESCENE_BBOX_HEIGHT			8
+
+#define CHANGESCENE_STATE_IDLE			1
+#define CHANGESCENE_STATE_DESTROY		2
 #pragma endregion
 
 #pragma region ENTRACE
@@ -126,6 +129,7 @@
 #define ID_IHEART						1
 #define ID_IWHIP						2
 #define ID_IKNIFE						3
+#define ID_IMONEYBAG					4
 
 // Heart
 #define IHEART_BBOX_WIDTH				16

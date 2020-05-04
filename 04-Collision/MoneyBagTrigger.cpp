@@ -21,8 +21,3 @@ void CMoneyBagTrigger::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 {
 	CGameObject::Update(dt);
 }
-
-void CMoneyBagTrigger::SetState(int state)
-{
-	CGameObject::SetState(state);
-}

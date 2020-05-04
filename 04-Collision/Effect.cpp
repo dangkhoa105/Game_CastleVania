@@ -4,7 +4,7 @@ void CEffect::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 {
 	if (GetTickCount() - life_start > EFFECT_TIME)
 	{
-		this->SetDestroy();
+		this->SetDestroy(true);
 	}
 }
 

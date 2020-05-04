@@ -5,6 +5,7 @@
 
 #include "Whip.h"
 #include "Knife.h"
+#include "ChangeScene.h"
 
 enum class SUBWEAPON {
 	DEFAULT,
@@ -15,7 +16,7 @@ class CSimon : public CGameObject
 {
 	int level = 1;
 	int untouchable;
-	int idChangeScene;
+	
 
 	DWORD untouchable_start;
 
@@ -28,6 +29,7 @@ public:
 	bool isComplete = false;
 	bool isKnife = false;
 	bool spawnKnife = false;
+	int idChangeScene = -1;
 
 	SUBWEAPON subWeapon;
 
@@ -47,11 +49,6 @@ public:
 		animations["simon_ani_attacking"]->ResetAnimation();
 		animations["simon_ani_walking"]->ResetAnimation();
 		this->attack_start = 0;
-	}
-
-	void ResetEntrace()
-	{
-		this->entrace_start = 0;
 	}
 
 	CSimon() : CGameObject()

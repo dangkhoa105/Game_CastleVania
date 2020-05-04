@@ -1,13 +1,22 @@
 <objects>
-<map1>
-<candles>
+  <bricks>
+    <brick x="0 " y="288" widthbbox="1536" heightbbox="32"/>
+    <brick x="-32" y="214" widthbbox="32" heightbbox="32"/>
+    <brick x="-32" y="214" widthbbox="32" heightbbox="32"/>
+  </bricks>
+
+  <candles>
     <candle x="160" y="224" itemId="1" />
     <candle x="430" y="224" itemId="2" />
     <candle x="700" y="224" itemId="2" />
     <candle x="970" y="224" itemId="3" />
   </candles>
 
-</map1>
-  <map2>
-  </map2>
+  <entrace x="1375" y="274"/>
+
+  <changeScene x="1500" y="274" idChangeScene="1"/>
+
+  <moneyBagTrigger x="1402" y="274"/>
+
+  <wall x="1407" y="2"/> 
 </objects>

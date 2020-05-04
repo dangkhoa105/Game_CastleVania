@@ -1,0 +1,6 @@
+<objects>
+  <bricks>
+    <brick x="0" y="352" widthbbox="512" heightbbox="32"/>
+    <brick x="-32" y="290" widthbbox="32" heightbbox="32"/>
+  </bricks>
+</objects>

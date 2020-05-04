@@ -81,7 +81,10 @@ void CTileMap::Draw(D3DXVECTOR2 camPosition)
 	int start_col_to_draw = camPosition.x / 32;
 	
 	int end_col_to_draw = ((camPosition.x + SCREEN_WIDTH) / 32);
-
+	if (end_col_to_draw>=this->nums_col)
+	{
+		end_col_to_draw= this->nums_col-1;
+	}
 	for (int i = 0; i < nums_row; i++)
 	{
 		for (int j = start_col_to_draw; j <= end_col_to_draw; j++)
@@ -104,7 +107,6 @@ CTileMaps* CTileMaps::_instance = NULL;
 
 void CTileMaps::Add(CTileMap* tilemap)
 {
-
 	this->tilemaps.insert(std::make_pair(tilemap->GetMapId(), tilemap));
 }
 

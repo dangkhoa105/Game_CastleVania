@@ -15,21 +15,26 @@
 #include "ChangeScene.h"
 #include "MoneyBagTrigger.h"
 #include "IMoneyBag.h"
+#include "Item.h"
+#include "Wall.h"
 
 class CPlayScene
 {
 	CSimon* simon;
 	CGoomba* goomba;
+	CWall* wall;
+	CChangeScene* changeScene;
 	CEffect* effect;
 	CTileMap* tilemap;
-	CCandle* candle;
-	vector<LPGAMEOBJECT> objects;	
+	CTileMaps tileMaps;
+
+	vector<LPGAMEOBJECT>* objects;	
+
 	std::unordered_map<int, CPScene*> pScenes;
+	std::unordered_map<int, vector<LPGAMEOBJECT>*> pMapObjects;
 
-	CPScene* currentScene;
-	CTileMaps gameMaps;
-
-	
+	CPScene* currentScene;	
+	bool switchScene = false;
 
 	CTextures* textures = CTextures::GetInstance();
 	CSprites* sprites = CSprites::GetInstance();
@@ -38,13 +43,11 @@ class CPlayScene
 	ReadResourceFile* ReadResourceFile = ReadResourceFile::GetInstance();
 	
 public:
-	CPlayScene(){
-		
-	}
+	CPlayScene() {}
 
 	void LoadResource();
 	void LoadMap();
-	void LoadItem();
+	void LoadObject();
 	
 	void Update(DWORD dt);
 	void UpdateCam();
@@ -56,5 +59,11 @@ public:
 
 	void KeyState(BYTE* states);
 	void OnKeyDown(int KeyCode);
+
+	void SwitchScene(int idScene)
+	{
+		this->currentScene = this->pScenes.at(idScene);
+		this->switchScene = true;
+	}
 };
 

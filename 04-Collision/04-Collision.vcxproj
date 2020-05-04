@@ -136,6 +136,7 @@
     <ClInclude Include="IHeart.h" />
     <ClInclude Include="IKnife.h" />
     <ClInclude Include="IMoneyBag.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="Knife.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="MoneyBagTrigger.h" />
@@ -147,6 +148,7 @@
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="TileMap.h" />
+    <ClInclude Include="Wall.h" />
     <ClInclude Include="Whip.h" />
     <ClInclude Include="IWhip.h" />
   </ItemGroup>
@@ -164,6 +166,7 @@
     <ClCompile Include="IHeart.cpp" />
     <ClCompile Include="IKnife.cpp" />
     <ClCompile Include="IMoneyBag.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="Knife.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mario.cpp" />
@@ -175,6 +178,7 @@
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="Wall.cpp" />
     <ClCompile Include="Whip.cpp" />
     <ClCompile Include="IWhip.cpp" />
   </ItemGroup>

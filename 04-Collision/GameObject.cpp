@@ -56,6 +56,18 @@ LPCOLLISIONEVENT CGameObject::SweptAABBEx(LPGAMEOBJECT coO)
 	return e;
 }
 
+bool CGameObject::AABB(LPGAMEOBJECT coO)
+{
+	float sl, st, sr, sb;
+	float ml, mt, mr, mb;
+	coO->GetBoundingBox(sl, st, sr, sb);
+	GetBoundingBox(ml, mt, mr, mb);
+	if (CGame::AABB(ml, mt, mr, mb, sl, st, sr, sb) == true)
+	{
+		return true;
+	}
+}
+
 /*
 	Calculate potential collisions with the list of colliable objects 
 	
@@ -142,17 +154,7 @@ void CGameObject::AddAnimation(string aniId,bool isLoop)
 	
 }
 
-bool CGameObject::AABB(LPGAMEOBJECT coO)
-{
-	float sl, st, sr, sb;
-	float ml, mt, mr, mb;
-	coO->GetBoundingBox(sl, st, sr, sb);
-	GetBoundingBox(ml, mt, mr, mb);
-	if (CGame::AABB(ml, mt, mr, mb, sl, st, sr, sb) == true)
-	{
-		return true;
-	}
-}
+
 
 CGameObject::~CGameObject()
 {

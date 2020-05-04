@@ -60,7 +60,7 @@ public:
 
 public: 
 
-	void SetDestroy() { this->isDestroy = true; }
+	void SetDestroy(bool isDestroy) { this->isDestroy = isDestroy; }
 	bool IsDestroy() { return this->isDestroy; }
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }

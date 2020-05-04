@@ -1,5 +1,10 @@
 #include "ChangeScene.h"
 
+void CChangeScene::Render()
+{
+	//RenderBoundingBox();
+}
+
 void CChangeScene::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	l = x;

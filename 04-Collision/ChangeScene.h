@@ -4,13 +4,18 @@
 
 class CChangeScene : public CGameObject
 {
-	int IdScene;
-
-public:
+	bool isChangeScene = false;
+public:	
+	int IdNextScene;
+	CChangeScene() { }
 	virtual void Render();
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 
-	int GetIdScene() { return IdScene; }
+	void SetIsChangeScene(bool isChangeScene) { this->isChangeScene = isChangeScene; }
+	bool GetIsChangeScene() { return this->isChangeScene; }
+
+	void SetIdNextScene(int idScene) { this->IdNextScene = idScene; }
+	int GetIdNextScene() { return IdNextScene; }
 };
 

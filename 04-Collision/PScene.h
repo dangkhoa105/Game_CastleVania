@@ -4,7 +4,7 @@ class CPScene
 {
 public:
 	int id;
-	int mapId;
-	
+	int mapId;	
+	int objCollectId;
 };
 
