@@ -15,6 +15,7 @@ CTileMap::CTileMap(LPCWSTR filePath_data, int map_width, int map_height, int til
 
 	nums_row = map_Height / tile_Height;
 	nums_col = map_Width / tile_Width;
+
 	this->mapID = id;
 }
 
@@ -81,9 +82,10 @@ void CTileMap::Draw(D3DXVECTOR2 camPosition)
 	int start_col_to_draw = camPosition.x / 32;
 	
 	int end_col_to_draw = ((camPosition.x + SCREEN_WIDTH) / 32);
-	if (end_col_to_draw>=this->nums_col)
+
+	if (end_col_to_draw >= this->nums_col)
 	{
-		end_col_to_draw= this->nums_col-1;
+		end_col_to_draw = this->nums_col - 1;
 	}
 	for (int i = 0; i < nums_row; i++)
 	{

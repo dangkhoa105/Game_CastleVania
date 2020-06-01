@@ -172,6 +172,19 @@ void CPlayScene::LoadObject()
 				wall->SetPosition(x, y);
 				_object->push_back(wall);
 			}
+			if (nodeName == "stairs")
+			{
+				for (xml_node<>* grand = ochild->first_node(); grand; grand = grand->next_sibling()) //cú pháp lập
+				{
+					CStair* stair = new CStair();
+					const int x = std::atoi(grand->first_attribute("x")->value());
+					const int y = std::atoi(grand->first_attribute("y")->value());
+					const int stairDirection = std::atoi(grand->first_attribute("stairDirection")->value());
+					stair->SetPosition(x, y);
+					stair->SetDirectionStair(stairDirection);
+					_object->push_back(stair);
+				}
+			}
 		}
 		this->pMapObjects.insert(std::make_pair(objID, _object));
 	}
@@ -348,7 +361,6 @@ void CPlayScene::UpdateScene()
 
 		this->objects = this->pMapObjects.at(this->currentScene->objCollectId);
 		CGame::GetInstance()->SetCamPos(0, 0);
-
 	}
 }
 
@@ -358,6 +370,10 @@ void CPlayScene::KeyState(BYTE* states)
 	CGame* game = CGame::GetInstance();
 	if ((simon->GetState() == SIMON_STATE_JUMP || simon->GetState() == SIMON_STATE_IDLE) && simon->isGround == false)
 		return;
+	
+	if (simon->CheckAutoWalk()) {
+		return;
+	}
 
 	//simon->GetUpgradeTime() tương đương  simon->GetUpgradeTime()!=0
 	if (simon->GetUpgradeTime() && GetTickCount() - simon->GetUpgradeTime() > SIMON_UPGRADE_TIME)
@@ -372,18 +388,35 @@ void CPlayScene::KeyState(BYTE* states)
 		simon->SetState(SIMON_STATE_IDLE);
 	}
 
-	/*if (simon->GetEntraceTime() && GetTickCount() - simon->GetEntraceTime() > SIMON_ATTACK_TIME)
-	{
-		simon->ResetEntrace();
-	}*/
-
 	if (simon->GetAttackTime() || simon->GetUpgradeTime())
 		return;
 
-	/*if (simon->GetState() == SIMON_STATE_AUTO_WALKING && GetTickCount() - simon->GetEntraceTime() > SIMON_ATTACK_TIME)
-		return;*/
-
 	if (simon->GetState() == SIMON_STATE_ITEM || simon->GetState() == SIMON_STATE_DIE || simon->GetState() == SIMON_STATE_AUTO_WALKING)
+		return;
+
+	if (game->IsKeyDown(DIK_UP)) {
+		if (simon->GetState() == SIMON_STATE_STAIR_DOWN_IDLE) {
+			if (simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNLEFT)
+				simon->SetOnStairDirection(STAIRDIRECTION::UPRIGHT);
+			else if (simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNRIGHT)
+				simon->SetOnStairDirection(STAIRDIRECTION::UPLEFT);
+			simon->SetStartOnStair();
+			DebugOut(L"Simon up to down \n");
+			return;
+		}
+		else if (simon->CheckCanStepUp()) {
+			if (!simon->CheckIsOnStair() && simon->CheckColliWithStair()) {
+				simon->SetStartOnStair();
+			}
+			else if (simon->GetState() == SIMON_STATE_STAIR_UP_IDLE) {
+
+				simon->SetStartOnStair();
+			}
+			return;
+		}
+	}
+
+	if (simon->CheckIsOnStair() || simon->CheckStartOnStair())
 		return;
 
 	if (game->IsKeyDown(DIK_RIGHT)) {

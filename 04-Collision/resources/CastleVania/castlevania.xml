@@ -171,12 +171,14 @@
     <frame spriteID="simon_attack_3" time="100"/>
     <frame spriteID="simon_attack_3" time="100"/>
   </animation>
+
   <animation ID="simon_ani_sit_attacking" defaultTime="100">
     <frame spriteID="simon_attack_sit_1" time="100"/>
     <frame spriteID="simon_attack_sit_2" time="100"/>
     <frame spriteID="simon_attack_sit_3" time="100"/>
     <frame spriteID="simon_attack_sit_3" time="100"/>
   </animation>
+
   <animation ID="simon_ani_attacking_lv" defaultTime="100">
     <frame spriteID="simon_attack_1" time="100"/>
     <frame spriteID="simon_attack_1" time="100"/>
@@ -190,6 +192,24 @@
     <frame spriteID="simon_attack_3" time="100"/>
     <frame spriteID="simon_attack_3" time="100"/>
     <frame spriteID="simon_attack_3" time="100"/>
+  </animation>
+  
+  <animation ID="simon_ani_stair_up_idle" defaultTime="100">
+    <frame spriteID="simon_stair_up_1" time="100"/>
+  </animation>
+
+  <animation ID="simon_ani_stair_up" defaultTime="100">
+    <frame spriteID="simon_stair_up_1" time="100"/>
+    <frame spriteID="simon_stair_up_2" time="100"/>
+  </animation>
+
+  <animation ID="simon_ani_stair_down_idle" defaultTime="100">
+    <frame spriteID="simon_stair_down_1" time="100"/>
+  </animation>
+
+  <animation ID="simon_ani_stair_down" defaultTime="100">
+    <frame spriteID="simon_stair_down_1" time="100"/>
+    <frame spriteID="simon_stair_down_2" time="100"/>
   </animation>
 
   <animation ID="simon_ani_item" defaultTime="100">
@@ -232,11 +252,6 @@
   </animation>
 </animations>
 
-<objectsCollection>
-  <object objcollectid="0" path="resources\CastleVania\map1_objects.xml"/>
-  <object objcollectid="1" path="resources\CastleVania\map2_objects.xml"/>
-</objectsCollection>
-
 <base>
   <maps>
     <map texId="400" id="0" tileWidth="32" tileHeight="32" mapWidth="1536" mapHeight="320" pathText="resources\Map\map1.txt" pathImg="resources\Map\map1.png"/>
@@ -244,8 +259,13 @@
     <map texId="500" id="1" tileWidth="32" tileHeight="32" mapWidth="512" mapHeight="384" pathText="resources\Map\map21.txt" pathImg="resources\Map\map21.png"/>
   </maps>
 
-  <scenes activeID="0">
+  <scenes activeID="1">
     <scene id="0" mapId="0" objcollectid="0"/>
     <scene id="1" mapId="1" objcollectid="1"/>
   </scenes>
 </base>
+
+<objectsCollection>
+  <object objcollectid="0" path="resources\CastleVania\map1_objects.xml"/>
+  <object objcollectid="1" path="resources\CastleVania\map2_objects.xml"/>
+</objectsCollection>

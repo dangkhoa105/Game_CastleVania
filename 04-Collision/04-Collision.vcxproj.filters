@@ -138,6 +138,9 @@
     <ClInclude Include="Wall.h">
       <Filter>Source Files\Objects Collection\Static Object\Hidden</Filter>
     </ClInclude>
+    <ClInclude Include="Stair.h">
+      <Filter>Source Files\Objects Collection\Static Object\Hidden</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -222,6 +225,9 @@
       <Filter>Source Files\Objects Collection\Static Object\Hidden</Filter>
     </ClCompile>
     <ClCompile Include="Wall.cpp">
+      <Filter>Source Files\Objects Collection\Static Object\Hidden</Filter>
+    </ClCompile>
+    <ClCompile Include="Stair.cpp">
       <Filter>Source Files\Objects Collection\Static Object\Hidden</Filter>
     </ClCompile>
   </ItemGroup>

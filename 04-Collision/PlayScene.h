@@ -17,6 +17,7 @@
 #include "IMoneyBag.h"
 #include "Item.h"
 #include "Wall.h"
+#include "Stair.h"
 
 class CPlayScene
 {
@@ -34,7 +35,6 @@ class CPlayScene
 	std::unordered_map<int, vector<LPGAMEOBJECT>*> pMapObjects;
 
 	CPScene* currentScene;	
-	bool switchScene = false;
 
 	CTextures* textures = CTextures::GetInstance();
 	CSprites* sprites = CSprites::GetInstance();
@@ -63,7 +63,6 @@ public:
 	void SwitchScene(int idScene)
 	{
 		this->currentScene = this->pScenes.at(idScene);
-		this->switchScene = true;
 	}
 };
 

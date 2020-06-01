@@ -39,32 +39,35 @@
 #define SIMON_JUMP_DEFLECT_SPEED		0.2f
 #define SIMON_GRAVITY					0.0015f
 #define SIMON_DIE_DEFLECT_SPEED			0.5f
+#define SIMON_WALKING_STAIR_SPEED		0.079f
 
-#define SIMON_STATE_IDLE				0
-#define SIMON_STATE_WALKING_RIGHT		10
-#define SIMON_STATE_WALKING_LEFT		20
-#define SIMON_STATE_JUMP				30
-#define SIMON_STATE_SIT					40
-#define SIMON_STATE_STAND_ATTACK		50
-#define SIMON_STATE_SIT_ATTACK			60
-#define SIMON_STATE_ITEM				70
-#define SIMON_STATE_AUTO_WALKING		80
-#define SIMON_STATE_DIE					90
-
-#define SIMON_ANI_IDLE_RIGHT			0
-#define SIMON_ANI_IDLE_LEFT				1
-#define SIMON_ANI_WALKING_RIGHT			2
-#define SIMON_ANI_WALKING_LEFT			3
-#define SIMON_ANI_JUMP					4
-#define SIMON_ANI_SIT					5
-#define SIMON_ANI_STAND_ATTACK			6
-#define SIMON_ANI_SIT_ATTACK			7
-#define SIMON_ANI_ITEM					8
+#define SIMON_STATE_IDLE					0
+#define SIMON_STATE_WALKING_RIGHT			1
+#define SIMON_STATE_WALKING_LEFT			2
+#define SIMON_STATE_JUMP					3
+#define SIMON_STATE_SIT						4
+#define SIMON_STATE_STAND_ATTACK			5
+#define SIMON_STATE_SIT_ATTACK				6
+#define SIMON_STATE_ITEM					7
+#define SIMON_STATE_AUTO_WALKING			8
+#define SIMON_STATE_AUTO_WALKING_STAIR		9
+#define SIMON_STATE_STAIR_UP_IDLE			10
+#define SIMON_STATE_STAIR_UP_RIGHT			11
+#define SIMON_STATE_STAIR_UP_LEFT			12
+#define SIMON_STATE_STAIR_DOWN_IDLE			13
+#define SIMON_STATE_STAIR_DOWN_RIGHT		14
+#define SIMON_STATE_STAIR_DOWN_LEFT			15
+#define SIMON_STATE_DIE						16
 
 #define SIMON_BBOX_WIDTH				30
 #define SIMON_BBOX_HEIGHT				60
 
 #define SIMON_UNTOUCHABLE_TIME			5000	
+#pragma endregion
+
+#pragma region BRICK
+#define BRICK_BBOX_WIDTH				32
+#define BRICK_BBOX_HEIGHT				32
 #pragma endregion
 
 #pragma region CHANGE SCENE
@@ -88,9 +91,9 @@
 #define MONEYBAG_STATE_TOUCH			1
 #pragma endregion
 
-#pragma region BRICK
-#define BRICK_BBOX_WIDTH				32
-#define BRICK_BBOX_HEIGHT				32
+#pragma region STAIR
+#define STAIR_BBOX_WIDTH				16
+#define STAIR_BBOX_HEIGHT				16
 #pragma endregion
 
 #pragma region CANDLE

@@ -3,4 +3,9 @@
     <brick x="0" y="352" widthbbox="512" heightbbox="32"/>
     <brick x="-32" y="290" widthbbox="32" heightbbox="32"/>
   </bricks>
+  <stairs>
+    <stairs x="224" y="338" stairDirection="1"/>
+    
+    <stairs x="336" y="226" stairDirection="3"/>
+  </stairs>
 </objects>

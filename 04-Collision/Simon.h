@@ -12,6 +12,14 @@ enum class SUBWEAPON {
 	KNIFE,
 };
 
+enum class STAIRDIRECTION {
+	DEFAULT,
+	UPRIGHT,
+	UPLEFT,
+	DOWNRIGHT,
+	DOWNLEFT,
+};
+
 class CSimon : public CGameObject
 {
 	int level = 1;
@@ -29,6 +37,14 @@ public:
 	bool isComplete = false;
 	bool isKnife = false;
 	bool spawnKnife = false;
+	bool isAutoWalk = false;
+	bool isOnStair = false;
+	bool isStartOnStair = false;
+	bool isColliWithStair = false;
+	bool isFirstStepOnStair = false;
+	STAIRDIRECTION onStairDirection = STAIRDIRECTION::DEFAULT;
+	D3DXVECTOR2 stairPos;
+	D3DXVECTOR2 lastStepOnStairPos;
 	int idChangeScene = -1;
 
 	SUBWEAPON subWeapon;
@@ -39,8 +55,8 @@ public:
 	DWORD GetAttackTime() { return this->attack_start; }
 	void ResetAttackTime() { this->attack_start = 0; }
 
-	DWORD GetEntraceTime() { return this->entrace_start; }
-	void ResetEntraceTime() { this->entrace_start = 0; }
+	//DWORD GetEntraceTime() { return this->entrace_start; }
+	//void ResetEntraceTime() { this->entrace_start = 0; }
 	
 	void ResetAttack()
 	{
@@ -70,6 +86,10 @@ public:
 		AddAnimation("simon_ani_attacking");
 		AddAnimation("simon_ani_sit_attacking");
 		AddAnimation("simon_ani_attacking_lv");
+		AddAnimation("simon_ani_stair_up_idle");
+		AddAnimation("simon_ani_stair_up");
+		AddAnimation("simon_ani_stair_down_idle");
+		AddAnimation("simon_ani_stair_down");
 		AddAnimation("simon_ani_item");
 	}
 
@@ -89,6 +109,49 @@ public:
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	bool IsHitting();
+	void StandOnStair() { vx = vy = 0; }
+
+	void HandleFirstStepOnStair();
+	void HandlePerStepOnStair();
+	bool AutoWalk(float step);
+
+	bool CheckIsOnStair() {
+		return isOnStair;
+	}
+
+	bool CheckColliWithStair() {
+		return isColliWithStair;
+	}
+
+	bool CheckCanStepUp() {
+		if (this->onStairDirection == STAIRDIRECTION::UPLEFT || this->onStairDirection == STAIRDIRECTION::UPRIGHT)
+			return true;
+		return false;
+	}
+
+	bool CheckCanStepDown() {
+		if (this->onStairDirection == STAIRDIRECTION::DOWNLEFT || this->onStairDirection == STAIRDIRECTION::DOWNRIGHT)
+			return true;
+		return false;
+	}
+
+	STAIRDIRECTION CheckStepOnStairDirection() {
+		return this->onStairDirection;
+	}
+	void SetOnStairDirection(STAIRDIRECTION stairDirection) {
+		this->onStairDirection = stairDirection;
+	}
+
+	bool CheckStartOnStair() {
+		return isStartOnStair;
+	}
+	void SetStartOnStair() {
+		this->isStartOnStair = true;
+	}
+
+	bool CheckAutoWalk() {
+		return this->isAutoWalk;
+	}
 
 	//bool IsComplete();
 };
