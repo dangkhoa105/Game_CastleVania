@@ -7,7 +7,9 @@
 #include "Game.h"
 #include "GameObject.h"
 #include "Sprites.h"
-#include"Whip.h"
+#include "Whip.h"
+#include "Stair.h"
+
 CGameObject::CGameObject()
 {
 	x = y = 0;
@@ -80,6 +82,10 @@ void CGameObject::CalcPotentialCollisions(
 {
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
+		if (dynamic_cast<CStair*>(coObjects->at(i)))
+		{
+			continue;
+		}
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
 
 		if (e->t > 0 && e->t <= 1.0f)

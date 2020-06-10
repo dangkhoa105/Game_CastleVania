@@ -41,20 +41,20 @@
   <sprite n="simon_attack_3" x="421" y="162" w="481" h="226"/>
   <sprite n="simon_deflect" x="0" y="226" w="61" h="132"/>
   <sprite n="simon_back" x="61" y="228" w="121" h="292"/>
-  <sprite n="simon_stair_down_1" x="121" y="228" w="181" h="292"/>
-  <sprite n="simon_stair_down_2" x="181" y="228" w="241" h="292"/>
+  <sprite n="simon_stair_down_1" x="116" y="228" w="176" h="292"/>
+  <sprite n="simon_stair_down_2" x="176" y="228" w="236" h="292"/>
   <sprite n="simon_stair_up_1" x="241" y="228" w="301" h="292"/>
   <sprite n="simon_stair_up_2" x="301" y="228" w="361" h="292"/>
   <sprite n="simon_15" x="361" y="66" w="421" h="132"/>
   <sprite n="simon_attack_sit_1" x="421" y="228" w="481" h="292"/>
   <sprite n="simon_attack_sit_2" x="0" y="292" w="61" h="358"/>
   <sprite n="simon_attack_sit_3" x="61" y="292" w="121" h="358"/>
-  <sprite n="simon_attack_stair_down_1" x="121" y="292" w="181" h="358"/>
-  <sprite n="simon_attack_stair_down_2" x="181" y="292" w="241" h="358"/>
-  <sprite n="simon_attack_stair_down_3" x="241" y="292" w="301" h="358"/>
-  <sprite n="simon_attack_stair_up_1" x="301" y="292" w="361" h="358"/>
-  <sprite n="simon_attack_stair_up_2" x="361" y="292" w="421" h="358"/>
-  <sprite n="simon_attack_stair_up_3" x="421" y="292" w="481" h="358"/>
+  <sprite n="simon_attack_stair_down_1" x="116" y="294" w="176" h="360"/>
+  <sprite n="simon_attack_stair_down_2" x="176" y="294" w="236" h="360"/>
+  <sprite n="simon_attack_stair_down_3" x="236" y="294" w="296" h="360"/>
+  <sprite n="simon_attack_stair_up_1" x="301" y="294" w="361" h="360"/>
+  <sprite n="simon_attack_stair_up_2" x="361" y="294" w="421" h="360"/>
+  <sprite n="simon_attack_stair_up_3" x="421" y="294" w="481" h="360"/>
   <sprite n="simon_powerup_4" x="0" y="360" w="61" h="424"/>
   <sprite n="simon_powerup_3" x="61" y="360" w="121" h="424"/>
   <sprite n="simon_powerup_2" x="121" y="360" w="181" h="424"/>
@@ -87,6 +87,9 @@
   <sprite n="simon_attack_stair_up_invisible_1" x="301" y="558" w="361" h="624"/>
   <sprite n="simon_55" x="361" y="558" w="421" h="624"/>
   <sprite n="simon_deflect_invisible" x="421" y="558" w="481" h="624"/>
+
+  <!--enemies-->
+
 
   <!--effect-->
   <sprite n="effect_1" x="483" y="580" w="525" h="624"/>
@@ -212,6 +215,18 @@
     <frame spriteID="simon_stair_down_2" time="100"/>
   </animation>
 
+  <animation ID="simon_ani_attack_stair_up" defaultTime="100">
+    <frame spriteID="simon_attack_stair_up_1" time="100"/>
+    <frame spriteID="simon_attack_stair_up_2" time="100"/>
+    <frame spriteID="simon_attack_stair_up_3" time="100"/>
+  </animation>
+
+  <animation ID="simon_ani_attack_stair_down" defaultTime="100">
+    <frame spriteID="simon_attack_stair_down_1" time="100"/>
+    <frame spriteID="simon_attack_stair_down_2" time="100"/>
+    <frame spriteID="simon_attack_stair_down_3" time="100"/>
+  </animation>
+
   <animation ID="simon_ani_item" defaultTime="100">
     <frame spriteID="simon_powerup_4" time="100"/>
     <frame spriteID="simon_powerup_3" time="100"/>
@@ -255,13 +270,14 @@
 <base>
   <maps>
     <map texId="400" id="0" tileWidth="32" tileHeight="32" mapWidth="1536" mapHeight="320" pathText="resources\Map\map1.txt" pathImg="resources\Map\map1.png"/>
-    <!-- <map texId="500" id="1" tileWidth="32" tileHeight="32" mapWidth="1024" mapHeight="768" pathText="resources\Map\map2.txt" pathImg="resources\Map\map2.png"/> -->
-    <map texId="500" id="1" tileWidth="32" tileHeight="32" mapWidth="512" mapHeight="384" pathText="resources\Map\map21.txt" pathImg="resources\Map\map21.png"/>
+    <map texId="500" id="1" tileWidth="32" tileHeight="32" mapWidth="512" mapHeight="384" pathText="resources\Map\map2_1.txt" pathImg="resources\Map\map2_1.png"/>
+    <map texId="600" id="2" tileWidth="32" tileHeight="32" mapWidth="1024" mapHeight="384" pathText="resources\Map\map2_2.txt" pathImg="resources\Map\map2_2.png"/>
   </maps>
 
   <scenes activeID="1">
     <scene id="0" mapId="0" objcollectid="0"/>
     <scene id="1" mapId="1" objcollectid="1"/>
+    <scene id="2" mapId="2" objcollectid="1"/>
   </scenes>
 </base>
 

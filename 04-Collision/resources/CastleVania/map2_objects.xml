@@ -1,11 +1,17 @@
 <objects>
   <bricks>
-    <brick x="0" y="352" widthbbox="512" heightbbox="32"/>
-    <brick x="-32" y="290" widthbbox="32" heightbbox="32"/>
+    <brick x="32" y="352" widthbbox="416" heightbbox="32"/>
+    <brick x="352" y="224" widthbbox="96" heightbbox="32"/>
+    <brick x="64" y="160" widthbbox="252" heightbbox="32"/>
+    <brick x="0" y="256" widthbbox="32" heightbbox="96"/>
+    <brick x="32" y="224" widthbbox="32" heightbbox="32"/>
+    <brick x="448" y="0" widthbbox="32" heightbbox="384"/>
+    <brick x="32" y="128" widthbbox="32" heightbbox="32"/>
+    <brick x="0" y="0" widthbbox="32" heightbbox="128"/>
   </bricks>
   <stairs>
-    <stairs x="224" y="338" stairDirection="1"/>
-    
-    <stairs x="336" y="226" stairDirection="3"/>
+    <stairs x="224" y="338" stairDirection="1"/>  
+    <stairs x="352" y="150" stairDirection="4"/>
+    <stairs x="160" y="146" stairDirection="1"/>
   </stairs>
 </objects>

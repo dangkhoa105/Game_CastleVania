@@ -1,0 +1,96 @@
+
+enemy_pack.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+PANTHER
+  rotate: false
+  xy: 1, 89
+  size: 256, 32
+  orig: 256, 32
+  offset: 0, 0
+  index: -1
+SKELETON
+  rotate: false
+  xy: 1, 23
+  size: 138, 64
+  orig: 138, 64
+  offset: 0, 0
+  index: -1
+SPEAR_GUARD
+  rotate: false
+  xy: 141, 23
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
+BAT
+  rotate: false
+  xy: 259, 89
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+BLUE_BAT
+  rotate: false
+  xy: 389, 89
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+Fishman
+  rotate: false
+  xy: 271, 23
+  size: 96, 64
+  orig: 96, 64
+  offset: 0, 0
+  index: -1
+AXE_KNIGHT
+  rotate: false
+  xy: 369, 23
+  size: 88, 64
+  orig: 88, 64
+  offset: 0, 0
+  index: -1
+ZOMBIE
+  rotate: false
+  xy: 459, 23
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+MEDUSA_HEAD
+  rotate: false
+  xy: 519, 89
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: -1
+BONE_PILLAR
+  rotate: false
+  xy: 525, 23
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: -1
+GHOST
+  rotate: false
+  xy: 585, 93
+  size: 56, 28
+  orig: 56, 28
+  offset: 0, 0
+  index: -1
+SNAKE
+  rotate: false
+  xy: 1, 1
+  size: 64, 20
+  orig: 64, 20
+  offset: 0, 0
+  index: -1
+FIREBALL
+  rotate: false
+  xy: 559, 75
+  size: 14, 12
+  orig: 14, 12
+  offset: 0, 0
+  index: -1

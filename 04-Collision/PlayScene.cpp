@@ -384,8 +384,23 @@ void CPlayScene::KeyState(BYTE* states)
 
 	if (simon->GetAttackTime() && GetTickCount() - simon->GetAttackTime() > SIMON_ATTACK_TIME)
 	{
+		if (simon->CheckIsOnStair()) {
+			if (simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPLEFT || simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPRIGHT) {
+				simon->SetState(SIMON_STATE_ATTACK_STAIR_UP);
+				simon->SetState(SIMON_STATE_STAIR_UP_IDLE);
+			}
+				
+			else if (simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNLEFT || simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNRIGHT) {
+				simon->SetState(SIMON_STATE_ATTACK_STAIR_DOWN);
+				simon->SetState(SIMON_STATE_STAIR_DOWN_IDLE);
+			}
+				
+		}
+		else 
+			simon->SetState(SIMON_STATE_IDLE);
+
 		simon->ResetAttack();
-		simon->SetState(SIMON_STATE_IDLE);
+		return;
 	}
 
 	if (simon->GetAttackTime() || simon->GetUpgradeTime())
@@ -409,6 +424,31 @@ void CPlayScene::KeyState(BYTE* states)
 				simon->SetStartOnStair();
 			}
 			else if (simon->GetState() == SIMON_STATE_STAIR_UP_IDLE) {
+
+				simon->SetStartOnStair();
+			}
+			return;
+		}
+	}
+	else if (game->IsKeyDown(DIK_DOWN)) {
+		if (simon->GetState() == SIMON_STATE_STAIR_UP_IDLE) {
+			if (simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPRIGHT)
+			{
+			
+			
+				simon->SetOnStairDirection(STAIRDIRECTION::DOWNLEFT);
+			}
+			else if (simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPLEFT)
+				simon->SetOnStairDirection(STAIRDIRECTION::DOWNRIGHT);
+			simon->SetStartOnStair();
+			DebugOut(L"Simon down \n");
+			return;
+		}
+		else if (simon->CheckCanStepDown()) {
+			if (!simon->CheckIsOnStair() && simon->CheckColliWithStair()) {
+				simon->SetStartOnStair();
+			}
+			else if (simon->GetState() == SIMON_STATE_STAIR_DOWN_IDLE) {
 
 				simon->SetStartOnStair();
 			}
@@ -448,15 +488,25 @@ void CPlayScene::OnKeyDown(int KeyCode)
 		return;
 
 	if (KeyCode == DIK_SPACE) {
-		if (simon->isGround == false || simon->IsHitting() == true) return;
+		if (simon->isGround == false || simon->IsHitting() == true || simon->CheckIsOnStair() || simon->CheckStartOnStair()) return;
 		simon->SetState(SIMON_STATE_JUMP);
 	}
 	else if (KeyCode == DIK_Z) {
 		if (simon->GetAttackTime() == 0)
 		{
 			simon->isKnife = false;
-			if (simon->GetState() == SIMON_STATE_SIT) simon->SetState(SIMON_STATE_SIT_ATTACK);
-			else simon->SetState(SIMON_STATE_STAND_ATTACK);
+			if (simon->CheckIsOnStair()) {
+				if (simon->GetState() == SIMON_STATE_STAIR_UP_IDLE &&
+					(simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPLEFT || simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPRIGHT))
+					simon->SetState(SIMON_STATE_ATTACK_STAIR_UP);
+				else if (simon->GetState() == SIMON_STATE_STAIR_DOWN_IDLE &&
+					(simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNLEFT || simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNRIGHT))
+					simon->SetState(SIMON_STATE_ATTACK_STAIR_DOWN);
+			}
+			else {
+				if (simon->GetState() == SIMON_STATE_SIT) simon->SetState(SIMON_STATE_SIT_ATTACK);
+				else simon->SetState(SIMON_STATE_STAND_ATTACK);
+			}
 		}
 	}
 	else if (KeyCode == DIK_C) {
@@ -465,8 +515,18 @@ void CPlayScene::OnKeyDown(int KeyCode)
 		{
 			simon->spawnKnife = true;
 			simon->isKnife = true;
-			if (simon->GetState() == SIMON_STATE_SIT) simon->SetState(SIMON_STATE_SIT_ATTACK);
-			else simon->SetState(SIMON_STATE_STAND_ATTACK);
+			if (simon->CheckIsOnStair()) {
+				if (simon->GetState() == SIMON_STATE_STAIR_UP_IDLE &&
+					(simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPLEFT || simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPRIGHT))
+					simon->SetState(SIMON_STATE_ATTACK_STAIR_UP);
+				else if (simon->GetState() == SIMON_STATE_STAIR_DOWN_IDLE &&
+					(simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNLEFT || simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNRIGHT))
+					simon->SetState(SIMON_STATE_ATTACK_STAIR_DOWN);
+			}
+			else {
+				if (simon->GetState() == SIMON_STATE_SIT) simon->SetState(SIMON_STATE_SIT_ATTACK);
+				else simon->SetState(SIMON_STATE_STAND_ATTACK);
+			}			
 		}
 	}
 }

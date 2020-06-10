@@ -64,6 +64,8 @@ public:
 		animations["simon_ani_sit_attacking"]->ResetAnimation();
 		animations["simon_ani_attacking"]->ResetAnimation();
 		animations["simon_ani_walking"]->ResetAnimation();
+		animations["simon_ani_attack_stair_up"]->ResetAnimation();
+		animations["simon_ani_attack_stair_down"]->ResetAnimation();
 		this->attack_start = 0;
 	}
 
@@ -75,7 +77,6 @@ public:
 		untouchable = 0;
 		update_start = 0;
 		attack_start = 0;
-		entrace_start = 0;
 
 		subWeapon = SUBWEAPON::DEFAULT;
 
@@ -90,6 +91,8 @@ public:
 		AddAnimation("simon_ani_stair_up");
 		AddAnimation("simon_ani_stair_down_idle");
 		AddAnimation("simon_ani_stair_down");
+		AddAnimation("simon_ani_attack_stair_up");
+		AddAnimation("simon_ani_attack_stair_down");
 		AddAnimation("simon_ani_item");
 	}
 

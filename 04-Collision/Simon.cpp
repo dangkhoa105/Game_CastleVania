@@ -52,7 +52,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 
 	// Simple fall down
-	if (!this->isStartOnStair && !this->isOnStair && state != SIMON_STATE_STAIR_UP_IDLE && state != SIMON_STATE_STAIR_DOWN_IDLE)
+	if (!this->isStartOnStair && !this->isOnStair 
+		&& state != SIMON_STATE_STAIR_UP_IDLE 
+		&& state != SIMON_STATE_STAIR_DOWN_IDLE
+		&& state != SIMON_STATE_ATTACK_STAIR_UP
+		&& state != SIMON_STATE_ATTACK_STAIR_DOWN)
 	{
 		vy += SIMON_GRAVITY * dt;
 	}
@@ -197,16 +201,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							}
 						}
 					}
-				}
-				else if (dynamic_cast<CStair*>(e->obj)) // if e->obj is Stair
-				{
-					x += dx;
-					
-					
-					if (e->ny < 0)
-						y += dy;
-				}
-
+				}				
 			}
 		}
 	}
@@ -247,8 +242,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			CStair* f = dynamic_cast<CStair*>(obj);
 			if (this->AABB(obj) == true)
-			{
-			
+			{			
 				if (!this->isColliWithStair)
 				{
 					if (this->isOnStair)
@@ -284,7 +278,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				this->whip->SetPosition(this->x - 90, this->y + 15);
 			}
-			else
+			else 
 			{
 				this->whip->SetPosition(this->x - 90, this->y + 3);
 			}
@@ -323,6 +317,10 @@ void CSimon::Render()
 		ani = "simon_ani_sit_attacking";
 	else if (state == SIMON_STATE_STAND_ATTACK)
 		ani = "simon_ani_attacking";
+	else if (state == SIMON_STATE_ATTACK_STAIR_UP)
+		ani = "simon_ani_attack_stair_up";
+	else if (state == SIMON_STATE_ATTACK_STAIR_DOWN)
+		ani = "simon_ani_attack_stair_down";
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
@@ -394,7 +392,8 @@ void CSimon::SetState(int state)
 		{
 			this->onStairDirection = STAIRDIRECTION::UPLEFT;
 		}
-		this->lastStepOnStairPos = { floor(this->x),floor(this->y) };
+		if (this->state != SIMON_STATE_ATTACK_STAIR_DOWN && this->state != SIMON_STATE_ATTACK_STAIR_UP)
+			this->lastStepOnStairPos = { floor(this->x),floor(this->y) };
 		vx = 0;
 		vy = 0;
 		break;
@@ -407,6 +406,34 @@ void CSimon::SetState(int state)
 		vy = SIMON_WALKING_STAIR_SPEED;
 		vx = SIMON_WALKING_STAIR_SPEED;
 		nx = 1;
+		break;
+	case SIMON_STATE_STAIR_DOWN_IDLE:
+		this->isFirstStepOnStair = true;
+		this->isStartOnStair = false; // cho phép nhấn tiếp
+		//tránh trường hợp khi simon attack y thay đổi làm floor
+		// làm tròn xuống 1px
+		if (nx == 1)
+		{
+			this->onStairDirection = STAIRDIRECTION::DOWNRIGHT;
+		}
+		else if (nx == -1)
+		{
+			this->onStairDirection = STAIRDIRECTION::DOWNLEFT;
+		}
+		if (this->state != SIMON_STATE_ATTACK_STAIR_DOWN && this->state != SIMON_STATE_ATTACK_STAIR_UP)
+			this->lastStepOnStairPos = { floor(this->x),floor(this->y) };
+		vx = 0;
+		vy = 0;
+		break;
+	case SIMON_STATE_STAIR_UP_LEFT:
+		vy = -SIMON_WALKING_STAIR_SPEED;
+		vx = -SIMON_WALKING_STAIR_SPEED;
+		nx = -1;
+		break;
+	case SIMON_STATE_STAIR_DOWN_LEFT:		
+		vy = SIMON_WALKING_STAIR_SPEED;
+		vx = -SIMON_WALKING_STAIR_SPEED;
+		nx = -1;
 		break;
 	case SIMON_STATE_ITEM:
 		this->ResetAttack();
@@ -435,6 +462,26 @@ void CSimon::SetState(int state)
 	case SIMON_STATE_STAND_ATTACK:
 		vx = this->state == SIMON_STATE_IDLE || this->state == SIMON_STATE_WALKING_LEFT
 			|| this->state == SIMON_STATE_WALKING_RIGHT ? 0 : vx;
+		if (isKnife == true)
+		{
+			this->whip->ResetAttack();
+			this->whip->SetState(WHIP_STATE_FIGHT);
+			this->knife->SetState(KNIFE_STATE_FIGHT);
+		}
+		else
+		{
+			this->whip->ResetAttack();
+			this->whip->SetState(WHIP_STATE_FIGHT);
+			this->knife->SetState(KNIFE_STATE_IDLE);
+		}
+		this->attack_start = GetTickCount();
+		break;
+	case SIMON_STATE_ATTACK_STAIR_UP:
+	case SIMON_STATE_ATTACK_STAIR_DOWN:
+		this->isOnStair = true;
+		this->isFirstStepOnStair = true;
+		this->vx = 0;
+		this->vy = 0;
 		if (isKnife == true)
 		{
 			this->whip->ResetAttack();
@@ -491,12 +538,12 @@ void CSimon::HandleFirstStepOnStair()
 
 	// up right
 	if (this->onStairDirection == STAIRDIRECTION::UPRIGHT) {
-		if (stairPos.x - this->x > 36) {
+		if (stairPos.x - this->x > 37) {
 			this->isAutoWalk = true;
 			SetState(SIMON_STATE_WALKING_RIGHT);
 			return;
 		}
-		else if (stairPos.x - this->x < 36 - 5) {
+		else if (stairPos.x - this->x < 37 - 5) {
 			this->isAutoWalk = true;
 			SetState(SIMON_STATE_WALKING_LEFT);
 			return;
@@ -538,6 +585,54 @@ void CSimon::HandleFirstStepOnStair()
 			this->SetState(SIMON_STATE_STAIR_UP_RIGHT);
 		}
 	}
+	else if (this->onStairDirection == STAIRDIRECTION::DOWNRIGHT) {
+		if (stairPos.x - this->x > 50) {
+			this->isAutoWalk = true;
+			SetState(SIMON_STATE_WALKING_RIGHT);
+			return;
+		}
+		else if (stairPos.x - this->x < 50 + 5) {
+			this->isAutoWalk = true;
+			SetState(SIMON_STATE_WALKING_LEFT);
+			return;
+		}
+		else {
+			if (state == SIMON_STATE_WALKING_LEFT) {
+				if (nx == -1) nx = 1;
+				else if (nx == 1) nx = -1;
+			}
+			this->isAutoWalk = false;
+			this->isOnStair = true;
+			this->isFirstStepOnStair = true;
+			this->lastStepOnStairPos = { floor(this->x),floor(this->y) };
+			//DebugOut(L"Step x=%f y=%f \n", this->LastStepOnStairPos.x, this->LastStepOnStairPos.y);
+			this->SetState(SIMON_STATE_STAIR_DOWN_RIGHT);
+		}
+	}
+	else if (this->onStairDirection == STAIRDIRECTION::DOWNLEFT) {
+		if (stairPos.x - this->x < 26) {
+			this->isAutoWalk = true;
+			SetState(SIMON_STATE_WALKING_LEFT);
+			return;
+		}
+		else if (stairPos.x - this->x > 26 + 5) {
+			this->isAutoWalk = true;
+			SetState(SIMON_STATE_WALKING_RIGHT);
+			return;
+		}
+		else {
+			if (state == SIMON_STATE_WALKING_RIGHT) {
+				if (nx == -1) nx = 1;
+				else if (nx == 1) nx = -1;
+			}
+			this->isAutoWalk = false;
+			this->isOnStair = true;
+			this->isFirstStepOnStair = true;
+			this->lastStepOnStairPos = { floor(this->x),floor(this->y) };
+			//DebugOut(L"Step x=%f y=%f \n", this->LastStepOnStairPos.x, this->LastStepOnStairPos.y);
+			this->SetState(SIMON_STATE_STAIR_DOWN_LEFT);
+		}
+	}
 }
 
 void CSimon::HandlePerStepOnStair()
@@ -550,7 +645,7 @@ void CSimon::HandlePerStepOnStair()
 				this->y = lastStepOnStairPos.y - 16;
 				this->SetState(SIMON_STATE_STAIR_UP_IDLE);
 				this->isOnStair = true;
-				DebugOut(L" x=%f y=%f \n", this->x, this->y);
+				//DebugOut(L" x=%f y=%f \n", this->x, this->y);
 			}
 		}
 	}
@@ -563,6 +658,32 @@ void CSimon::HandlePerStepOnStair()
 				this->SetState(SIMON_STATE_STAIR_UP_IDLE);
 				this->isOnStair = true;
 				
+			}
+		}
+	}
+	if (this->state == SIMON_STATE_STAIR_DOWN_RIGHT)
+	{
+		if (this->x - lastStepOnStairPos.x > 16) {
+			if (lastStepOnStairPos.y - this->y < 16) {
+				this->x = lastStepOnStairPos.x + 16;
+				this->y = lastStepOnStairPos.y + 16;
+				this->SetState(SIMON_STATE_STAIR_DOWN_IDLE);
+				this->isOnStair = true;
+				//DebugOut(L" x=%f y=%f \n", this->x, this->y);
+			}
+		}
+	}
+	else if (this->state == SIMON_STATE_STAIR_DOWN_LEFT)
+	{
+		
+		if (lastStepOnStairPos.x -this->x > 16) {
+
+			if (lastStepOnStairPos.y - this->y < 16) {
+				this->x = lastStepOnStairPos.x - 16;
+				this->y = lastStepOnStairPos.y + 16;
+				this->SetState(SIMON_STATE_STAIR_DOWN_IDLE);
+				this->isOnStair = true;
+
 			}
 		}
 	}
