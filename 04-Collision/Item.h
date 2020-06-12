@@ -12,7 +12,9 @@ public:
 		AddAnimation("item_whip");
 		AddAnimation("item_money_bag");
 		AddAnimation("item_heart");
+		AddAnimation("item_small_heart");
 		AddAnimation("item_knife");
+		AddAnimation("item_boomerang");
 	}
 	int GetId() { return idItem; }
 	void SetId(int id) { this->idItem = id; }

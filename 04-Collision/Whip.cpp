@@ -1,7 +1,6 @@
 ﻿#include "Whip.h"
 #include "Candle.h"
 #include "Effect.h"
-#include "IHeart.h"
 
 void CWhip::Render()
 {

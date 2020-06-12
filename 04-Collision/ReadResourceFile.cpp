@@ -27,10 +27,10 @@ void ReadResourceFile::LoadSpritesSheetFile(const char* filePath, LPDIRECT3DTEXT
 		int bottom;
 
 		idSprite = spriteNode->first_attribute("n")->value();
-		left = atoi(spriteNode->first_attribute("x")->value());
-		top = atoi(spriteNode->first_attribute("y")->value());
-		right = atoi(spriteNode->first_attribute("w")->value());
-		bottom = atoi(spriteNode->first_attribute("h")->value());
+		left = atoi(spriteNode->first_attribute("l")->value());
+		top = atoi(spriteNode->first_attribute("t")->value());
+		right = atoi(spriteNode->first_attribute("r")->value());
+		bottom = atoi(spriteNode->first_attribute("b")->value());
 
 		CSprites* sprites = CSprites::GetInstance();
 		sprites->Add(idSprite, left, top, right, bottom, tex);
@@ -69,7 +69,7 @@ void ReadResourceFile::LoadTextures()
 {
 	CTextures* textures = CTextures::GetInstance();
 
-	textures->Add(ID_TEX_CASTLEVANIA, L"resources\\Castlevania.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_CASTLEVANIA, L"resources\\Castlevania\\Castlevania.png", D3DCOLOR_XRGB(255, 0, 255));
 
 	textures->Add(ID_TEX_BBOX, L"resources\\bbox.png", D3DCOLOR_XRGB(0, 0, 0));
 }

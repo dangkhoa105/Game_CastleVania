@@ -17,7 +17,7 @@ SKELETON
   orig: 138, 64
   offset: 0, 0
   index: -1
-SPEAR_GUARD
+SPEAR_GUARD 
   rotate: false
   xy: 141, 23
   size: 128, 64

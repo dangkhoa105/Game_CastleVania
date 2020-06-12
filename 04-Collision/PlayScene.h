@@ -8,16 +8,14 @@
 #include "Candle.h"
 #include "TileMap.h"
 #include "Effect.h"
-#include "IHeart.h"
-#include "IWhip.h"
-#include "IKnife.h"
 #include "Entrace.h"
 #include "ChangeScene.h"
-#include "MoneyBagTrigger.h"
-#include "IMoneyBag.h"
+#include "MoneyBagTrigger.h"	
 #include "Item.h"
 #include "Wall.h"
 #include "Stair.h"
+#include "SpearGuard.h"
+#include "Bat.h"
 
 class CPlayScene
 {

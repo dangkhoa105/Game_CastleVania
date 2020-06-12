@@ -81,6 +81,7 @@ public:
 		subWeapon = SUBWEAPON::DEFAULT;
 
 		AddAnimation("simon_ani_idle");
+		AddAnimation("simon_ani_hurt");
 		AddAnimation("simon_ani_walking");
 		AddAnimation("simon_ani_jumping");
 		AddAnimation("simon_ani_sitting");

@@ -107,12 +107,12 @@ void CPlayScene::LoadObject()
 		doc.parse<0>(xmlFile.data());
 		xml_node<>* objectNode = doc.first_node("objects");
 		std::vector<LPGAMEOBJECT>* _object = new std::vector<LPGAMEOBJECT>();
-		for (xml_node<>* ochild = objectNode->first_node(); ochild; ochild = ochild->next_sibling()) //cú pháp lập
+		for (xml_node<>* oChild = objectNode->first_node(); oChild; oChild = oChild->next_sibling()) //cú pháp lập
 		{
-			const std::string nodeName = ochild->name();
+			const std::string nodeName = oChild->name();
 			if (nodeName == "bricks")
 			{
-				for (xml_node<>* grand = ochild->first_node(); grand; grand = grand->next_sibling()) //cú pháp lập
+				for (xml_node<>* grand = oChild->first_node(); grand; grand = grand->next_sibling()) //cú pháp lập
 				{
 					CBrick* brick = new CBrick();
 					const int x = std::atoi(grand->first_attribute("x")->value());
@@ -127,31 +127,33 @@ void CPlayScene::LoadObject()
 			}
 			if (nodeName == "candles")
 			{
-				for (xml_node<>* grand = ochild->first_node(); grand; grand = grand->next_sibling()) //cú pháp lập
+				for (xml_node<>* grand = oChild->first_node(); grand; grand = grand->next_sibling()) //cú pháp lập
 				{
 					CCandle* candle = new CCandle();
 					const int x = std::atoi(grand->first_attribute("x")->value());
 					const int y = std::atoi(grand->first_attribute("y")->value());
 					const int itemID = std::atoi(grand->first_attribute("itemId")->value());
+					const int state = std::atoi(grand->first_attribute("state")->value());
 					candle->SetItem(itemID);
 					candle->SetPosition(x, y);
+					candle->SetState(state);
 					_object->push_back(candle);
 				}
 			}
 			if (nodeName == "entrace")
 			{
 				CEntrace* entrace = new CEntrace();
-				const int x = std::atoi(ochild->first_attribute("x")->value());
-				const int y = std::atoi(ochild->first_attribute("y")->value());
+				const int x = std::atoi(oChild->first_attribute("x")->value());
+				const int y = std::atoi(oChild->first_attribute("y")->value());
 				entrace->SetPosition(x, y);
 				_object->push_back(entrace);
 			}
 			if (nodeName == "changeScene")
 			{
 				CChangeScene* changeScene = new CChangeScene();
-				const int x = std::atoi(ochild->first_attribute("x")->value());
-				const int y = std::atoi(ochild->first_attribute("y")->value());
-				const int idChangeScene = std::atoi(ochild->first_attribute("idChangeScene")->value());
+				const int x = std::atoi(oChild->first_attribute("x")->value());
+				const int y = std::atoi(oChild->first_attribute("y")->value());
+				const int idChangeScene = std::atoi(oChild->first_attribute("idChangeScene")->value());
 				changeScene->SetPosition(x, y);
 				changeScene->SetIdNextScene(idChangeScene);
 				_object->push_back(changeScene);
@@ -159,22 +161,22 @@ void CPlayScene::LoadObject()
 			if (nodeName == "moneyBagTrigger")
 			{
 				CMoneyBagTrigger* moneyBagTrigger = new CMoneyBagTrigger();
-				const int x = std::atoi(ochild->first_attribute("x")->value());
-				const int y = std::atoi(ochild->first_attribute("y")->value());
+				const int x = std::atoi(oChild->first_attribute("x")->value());
+				const int y = std::atoi(oChild->first_attribute("y")->value());
 				moneyBagTrigger->SetPosition(x, y);
 				_object->push_back(moneyBagTrigger);
 			}
 			if (nodeName == "wall")
 			{
 				wall = new CWall();
-				const int x = std::atoi(ochild->first_attribute("x")->value());
-				const int y = std::atoi(ochild->first_attribute("y")->value());
+				const int x = std::atoi(oChild->first_attribute("x")->value());
+				const int y = std::atoi(oChild->first_attribute("y")->value());
 				wall->SetPosition(x, y);
 				_object->push_back(wall);
 			}
 			if (nodeName == "stairs")
 			{
-				for (xml_node<>* grand = ochild->first_node(); grand; grand = grand->next_sibling()) //cú pháp lập
+				for (xml_node<>* grand = oChild->first_node(); grand; grand = grand->next_sibling()) //cú pháp lập
 				{
 					CStair* stair = new CStair();
 					const int x = std::atoi(grand->first_attribute("x")->value());
@@ -183,6 +185,29 @@ void CPlayScene::LoadObject()
 					stair->SetPosition(x, y);
 					stair->SetDirectionStair(stairDirection);
 					_object->push_back(stair);
+				}
+			}
+			if (nodeName == "enemies")
+			{
+				for (xml_node<>* grand = oChild->first_node(); grand; grand = grand->next_sibling()) //cú pháp lập
+				{
+					const std::string nodeNameGrand = grand->name();
+					if (nodeNameGrand == "spearGuard")
+					{
+						CSpearGuard* spearGuard = new CSpearGuard();
+						const int x = std::atoi(grand->first_attribute("x")->value());
+						const int y = std::atoi(grand->first_attribute("y")->value());
+						spearGuard->SetPosition(x, y);
+						_object->push_back(spearGuard);
+					}
+					if (nodeNameGrand == "bat")
+					{
+						CBat* bat = new CBat();
+						const int x = std::atoi(grand->first_attribute("x")->value());
+						const int y = std::atoi(grand->first_attribute("y")->value());
+						bat->SetPosition(x, y);
+						_object->push_back(bat);
+					}
 				}
 			}
 		}
@@ -308,7 +333,16 @@ void CPlayScene::UpdateItem()
 						auto heart = new CItem();
 						heart->SetId(ID_IHEART);
 						heart->SetPosition(x, y);
+						//heart->SetState(STATE_IHEART);
 						objects->push_back(heart);
+					}
+					if (f->GetItem() == ID_SMALL_IHEART)
+					{
+						auto small_heart = new CItem();
+						small_heart->SetId(ID_SMALL_IHEART);
+						small_heart->SetPosition(x, y);
+						//small_heart->SetState(STATE_SMALL_IHEART);
+						objects->push_back(small_heart);
 					}
 					if (f->GetItem() == ID_IWHIP)
 					{
@@ -323,6 +357,13 @@ void CPlayScene::UpdateItem()
 						knife->SetId(ID_IKNIFE);
 						knife->SetPosition(x, y);
 						objects->push_back(knife);
+					}
+					if (f->GetItem() == ID_IBOOMERANG)
+					{
+						auto boomerang = new CItem();
+						boomerang->SetId(ID_IBOOMERANG);
+						boomerang->SetPosition(x, y);
+						objects->push_back(boomerang);
 					}
 				}
 				auto effect = new CEffect();
@@ -355,9 +396,18 @@ void CPlayScene::UpdateScene()
 		SwitchScene(simon->idChangeScene);
 		this->tilemap = this->tileMaps.Get(this->currentScene->mapId);
 		//changeScene->SetIsChangeScene(false);
+		if (simon->idChangeScene == 0)
+		{
+			simon->SetState(SIMON_STATE_IDLE);
+			simon->SetPosition(100, 200);
+		}
+		else if (simon->idChangeScene == 1)
+		{
+			simon->SetState(SIMON_STATE_IDLE);
+			simon->SetPosition(32, 288);
+		}
 		simon->idChangeScene = -1;
-		simon->SetState(SIMON_STATE_IDLE);
-		simon->SetPosition(50, 10);
+		
 
 		this->objects = this->pMapObjects.at(this->currentScene->objCollectId);
 		CGame::GetInstance()->SetCamPos(0, 0);

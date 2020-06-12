@@ -1,123 +1,146 @@
-<textureAtlas imagePath="Castlevania.png" width="1024" height="1024">
+<textureAtlas imagePath="Castlevania.png" width="1152" height="1024">
   <!--brick-->
-  <sprite n="brick" x="131" y="18" w="163" h="50"/>
+  <sprite n="brick" l="131" t="18" r="163" b="50"/>
+
   <!--candle-->
-  <sprite n="big_candle_1" x="379" y="96" w="411" h="160"/>
-  <sprite n="big_candle_2" x="411" y="96" w="443" h="160"/>
-  <sprite n="small_candle_1" x="443" y="96" w="459" h="128"/>
-  <sprite n="small_candle_2" x="459" y="96" w="475" h="128"/>
+  <sprite n="big_candle_1" l="379" t="96" r="411" b="160"/>
+  <sprite n="big_candle_2" l="411" t="96" r="443" b="160"/>
+  <sprite n="small_candle_1" l="443" t="96" r="459" b="128"/>
+  <sprite n="small_candle_2" l="459" t="96" r="475" b="128"/>
 
   <!--weapon-->
   <!--whip-->
-  <sprite n="normal_whip_1" x="1" y="626" w="241" h="692"/>
-  <sprite n="normal_whip_2" x="241" y="626" w="481" h="692"/>
-  <sprite n="normal_whip_3" x="481" y="626" w="721" h="692"/>
+  <sprite n="normal_whip_1" l="1" t="626" r="241" b="692"/>
+  <sprite n="normal_whip_2" l="241" t="626" r="481" b="692"/>
+  <sprite n="normal_whip_3" l="481" t="626" r="721" b="692"/>
 
-  <sprite n="short_chain_1" x="1" y="692" w="241" h="758"/>
-  <sprite n="short_chain_2" x="241" y="692" w="481" h="758"/>
-  <sprite n="short_chain_3" x="481" y="692" w="721" h="758"/>
+  <sprite n="short_chain_1" l="1" t="692" r="241" b="758"/>
+  <sprite n="short_chain_2" l="241" t="692" r="481" b="758"/>
+  <sprite n="short_chain_3" l="481" t="692" r="721" b="758"/>
 
-  <sprite n="long_chain_1" x="1" y="758" w="241" h="824"/>
-  <sprite n="long_chain_2" x="241" y="758" w="481" h="824"/>
-  <sprite n="long_chain_3" x="481" y="758" w="721" h="824"/>
-  <sprite n="long_chain_4" x="1" y="824" w="241" h="890"/>
-  <sprite n="long_chain_5" x="241" y="824" w="481" h="890"/>
-  <sprite n="long_chain_6" x="481" y="824" w="721" h="890"/>
-  <sprite n="long_chain_7" x="1" y="890" w="241" h="956"/>
-  <sprite n="long_chain_8" x="241" y="890" w="481" h="956"/>
-  <sprite n="long_chain_9" x="481" y="890" w="721" h="956"/>
-  <sprite n="long_chain_10" x="1" y="956" w="241" h="1024"/>
-  <sprite n="long_chain_11" x="241" y="956" w="481" h="1024"/>
-  <sprite n="long_chain_12" x="481" y="956" w="721" h="1024"/>
+  <sprite n="long_chain_1" l="1" t="758" r="241" b="824"/>
+  <sprite n="long_chain_2" l="241" t="758" r="481" b="824"/>
+  <sprite n="long_chain_3" l="481" t="758" r="721" b="824"/>
+  <sprite n="long_chain_4" l="1" t="824" r="241" b="890"/>
+  <sprite n="long_chain_5" l="241" t="824" r="481" b="890"/>
+  <sprite n="long_chain_6" l="481" t="824" r="721" b="890"/>
+  <sprite n="long_chain_7" l="1" t="890" r="241" b="956"/>
+  <sprite n="long_chain_8" l="241" t="890" r="481" b="956"/>
+  <sprite n="long_chain_9" l="481" t="890" r="721" b="956"/>
+  <sprite n="long_chain_10" l="1" t="956" r="241" b="1024"/>
+  <sprite n="long_chain_11" l="241" t="956" r="481" b="1024"/>
+  <sprite n="long_chain_12" l="481" t="956" r="721" b="1024"/>
+
+  <!--boomerang-->
+  <sprite n="boomerang_1" l="0" t="51" r="28" b="79"/>
+  <sprite n="boomerang_2" l="28" t="51" r="57" b="79"/>
+  <sprite n="boomerang_3" l="57" t="51" r="84" b="79"/>
 
   <!--simon-->
-  <sprite n="simon_idle" x="0" y="162" w="61" h="226"/>
-  <sprite n="simon_walk_1" x="61" y="162" w="121" h="226"/>
-  <sprite n="simon_walk_2" x="121" y="162" w="181" h="226"/>
-  <sprite n="simon_walk_3" x="181" y="162" w="241" h="226"/>
-  <sprite n="simon_jump" x="241" y="162" w="301" h="226"/>
-  <sprite n="simon_attack_1" x="301" y="162" w="361" h="226"/>
-  <sprite n="simon_attack_2" x="361" y="162" w="421" h="226"/>
-  <sprite n="simon_attack_3" x="421" y="162" w="481" h="226"/>
-  <sprite n="simon_deflect" x="0" y="226" w="61" h="132"/>
-  <sprite n="simon_back" x="61" y="228" w="121" h="292"/>
-  <sprite n="simon_stair_down_1" x="116" y="228" w="176" h="292"/>
-  <sprite n="simon_stair_down_2" x="176" y="228" w="236" h="292"/>
-  <sprite n="simon_stair_up_1" x="241" y="228" w="301" h="292"/>
-  <sprite n="simon_stair_up_2" x="301" y="228" w="361" h="292"/>
-  <sprite n="simon_15" x="361" y="66" w="421" h="132"/>
-  <sprite n="simon_attack_sit_1" x="421" y="228" w="481" h="292"/>
-  <sprite n="simon_attack_sit_2" x="0" y="292" w="61" h="358"/>
-  <sprite n="simon_attack_sit_3" x="61" y="292" w="121" h="358"/>
-  <sprite n="simon_attack_stair_down_1" x="116" y="294" w="176" h="360"/>
-  <sprite n="simon_attack_stair_down_2" x="176" y="294" w="236" h="360"/>
-  <sprite n="simon_attack_stair_down_3" x="236" y="294" w="296" h="360"/>
-  <sprite n="simon_attack_stair_up_1" x="301" y="294" w="361" h="360"/>
-  <sprite n="simon_attack_stair_up_2" x="361" y="294" w="421" h="360"/>
-  <sprite n="simon_attack_stair_up_3" x="421" y="294" w="481" h="360"/>
-  <sprite n="simon_powerup_4" x="0" y="360" w="61" h="424"/>
-  <sprite n="simon_powerup_3" x="61" y="360" w="121" h="424"/>
-  <sprite n="simon_powerup_2" x="121" y="360" w="181" h="424"/>
-  <sprite n="simon_powerup_1" x="181" y="360" w="241" h="424"/>
-  <sprite n="simon_die" x="241" y="360" w="301" h="424"/>
-  <sprite n="simon_sit" x="301" y="360" w="361" h="424"/>
-  <sprite n="simon_31" x="361" y="360" w="421" h="424"/>
-  <sprite n="simon_32" x="421" y="360" w="481" h="424"/>
-  <sprite n="simon_attack_sit_invisible_3" x="0" y="264" w="61" h="492"/>
-  <sprite n="simon_attack_sit_invisible_2" x="61" y="264" w="121" h="492"/>
-  <sprite n="simon_attack_sit_invisible_1" x="121" y="264" w="181" h="492"/>
-  <sprite n="simon_36" x="181" y="264" w="241" h="492"/>
-  <sprite n="simon_idle_invisible" x="241" y="264" w="301" h="492"/>
-  <sprite n="simon_walk_invisible_1" x="301" y="264" w="361" h="492"/>
-  <sprite n="simon_walk_invisible_1" x="361" y="264" w="421" h="492"/>
-  <sprite n="simon_walk_invisible_1" x="421" y="264" w="481" h="492"/>
-  <sprite n="simon_attack_invisible_3" x="0" y="492" w="61" h="558"/>
-  <sprite n="simon_attack_invisible_2" x="61" y="492" w="121" h="558"/>
-  <sprite n="simon_attack_invisible_1" x="121" y="492" w="181" h="558"/>
-  <sprite n="simon_stair_down_invisible_1" x="181" y="492" w="241" h="558"/>
-  <sprite n="simon_stair_down_invisible_2" x="241" y="492" w="301" h="558"/>
-  <sprite n="simon_stair_up_invisible_1" x="301" y="492" w="361" h="558"/>
-  <sprite n="simon_stair_up_invisible_1" x="361" y="492" w="421" h="558"/>
-  <sprite n="simon_jump_sit_invisible" x="421" y="330" w="481" h="558"/>
-  <sprite n="simon_attack_stair_down_invisible_3" x="0" y="558" w="61" h="624"/>
-  <sprite n="simon_attack_stair_down_invisible_2" x="61" y="558" w="121" h="624"/>
-  <sprite n="simon_attack_stair_down_invisible_1" x="121" y="558" w="181" h="624"/>
-  <sprite n="simon_attack_stair_up_invisible_3" x="181" y="558" w="241" h="624"/>
-  <sprite n="simon_attack_stair_up_invisible_2" x="241" y="558" w="301" h="624"/>
-  <sprite n="simon_attack_stair_up_invisible_1" x="301" y="558" w="361" h="624"/>
-  <sprite n="simon_55" x="361" y="558" w="421" h="624"/>
-  <sprite n="simon_deflect_invisible" x="421" y="558" w="481" h="624"/>
+  <sprite n="simon_idle" l="0" t="162" r="61" b="226"/>
+  <sprite n="simon_walk_1" l="61" t="162" r="121" b="226"/>
+  <sprite n="simon_walk_2" l="121" t="162" r="181" b="226"/>
+  <sprite n="simon_walk_3" l="181" t="162" r="241" b="226"/>
+  <sprite n="simon_jump" l="241" t="162" r="301" b="226"/>
+  <sprite n="simon_attack_1" l="301" t="162" r="361" b="226"/>
+  <sprite n="simon_attack_2" l="361" t="162" r="421" b="226"/>
+  <sprite n="simon_attack_3" l="421" t="162" r="481" b="226"/>
+  <sprite n="simon_hurt" l="0" t="226" r="61" b="292"/>
+  <sprite n="simon_back" l="61" t="228" r="121" b="292"/>
+  <sprite n="simon_stair_down_1" l="116" t="230" r="176" b="294"/>
+  <sprite n="simon_stair_down_2" l="176" t="230" r="236" b="294"/>
+  <sprite n="simon_stair_up_1" l="241" t="228" r="301" b="292"/>
+  <sprite n="simon_stair_up_2" l="301" t="228" r="361" b="292"/>
+  <sprite n="simon_15" l="361" t="66" r="421" b="132"/>
+  <sprite n="simon_attack_sit_1" l="421" t="228" r="481" b="292"/>
+  <sprite n="simon_attack_sit_2" l="0" t="292" r="61" b="358"/>
+  <sprite n="simon_attack_sit_3" l="61" t="292" r="121" b="358"/>
+  <sprite n="simon_attack_stair_down_1" l="116" t="294" r="176" b="360"/>
+  <sprite n="simon_attack_stair_down_2" l="176" t="294" r="236" b="360"/>
+  <sprite n="simon_attack_stair_down_3" l="236" t="294" r="296" b="360"/>
+  <sprite n="simon_attack_stair_up_1" l="301" t="294" r="361" b="360"/>
+  <sprite n="simon_attack_stair_up_2" l="361" t="294" r="421" b="360"/>
+  <sprite n="simon_attack_stair_up_3" l="421" t="294" r="481" b="360"/>
+  <sprite n="simon_powerup_4" l="0" t="360" r="61" b="424"/>
+  <sprite n="simon_powerup_3" l="61" t="360" r="121" b="424"/>
+  <sprite n="simon_powerup_2" l="121" t="360" r="181" b="424"/>
+  <sprite n="simon_powerup_1" l="181" t="360" r="241" b="424"/>
+  <sprite n="simon_die" l="241" t="360" r="301" b="424"/>
+  <sprite n="simon_sit" l="301" t="360" r="361" b="424"/>
+  <sprite n="simon_31" l="361" t="360" r="421" b="424"/>
+  <sprite n="simon_32" l="421" t="360" r="481" b="424"/>
+  <sprite n="simon_attack_sit_invisible_3" l="0" t="264" r="61" b="492"/>
+  <sprite n="simon_attack_sit_invisible_2" l="61" t="264" r="121" b="492"/>
+  <sprite n="simon_attack_sit_invisible_1" l="121" t="264" r="181" b="492"/>
+  <sprite n="simon_36" l="181" t="264" r="241" b="492"/>
+  <sprite n="simon_idle_invisible" l="241" t="264" r="301" b="492"/>
+  <sprite n="simon_walk_invisible_1" l="301" t="264" r="361" b="492"/>
+  <sprite n="simon_walk_invisible_1" l="361" t="264" r="421" b="492"/>
+  <sprite n="simon_walk_invisible_1" l="421" t="264" r="481" b="492"/>
+  <sprite n="simon_attack_invisible_3" l="0" t="492" r="61" b="558"/>
+  <sprite n="simon_attack_invisible_2" l="61" t="492" r="121" b="558"/>
+  <sprite n="simon_attack_invisible_1" l="121" t="492" r="181" b="558"/>
+  <sprite n="simon_stair_down_invisible_1" l="181" t="492" r="241" b="558"/>
+  <sprite n="simon_stair_down_invisible_2" l="241" t="492" r="301" b="558"/>
+  <sprite n="simon_stair_up_invisible_1" l="301" t="492" r="361" b="558"/>
+  <sprite n="simon_stair_up_invisible_1" l="361" t="492" r="421" b="558"/>
+  <sprite n="simon_jump_sit_invisible" l="421" t="330" r="481" b="558"/>
+  <sprite n="simon_attack_stair_down_invisible_3" l="0" t="558" r="61" b="624"/>
+  <sprite n="simon_attack_stair_down_invisible_2" l="61" t="558" r="121" b="624"/>
+  <sprite n="simon_attack_stair_down_invisible_1" l="121" t="558" r="181" b="624"/>
+  <sprite n="simon_attack_stair_up_invisible_3" l="181" t="558" r="241" b="624"/>
+  <sprite n="simon_attack_stair_up_invisible_2" l="241" t="558" r="301" b="624"/>
+  <sprite n="simon_attack_stair_up_invisible_1" l="301" t="558" r="361" b="624"/>
+  <sprite n="simon_55" l="361" t="558" r="421" b="624"/>
+  <sprite n="simon_deflect_invisible" l="421" t="558" r="481" b="624"/>
 
   <!--enemies-->
+  <!--spear guard-->
+  <sprite n="spear_guard_idle" l="621" t="22" r="653" b="88"/>
+  <sprite n="spear_guard_walk_1" l="653" t="22" r="685" b="88"/>
+  <sprite n="spear_guard_walk_2" l="685" t="22" r="717" b="88"/>
+  <sprite n="spear_guard_walk_3" l="717" t="22" r="749" b="88"/>
 
+  <!--bat-->
+  <sprite n="bat_idle" l="0" t="22" r="32" b="50"/>
+  <sprite n="bat_fly_1" l="32" t="22" r="64" b="50"/>
+  <sprite n="bat_fly_2" l="64" t="22" r="96" b="50"/>
+  <sprite n="bat_fly_3" l="96" t="22" r="128" b="50"/>
 
   <!--effect-->
-  <sprite n="effect_1" x="483" y="580" w="525" h="624"/>
-  <sprite n="effect_2" x="525" y="580" w="567" h="624"/>
-  <sprite n="effect_3" x="567" y="580" w="609" h="624"/>
+  <sprite n="effect_1" l="483" t="580" r="525" b="624"/>
+  <sprite n="effect_2" l="525" t="580" r="567" b="624"/>
+  <sprite n="effect_3" l="567" t="580" r="609" b="624"/>
 
   <!--items-->
   <!--item heart-->
-  <sprite n="item_heart" x="17" y="86" w="41" h="106"/>
+  <sprite n="item_heart" l="17" t="86" r="41" b="106"/>
+
+  <sprite n="item_small_heart" l="0" t="86" r="17" b="102"/>
 
   <!--item whip-->
-  <sprite n="item_whip" x="131" y="86" w="163" h="118"/>
+  <sprite n="item_whip" l="131" t="86" r="163" b="118"/>
 
   <!--item knife-->
-  <sprite n="item_knife" x="163" y="86" w="195" h="104"/>
+  <sprite n="item_knife" l="163" t="86" r="195" b="104"/>
 
   <!--item money bag-->
-  <sprite n="item_money_bag" x="71" y="86" w="101" h="116"/>
+  <sprite n="item_money_bag" l="71" t="86" r="101" b="116"/>
 
   <!--wall-->
-  <sprite n="wall" x="722" y="733" w="818" h="1022"/>
+  <sprite n="wall" l="722" t="733" r="818" b="1022"/>
 </textureAtlas>
 
 <animations>
   <!--candle-->
-  <animation ID="candle" defaultTime="100">
+  <animation ID="big_candle" defaultTime="100">
     <frame spriteID="big_candle_1" time="100"/>
     <frame spriteID="big_candle_2" time="100"/>
+  </animation>
+
+  <animation ID="small_candle" defaultTime="100">
+    <frame spriteID="small_candle_1" time="100"/>
+    <frame spriteID="small_candle_2" time="100"/>
   </animation>
 
   <!--whip-->
@@ -151,6 +174,10 @@
   <!--simon-->
   <animation ID="simon_ani_idle" defaultTime="100">
     <frame spriteID="simon_idle" time="100"/>
+  </animation>
+
+  <animation ID="simon_ani_hurt" defaultTime="100">
+    <frame spriteID="simon_hurt" time="100"/>
   </animation>
 
   <animation ID="simon_ani_walking" defaultTime="100">
@@ -234,6 +261,26 @@
     <frame spriteID="simon_powerup_1" time="100"/>
   </animation>
 
+  <!--enemies-->
+  <!--spear guard-->
+  <animation ID="spear_guard_ani" defaultTime="100">
+    <frame spriteID="spear_guard_idle" time="100"/>
+    <frame spriteID="spear_guard_walk_1" time="100"/>
+    <frame spriteID="spear_guard_walk_2" time="100"/>
+    <frame spriteID="spear_guard_walk_3" time="100"/>
+  </animation>
+
+  <!--bat-->
+  <animation ID="bat_ani_idle" defaultTime="100">
+    <frame spriteID="bat_idle" time="100"/>
+  </animation>
+
+  <animation ID="bat_ani_flying" defaultTime="100">
+    <frame spriteID="bat_fly_1" time="100"/>
+    <frame spriteID="bat_fly_2" time="100"/>
+    <frame spriteID="bat_fly_3" time="100"/>
+  </animation>
+
   <!--effect-->
   <animation ID="effect" defaultTime="100">
     <frame spriteID="effect_1" time="100"/>
@@ -245,6 +292,10 @@
   <!--item heart-->
   <animation ID="item_heart" defaultTime="100">
     <frame spriteID="item_heart" time="100"/>
+  </animation>
+
+  <animation ID="item_small_heart" defaultTime="100">
+    <frame spriteID="item_small_heart" time="100"/>
   </animation>
 
   <!--item whip-->
@@ -260,6 +311,11 @@
   <!--item money bag-->
   <animation ID="item_money_bag" defaultTime="100">
     <frame spriteID="item_money_bag" time="100"/>
+  </animation>
+
+  <!--item boomerang-->
+  <animation ID="item_boomerang" defaultTime="100">
+    <frame spriteID="boomerang_1" time="100"/>
   </animation>
 
    <animation ID="wall" defaultTime="100">

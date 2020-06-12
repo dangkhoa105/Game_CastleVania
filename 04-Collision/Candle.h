@@ -13,7 +13,8 @@ public:
 	
 	CCandle() : CGameObject()
 	{
-		AddAnimation("candle");	
+		AddAnimation("big_candle");	
+		AddAnimation("small_candle");
 	}
 
 	int GetItem() { return this->itemDef; }

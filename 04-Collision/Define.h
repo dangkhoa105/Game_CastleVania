@@ -40,6 +40,8 @@
 #define SIMON_GRAVITY					0.0015f
 #define SIMON_DIE_DEFLECT_SPEED			0.5f
 #define SIMON_WALKING_STAIR_SPEED		0.079f
+#define SIMON_HURT_SPEED_X				0.2f
+#define SIMON_HURT_SPEED_Y				0.35f
 
 #define SIMON_STATE_IDLE					0
 #define SIMON_STATE_WALKING_RIGHT			1
@@ -59,12 +61,35 @@
 #define SIMON_STATE_STAIR_DOWN_RIGHT		15
 #define SIMON_STATE_STAIR_DOWN_LEFT			16
 #define SIMON_STATE_ATTACK_STAIR_DOWN		17
-#define SIMON_STATE_DIE						18
+#define SIMON_STATE_HURT					18
+#define SIMON_STATE_DIE						19
 
-#define SIMON_BBOX_WIDTH				30
-#define SIMON_BBOX_HEIGHT				60
+#define SIMON_BBOX_WIDTH					30
+#define SIMON_BBOX_HEIGHT					60
 
-#define SIMON_UNTOUCHABLE_TIME			5000	
+#define SIMON_UNTOUCHABLE_TIME				5000	
+#pragma endregion
+
+#pragma region ENEMY
+// Spear Guard
+#define SPEAR_GUARD_WALKING_SPEED		0.05f
+
+#define SPEAR_GUARD_BBOX_WIDTH			32
+#define SPEAR_GUARD_BBOX_HEIGTH			64
+
+#define SPEAR_GUARD_STATE_DIE			0
+#define SPEAR_GUARD_STATE_WALKING		1
+
+// Spear Guard
+#define BAT_FLYING_SPEED_X				0.15f
+#define BAT_FLYING_SPEED_Y				0.02f
+#define BAT_DROP						30
+
+#define BAT_BBOX_WIDTH					32
+#define BAT_BBOX_HEIGTH					32
+
+#define BAT_STATE_DIE					0
+#define BAT_STATE_FLYING				1
 #pragma endregion
 
 #pragma region BRICK
@@ -94,8 +119,8 @@
 #pragma endregion
 
 #pragma region STAIR
-#define STAIR_BBOX_WIDTH				16
-#define STAIR_BBOX_HEIGHT				16
+#define STAIR_BBOX_WIDTH				32
+#define STAIR_BBOX_HEIGHT				4
 #pragma endregion
 
 #pragma region CANDLE
@@ -132,13 +157,18 @@
 #define GRAVITY_ITEM					0.0003f
 
 #define ID_IHEART						1
-#define ID_IWHIP						2
-#define ID_IKNIFE						3
-#define ID_IMONEYBAG					4
+#define ID_SMALL_IHEART					2
+#define ID_IWHIP						3
+#define ID_IKNIFE						4
+#define ID_IMONEYBAG					5
+#define ID_IBOOMERANG					6
 
 // Heart
 #define IHEART_BBOX_WIDTH				16
 #define IHEART_BBOX_HEIGHT				16
+
+#define ISMALLHEART_BBOX_WIDTH			8
+#define ISMALLHEART_BBOX_HEIGHT			8
 
 // Whip
 #define IWHIP_BBOX_WIDTH				32
@@ -151,4 +181,8 @@
 // Money Bag
 #define IMONEYBAG_BBOX_WIDTH			31
 #define IMONEYBAG_BBOX_HEIGHT			30
+
+// Axe
+#define IBOOMERANG_BBOX_WIDTH			28
+#define IBOOMERANG_BBOX_HEIGHT			28
 #pragma endregion

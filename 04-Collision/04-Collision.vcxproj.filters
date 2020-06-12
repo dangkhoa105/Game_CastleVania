@@ -105,20 +105,8 @@
     <ClInclude Include="Candle.h">
       <Filter>Source Files\Objects Collection\Static Object</Filter>
     </ClInclude>
-    <ClInclude Include="IHeart.h">
-      <Filter>Source Files\Objects Collection\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="IKnife.h">
-      <Filter>Source Files\Objects Collection\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="IWhip.h">
-      <Filter>Source Files\Objects Collection\Item</Filter>
-    </ClInclude>
     <ClInclude Include="MoneyBagTrigger.h">
       <Filter>Source Files\Objects Collection\Static Object\Hidden</Filter>
-    </ClInclude>
-    <ClInclude Include="IMoneyBag.h">
-      <Filter>Source Files\Objects Collection\Item</Filter>
     </ClInclude>
     <ClInclude Include="Effect.h">
       <Filter>Source Files\Objects Collection\Static Object</Filter>
@@ -140,6 +128,12 @@
     </ClInclude>
     <ClInclude Include="Stair.h">
       <Filter>Source Files\Objects Collection\Static Object\Hidden</Filter>
+    </ClInclude>
+    <ClInclude Include="SpearGuard.h">
+      <Filter>Source Files\Objects Collection\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Bat.h">
+      <Filter>Source Files\Objects Collection\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -194,18 +188,6 @@
     <ClCompile Include="Candle.cpp">
       <Filter>Source Files\Objects Collection\Static Object</Filter>
     </ClCompile>
-    <ClCompile Include="IHeart.cpp">
-      <Filter>Source Files\Objects Collection\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="IKnife.cpp">
-      <Filter>Source Files\Objects Collection\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="IWhip.cpp">
-      <Filter>Source Files\Objects Collection\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="IMoneyBag.cpp">
-      <Filter>Source Files\Objects Collection\Item</Filter>
-    </ClCompile>
     <ClCompile Include="MoneyBagTrigger.cpp">
       <Filter>Source Files\Objects Collection\Static Object\Hidden</Filter>
     </ClCompile>
@@ -229,6 +211,12 @@
     </ClCompile>
     <ClCompile Include="Stair.cpp">
       <Filter>Source Files\Objects Collection\Static Object\Hidden</Filter>
+    </ClCompile>
+    <ClCompile Include="SpearGuard.cpp">
+      <Filter>Source Files\Objects Collection\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Bat.cpp">
+      <Filter>Source Files\Objects Collection\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

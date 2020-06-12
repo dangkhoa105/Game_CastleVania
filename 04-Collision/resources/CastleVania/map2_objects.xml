@@ -9,9 +9,21 @@
     <brick x="32" y="128" widthbbox="32" heightbbox="32"/>
     <brick x="0" y="0" widthbbox="32" heightbbox="128"/>
   </bricks>
+
+  <candles>
+    <candle x="152" y="224" itemId="6" state="1"/>
+    <candle x="408" y="224" itemId="2" state="1"/>
+    <candle x="284" y="24" itemId="2" state="1"/>
+  </candles>
+
   <stairs>
-    <stairs x="224" y="338" stairDirection="1"/>  
-    <stairs x="352" y="150" stairDirection="4"/>
-    <stairs x="160" y="146" stairDirection="1"/>
+    <stair x="224" y="349" stairDirection="1"/>  
+    <stair x="352" y="160" stairDirection="4"/>
+    <stair x="160" y="158" stairDirection="1"/>
   </stairs>
+
+  <enemies>
+    <spearGuard x="96" y="96"/>
+    <bat x="80" y="16"/>
+  </enemies>
 </objects>

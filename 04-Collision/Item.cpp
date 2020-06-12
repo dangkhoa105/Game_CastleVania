@@ -8,6 +8,9 @@ void CItem::Render()
 	case ID_IHEART:
 		animations["item_heart"]->Render(x, y);
 		break;
+	case ID_SMALL_IHEART:
+		animations["item_small_heart"]->Render(x, y);
+		break;
 	case ID_IKNIFE:
 		animations["item_knife"]->Render(x, y);
 		break;
@@ -16,6 +19,9 @@ void CItem::Render()
 		break;
 	case ID_IMONEYBAG:
 		animations["item_money_bag"]->Render(x, y);
+		break;
+	case ID_IBOOMERANG:
+		animations["item_boomerang"]->Render(x, y);
 		break;
 	default:
 		break;
@@ -33,6 +39,10 @@ void CItem::GetBoundingBox(float& l, float& t, float& r, float& b)
 		r = x + IHEART_BBOX_WIDTH;
 		b = y + IHEART_BBOX_HEIGHT;
 		break;
+	case ID_SMALL_IHEART:
+		r = x + ISMALLHEART_BBOX_WIDTH;
+		b = y + ISMALLHEART_BBOX_HEIGHT;
+		break;
 	case ID_IKNIFE:
 		r = x + IKNIFE_BBOX_WIDTH;
 		b = y + IKNIFE_BBOX_HEIGHT;
@@ -44,6 +54,10 @@ void CItem::GetBoundingBox(float& l, float& t, float& r, float& b)
 	case ID_IMONEYBAG:
 		r = x + IMONEYBAG_BBOX_WIDTH;
 		b = y + IMONEYBAG_BBOX_HEIGHT;
+		break;
+	case ID_IBOOMERANG:
+		r = x + IBOOMERANG_BBOX_WIDTH;
+		b = y + IBOOMERANG_BBOX_HEIGHT;
 		break;
 	default:
 		break;

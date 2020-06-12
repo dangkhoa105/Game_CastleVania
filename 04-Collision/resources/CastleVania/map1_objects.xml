@@ -6,10 +6,10 @@
   </bricks>
 
   <candles>
-    <candle x="160" y="224" itemId="1" />
-    <candle x="430" y="224" itemId="2" />
-    <candle x="700" y="224" itemId="2" />
-    <candle x="970" y="224" itemId="3" />
+    <candle x="160" y="224" itemId="1" state="0"/>
+    <candle x="430" y="224" itemId="3" state="0"/>
+    <candle x="700" y="224" itemId="3" state="0"/>
+    <candle x="970" y="224" itemId="4" state="0"/>
   </candles>
 
   <entrace x="1375" y="274"/>
