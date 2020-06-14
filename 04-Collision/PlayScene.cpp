@@ -15,7 +15,7 @@ void CPlayScene::LoadResource()
 	this->objects = this->pMapObjects.at(this->currentScene->objCollectId);
 
 	simon = new CSimon();
-	simon->SetPosition(100, 200);
+	simon->SetPosition(164, 0);
 }
 
 void CPlayScene::LoadMap()
@@ -186,6 +186,17 @@ void CPlayScene::LoadObject()
 					stair->SetDirectionStair(stairDirection);
 					_object->push_back(stair);
 				}
+			}
+			if (nodeName == "bridge")
+			{
+				CBridge* bridge = new CBridge();
+				const int x = std::atoi(oChild->first_attribute("x")->value());
+				const int y = std::atoi(oChild->first_attribute("y")->value());
+				const int beginPositionX = std::atoi(oChild->first_attribute("beginPositionX")->value());
+				const int lastPositionX = std::atoi(oChild->first_attribute("lastPositionX")->value());
+				bridge->SetPosition(x, y);
+				bridge->SetReturnPosition(beginPositionX, lastPositionX);
+				_object->push_back(bridge);
 			}
 			if (nodeName == "enemies")
 			{

@@ -148,9 +148,9 @@
     <frame spriteID="small_candle_2" time="100"/>
   </animation>
 
-  <!--brigde-->
-  <animation ID="brigde" defaultTime="100">
-    <frame spriteID="brigde" time="100"/>
+  <!--bridge-->
+  <animation ID="bridge" defaultTime="100">
+    <frame spriteID="bridge" time="100"/>
   </animation>
 
   <!--whip-->
@@ -344,7 +344,7 @@
     <map texId="600" id="2" tileWidth="32" tileHeight="32" mapWidth="1024" mapHeight="384" pathText="resources\Map\map2_2.txt" pathImg="resources\Map\map2_2.png"/>
   </maps>
 
-  <scenes activeID="1">
+  <scenes activeID="2">
     <scene id="0" mapId="0"  objcollectid="0"/>
     <scene id="1" mapId="1" objcollectid="1"/>
     <scene id="2" mapId="2" objcollectid="2"/>

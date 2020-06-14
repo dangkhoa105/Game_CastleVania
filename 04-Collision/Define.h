@@ -34,7 +34,7 @@
 #pragma region SIMON
 #define SIMON_ATTACK_TIME				350
 #define SIMON_UPGRADE_TIME				500
-#define SIMON_WALKING_SPEED				0.13f 
+#define SIMON_WALKING_SPEED				0.12f 
 #define SIMON_JUMP_SPEED_Y				0.45f
 #define SIMON_JUMP_DEFLECT_SPEED		0.2f
 #define SIMON_GRAVITY					0.0015f
@@ -134,6 +134,13 @@
 
 #define SMALL_CANDLE_BBOX_WIDTH			16
 #define SMALL_CANDLE_BBOX_HEIGHT		32
+#pragma endregion
+
+#pragma region BRIDGE
+#define BRIDGE_SPEED					0.05f
+
+#define BRIDGE_BBOX_WIDTH				64
+#define BRIDGE_BBOX_HEIGHT				16
 #pragma endregion
 
 #pragma region WEAPONS

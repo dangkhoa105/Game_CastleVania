@@ -16,6 +16,7 @@
 #include "Stair.h"
 #include "SpearGuard.h"
 #include "Bat.h"
+#include "Bridge.h"
 
 class CPlayScene
 {

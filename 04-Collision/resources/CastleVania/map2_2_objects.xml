@@ -26,9 +26,11 @@
     <stair x="912" y="158" stairDirection="4"/>  
   </stairs>
 
+  <bridge x="65" y="160" beginPositionX="65" lastPositionX="127"/>
+
   <enemies>
     <spearGuard x="640" y="222" beginPositionX="642" lastPositionX="670"/>
-    <spearGuard x="196" y="94" beginPositionX="198" lastPositionX="294"/>
+    <!-- <spearGuard x="196" y="94" beginPositionX="198" lastPositionX="294"/> -->
     <bat x="608" y="16" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="256" bboxEnemyActiveHeight="96"/>
   </enemies>
 

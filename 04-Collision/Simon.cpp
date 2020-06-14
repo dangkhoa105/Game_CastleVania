@@ -156,6 +156,20 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						y += dy;
 					}
 				}
+				else if (dynamic_cast<CBridge*>(e->obj)) // if e->obj is Candle 
+				{
+					CBridge* bridge = dynamic_cast<CBridge*>(e->obj);
+					if (!isGround)
+					{
+						this->SetState(SIMON_STATE_IDLE);	
+						if (e->ny != 0)
+						{
+							this->isGround = true;
+							if (ny != 0) vy = 0;
+						}
+					}
+					x += bridge->dx * 1;
+				}
 				else if (dynamic_cast<CItem*>(e->obj)) // if e->obj is Item Heart 
 				{
 					CItem* item = dynamic_cast<CItem*>(e->obj);
