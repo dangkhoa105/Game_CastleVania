@@ -7,7 +7,6 @@
 class CWall : public CGameObject
 {
 public:
-	CSimon* simon;
 	CWall()
 	{
 		AddAnimation("wall");

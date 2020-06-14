@@ -197,7 +197,10 @@ void CPlayScene::LoadObject()
 						CSpearGuard* spearGuard = new CSpearGuard();
 						const int x = std::atoi(grand->first_attribute("x")->value());
 						const int y = std::atoi(grand->first_attribute("y")->value());
+						const int beginPositionX = std::atoi(grand->first_attribute("beginPositionX")->value());
+						const int lastPositionX = std::atoi(grand->first_attribute("lastPositionX")->value());
 						spearGuard->SetPosition(x, y);
+						spearGuard->SetReturnPosition(beginPositionX, lastPositionX);
 						_object->push_back(spearGuard);
 					}
 					if (nodeNameGrand == "bat")
@@ -205,7 +208,13 @@ void CPlayScene::LoadObject()
 						CBat* bat = new CBat();
 						const int x = std::atoi(grand->first_attribute("x")->value());
 						const int y = std::atoi(grand->first_attribute("y")->value());
+						const int bboxEnemyWidth = std::atoi(grand->first_attribute("bboxEnemyWidth")->value());
+						const int bboxEnemyHeight = std::atoi(grand->first_attribute("bboxEnemyHeight")->value());
+						const int bboxEnemyActiveWidth = std::atoi(grand->first_attribute("bboxEnemyActiveWidth")->value());
+						const int bboxEnemyActiveHeight = std::atoi(grand->first_attribute("bboxEnemyActiveHeight")->value());
 						bat->SetPosition(x, y);
+						bat->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
+						bat->SetBboxEnemyActive(bboxEnemyActiveWidth, bboxEnemyActiveHeight);
 						_object->push_back(bat);
 					}
 				}
@@ -276,7 +285,8 @@ void CPlayScene::Render()
 		}
 		objects->at(i)->Render();
 	}
-	simon->Render();
+
+	simon->Render();	
 
 	if (simon->GetState() == SIMON_STATE_AUTO_WALKING)
 		wall->Render();
@@ -368,13 +378,24 @@ void CPlayScene::UpdateItem()
 				}
 				auto effect = new CEffect();
 				effect->SetPosition(x, y);
+				effect->SetState(EFFECT_STATE_CANDLE);
 				objects->push_back(effect);
 			}
 		}
-	}
+		if (dynamic_cast<CSpearGuard*>(objects->at(i)))
+		{
+			auto f = dynamic_cast<CSpearGuard*>(objects->at(i));
 
-	for (int i = 0; i < objects->size(); i++)
-	{
+			if (f->IsDestroy())
+			{
+				float x, y;
+				f->GetPosition(x, y);				
+				auto effect = new CEffect();
+				effect->SetPosition(x, y);
+				effect->SetState(EFFECT_STATE_CANDLE);
+				objects->push_back(effect);
+			}
+		}
 		if (dynamic_cast<CMoneyBagTrigger*>(objects->at(i)))
 		{
 			auto f = dynamic_cast<CMoneyBagTrigger*>(objects->at(i));
@@ -400,17 +421,32 @@ void CPlayScene::UpdateScene()
 		{
 			simon->SetState(SIMON_STATE_IDLE);
 			simon->SetPosition(100, 200);
+			CGame::GetInstance()->SetCamPos(0, 0);
 		}
 		else if (simon->idChangeScene == 1)
 		{
 			simon->SetState(SIMON_STATE_IDLE);
 			simon->SetPosition(32, 288);
+			CGame::GetInstance()->SetCamPos(0, 0);
 		}
-		simon->idChangeScene = -1;
-		
+		else if (simon->idChangeScene == 2)
+		{
+			simon->SetState(SIMON_STATE_STAIR_UP_IDLE);
+			simon->SetPosition(738, 322);
+			simon->lastStepOnStairPos = {738, 322};
+			CGame::GetInstance()->SetCamPos(512, 0);
+		}
+		else if (simon->idChangeScene == 3)
+		{
+			simon->SetState(SIMON_STATE_STAIR_DOWN_IDLE);
+			simon->SetPosition(224, 64);
+			simon->lastStepOnStairPos = { 224, 64 };
+			CGame::GetInstance()->SetCamPos(0, 0);
+		}
+		simon->idChangeScene = -1;		
 
 		this->objects = this->pMapObjects.at(this->currentScene->objCollectId);
-		CGame::GetInstance()->SetCamPos(0, 0);
+		//CGame::GetInstance()->SetCamPos(0, 0);
 	}
 }
 
@@ -424,6 +460,8 @@ void CPlayScene::KeyState(BYTE* states)
 	if (simon->CheckAutoWalk()) {
 		return;
 	}
+
+	
 
 	//simon->GetUpgradeTime() tương đương  simon->GetUpgradeTime()!=0
 	if (simon->GetUpgradeTime() && GetTickCount() - simon->GetUpgradeTime() > SIMON_UPGRADE_TIME)

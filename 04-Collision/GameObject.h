@@ -77,6 +77,7 @@ public:
 	int GetId() { return this->id; }
 
 	void SetNx(int nx) { this->nx = nx; }
+	int GetNx() { return this->nx; }
 
 	bool GetBox() { return this->box; }
 

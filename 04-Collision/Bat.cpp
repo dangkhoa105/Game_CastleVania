@@ -1,16 +1,36 @@
 #include "Bat.h"
+#include "debug.h"
 
 void CBat::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
-	right = x + BAT_BBOX_WIDTH;
-	bottom = y + BAT_BBOX_HEIGTH;
+	right = x + bboxEnemyWidth;
+	bottom = y + bboxEnemyHeight;
+	//RenderBoundingBox();
+}
+
+void CBat::GetBoundingBoxActive(float& left, float& top, float& right, float& bottom)
+{
+	left = x;
+	top = y;
+	right = x + bboxEnemyActiveWidth;
+	bottom = y + bboxEnemyActiveHeight;
+	//RenderBoundingBox();
 }
 
 void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	CGameObject::Update(dt, coObjects);
+	if (state == BAT_STATE_IDLE)
+		return;
+
+	if (IsRespawn())
+	{
+		SetState(BAT_STATE_IDLE);
+		return;
+	}
+
+	CEnemy::Update(dt);
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -20,6 +40,7 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//
 	// TO-DO: make sure Goomba can interact with the world and to each of them too!
 	// 
+
 	if (nx == 1) vx = BAT_FLYING_SPEED_X;
 	else if (nx == -1) vx = -BAT_FLYING_SPEED_X;
 
@@ -39,5 +60,31 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CBat::Render()
 {
-	animations["bat_ani_flying"]->Render(nx, x, y);
+	if (state == BAT_STATE_IDLE)
+		animations["bat_ani_idle"]->Render(nx, x, y);
+	if (state == BAT_STATE_FLYING)
+		animations["bat_ani_flying"]->Render(nx, x, y);
+}
+
+void CBat::SetState(int state)
+{
+	CEnemy::SetState(state);
+	switch (state)
+	{
+	case BAT_STATE_IDLE:
+		vx = 0;
+		vy = 0;
+		isDestroy = false;
+		isFinishReSpawn = false;
+		this->bboxEnemyActiveWidth;
+		this->bboxEnemyActiveHeight;
+		StartRespawnTimeCounter();	
+		break;
+	case BAT_STATE_FLYING:
+		if (nx == 1) vx = BAT_FLYING_SPEED_X;
+		else if (nx == -1) vx = -BAT_FLYING_SPEED_X;
+		reSpawnTimeStart = 0;
+		isReSpawn = false;
+		break;
+	}
 }

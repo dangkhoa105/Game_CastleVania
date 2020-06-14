@@ -17,13 +17,15 @@
   </candles>
 
   <stairs>
-    <stair x="224" y="349" stairDirection="1"/>  
-    <stair x="352" y="160" stairDirection="4"/>
-    <stair x="160" y="158" stairDirection="1"/>
+    <stair x="208" y="349" stairDirection="1"/>  
+    <stair x="336" y="160" stairDirection="4"/>
+    <stair x="144" y="158" stairDirection="1"/>
   </stairs>
 
   <enemies>
-    <spearGuard x="96" y="96"/>
-    <bat x="80" y="16"/>
+    <spearGuard x="96" y="96" beginPositionX="65" lastPositionX="284"/>
+    <bat x="80" y="16" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="256" bboxEnemyActiveHeight="96"/>
   </enemies>
+
+  <changeScene x="272" y="0" idChangeScene="2"/>
 </objects>

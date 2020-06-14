@@ -1,6 +1,7 @@
 ﻿#include "Whip.h"
 #include "Candle.h"
 #include "Effect.h"
+#include "SpearGuard.h"
 
 void CWhip::Render()
 {
@@ -98,6 +99,22 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 				if (e->GetState() != CANDLE_STATE_DESTROYED)
 				{
 					e->SetState(CANDLE_STATE_DESTROYED);
+					e->SetDestroy(true);
+					e->SetFall(true);
+					/*e->effect->SetState(EFFECT);
+					e->effect->SetPosition(e->x, e->y);*/
+				}
+			}
+		}
+		if (dynamic_cast<CSpearGuard*>(obj))
+		{
+			CSpearGuard* e = dynamic_cast<CSpearGuard*> (obj);
+
+			if (this->AABB(obj) == true)
+			{
+				if (e->GetState() != SPEAR_GUARD_STATE_DIE)
+				{
+					e->SetState(SPEAR_GUARD_STATE_DIE);
 					e->SetDestroy(true);
 					e->SetFall(true);
 					/*e->effect->SetState(EFFECT);

@@ -1,19 +1,25 @@
 #pragma once
-#include "GameObject.h"
+#include "Enemy.h"
 #include "Define.h"
 #include "ReadResourceFile.h"
-
-class CSpearGuard : public CGameObject
+	
+class CSpearGuard : public CEnemy
 {	
+	int beginPositionX;
+	int lastPositionX;
 public:
 	CSpearGuard()
 	{
-		AddAnimation("spear_guard_ani");
+		AddAnimation("spear_guard_ani");	
+		this->SetState(SPEAR_GUARD_STATE_WALKING);
 	}
 
-	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
-	//virtual void SetState(int state);
+	virtual void SetState(int state);
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	virtual void GetBoundingBoxActive(float& left, float& top, float& right, float& bottom);
+
+	void SetReturnPosition(int bX, int lX);
 };
 

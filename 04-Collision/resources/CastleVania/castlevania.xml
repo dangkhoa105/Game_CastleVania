@@ -8,6 +8,9 @@
   <sprite n="small_candle_1" l="443" t="96" r="459" b="128"/>
   <sprite n="small_candle_2" l="459" t="96" r="475" b="128"/>
 
+  <!--bridge-->
+  <sprite n="bridge" l="29" t="0" r="92" b="16"/>
+
   <!--weapon-->
   <!--whip-->
   <sprite n="normal_whip_1" l="1" t="626" r="241" b="692"/>
@@ -95,6 +98,8 @@
   <sprite n="simon_deflect_invisible" l="421" t="558" r="481" b="624"/>
 
   <!--enemies-->
+  <sprite n="enemies_die" l="1039" t="74" r="1056" b="89"/>
+
   <!--spear guard-->
   <sprite n="spear_guard_idle" l="621" t="22" r="653" b="88"/>
   <sprite n="spear_guard_walk_1" l="653" t="22" r="685" b="88"/>
@@ -141,6 +146,11 @@
   <animation ID="small_candle" defaultTime="100">
     <frame spriteID="small_candle_1" time="100"/>
     <frame spriteID="small_candle_2" time="100"/>
+  </animation>
+
+  <!--brigde-->
+  <animation ID="brigde" defaultTime="100">
+    <frame spriteID="brigde" time="100"/>
   </animation>
 
   <!--whip-->
@@ -288,6 +298,10 @@
     <frame spriteID="effect_3" time="100"/>
   </animation>
 
+    <animation ID="effect_enemies_die" defaultTime="100">
+    <frame spriteID="enemies_die" time="100"/>
+  </animation>
+
   <!--items-->
   <!--item heart-->
   <animation ID="item_heart" defaultTime="100">
@@ -331,13 +345,15 @@
   </maps>
 
   <scenes activeID="1">
-    <scene id="0" mapId="0" objcollectid="0"/>
+    <scene id="0" mapId="0"  objcollectid="0"/>
     <scene id="1" mapId="1" objcollectid="1"/>
-    <scene id="2" mapId="2" objcollectid="1"/>
+    <scene id="2" mapId="2" objcollectid="2"/>
+    <scene id="3" mapId="1" objcollectid="1"/>
   </scenes>
 </base>
 
 <objectsCollection>
   <object objcollectid="0" path="resources\CastleVania\map1_objects.xml"/>
-  <object objcollectid="1" path="resources\CastleVania\map2_objects.xml"/>
+  <object objcollectid="1" path="resources\CastleVania\map2_1objects.xml"/>
+  <object objcollectid="2" path="resources\CastleVania\map2_2_objects.xml"/>
 </objectsCollection>

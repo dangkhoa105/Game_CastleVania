@@ -10,7 +10,10 @@ void CEffect::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 
 void CEffect::Render()
 {
-	animations["effect"]->Render(x, y);
+	if (state == EFFECT_STATE_CANDLE)
+		animations["effect"]->Render(x, y);
+	else if (state == EFFECT_STATE_ENEMIES)
+		animations["effect_enemies_die"]->Render(x, y);
 }
 
 void CEffect::GetBoundingBox(float& l, float& t, float& r, float& b)

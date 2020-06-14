@@ -84,7 +84,6 @@ vector<string> ReadResourceFile::GetAnimations(const char* filePath)
 	xml_node<>* rootNode = doc.first_node("animations");
 	int i = 0;
 	for (xml_node<>* animationNode = rootNode->first_node(); animationNode; animationNode = animationNode->next_sibling()) {
-
 		string aniId = string(animationNode->first_attribute("ID")->value());
 		animationsList.push_back(aniId);
 	}

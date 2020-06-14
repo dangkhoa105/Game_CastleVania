@@ -2,7 +2,7 @@
 
 void CChangeScene::Render()
 {
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
 
 void CChangeScene::GetBoundingBox(float& l, float& t, float& r, float& b)

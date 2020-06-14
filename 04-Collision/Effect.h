@@ -5,6 +5,9 @@
 
 #define EFFECT_TIME 500
 
+#define EFFECT_STATE_CANDLE		0
+#define EFFECT_STATE_ENEMIES	1
+
 class CEffect : public CGameObject
 {
 	DWORD life_start; // bắt đầu đếm khi tạo ra effect
@@ -13,6 +16,7 @@ public:
 	{
 		life_start = GetTickCount();
 		AddAnimation("effect");
+		AddAnimation("effect_enemies_die");
 	}
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	virtual void Render();

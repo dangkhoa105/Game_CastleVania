@@ -71,6 +71,7 @@
 #pragma endregion
 
 #pragma region ENEMY
+#define ENEMY_SPAWN_TIME				5000
 // Spear Guard
 #define SPEAR_GUARD_WALKING_SPEED		0.05f
 
@@ -80,7 +81,7 @@
 #define SPEAR_GUARD_STATE_DIE			0
 #define SPEAR_GUARD_STATE_WALKING		1
 
-// Spear Guard
+// BAT
 #define BAT_FLYING_SPEED_X				0.15f
 #define BAT_FLYING_SPEED_Y				0.02f
 #define BAT_DROP						30
@@ -88,7 +89,7 @@
 #define BAT_BBOX_WIDTH					32
 #define BAT_BBOX_HEIGTH					32
 
-#define BAT_STATE_DIE					0
+#define BAT_STATE_IDLE					0
 #define BAT_STATE_FLYING				1
 #pragma endregion
 

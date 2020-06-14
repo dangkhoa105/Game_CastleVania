@@ -30,7 +30,6 @@ class CSimon : public CGameObject
 
 	DWORD update_start;
 	DWORD attack_start;
-	DWORD entrace_start;
 
 public:
 	bool isGround = false;	
@@ -157,5 +156,5 @@ public:
 		return this->isAutoWalk;
 	}
 
-	//bool IsComplete();
+	void CheckCollisionWithActiveEnemy(vector<LPGAMEOBJECT>* listObjects);
 };

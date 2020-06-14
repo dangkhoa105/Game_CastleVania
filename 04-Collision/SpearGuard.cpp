@@ -13,6 +13,11 @@ void CSpearGuard::GetBoundingBox(float& left, float& top, float& right, float& b
 	bottom = y + SPEAR_GUARD_BBOX_HEIGTH;
 }
 
+void CSpearGuard::GetBoundingBoxActive(float& left, float& top, float& right, float& bottom)
+{
+
+}
+
 void CSpearGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt, coObjects);
@@ -28,14 +33,14 @@ void CSpearGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (nx == 1) vx = SPEAR_GUARD_WALKING_SPEED;
 	else if (nx == -1) vx = -SPEAR_GUARD_WALKING_SPEED;
 
-	if (vx < 0 && x < 65) {
-		x = 64; 
+	if (vx < 0 && x < this->beginPositionX) {
+		x = beginPositionX;
 		vx = -vx;
 		nx = 1;
 	}
 
-	if (vx > 0 && x > 284) {
-		x = 284;
+	if (vx > 0 && x > lastPositionX) {
+		x = lastPositionX;
 		vx = vx;
 		nx = -1;
 	}
@@ -51,19 +56,23 @@ void CSpearGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CSpearGuard::Render()
 {
-	string ani = "spear_guard_ani";
-
-	animations[ani]->Render(-nx, x, y);
+	if (isDestroy)
+	{
+		return;
+	}
+	this->state;
+	if (state == SPEAR_GUARD_STATE_WALKING)
+		animations["spear_guard_ani"]->Render(-nx, x, y);
 	//RenderBoundingBox();
 }
 
-//void CSpearGuard::SetState(int state)
-//{
-//	CGameObject::SetState(state);
-//	switch (state)
-//	{
-//	case SPEAR_GUARD_STATE_WALKING:
-//		if (nx == 1) vx = SPEAR_GUARD_WALKING_SPEED;
-//		else if (nx == -1) vx = -SPEAR_GUARD_WALKING_SPEED;
-//	}
-//}
+void CSpearGuard::SetState(int state)
+{
+	CGameObject::SetState(state);
+}
+
+void CSpearGuard::SetReturnPosition(int bX, int lX)
+{
+	this->beginPositionX = bX;
+	this->lastPositionX = lX;
+}

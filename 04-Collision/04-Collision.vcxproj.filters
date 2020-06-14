@@ -135,6 +135,15 @@
     <ClInclude Include="Bat.h">
       <Filter>Source Files\Objects Collection\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Source Files\Objects Collection\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Boomerang.h">
+      <Filter>Source Files\Objects Collection\Weapon\SupWeapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Bridge.h">
+      <Filter>Source Files\Objects Collection</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -217,6 +226,15 @@
     </ClCompile>
     <ClCompile Include="Bat.cpp">
       <Filter>Source Files\Objects Collection\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files\Objects Collection\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Boomerang.cpp">
+      <Filter>Source Files\Objects Collection\Weapon\SupWeapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Bridge.cpp">
+      <Filter>Source Files\Objects Collection</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

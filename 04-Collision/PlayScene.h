@@ -20,6 +20,7 @@
 class CPlayScene
 {
 	CSimon* simon;
+	CBat* bat;
 	CGoomba* goomba;
 	CWall* wall;
 	CChangeScene* changeScene;
