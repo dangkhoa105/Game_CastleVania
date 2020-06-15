@@ -82,7 +82,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			if (dynamic_cast<CBrick*>(e->obj)) // if e->obj is Brick 
 			{
-				if (e->ny != 1)
+				if (e->ny == -1)
 				{
 					if (state == SIMON_STATE_JUMP)
 					{
@@ -757,12 +757,12 @@ void CSimon::HandleFirstStepOnStair()
 		}
 	}
 	else if (this->onStairDirection == STAIRDIRECTION::UPLEFT) {
-		if (stairPos.x - this->x < 36) {
+		if (stairPos.x - this->x < 8) {
 			this->isAutoWalk = true;
 			SetState(SIMON_STATE_WALKING_LEFT);
 			return;
 		}
-		else if (stairPos.x - this->x > 36 + 5) {
+		else if (stairPos.x - this->x > 8 + 5) {
 			this->isAutoWalk = true;
 			SetState(SIMON_STATE_WALKING_RIGHT);
 			return;

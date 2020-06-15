@@ -11,6 +11,6 @@ public:
 	int camX;
 	int camY;
 	int stateSimon;
-
+	int nx;
 };
 

@@ -13,13 +13,13 @@
   </bricks> 
 
   <candles>
-    <candle x="912" y="0" itemId="2" state="1"/>
-    <candle x="784" y="0" itemId="2" state="1"/>
-    <candle x="656" y="0" itemId="2" state="1"/>
-    <candle x="528" y="0" itemId="2" state="1"/>
-    <candle x="400" y="0" itemId="2" state="1"/>
-    <candle x="272" y="0" itemId="5" state="1"/>
-    <candle x="144" y="0" itemId="2" state="1"/>
+    <candle x="920" y="16" itemId="2" state="1"/>
+    <candle x="792" y="16" itemId="2" state="1"/>
+    <candle x="664" y="16" itemId="2" state="1"/>
+    <candle x="536" y="16" itemId="2" state="1"/>
+    <candle x="408" y="16" itemId="2" state="1"/>
+    <candle x="230" y="16" itemId="5" state="1"/>
+    <candle x="152" y="16" itemId="2" state="1"/>
   </candles>
 
   <stairs>
@@ -29,10 +29,13 @@
   <bridge x="65" y="160" beginPositionX="65" lastPositionX="127"/>
 
   <enemies>
-    <spearGuard x="640" y="222" beginPositionX="642" lastPositionX="670"/>
-    <!-- <spearGuard x="196" y="94" beginPositionX="198" lastPositionX="294"/> -->
+    <spearGuards>
+      <spearGuard x="640" y="222" beginPositionX="642" lastPositionX="670"/>
+      <spearGuard x="196" y="94" beginPositionX="198" lastPositionX="294"/>
+    </spearGuards>
     <bat x="608" y="16" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="256" bboxEnemyActiveHeight="96"/>
   </enemies>
 
   <changeScene x="768" y="384" idChangeScene="3"/>
+  <changeScene x="0" y="184" idChangeScene="4"/>
 </objects>

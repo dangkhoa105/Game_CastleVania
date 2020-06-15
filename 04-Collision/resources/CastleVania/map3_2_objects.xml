@@ -1,0 +1,21 @@
+<objects>
+  <bricks>
+    <brick x="64" y="320" widthbbox="64" heightbbox="32"/>
+    <brick x="32" y="224" widthbbox="32" heightbbox="96"/>
+    <brick x="160" y="320" widthbbox="32" heightbbox="32"/>
+    <brick x="256" y="192" widthbbox="64" heightbbox="32"/>
+    <brick x="288" y="224" widthbbox="32" heightbbox="32"/>
+    <brick x="448" y="192" widthbbox="64" heightbbox="32"/>
+    <brick x="320" y="320" widthbbox="320" heightbbox="32"/>
+    <brick x="704" y="320" widthbbox="64" heightbbox="32"/>
+    <brick x="832" y="256" widthbbox="64" heightbbox="32"/>
+    <brick x="896" y="320" widthbbox="64" heightbbox="32"/>
+    <brick x="960" y="224" widthbbox="64" heightbbox="32"/>
+    <brick x="960" y="352" widthbbox="128" heightbbox="32"/>
+    <brick x="1088" y="192" widthbbox="64" heightbbox="32"/>
+    <brick x="1216" y="320" widthbbox="128" heightbbox="32"/>
+    <brick x="1344" y="288" widthbbox="64" heightbbox="32"/>
+    <brick x="1408" y="224" widthbbox="64" heightbbox="32"/>
+    <brick x="1472" y="256" widthbbox="64" heightbbox="32"/>
+  </bricks> 
+</objects>

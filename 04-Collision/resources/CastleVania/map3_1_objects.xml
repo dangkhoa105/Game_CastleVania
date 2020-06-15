@@ -1,0 +1,17 @@
+<objects>
+  <bricks>
+    <brick x="0" y="352" widthbbox="64" heightbbox="32"/>
+    <brick x="256" y="352" widthbbox="1088" heightbbox="32"/>
+    <brick x="1344" y="320" widthbbox="192" heightbbox="32"/>
+    <brick x="128" y="320" widthbbox="128" heightbbox="32"/>
+    <brick x="64" y="256" widthbbox="64" heightbbox="32"/>
+    <brick x="192" y="192" widthbbox="192" heightbbox="32"/>
+    <brick x="32" y="160" widthbbox="32" heightbbox="96"/>
+    <brick x="577" y="257" widthbbox="64" heightbbox="32"/>
+    <brick x="833" y="257" widthbbox="64" heightbbox="32"/>
+  </bricks> 
+
+  <stairs>
+    <stair x="304" y="188" stairDirection="2"/>  
+  </stairs>
+</objects>

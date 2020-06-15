@@ -78,6 +78,7 @@ void CPlayScene::LoadMap()
 				const int camX = std::atoi(grand->first_attribute("camX")->value());
 				const int camY = std::atoi(grand->first_attribute("camY")->value());
 				const int stateSimon = std::atoi(grand->first_attribute("state")->value());
+				const int nx = std::atoi(grand->first_attribute("nx")->value());
 				CPScene* pScene = new CPScene();
 				pScene->id = id;
 				pScene->mapId = mapID;
@@ -87,6 +88,7 @@ void CPlayScene::LoadMap()
 				pScene->camX = camY;
 				pScene->camY = camY;
 				pScene->stateSimon = stateSimon;
+				pScene->nx = nx;
 
 				pScenes.insert(std::make_pair(id, pScene));
 			}
@@ -233,16 +235,19 @@ void CPlayScene::LoadObject()
 				for (xml_node<>* grand = oChild->first_node(); grand; grand = grand->next_sibling()) //cú pháp lập
 				{
 					const std::string nodeNameGrand = grand->name();
-					if (nodeNameGrand == "spearGuard")
+					if (nodeNameGrand == "spearGuards")
 					{
-						CSpearGuard* spearGuard = new CSpearGuard();
-						const int x = std::atoi(grand->first_attribute("x")->value());
-						const int y = std::atoi(grand->first_attribute("y")->value());
-						const int beginPositionX = std::atoi(grand->first_attribute("beginPositionX")->value());
-						const int lastPositionX = std::atoi(grand->first_attribute("lastPositionX")->value());
-						spearGuard->SetPosition(x, y);
-						spearGuard->SetReturnPosition(beginPositionX, lastPositionX);
-						_object->push_back(spearGuard);
+						for (xml_node<>* oGrand = grand->first_node(); oGrand; oGrand = oGrand->next_sibling()) //cú pháp lập
+						{
+							CSpearGuard* spearGuard = new CSpearGuard();
+							const int x = std::atoi(oGrand->first_attribute("x")->value());
+							const int y = std::atoi(oGrand->first_attribute("y")->value());
+							const int beginPositionX = std::atoi(oGrand->first_attribute("beginPositionX")->value());
+							const int lastPositionX = std::atoi(oGrand->first_attribute("lastPositionX")->value());
+							spearGuard->SetPosition(x, y);
+							spearGuard->SetReturnPosition(beginPositionX, lastPositionX);
+							_object->push_back(spearGuard);
+						}
 					}
 					if (nodeNameGrand == "bat")
 					{
@@ -352,16 +357,8 @@ void CPlayScene::UpdateCam()
 	// camera
 	if (simon->x >= SCREEN_WIDTH / 2 && simon->x < tilemap->GetMapWidth() - SCREEN_WIDTH / 2)
 	{
-		/*CTileMap* tilemap = this->gameMaps.Get(this->currentScene->mapId);
-		int min_col = tilemap->min_max_col_to_draw[tilemap->index][0];
-		int max_col = tilemap->min_max_col_to_draw[tilemap->index][1];*/
 		cx -= SCREEN_WIDTH / 2;
-		//CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
-		/*if (simon->x >= min_col * 32 + (SCREEN_WIDTH / 2 - 16) &&
-			simon->x <= max_col * 32 - (SCREEN_WIDTH / 2 - 16))
-		{*/
 		CGame::GetInstance()->SetCamPos(cx, 0.0f);
-		//}
 	}
 }
 
@@ -494,9 +491,14 @@ void CPlayScene::UpdateScene()
 		SwitchScene(simon->idChangeScene);
 		this->tilemap = this->tileMaps.Get(this->currentScene->mapId);
 		simon->SetState(currentScene->stateSimon);
-		simon->SetPosition(currentScene->simonX, currentScene->simonY);
-		CGame::GetInstance()->SetCamPos(currentScene->camX, currentScene->camY);
+		simon->SetPosition(currentScene->simonX, currentScene->simonY);		
 		simon->lastStepOnStairPos = { float(currentScene->simonX), float(currentScene->simonY) };	
+		simon->nx = currentScene->nx;
+		//CGame::GetInstance()->SetCamPos(currentScene->camX - SCREEN_WIDTH, currentScene->camY);
+		//if (simon->nx == 1)
+			CGame::GetInstance()->SetCamPos(currentScene->camX, currentScene->camY);
+		//else 
+			//CGame::GetInstance()->SetCamPos(currentScene->camX - SCREEN_WIDTH, currentScene->camY);
 		simon->idChangeScene = -1;
 
 		this->objects = this->pMapObjects.at(this->currentScene->objCollectId);
