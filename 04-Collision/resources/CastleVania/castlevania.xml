@@ -11,6 +11,12 @@
   <!--bridge-->
   <sprite n="bridge" l="29" t="0" r="92" b="16"/>
 
+  <!--breakWall-->
+  <sprite n="breakWall" l="229" t="17" r="260" b="46"/>
+  <sprite n="breakWall_destroyed" l="652" t="591" r="684" b="624"/>
+
+  <sprite n="breakWall_breaking" l="685" t="591" r="699" b="607"/>
+
   <!--weapon-->
   <!--whip-->
   <sprite n="normal_whip_1" l="1" t="626" r="241" b="692"/>
@@ -134,6 +140,10 @@
 
   <!--wall-->
   <sprite n="wall" l="722" t="733" r="818" b="1022"/>
+
+  <!--item crown-->
+  <sprite n="item_crown_yellow" l="287" t="118" r="316" b="149"/>
+  <sprite n="item_crown_red" l="317" t="118" r="346" b="149"/>
 </textureAtlas>
 
 <animations>
@@ -151,6 +161,15 @@
   <!--bridge-->
   <animation ID="bridge" defaultTime="100">
     <frame spriteID="bridge" time="100"/>
+  </animation>
+
+  <!--break wall-->
+  <animation ID="breakWall_idle" defaultTime="100">
+    <frame spriteID="breakWall" time="100"/>
+  </animation>
+
+  <animation ID="breakWall_breaking" defaultTime="100">
+    <frame spriteID="breakWall_breaking" time="100"/>
   </animation>
 
   <!--whip-->
@@ -332,8 +351,18 @@
     <frame spriteID="boomerang_1" time="100"/>
   </animation>
 
-   <animation ID="wall" defaultTime="100">
+  <!--item crown-->
+  <animation ID="item_crown" defaultTime="100">
+    <frame spriteID="item_crown_yellow" time="100"/>
+    <frame spriteID="item_crown_red" time="100"/>
+  </animation>
+
+  <animation ID="wall" defaultTime="100">
     <frame spriteID="wall" time="100"/>
+  </animation>
+
+  <animation ID="breakWall_destroyed" defaultTime="100">
+    <frame spriteID="breakWall_destroyed" time="100"/>
   </animation>
 </animations>
 
@@ -344,11 +373,11 @@
     <map texId="600" id="2" tileWidth="32" tileHeight="32" mapWidth="1024" mapHeight="384" pathText="resources\Map\map2_2.txt" pathImg="resources\Map\map2_2.png"/>
   </maps>
 
-  <scenes activeID="2">
-    <scene id="0" mapId="0"  objcollectid="0"/>
-    <scene id="1" mapId="1" objcollectid="1"/>
-    <scene id="2" mapId="2" objcollectid="2"/>
-    <scene id="3" mapId="1" objcollectid="1"/>
+  <scenes activeID="1">
+    <scene id="0" mapId="0" objcollectid="0" simonX="100" simonY="200" camX="0" camY="0" state="0"/>
+    <scene id="1" mapId="1" objcollectid="1" simonX="32" simonY="288" camX="0" camY="0" state="0"/>
+    <scene id="2" mapId="2" objcollectid="2" simonX="738" simonY="322" camX="512" camY="0" state="10"/>
+    <scene id="3" mapId="1" objcollectid="1" simonX="224" simonY="2" camX="0" camY="0" state="14"/>
   </scenes>
 </base>
 

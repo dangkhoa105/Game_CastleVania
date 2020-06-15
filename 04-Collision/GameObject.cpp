@@ -149,6 +149,28 @@ void CGameObject::RenderBoundingBox()
 	CGame::GetInstance()->Draw(l, t, bbox, rect.left, rect.top, rect.right, rect.bottom, 255);
 }
 
+void CGameObject::RenderBoundingBox(RECT rect)
+{
+	D3DXVECTOR3 p(x, y, 0);
+	RECT rect2;
+
+	LPDIRECT3DTEXTURE9 bbox = CTextures::GetInstance()->Get(ID_TEX_BBOX);
+
+	float l, t, r, b;
+	l = rect.left;
+	t = rect.top;
+	r = rect.right;
+	b = rect.bottom;
+
+	rect2.left = 0;
+	rect2.top = 0;
+	rect2.right = (int)r - (int)l;
+	rect2.bottom = (int)b - (int)t;
+
+	CGame::GetInstance()->Draw(l, t, bbox, rect2.left, rect2.top, rect2.right, rect2.bottom, 100);
+
+}
+
 void CGameObject::AddAnimation(string aniId,bool isLoop)
 {
 	

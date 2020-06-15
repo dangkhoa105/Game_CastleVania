@@ -7,6 +7,8 @@
 
 #define EFFECT_STATE_CANDLE		0
 #define EFFECT_STATE_ENEMIES	1
+#define EFFECT_STATE_BREAKWALL	2
+#define EFFECT_STATE_BREAKWALL_DESTROYED	3
 
 class CEffect : public CGameObject
 {
@@ -17,6 +19,8 @@ public:
 		life_start = GetTickCount();
 		AddAnimation("effect");
 		AddAnimation("effect_enemies_die");
+		AddAnimation("breakWall_breaking");
+		AddAnimation("breakWall_destroyed");
 	}
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	virtual void Render();

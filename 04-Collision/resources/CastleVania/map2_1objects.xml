@@ -5,7 +5,9 @@
     <brick x="64" y="160" widthbbox="252" heightbbox="32"/>
     <brick x="0" y="256" widthbbox="32" heightbbox="96"/>
     <brick x="32" y="224" widthbbox="32" heightbbox="32"/>
-    <brick x="448" y="0" widthbbox="32" heightbbox="384"/>
+    <brick x="448" y="0" widthbbox="32" heightbbox="160"/>
+    <brick x="448" y="224" widthbbox="32" heightbbox="128"/>
+    <brick x="480" y="160" widthbbox="32" heightbbox="64"/>
     <brick x="32" y="128" widthbbox="32" heightbbox="32"/>
     <brick x="0" y="0" widthbbox="32" heightbbox="128"/>
   </bricks>
@@ -22,10 +24,17 @@
     <stair x="144" y="158" stairDirection="1"/>
   </stairs>
 
+  <breakWalls>
+    <breakWall x="448" y="162"/>
+    <breakWall x="448" y="194"/>
+  </breakWalls>
+
   <enemies>
     <spearGuard x="96" y="96" beginPositionX="65" lastPositionX="284"/>
     <bat x="80" y="16" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="256" bboxEnemyActiveHeight="96"/>
   </enemies>
 
   <changeScene x="272" y="0" idChangeScene="2"/>
+
+  <breakWallTrigger x="450" y="216"/>
 </objects>

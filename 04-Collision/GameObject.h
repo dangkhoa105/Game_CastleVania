@@ -85,7 +85,7 @@ public:
 	void SetState(int state) { this->state = state; }
 
 	void RenderBoundingBox();
-
+	void RenderBoundingBox(RECT rect);
 	LPCOLLISIONEVENT SweptAABBEx(LPGAMEOBJECT coO);
 	void CalcPotentialCollisions(vector<LPGAMEOBJECT> *coObjects, vector<LPCOLLISIONEVENT> &coEvents);
 	void FilterCollision(

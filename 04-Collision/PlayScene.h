@@ -17,6 +17,8 @@
 #include "SpearGuard.h"
 #include "Bat.h"
 #include "Bridge.h"
+#include "BreakWall.h"
+#include "BreakWallTrigger.h"
 
 class CPlayScene
 {

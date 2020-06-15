@@ -2,7 +2,8 @@
 #include "Candle.h"
 #include "Effect.h"
 #include "SpearGuard.h"
-
+#include "BreakWall.h"
+#include"debug.h"
 void CWhip::Render()
 {
 	string ani;
@@ -17,7 +18,7 @@ void CWhip::Render()
 		animations[ani]->Render(nx, x, y);
 		//	this->box = animations[ani]->GetOver();
 
-		//RenderBoundingBox();
+		RenderBoundingBox();
 	}
 }
 
@@ -30,14 +31,14 @@ void CWhip::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 			left = x + 140;
 			top = y + 15;
 			right = left + 55;
-			bottom = top + 18;
+			bottom = top + 10;
 		}
 		else
 		{
 			left = x + 50;
 			top = y + 15;
 			right = left + 55;
-			bottom = top + 18;
+			bottom = top + 10;
 		}
 	}
 	else
@@ -47,14 +48,14 @@ void CWhip::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 			left = x + 140;
 			top = y + 15;
 			right = left + 85;
-			bottom = top + 18;
+			bottom = top + 10;
 		}
 		else
 		{
 			left = x + 25;
 			top = y + 15;
 			right = left + 85;
-			bottom = top + 18;
+			bottom = top + 10;
 		}
 	}
 }
@@ -86,6 +87,7 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 		break;
 	}
 
+
 	for (UINT i = 0; i < colliable_objects->size(); i++)
 	{
 		LPGAMEOBJECT obj = colliable_objects->at(i);
@@ -101,25 +103,43 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 					e->SetState(CANDLE_STATE_DESTROYED);
 					e->SetDestroy(true);
 					e->SetFall(true);
-					/*e->effect->SetState(EFFECT);
-					e->effect->SetPosition(e->x, e->y);*/
 				}
 			}
 		}
-		if (dynamic_cast<CSpearGuard*>(obj))
+		if (dynamic_cast<CEnemy*>(obj))
 		{
-			CSpearGuard* e = dynamic_cast<CSpearGuard*> (obj);
+			if (fight)
+			{
+				CEnemy* e = dynamic_cast<CEnemy*> (obj);
+
+				if (this->AABB(obj) == true)
+				{
+					if (!e->isDestroy)
+					{
+						e->SetFall(true);
+
+						e->TakeDamage(damage);
+						if (e->hp == 0)
+						{
+							e->SetDestroy(true);
+						}
+						DebugOut(L"Take damage \n");
+					}
+				}
+				fight = false;
+			}
+		}
+		if (dynamic_cast<CBreakWall*>(obj))
+		{
+			CBreakWall* e = dynamic_cast<CBreakWall*> (obj);
 
 			if (this->AABB(obj) == true)
 			{
-				if (e->GetState() != SPEAR_GUARD_STATE_DIE)
-				{
-					e->SetState(SPEAR_GUARD_STATE_DIE);
+				/*if (e->GetState() != BREAKWALL_STATE_DESTROYED)
+				{*/
+					//e->SetState(BREAKWALL_STATE_DESTROYED);
 					e->SetDestroy(true);
-					e->SetFall(true);
-					/*e->effect->SetState(EFFECT);
-					e->effect->SetPosition(e->x, e->y);*/
-				}
+				//}
 			}
 		}
 	}

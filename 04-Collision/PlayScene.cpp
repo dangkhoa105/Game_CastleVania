@@ -15,7 +15,7 @@ void CPlayScene::LoadResource()
 	this->objects = this->pMapObjects.at(this->currentScene->objCollectId);
 
 	simon = new CSimon();
-	simon->SetPosition(164, 0);
+	simon->SetPosition(this->currentScene->simonX, this->currentScene->simonY);
 }
 
 void CPlayScene::LoadMap()
@@ -73,10 +73,20 @@ void CPlayScene::LoadMap()
 				const int id = std::atoi(grand->first_attribute("id")->value());
 				const int mapID = std::atoi(grand->first_attribute("mapId")->value());
 				const int objCollectId = std::atoi(grand->first_attribute("objcollectid")->value());
+				const int simonX = std::atoi(grand->first_attribute("simonX")->value());
+				const int simonY = std::atoi(grand->first_attribute("simonY")->value());
+				const int camX = std::atoi(grand->first_attribute("camX")->value());
+				const int camY = std::atoi(grand->first_attribute("camY")->value());
+				const int stateSimon = std::atoi(grand->first_attribute("state")->value());
 				CPScene* pScene = new CPScene();
 				pScene->id = id;
 				pScene->mapId = mapID;
 				pScene->objCollectId = objCollectId;
+				pScene->simonX = simonX;
+				pScene->simonY = simonY;
+				pScene->camX = camY;
+				pScene->camY = camY;
+				pScene->stateSimon = stateSimon;
 
 				pScenes.insert(std::make_pair(id, pScene));
 			}
@@ -97,6 +107,7 @@ void CPlayScene::LoadObject()
 	doc.parse<0>(xmlFile.data());
 	xml_node<>* rootNode = doc.first_node("objectsCollection");
 	int objCollectId = 0;
+
 	for (xml_node<>* child = rootNode->first_node(); child; child = child->next_sibling()) //cú pháp lập
 	{
 		const std::string childPath = std::string(child->first_attribute("path")->value());
@@ -125,7 +136,7 @@ void CPlayScene::LoadObject()
 					_object->push_back(brick);
 				}
 			}
-			if (nodeName == "candles")
+			else if (nodeName == "candles")
 			{
 				for (xml_node<>* grand = oChild->first_node(); grand; grand = grand->next_sibling()) //cú pháp lập
 				{
@@ -140,7 +151,7 @@ void CPlayScene::LoadObject()
 					_object->push_back(candle);
 				}
 			}
-			if (nodeName == "entrace")
+			else if (nodeName == "entrace")
 			{
 				CEntrace* entrace = new CEntrace();
 				const int x = std::atoi(oChild->first_attribute("x")->value());
@@ -148,7 +159,7 @@ void CPlayScene::LoadObject()
 				entrace->SetPosition(x, y);
 				_object->push_back(entrace);
 			}
-			if (nodeName == "changeScene")
+			else if (nodeName == "changeScene")
 			{
 				CChangeScene* changeScene = new CChangeScene();
 				const int x = std::atoi(oChild->first_attribute("x")->value());
@@ -158,7 +169,7 @@ void CPlayScene::LoadObject()
 				changeScene->SetIdNextScene(idChangeScene);
 				_object->push_back(changeScene);
 			}
-			if (nodeName == "moneyBagTrigger")
+			else if (nodeName == "moneyBagTrigger")
 			{
 				CMoneyBagTrigger* moneyBagTrigger = new CMoneyBagTrigger();
 				const int x = std::atoi(oChild->first_attribute("x")->value());
@@ -166,7 +177,15 @@ void CPlayScene::LoadObject()
 				moneyBagTrigger->SetPosition(x, y);
 				_object->push_back(moneyBagTrigger);
 			}
-			if (nodeName == "wall")
+			else if (nodeName == "breakWallTrigger")
+			{
+				CBreakWallTrigger* breakWallTrigger = new CBreakWallTrigger();
+				const int x = std::atoi(oChild->first_attribute("x")->value());
+				const int y = std::atoi(oChild->first_attribute("y")->value());
+				breakWallTrigger->SetPosition(x, y);
+				_object->push_back(breakWallTrigger);
+			}
+			else if (nodeName == "wall")
 			{
 				wall = new CWall();
 				const int x = std::atoi(oChild->first_attribute("x")->value());
@@ -174,7 +193,7 @@ void CPlayScene::LoadObject()
 				wall->SetPosition(x, y);
 				_object->push_back(wall);
 			}
-			if (nodeName == "stairs")
+			else if (nodeName == "stairs")
 			{
 				for (xml_node<>* grand = oChild->first_node(); grand; grand = grand->next_sibling()) //cú pháp lập
 				{
@@ -187,7 +206,7 @@ void CPlayScene::LoadObject()
 					_object->push_back(stair);
 				}
 			}
-			if (nodeName == "bridge")
+			else if (nodeName == "bridge")
 			{
 				CBridge* bridge = new CBridge();
 				const int x = std::atoi(oChild->first_attribute("x")->value());
@@ -198,7 +217,18 @@ void CPlayScene::LoadObject()
 				bridge->SetReturnPosition(beginPositionX, lastPositionX);
 				_object->push_back(bridge);
 			}
-			if (nodeName == "enemies")
+			else if (nodeName == "breakWalls")
+			{
+				for (xml_node<>* grand = oChild->first_node(); grand; grand = grand->next_sibling()) //cú pháp lập
+				{
+					CBreakWall* breakWall = new CBreakWall();
+					const int x = std::atoi(grand->first_attribute("x")->value());
+					const int y = std::atoi(grand->first_attribute("y")->value());
+					breakWall->SetPosition(x, y);
+					_object->push_back(breakWall);
+				}
+			}
+			else if (nodeName == "enemies")
 			{
 				for (xml_node<>* grand = oChild->first_node(); grand; grand = grand->next_sibling()) //cú pháp lập
 				{
@@ -279,7 +309,7 @@ void CPlayScene::Update(DWORD dt)
 
 	UpdateCam();
 
-	Unload();	
+	Unload();
 }
 
 void CPlayScene::Render()
@@ -297,7 +327,7 @@ void CPlayScene::Render()
 		objects->at(i)->Render();
 	}
 
-	simon->Render();	
+	simon->Render();
 
 	if (simon->GetState() == SIMON_STATE_AUTO_WALKING)
 		wall->Render();
@@ -400,7 +430,7 @@ void CPlayScene::UpdateItem()
 			if (f->IsDestroy())
 			{
 				float x, y;
-				f->GetPosition(x, y);				
+				f->GetPosition(x, y);
 				auto effect = new CEffect();
 				effect->SetPosition(x, y);
 				effect->SetState(EFFECT_STATE_CANDLE);
@@ -418,6 +448,42 @@ void CPlayScene::UpdateItem()
 				objects->push_back(moneyBag);
 			}
 		}
+		if (dynamic_cast<CBreakWallTrigger*>(objects->at(i)))
+		{
+			auto f = dynamic_cast<CBreakWallTrigger*>(objects->at(i));
+			if (f->IsDestroy())
+			{
+				auto crown = new CItem();
+				crown->SetId(ID_ICROWN);
+				crown->SetPosition(256, 270);
+				objects->push_back(crown);
+			}
+		}
+		if (dynamic_cast<CBreakWall*>(objects->at(i)))
+		{
+			auto f = dynamic_cast<CBreakWall*>(objects->at(i));
+
+			if (f->IsDestroy())
+			{
+				auto black = new CEffect();
+				black->SetState(EFFECT_STATE_BREAKWALL_DESTROYED);
+				black->SetPosition(f->x, f->y);
+				objects->push_back(black);
+
+				for (size_t i = 0; i < 4; i++)
+				{
+					auto derbir = new CEffect();
+					derbir->SetState(EFFECT_STATE_BREAKWALL);
+					derbir->SetPosition(f->x, f->y);
+					float vx = (float)(-100 + rand() % 200) / 1000;
+					float vy = (float)(-100 + rand() % 200) / 1000;
+					derbir->vx = vx;
+					derbir->vy = vy;
+					objects->push_back(derbir);
+				}
+				
+			}
+		}
 	}
 }
 
@@ -427,37 +493,13 @@ void CPlayScene::UpdateScene()
 	{
 		SwitchScene(simon->idChangeScene);
 		this->tilemap = this->tileMaps.Get(this->currentScene->mapId);
-		//changeScene->SetIsChangeScene(false);
-		if (simon->idChangeScene == 0)
-		{
-			simon->SetState(SIMON_STATE_IDLE);
-			simon->SetPosition(100, 200);
-			CGame::GetInstance()->SetCamPos(0, 0);
-		}
-		else if (simon->idChangeScene == 1)
-		{
-			simon->SetState(SIMON_STATE_IDLE);
-			simon->SetPosition(32, 288);
-			CGame::GetInstance()->SetCamPos(0, 0);
-		}
-		else if (simon->idChangeScene == 2)
-		{
-			simon->SetState(SIMON_STATE_STAIR_UP_IDLE);
-			simon->SetPosition(738, 322);
-			simon->lastStepOnStairPos = {738, 322};
-			CGame::GetInstance()->SetCamPos(512, 0);
-		}
-		else if (simon->idChangeScene == 3)
-		{
-			simon->SetState(SIMON_STATE_STAIR_DOWN_IDLE);
-			simon->SetPosition(224, 64);
-			simon->lastStepOnStairPos = { 224, 64 };
-			CGame::GetInstance()->SetCamPos(0, 0);
-		}
-		simon->idChangeScene = -1;		
+		simon->SetState(currentScene->stateSimon);
+		simon->SetPosition(currentScene->simonX, currentScene->simonY);
+		CGame::GetInstance()->SetCamPos(currentScene->camX, currentScene->camY);
+		simon->lastStepOnStairPos = { float(currentScene->simonX), float(currentScene->simonY) };	
+		simon->idChangeScene = -1;
 
 		this->objects = this->pMapObjects.at(this->currentScene->objCollectId);
-		//CGame::GetInstance()->SetCamPos(0, 0);
 	}
 }
 
@@ -465,14 +507,15 @@ void CPlayScene::KeyState(BYTE* states)
 {
 	int counter = 0;
 	CGame* game = CGame::GetInstance();
-	if ((simon->GetState() == SIMON_STATE_JUMP || simon->GetState() == SIMON_STATE_IDLE) && simon->isGround == false)
+	if ((simon->GetState() == SIMON_STATE_IDLE || simon->GetState() == SIMON_STATE_HURT) && simon->isGround == false)
 		return;
-	
-	if (simon->CheckAutoWalk()) {
-		return;
-	}
 
-	
+	if (simon->CheckAutoWalk())
+		return;
+
+	if (simon->GetState() == SIMON_STATE_JUMP)
+		return;
+
 
 	//simon->GetUpgradeTime() tương đương  simon->GetUpgradeTime()!=0
 	if (simon->GetUpgradeTime() && GetTickCount() - simon->GetUpgradeTime() > SIMON_UPGRADE_TIME)
@@ -488,14 +531,14 @@ void CPlayScene::KeyState(BYTE* states)
 				simon->SetState(SIMON_STATE_ATTACK_STAIR_UP);
 				simon->SetState(SIMON_STATE_STAIR_UP_IDLE);
 			}
-				
+
 			else if (simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNLEFT || simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNRIGHT) {
 				simon->SetState(SIMON_STATE_ATTACK_STAIR_DOWN);
 				simon->SetState(SIMON_STATE_STAIR_DOWN_IDLE);
 			}
-				
+
 		}
-		else 
+		else
 			simon->SetState(SIMON_STATE_IDLE);
 
 		simon->ResetAttack();
@@ -533,8 +576,8 @@ void CPlayScene::KeyState(BYTE* states)
 		if (simon->GetState() == SIMON_STATE_STAIR_UP_IDLE) {
 			if (simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPRIGHT)
 			{
-			
-			
+
+
 				simon->SetOnStairDirection(STAIRDIRECTION::DOWNLEFT);
 			}
 			else if (simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPLEFT)
@@ -577,7 +620,7 @@ void CPlayScene::OnKeyDown(int KeyCode)
 {
 	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 
-	if (simon->GetState() == SIMON_STATE_ITEM || simon->GetState() == SIMON_STATE_AUTO_WALKING)
+	if (simon->GetState() == SIMON_STATE_ITEM || simon->GetState() == SIMON_STATE_AUTO_WALKING || simon->GetState() == SIMON_STATE_HURT)
 		return;
 
 	/*if (GetTickCount() - simon->GetEntraceTime() > SIMON_ATTACK_TIME)
@@ -587,12 +630,13 @@ void CPlayScene::OnKeyDown(int KeyCode)
 		return;
 
 	if (KeyCode == DIK_SPACE) {
-		if (simon->isGround == false || simon->IsHitting() == true || simon->CheckIsOnStair() || simon->CheckStartOnStair()) return;
+		if (simon->GetState() == SIMON_STATE_SIT || simon->isGround == false || simon->IsHitting() == true || simon->CheckIsOnStair() || simon->CheckStartOnStair()) return;
 		simon->SetState(SIMON_STATE_JUMP);
 	}
 	else if (KeyCode == DIK_Z) {
 		if (simon->GetAttackTime() == 0)
 		{
+			simon->whip->fight = true;
 			simon->isKnife = false;
 			if (simon->CheckIsOnStair()) {
 				if (simon->GetState() == SIMON_STATE_STAIR_UP_IDLE &&
@@ -625,7 +669,7 @@ void CPlayScene::OnKeyDown(int KeyCode)
 			else {
 				if (simon->GetState() == SIMON_STATE_SIT) simon->SetState(SIMON_STATE_SIT_ATTACK);
 				else simon->SetState(SIMON_STATE_STAND_ATTACK);
-			}			
+			}
 		}
 	}
 }

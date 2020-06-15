@@ -147,6 +147,9 @@
     <ClInclude Include="BreakWall.h">
       <Filter>Source Files\Objects Collection\Static Object</Filter>
     </ClInclude>
+    <ClInclude Include="BreakWallTrigger.h">
+      <Filter>Source Files\Objects Collection\Static Object\Hidden</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -241,6 +244,9 @@
     </ClCompile>
     <ClCompile Include="BreakWall.cpp">
       <Filter>Source Files\Objects Collection\Static Object</Filter>
+    </ClCompile>
+    <ClCompile Include="BreakWallTrigger.cpp">
+      <Filter>Source Files\Objects Collection\Static Object\Hidden</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

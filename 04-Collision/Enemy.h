@@ -6,6 +6,7 @@
 class CEnemy : public CGameObject
 {	
 public:
+	int hp;
 	bool isSpawn;
 	int spawnTime;
 	bool isReSpawn;
@@ -18,6 +19,15 @@ public:
 
 	int bboxEnemyActiveWidth;
 	int bboxEnemyActiveHeight;
+
+	void TakeDamage(int damage) 
+	{ 
+		hp = hp - damage;
+		if (hp<0)
+		{
+			hp = 0;
+		}
+	}
 
 	D3DXVECTOR2 initPosition; //vị trí ban đầu
 

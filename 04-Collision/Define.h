@@ -80,6 +80,7 @@
 
 #define SPEAR_GUARD_STATE_DIE			0
 #define SPEAR_GUARD_STATE_WALKING		1
+#define SPEAR_GUARD_CHASE_SIMON         2
 
 // BAT
 #define BAT_FLYING_SPEED_X				0.15f
@@ -93,9 +94,17 @@
 #define BAT_STATE_FLYING				1
 #pragma endregion
 
-#pragma region BRICK
-#define BRICK_BBOX_WIDTH				32
-#define BRICK_BBOX_HEIGHT				32
+#pragma region BREAK WALL
+#define BREAKWALL_BREAKING_GRAVITY		0.0005f
+
+#define BREAKWALL_BBOX_WIDTH			32
+#define BREAKWALL_BBOX_HEIGHT			32
+
+#define BREAKWALLTRIGGER_BBOX_WIDTH		30
+#define BREAKWALLTRIGGER_BBOX_HEIGHT	8
+
+#define BREAKWALL_STATE_IDLE			0
+#define BREAKWALL_STATE_DESTROYED		1
 #pragma endregion
 
 #pragma region CHANGE SCENE
@@ -170,6 +179,7 @@
 #define ID_IKNIFE						4
 #define ID_IMONEYBAG					5
 #define ID_IBOOMERANG					6
+#define ID_ICROWN						7
 
 // Heart
 #define IHEART_BBOX_WIDTH				16
@@ -190,7 +200,11 @@
 #define IMONEYBAG_BBOX_WIDTH			31
 #define IMONEYBAG_BBOX_HEIGHT			30
 
-// Axe
+// Boomerang
 #define IBOOMERANG_BBOX_WIDTH			28
 #define IBOOMERANG_BBOX_HEIGHT			28
+
+// Crown
+#define ICROWN_BBOX_WIDTH				31
+#define ICROWN_BBOX_HEIGHT				31
 #pragma endregion

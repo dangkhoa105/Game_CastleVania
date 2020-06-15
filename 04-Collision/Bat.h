@@ -9,6 +9,7 @@ class CBat : public CEnemy
 public:
 	CBat()
 	{
+		hp = 1;
 		AddAnimation("bat_ani_idle");
 		AddAnimation("bat_ani_flying");
 		reSpawnTime = 3000;

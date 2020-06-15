@@ -7,10 +7,13 @@ class CSpearGuard : public CEnemy
 {	
 	int beginPositionX;
 	int lastPositionX;
+
+	RECT activeBox;
 public:
 	CSpearGuard()
 	{
 		AddAnimation("spear_guard_ani");	
+		hp = 2;
 		this->SetState(SPEAR_GUARD_STATE_WALKING);
 	}
 
