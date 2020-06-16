@@ -6,6 +6,7 @@
 class CEnemy : public CGameObject
 {	
 public:
+	int idEnemy;
 	int hp;
 	bool isSpawn;
 	int spawnTime;

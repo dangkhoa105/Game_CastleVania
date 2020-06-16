@@ -10,7 +10,7 @@ class CWhip : public CGameObject
 	DWORD untouchable_start;
 	DWORD timeDelete;
 	int untouchable;
-	int damage=1;
+	int damage = 1;
 
 public:
 	bool fight;

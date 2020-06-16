@@ -150,6 +150,9 @@
     <ClInclude Include="BreakWallTrigger.h">
       <Filter>Source Files\Objects Collection\Static Object\Hidden</Filter>
     </ClInclude>
+    <ClInclude Include="Ghost.h">
+      <Filter>Source Files\Objects Collection\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -247,6 +250,9 @@
     </ClCompile>
     <ClCompile Include="BreakWallTrigger.cpp">
       <Filter>Source Files\Objects Collection\Static Object\Hidden</Filter>
+    </ClCompile>
+    <ClCompile Include="Ghost.cpp">
+      <Filter>Source Files\Objects Collection\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

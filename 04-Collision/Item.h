@@ -16,6 +16,7 @@ public:
 		AddAnimation("item_knife");
 		AddAnimation("item_boomerang");
 		AddAnimation("item_crown");
+		AddAnimation("item_double_shot");
 	}
 	int GetId() { return idItem; }
 	void SetId(int id) { this->idItem = id; }

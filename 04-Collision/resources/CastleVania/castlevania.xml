@@ -118,6 +118,10 @@
   <sprite n="bat_fly_2" l="64" t="22" r="96" b="50"/>
   <sprite n="bat_fly_3" l="96" t="22" r="128" b="50"/>
 
+  <!--ghost-->
+  <sprite n="ghost_fly_1" l="1062" t="92" r="1090" b="122"/>
+  <sprite n="ghost_fly_2" l="1091" t="92" r="1119" b="122"/>
+
   <!--effect-->
   <sprite n="effect_1" l="483" t="580" r="525" b="624"/>
   <sprite n="effect_2" l="525" t="580" r="567" b="624"/>
@@ -144,6 +148,9 @@
   <!--item crown-->
   <sprite n="item_crown_yellow" l="287" t="118" r="316" b="149"/>
   <sprite n="item_crown_red" l="317" t="118" r="346" b="149"/>
+
+  <!--item double shot-->
+  <sprite n="item_double_shot" l="95" t="118" r="122" b="145"/>
 </textureAtlas>
 
 <animations>
@@ -310,6 +317,12 @@
     <frame spriteID="bat_fly_3" time="100"/>
   </animation>
 
+  <!--ghost-->
+  <animation ID="ghost_ani_flying" defaultTime="100">
+    <frame spriteID="ghost_fly_1" time="100"/>
+    <frame spriteID="ghost_fly_2" time="100"/>
+  </animation>
+
   <!--effect-->
   <animation ID="effect" defaultTime="100">
     <frame spriteID="effect_1" time="100"/>
@@ -357,6 +370,11 @@
     <frame spriteID="item_crown_red" time="100"/>
   </animation>
 
+  <!--item double shot-->
+  <animation ID="item_double_shot" defaultTime="100">
+    <frame spriteID="item_double_shot" time="100"/>
+  </animation>
+
   <animation ID="wall" defaultTime="100">
     <frame spriteID="wall" time="100"/>
   </animation>
@@ -375,7 +393,7 @@
     <map texId="500" id="5" tileWidth="32" tileHeight="32" mapWidth="1536" mapHeight="384" pathText="resources\Map\Map3\map3_2.txt" pathImg="resources\Map\Map3\map3_2.png"/>
   </maps>
 
-  <scenes activeID="5">
+  <scenes activeID="1">
     <!-- map 1 -->
     <scene id="0" mapId="0" objcollectid="0" simonX="100" simonY="200" camX="0" camY="0" state="0" nx="1"/>
     <!-- map 2 -->

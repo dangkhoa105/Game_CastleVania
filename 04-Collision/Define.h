@@ -72,6 +72,8 @@
 
 #pragma region ENEMY
 #define ENEMY_SPAWN_TIME				5000
+#define SPEAR_GUARD_ID					0
+#define BAT_ID							1
 // Spear Guard
 #define SPEAR_GUARD_WALKING_SPEED		0.05f
 
@@ -82,16 +84,19 @@
 #define SPEAR_GUARD_STATE_WALKING		1
 #define SPEAR_GUARD_CHASE_SIMON         2
 
-// BAT
+// Bat
 #define BAT_FLYING_SPEED_X				0.15f
 #define BAT_FLYING_SPEED_Y				0.02f
 #define BAT_DROP						30
 
-#define BAT_BBOX_WIDTH					32
-#define BAT_BBOX_HEIGTH					32
-
 #define BAT_STATE_IDLE					0
 #define BAT_STATE_FLYING				1
+
+// Ghost
+#define GHOST_FLYING_SPEED_X			0.05f
+
+#define GHOST_STATE_IDLE				0
+#define GHOST_STATE_FLYING				1
 #pragma endregion
 
 #pragma region BREAK WALL
@@ -180,6 +185,7 @@
 #define ID_IMONEYBAG					5
 #define ID_IBOOMERANG					6
 #define ID_ICROWN						7
+#define ID_IDOUBLESHOT					8
 
 // Heart
 #define IHEART_BBOX_WIDTH				16
@@ -207,4 +213,8 @@
 // Crown
 #define ICROWN_BBOX_WIDTH				31
 #define ICROWN_BBOX_HEIGHT				31
+
+// Double Shot
+#define IDOUBLESHOT_BBOX_WIDTH			27
+#define IDOUBLESHOT_BBOX_HEIGHT			27
 #pragma endregion

@@ -2,7 +2,7 @@
   <bricks>
     <brick x="960" y="160" widthbbox="32" heightbbox="32"/>
     <brick x="928" y="222" widthbbox="32" heightbbox="32"/>
-    <brick x="704" y="160" widthbbox="192" heightbbox="32"/>
+    <brick x="736" y="160" widthbbox="160" heightbbox="32"/>
     <brick x="704" y="190" widthbbox="32" heightbbox="96"/>
     <brick x="640" y="286" widthbbox="64" heightbbox="32"/>
     <brick x="576" y="222" widthbbox="64" heightbbox="32"/>
@@ -18,7 +18,7 @@
     <candle x="664" y="16" itemId="2" state="1"/>
     <candle x="536" y="16" itemId="2" state="1"/>
     <candle x="408" y="16" itemId="2" state="1"/>
-    <candle x="230" y="16" itemId="5" state="1"/>
+    <candle x="280" y="16" itemId="5" state="1"/>
     <candle x="152" y="16" itemId="2" state="1"/>
   </candles>
 
@@ -26,13 +26,18 @@
     <stair x="912" y="158" stairDirection="4"/>  
   </stairs>
 
+  <breakWalls>
+    <breakWall x="704" y="160"/>
+  </breakWalls>
+
   <bridge x="65" y="160" beginPositionX="65" lastPositionX="127"/>
 
   <enemies>
     <spearGuards>
-      <spearGuard x="640" y="222" beginPositionX="642" lastPositionX="670"/>
-      <spearGuard x="196" y="94" beginPositionX="198" lastPositionX="294"/>
+      <spearGuard x="640" y="222" beginPositionX="642" lastPositionX="670" bboxEnemyWidth="32" bboxEnemyHeight="64"/>
+      <spearGuard x="196" y="94" beginPositionX="198" lastPositionX="294" bboxEnemyWidth="32" bboxEnemyHeight="64"/>
     </spearGuards>
+
     <bat x="608" y="16" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="256" bboxEnemyActiveHeight="96"/>
   </enemies>
 

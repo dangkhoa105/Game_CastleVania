@@ -9,16 +9,16 @@ void CSpearGuard::GetBoundingBox(float& left, float& top, float& right, float& b
 {
 	left = x;
 	top = y;
-	right = x + SPEAR_GUARD_BBOX_WIDTH;
-	bottom = y + SPEAR_GUARD_BBOX_HEIGTH;
+	right = x + bboxEnemyWidth;
+	bottom = y + bboxEnemyHeight;
 }
 
 void CSpearGuard::GetBoundingBoxActive(float& left, float& top, float& right, float& bottom)
 {
-	left = (x+ SPEAR_GUARD_BBOX_WIDTH/2)-100;
+	left = (x + bboxEnemyWidth / 2) - 70;
 	top = y;
-	right = (x + SPEAR_GUARD_BBOX_WIDTH / 2)+100;
-	bottom = y + SPEAR_GUARD_BBOX_HEIGTH;
+	right = (x + bboxEnemyWidth / 2) + 70;
+	bottom = y + bboxEnemyHeight;
 }
 
 void CSpearGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -28,9 +28,6 @@ void CSpearGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
-
-
-
 	coEvents.clear();
 	CalcPotentialCollisions(coObjects, coEvents);
 	//
@@ -38,8 +35,6 @@ void CSpearGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// 
 	if (nx == 1) vx = SPEAR_GUARD_WALKING_SPEED;
 	else if (nx == -1) vx = -SPEAR_GUARD_WALKING_SPEED;
-
-	
 	
 	float l, t, r, b;
 	this->GetBoundingBoxActive(l, t, r, b);
@@ -76,10 +71,11 @@ void CSpearGuard::Render()
 	if (state == SPEAR_GUARD_STATE_WALKING)
 		animations["spear_guard_ani"]->Render(-nx, x, y);
 
-	float l, t, r, b;
-	this->GetBoundingBoxActive(l, t, r, b);
+	/*float l, t, r, b;
+	this->GetBoundingBoxActive(l, t, r, b);*/
 
-	RenderBoundingBox(RECT{(long)l,(long)t,(long)r,(long)b});
+	//RenderBoundingBox(RECT{(long)l,(long)t,(long)r,(long)b});
+	RenderBoundingBox();
 }
 
 void CSpearGuard::SetState(int state)

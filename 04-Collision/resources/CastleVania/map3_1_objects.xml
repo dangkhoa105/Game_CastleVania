@@ -7,11 +7,31 @@
     <brick x="64" y="256" widthbbox="64" heightbbox="32"/>
     <brick x="192" y="192" widthbbox="192" heightbbox="32"/>
     <brick x="32" y="160" widthbbox="32" heightbbox="96"/>
-    <brick x="577" y="257" widthbbox="64" heightbbox="32"/>
-    <brick x="833" y="257" widthbbox="64" heightbbox="32"/>
+    <brick x="577" y="256" widthbbox="64" heightbbox="32"/>
+    <brick x="833" y="256" widthbbox="64" heightbbox="32"/>
   </bricks> 
+
+  <candles>
+    <candle x="1460" y="256" itemId="5" state="1"/>
+    <candle x="1332" y="289" itemId="2" state="1"/>
+    <candle x="1204" y="289" itemId="2" state="1"/>
+    <candle x="1076" y="289" itemId="2" state="1"/>
+    <candle x="948" y="289" itemId="2" state="1"/>
+    <candle x="820" y="289" itemId="2" state="1"/>
+    <candle x="692" y="289" itemId="2" state="1"/>
+    <candle x="564" y="289" itemId="2" state="1"/>
+    <candle x="436" y="289" itemId="2" state="1"/>
+    <candle x="192" y="256" itemId="2" state="1"/>
+    <candle x="320" y="128" itemId="1" state="1"/>
+  </candles>
 
   <stairs>
     <stair x="304" y="188" stairDirection="2"/>  
   </stairs>
+
+  <!-- <enemies>
+    <ghost x="1312" y="288" bboxEnemyWidth="30" bboxEnemyHeight="30" bboxEnemyActiveWidth="32" bboxEnemyActiveHeight="64"/>
+  </enemies> -->
+
+  <changeScene x="192" y="0" idChangeScene="5"/>
 </objects>

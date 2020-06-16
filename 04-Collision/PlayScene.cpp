@@ -244,8 +244,11 @@ void CPlayScene::LoadObject()
 							const int y = std::atoi(oGrand->first_attribute("y")->value());
 							const int beginPositionX = std::atoi(oGrand->first_attribute("beginPositionX")->value());
 							const int lastPositionX = std::atoi(oGrand->first_attribute("lastPositionX")->value());
+							const int bboxEnemyWidth = std::atoi(oGrand->first_attribute("bboxEnemyWidth")->value());
+							const int bboxEnemyHeight = std::atoi(oGrand->first_attribute("bboxEnemyHeight")->value());
 							spearGuard->SetPosition(x, y);
 							spearGuard->SetReturnPosition(beginPositionX, lastPositionX);
+							spearGuard->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
 							_object->push_back(spearGuard);
 						}
 					}
@@ -413,6 +416,13 @@ void CPlayScene::UpdateItem()
 						boomerang->SetPosition(x, y);
 						objects->push_back(boomerang);
 					}
+					if (f->GetItem() == ID_IMONEYBAG)
+					{
+						auto moneybag = new CItem();
+						moneybag->SetId(ID_IMONEYBAG);
+						moneybag->SetPosition(x, y);
+						objects->push_back(moneybag);
+					}
 				}
 				auto effect = new CEffect();
 				effect->SetPosition(x, y);
@@ -462,23 +472,44 @@ void CPlayScene::UpdateItem()
 
 			if (f->IsDestroy())
 			{
-				auto black = new CEffect();
-				black->SetState(EFFECT_STATE_BREAKWALL_DESTROYED);
-				black->SetPosition(f->x, f->y);
-				objects->push_back(black);
-
-				for (size_t i = 0; i < 4; i++)
+				if (currentScene->mapId == 1)
 				{
-					auto derbir = new CEffect();
-					derbir->SetState(EFFECT_STATE_BREAKWALL);
-					derbir->SetPosition(f->x, f->y);
-					float vx = (float)(-100 + rand() % 200) / 1000;
-					float vy = (float)(-100 + rand() % 200) / 1000;
-					derbir->vx = vx;
-					derbir->vy = vy;
-					objects->push_back(derbir);
+					auto black = new CEffect();
+					black->SetState(EFFECT_STATE_BREAKWALL_DESTROYED);
+					black->SetPosition(f->x, f->y);
+					objects->push_back(black);
+
+					for (size_t i = 0; i < 4; i++)
+					{
+						auto derbir = new CEffect();
+						derbir->SetState(EFFECT_STATE_BREAKWALL);
+						derbir->SetPosition(f->x, f->y);
+						float vx = (float)(-100 + rand() % 200) / 1000;
+						float vy = (float)(-100 + rand() % 200) / 1000;
+						derbir->vx = vx;
+						derbir->vy = vy;
+						objects->push_back(derbir);
+					}
 				}
-				
+				else if (currentScene->mapId == 2)
+				{
+					for (size_t i = 0; i < 4; i++)
+					{
+						auto derbir = new CEffect();
+						derbir->SetState(EFFECT_STATE_BREAKWALL);
+						derbir->SetPosition(f->x, f->y);
+						float vx = (float)(-100 + rand() % 200) / 1000;
+						float vy = (float)(-100 + rand() % 200) / 1000;
+						derbir->vx = vx;
+						derbir->vy = vy;
+						objects->push_back(derbir);
+					}
+
+					auto doubleShot = new CItem();
+					doubleShot->SetId(ID_IDOUBLESHOT);
+					doubleShot->SetPosition(f->x, f->y);
+					objects->push_back(doubleShot);
+				}
 			}
 		}
 	}
@@ -493,7 +524,7 @@ void CPlayScene::UpdateScene()
 		simon->SetState(currentScene->stateSimon);
 		simon->SetPosition(currentScene->simonX, currentScene->simonY);		
 		simon->lastStepOnStairPos = { float(currentScene->simonX), float(currentScene->simonY) };	
-		simon->nx = currentScene->nx;
+		simon->SetNx(currentScene->nx);
 		//CGame::GetInstance()->SetCamPos(currentScene->camX - SCREEN_WIDTH, currentScene->camY);
 		//if (simon->nx == 1)
 			CGame::GetInstance()->SetCamPos(currentScene->camX, currentScene->camY);
@@ -528,6 +559,7 @@ void CPlayScene::KeyState(BYTE* states)
 
 	if (simon->GetAttackTime() && GetTickCount() - simon->GetAttackTime() > SIMON_ATTACK_TIME)
 	{
+	
 		if (simon->CheckIsOnStair()) {
 			if (simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPLEFT || simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPRIGHT) {
 				simon->SetState(SIMON_STATE_ATTACK_STAIR_UP);
@@ -550,7 +582,7 @@ void CPlayScene::KeyState(BYTE* states)
 	if (simon->GetAttackTime() || simon->GetUpgradeTime())
 		return;
 
-	if (simon->GetState() == SIMON_STATE_ITEM || simon->GetState() == SIMON_STATE_DIE || simon->GetState() == SIMON_STATE_AUTO_WALKING)
+	if (simon->GetState() == SIMON_STATE_ITEM || simon->GetState() == SIMON_STATE_AUTO_WALKING)
 		return;
 
 	if (game->IsKeyDown(DIK_UP)) {
@@ -596,6 +628,7 @@ void CPlayScene::KeyState(BYTE* states)
 
 				simon->SetStartOnStair();
 			}
+		
 			return;
 		}
 	}
@@ -611,7 +644,11 @@ void CPlayScene::KeyState(BYTE* states)
 	}
 	else if (game->IsKeyDown(DIK_DOWN)) {
 		if (simon->isGround == true)
+		{
 			simon->SetState(SIMON_STATE_SIT);
+			DebugOut(L"sitting \n");
+		}
+			
 	}
 	else {
 		simon->SetState(SIMON_STATE_IDLE);
@@ -625,19 +662,23 @@ void CPlayScene::OnKeyDown(int KeyCode)
 	if (simon->GetState() == SIMON_STATE_ITEM || simon->GetState() == SIMON_STATE_AUTO_WALKING || simon->GetState() == SIMON_STATE_HURT)
 		return;
 
-	/*if (GetTickCount() - simon->GetEntraceTime() > SIMON_ATTACK_TIME)
-		return;*/
-
 	if (simon->GetAttackTime())
 		return;
 
 	if (KeyCode == DIK_SPACE) {
-		if (simon->GetState() == SIMON_STATE_SIT || simon->isGround == false || simon->IsHitting() == true || simon->CheckIsOnStair() || simon->CheckStartOnStair()) return;
+		DebugOut(L"space \n");
+		if (!simon->isGround||
+			!simon->IsHitting() == true &&
+			!simon->CheckIsOnStair() &&
+			!simon->CheckStartOnStair() && 
+			simon->GetState()== SIMON_STATE_JUMP)
+			return;
 		simon->SetState(SIMON_STATE_JUMP);
+		DebugOut(L"2 \n");
 	}
-	else if (KeyCode == DIK_Z) {
+	else if (KeyCode == DIK_Z) {		
 		if (simon->GetAttackTime() == 0)
-		{
+		{			
 			simon->whip->fight = true;
 			simon->isKnife = false;
 			if (simon->CheckIsOnStair()) {
@@ -652,6 +693,7 @@ void CPlayScene::OnKeyDown(int KeyCode)
 				if (simon->GetState() == SIMON_STATE_SIT) simon->SetState(SIMON_STATE_SIT_ATTACK);
 				else simon->SetState(SIMON_STATE_STAND_ATTACK);
 			}
+			DebugOut(L"3 \n");
 		}
 	}
 	else if (KeyCode == DIK_C) {

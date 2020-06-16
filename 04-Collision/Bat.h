@@ -3,9 +3,14 @@
 #include "Define.h"
 #include "ReadResourceFile.h"
 
+
+
+#define bat_velocity 0.2f;
 class CBat : public CEnemy
 {
 	float drop; 
+	DWORD attack_start = 0;
+	float  time_x = 0;
 public:
 	CBat()
 	{

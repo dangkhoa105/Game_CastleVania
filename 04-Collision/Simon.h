@@ -31,6 +31,8 @@ class CSimon : public CGameObject
 	DWORD update_start;
 	DWORD attack_start;
 
+	bool colBrickSweptAABB;
+
 public:
 	bool isGround = false;	
 	bool isComplete = false;

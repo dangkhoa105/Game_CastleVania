@@ -61,7 +61,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 
 
-
+	bool colSweptAABBNY=false;
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
 	{
@@ -80,14 +80,16 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 
-			if (dynamic_cast<CBrick*>(e->obj)) // if e->obj is Brick 
+			if (dynamic_cast<CBrick*>(e->obj) || dynamic_cast<CBreakWall*>(e->obj)) // if e->obj is Brick 
 			{
 				if (e->ny == -1)
 				{
+					colBrickSweptAABB = false;
 					if (state == SIMON_STATE_JUMP)
 					{
 						SetState(SIMON_STATE_IDLE);
 					}
+					
 					if (this->isOnStair) {
 						x += dx;
 						y += dy;
@@ -95,7 +97,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					else if (this->state == SIMON_STATE_HURT)
 					{
 						this->state = SIMON_STATE_IDLE;
-
 					}
 					else
 					{
@@ -111,6 +112,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					if (ny != 0) vy = 0;
 				}
 				else if (e->ny > 0 && this->vy < 0) {
+					colBrickSweptAABB = true;
 					y += dy;
 					if (nx != 0) vx = 0;
 				}
@@ -190,6 +192,9 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						this->SetState(SIMON_STATE_ITEM);
 						break;
 					case ID_ICROWN:
+						this->SetState(SIMON_STATE_ITEM);
+						break;
+					case ID_IDOUBLESHOT:
 						this->SetState(SIMON_STATE_ITEM);
 						break;
 					default:
@@ -313,6 +318,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	bool colGround = false;
+
 	// Xử lý va chạm AABB, cho 2 object trùng nhau
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
@@ -338,10 +344,16 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					this->level += 1;
 					this->whip->SetLevel(level);
 					break;
+				case ID_IMONEYBAG:
+					this->SetState(SIMON_STATE_ITEM);
+					break;
 				case ID_IBOOMERANG:
 					this->SetState(SIMON_STATE_ITEM);
 					break;
 				case ID_ICROWN:
+					this->SetState(SIMON_STATE_ITEM);
+					break;
+				case ID_IDOUBLESHOT:
 					this->SetState(SIMON_STATE_ITEM);
 					break;
 				default:
@@ -389,15 +401,35 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			f->GetBoundingBoxActive(ml, mt, mr, mb);
 			if (CGame::AABB(ml, mt, mr, mb, sl, st, sr, sb) == true)
 			{
-				if (f->x < this->x)
+				if (untouchable != 1)
 				{
-					f->nx = 1;
-					f->vx = SPEAR_GUARD_WALKING_SPEED * 1.5f;
+					if (f->x < this->x)
+					{
+						f->nx = 1;
+						f->vx = SPEAR_GUARD_WALKING_SPEED * 1.5f;
+					}
+					else
+					{
+						f->vx = -SPEAR_GUARD_WALKING_SPEED * 1.5f;
+						f->nx = -1;
+					}
 				}
-				else
-				{
-					f->vx = -SPEAR_GUARD_WALKING_SPEED * 1.5f;
-					f->nx = -1;
+						
+			}
+			if (this->AABB(obj) == true)
+			{
+				if (untouchable_start == 0) {
+
+					if (!this->isOnStair)
+					{
+						this->SetState(SIMON_STATE_HURT);
+						x += dx;
+						y += dy;
+					}
+					if (untouchable != 1) {
+						StartUntouchable();
+						break; // không xét tiếp va chạm khi defect
+					}
 				}
 			}
 		}
@@ -415,16 +447,17 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 		}
 		if (dynamic_cast<CBrick*>(obj)) {
+			CBrick* e = dynamic_cast<CBrick*>(obj);
+
 			float l, t, r, b;
 			float ml, mt, mr, mb;
 			this->GetBoundingBox(l, t, r, b);
-			obj->GetBoundingBox(ml, mt, mr, mb);
-			mt = mt - 10;
-			if (this->GetState() == SIMON_STATE_JUMP)
-				return;
+			e->GetBoundingBox(ml, mt, mr, mb);
+			mt = mt - 2;
+
 			if (CGame::AABB(l, t, r, b, ml, mt, mr, mb))
 			{
-				colGround = true;
+ 				colGround = true;
 			}
 		}
 		if (dynamic_cast<CBridge*>(obj)) {
@@ -432,7 +465,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			float ml, mt, mr, mb;
 			this->GetBoundingBox(l, t, r, b);
 			obj->GetBoundingBox(ml, mt, mr, mb);
-			mt = mt - 10;
+			mt = mt - 2;
 
 			if (CGame::AABB(l, t, r, b, ml, mt, mr, mb))
 			{
@@ -444,11 +477,14 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (colGround)
 	{
-		this->isGround = true;
+		if (!colBrickSweptAABB)
+		{
+			this->isGround = true;
+		}
 	}
 	else
 	{
-		this->isGround = false;
+		this->isGround = false;		
 	}
 
 	if (this->attack_start != 0)
@@ -552,7 +588,7 @@ void CSimon::SetState(int state)
 	case SIMON_STATE_JUMP:
 		this->whip->SetState(WHIP_STATE_IDLE);
 		this->knife->SetState(KNIFE_STATE_IDLE);
-		isGround = false;
+		
 		vy = -SIMON_JUMP_SPEED_Y;
 		break;
 	case SIMON_STATE_SIT:

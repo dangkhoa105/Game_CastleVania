@@ -87,10 +87,11 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 		break;
 	}
 
-
+	int counter = 0;
 	for (UINT i = 0; i < colliable_objects->size(); i++)
 	{
 		LPGAMEOBJECT obj = colliable_objects->at(i);
+	
 
 		if (dynamic_cast<CCandle*>(obj))
 		{
@@ -112,21 +113,21 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 			{
 				CEnemy* e = dynamic_cast<CEnemy*> (obj);
 
+				this->AABB(obj);
 				if (this->AABB(obj) == true)
 				{
 					if (!e->isDestroy)
 					{
-						e->SetFall(true);
-
 						e->TakeDamage(damage);
 						if (e->hp == 0)
 						{
 							e->SetDestroy(true);
 						}
 						DebugOut(L"Take damage \n");
+						fight = false;
 					}
 				}
-				fight = false;
+			
 			}
 		}
 		if (dynamic_cast<CBreakWall*>(obj))
