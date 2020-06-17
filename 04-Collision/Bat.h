@@ -3,14 +3,11 @@
 #include "Define.h"
 #include "ReadResourceFile.h"
 
-
-
-#define bat_velocity 0.2f;
 class CBat : public CEnemy
 {
 	float drop; 
 	DWORD attack_start = 0;
-	float  time_x = 0;
+	float time_x = 0;
 public:
 	CBat()
 	{
@@ -27,6 +24,6 @@ public:
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void GetBoundingBoxActive(float& left, float& top, float& right, float& bottom);
 	
-	void SetDrop(float drop) { this->drop = this->y; }
+	void SetDrop() { this->drop = this->y; }
 };
 

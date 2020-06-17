@@ -144,11 +144,13 @@
     <ClInclude Include="Knife.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="MoneyBagTrigger.h" />
+    <ClInclude Include="Monkey.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="PScene.h" />
     <ClInclude Include="ReadResourceFile.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Simon.h" />
+    <ClInclude Include="Skeleton.h" />
     <ClInclude Include="SpearGuard.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Stair.h" />
@@ -180,10 +182,12 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mario.cpp" />
     <ClCompile Include="MoneyBagTrigger.cpp" />
+    <ClCompile Include="Monkey.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="PScene.cpp" />
     <ClCompile Include="ReadResourceFile.cpp" />
     <ClCompile Include="Simon.cpp" />
+    <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="SpearGuard.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Stair.cpp" />

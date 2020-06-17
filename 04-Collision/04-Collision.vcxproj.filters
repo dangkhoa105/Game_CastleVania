@@ -153,6 +153,12 @@
     <ClInclude Include="Ghost.h">
       <Filter>Source Files\Objects Collection\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Monkey.h">
+      <Filter>Source Files\Objects Collection\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Skeleton.h">
+      <Filter>Source Files\Objects Collection\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -252,6 +258,12 @@
       <Filter>Source Files\Objects Collection\Static Object\Hidden</Filter>
     </ClCompile>
     <ClCompile Include="Ghost.cpp">
+      <Filter>Source Files\Objects Collection\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Monkey.cpp">
+      <Filter>Source Files\Objects Collection\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
       <Filter>Source Files\Objects Collection\Enemy</Filter>
     </ClCompile>
   </ItemGroup>

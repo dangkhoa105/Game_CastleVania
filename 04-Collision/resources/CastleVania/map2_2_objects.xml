@@ -9,7 +9,7 @@
     <brick x="384" y="160" widthbbox="192" heightbbox="32"/>
     <brick x="196" y="160" widthbbox="128" heightbbox="32"/>
     <brick x="128" y="222" widthbbox="64" heightbbox="32"/>
-    <brick x="32" y="160" widthbbox="32" heightbbox="32"/>
+    <brick x="0" y="160" widthbbox="64" heightbbox="32"/>
   </bricks> 
 
   <candles>
@@ -34,13 +34,13 @@
 
   <enemies>
     <spearGuards>
-      <spearGuard x="640" y="222" beginPositionX="642" lastPositionX="670" bboxEnemyWidth="32" bboxEnemyHeight="64"/>
-      <spearGuard x="196" y="94" beginPositionX="198" lastPositionX="294" bboxEnemyWidth="32" bboxEnemyHeight="64"/>
+      <spearGuard x="640" y="222" beginPositionX="642" lastPositionX="670" bboxEnemyWidth="32" bboxEnemyHeight="64" bboxEnemyActiveWidth="70" bboxEnemyActiveHeight="96"/>
+      <spearGuard x="196" y="94" beginPositionX="198" lastPositionX="294" bboxEnemyWidth="32" bboxEnemyHeight="64" bboxEnemyActiveWidth="70" bboxEnemyActiveHeight="96"/>
     </spearGuards>
 
     <bat x="608" y="16" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="256" bboxEnemyActiveHeight="96"/>
   </enemies>
 
   <changeScene x="768" y="384" idChangeScene="3"/>
-  <changeScene x="0" y="184" idChangeScene="4"/>
+  <changeScene x="0" y="152" idChangeScene="4"/>
 </objects>

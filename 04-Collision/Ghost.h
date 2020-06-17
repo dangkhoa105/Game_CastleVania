@@ -12,6 +12,7 @@ public:
 		AddAnimation("ghost_ani_flying");
 		this->SetState(GHOST_STATE_IDLE);
 		this->nx = -1;
+		drop = 289;
 	}
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -20,6 +21,6 @@ public:
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void GetBoundingBoxActive(float& left, float& top, float& right, float& bottom);
 
-	void SetReturnPosition(int bX, int lX);
+	void SetDrop() { this->drop = this->y; }
 };
 

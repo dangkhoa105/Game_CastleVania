@@ -21,6 +21,9 @@ public:
 	int bboxEnemyActiveWidth;
 	int bboxEnemyActiveHeight;
 
+	int beginPositionX;
+	int lastPositionX;
+
 	void TakeDamage(int damage) 
 	{ 
 		hp = hp - damage;
@@ -47,5 +50,10 @@ public:
 	
 	void SetBboxEnemy(int bW, int bH) { this->bboxEnemyWidth = bW; this->bboxEnemyHeight = bH; }
 	void SetBboxEnemyActive(int bW, int bH) { this->bboxEnemyActiveWidth = bW; this->bboxEnemyActiveHeight = bH; }
+
+	void SetReturnPosition(int bX, int lX) {
+		this->beginPositionX = bX;
+		this->lastPositionX = lX;
+	}
 };
 

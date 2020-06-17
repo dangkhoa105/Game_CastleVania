@@ -29,9 +29,18 @@
     <stair x="304" y="188" stairDirection="2"/>  
   </stairs>
 
-  <!-- <enemies>
-    <ghost x="1312" y="288" bboxEnemyWidth="30" bboxEnemyHeight="30" bboxEnemyActiveWidth="32" bboxEnemyActiveHeight="64"/>
-  </enemies> -->
+  <enemies>
+    <ghost x="1306" y="289" beginPositionX="256" lastPositionX="1312" bboxEnemyWidth="30" bboxEnemyHeight="30" bboxEnemyActiveWidth="100" bboxEnemyActiveHeight="100"/>
+
+    <monkeys>
+      <monkey x="849" y="224" beginPositionX="65" lastPositionX="284" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="256" bboxEnemyActiveHeight="96"/>
+      <monkey x="593" y="224" beginPositionX="65" lastPositionX="284" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="256" bboxEnemyActiveHeight="96"/>
+    </monkeys>
+
+    <skeletons>
+      <skeleton x="65" y="190" beginPositionX="65" lastPositionX="284" bboxEnemyWidth="32" bboxEnemyHeight="64" bboxEnemyActiveWidth="70" bboxEnemyActiveHeight="96"/>
+    </skeletons>
+  </enemies>
 
   <changeScene x="192" y="0" idChangeScene="5"/>
 </objects>

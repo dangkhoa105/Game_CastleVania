@@ -19,6 +19,9 @@
 #include "Bridge.h"
 #include "BreakWall.h"
 #include "BreakWallTrigger.h"
+#include "Ghost.h"
+#include "Monkey.h"
+#include "Skeleton.h"
 
 class CPlayScene
 {

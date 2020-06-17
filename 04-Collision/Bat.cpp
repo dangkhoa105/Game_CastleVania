@@ -35,16 +35,16 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 	
-	if (state == BAT_STATE_FLYING && attack_start==0)
+	if (state == BAT_STATE_FLYING && attack_start == 0)
 	{
-		 time_x = abs(x + bboxEnemyWidth - simonPos.x) / bat_velocity;
-		 if (x > simonPos.x)
+		 time_x = abs(x + bboxEnemyWidth - simonPos.x) / BAT_FLYING_SPEED_X;
+ 		 if (x > simonPos.x)
 		 {
-			 vx = bat_velocity;
+			 vx = -BAT_FLYING_SPEED_X;
 		 }
 		 else
 		 {
-			 vx = -bat_velocity;
+			 vx = BAT_FLYING_SPEED_X;
 		 }
 
 		 vy = abs(y + bboxEnemyHeight - simonPos.y) / time_x;
@@ -62,7 +62,7 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (IsRespawn())
 	{
-		SetState(BAT_STATE_IDLE);
+		//SetState(BAT_STATE_IDLE);
 		return;
 	}
 
@@ -78,7 +78,6 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	x += dx;
 	y += dy;
 	
-
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
@@ -89,7 +88,9 @@ void CBat::Render()
 	if (state == BAT_STATE_FLYING)
 		animations["bat_ani_flying"]->Render(nx, x, y);
 
-	RenderBoundingBox();
+	float l, t, r, b;
+	this->GetBoundingBoxActive(l, t, r, b);
+	RenderBoundingBox(RECT{ (long)l,(long)t,(long)r,(long)b });
 }
 
 void CBat::SetState(int state)

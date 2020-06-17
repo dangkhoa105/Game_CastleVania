@@ -15,7 +15,10 @@ void CPlayScene::LoadResource()
 	this->objects = this->pMapObjects.at(this->currentScene->objCollectId);
 
 	simon = new CSimon();
-	simon->SetPosition(this->currentScene->simonX, this->currentScene->simonY);
+	simon->SetState(currentScene->stateSimon);
+	simon->SetPosition(currentScene->simonX, currentScene->simonY);
+	simon->lastStepOnStairPos = { float(currentScene->simonX), float(currentScene->simonY) };
+	simon->SetNx(currentScene->nx);
 }
 
 void CPlayScene::LoadMap()
@@ -246,13 +249,16 @@ void CPlayScene::LoadObject()
 							const int lastPositionX = std::atoi(oGrand->first_attribute("lastPositionX")->value());
 							const int bboxEnemyWidth = std::atoi(oGrand->first_attribute("bboxEnemyWidth")->value());
 							const int bboxEnemyHeight = std::atoi(oGrand->first_attribute("bboxEnemyHeight")->value());
+							const int bboxEnemyActiveWidth = std::atoi(oGrand->first_attribute("bboxEnemyActiveWidth")->value());
+							const int bboxEnemyActiveHeight = std::atoi(oGrand->first_attribute("bboxEnemyActiveHeight")->value());
 							spearGuard->SetPosition(x, y);
 							spearGuard->SetReturnPosition(beginPositionX, lastPositionX);
 							spearGuard->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
+							spearGuard->SetBboxEnemyActive(bboxEnemyActiveWidth, bboxEnemyActiveHeight);
 							_object->push_back(spearGuard);
 						}
 					}
-					if (nodeNameGrand == "bat")
+					else if (nodeNameGrand == "bat")
 					{
 						CBat* bat = new CBat();
 						const int x = std::atoi(grand->first_attribute("x")->value());
@@ -266,6 +272,63 @@ void CPlayScene::LoadObject()
 						bat->SetBboxEnemyActive(bboxEnemyActiveWidth, bboxEnemyActiveHeight);
 						_object->push_back(bat);
 					}
+					else if (nodeNameGrand == "ghost")
+					{
+						CGhost* ghost = new CGhost();
+						const int x = std::atoi(grand->first_attribute("x")->value());
+						const int y = std::atoi(grand->first_attribute("y")->value());
+						const int beginPositionX = std::atoi(grand->first_attribute("beginPositionX")->value());
+						const int lastPositionX = std::atoi(grand->first_attribute("lastPositionX")->value());
+						const int bboxEnemyWidth = std::atoi(grand->first_attribute("bboxEnemyWidth")->value());
+						const int bboxEnemyHeight = std::atoi(grand->first_attribute("bboxEnemyHeight")->value());
+						const int bboxEnemyActiveWidth = std::atoi(grand->first_attribute("bboxEnemyActiveWidth")->value());
+						const int bboxEnemyActiveHeight = std::atoi(grand->first_attribute("bboxEnemyActiveHeight")->value());
+						ghost->SetPosition(x, y);
+						ghost->SetReturnPosition(beginPositionX, lastPositionX);
+						ghost->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
+						ghost->SetBboxEnemyActive(bboxEnemyActiveWidth, bboxEnemyActiveHeight);
+						_object->push_back(ghost);
+					}
+					else if (nodeNameGrand == "monkeys")
+					{
+						for (xml_node<>* oGrand = grand->first_node(); oGrand; oGrand = oGrand->next_sibling()) //cú pháp lập
+						{
+							CMonkey* monkey = new CMonkey();
+							const int x = std::atoi(oGrand->first_attribute("x")->value());
+							const int y = std::atoi(oGrand->first_attribute("y")->value());
+							const int beginPositionX = std::atoi(oGrand->first_attribute("beginPositionX")->value());
+							const int lastPositionX = std::atoi(oGrand->first_attribute("lastPositionX")->value());
+							const int bboxEnemyWidth = std::atoi(oGrand->first_attribute("bboxEnemyWidth")->value());
+							const int bboxEnemyHeight = std::atoi(oGrand->first_attribute("bboxEnemyHeight")->value());
+							const int bboxEnemyActiveWidth = std::atoi(oGrand->first_attribute("bboxEnemyActiveWidth")->value());
+							const int bboxEnemyActiveHeight = std::atoi(oGrand->first_attribute("bboxEnemyActiveHeight")->value());
+							monkey->SetPosition(x, y);
+							monkey->SetReturnPosition(beginPositionX, lastPositionX);
+							monkey->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
+							monkey->SetBboxEnemyActive(bboxEnemyActiveWidth, bboxEnemyActiveHeight);
+							_object->push_back(monkey);
+						}
+					}
+					else if (nodeNameGrand == "skeletons")
+					{
+						for (xml_node<>* oGrand = grand->first_node(); oGrand; oGrand = oGrand->next_sibling()) //cú pháp lập
+						{
+							CSkeleton* skeleton = new CSkeleton();
+							const int x = std::atoi(oGrand->first_attribute("x")->value());
+							const int y = std::atoi(oGrand->first_attribute("y")->value());
+							const int beginPositionX = std::atoi(oGrand->first_attribute("beginPositionX")->value());
+							const int lastPositionX = std::atoi(oGrand->first_attribute("lastPositionX")->value());
+							const int bboxEnemyWidth = std::atoi(oGrand->first_attribute("bboxEnemyWidth")->value());
+							const int bboxEnemyHeight = std::atoi(oGrand->first_attribute("bboxEnemyHeight")->value());
+							const int bboxEnemyActiveWidth = std::atoi(oGrand->first_attribute("bboxEnemyActiveWidth")->value());
+							const int bboxEnemyActiveHeight = std::atoi(oGrand->first_attribute("bboxEnemyActiveHeight")->value());
+							skeleton->SetPosition(x, y);
+							skeleton->SetReturnPosition(beginPositionX, lastPositionX);
+							skeleton->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
+							skeleton->SetBboxEnemyActive(bboxEnemyActiveWidth, bboxEnemyActiveHeight);
+							_object->push_back(skeleton);
+						}
+					}
 				}
 			}
 		}
@@ -277,7 +340,7 @@ void CPlayScene::Update(DWORD dt)
 {
 	// We know that Simon is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
-	UpdateScene();
+	
 
 	if (simon->spawnKnife)
 	{
@@ -299,11 +362,13 @@ void CPlayScene::Update(DWORD dt)
 	vector<LPGAMEOBJECT> coObjects;
 	for (int i = 0; i < objects->size(); i++)
 	{
-		if (dynamic_cast<CSimon*>(objects->at(i)))
+	/*	if (dynamic_cast<CSimon*>(objects->at(i)))
 		{
 			continue;
-		}
+		}*/
+		coObjects.push_back(simon);
 		coObjects.push_back(objects->at(i));
+	
 	}
 	simon->Update(dt, &coObjects);
 	//simon->whip->Update(dt, objects);
@@ -316,6 +381,8 @@ void CPlayScene::Update(DWORD dt)
 	UpdateItem();
 
 	UpdateCam();
+
+	UpdateScene();
 
 	Unload();
 }
@@ -358,10 +425,13 @@ void CPlayScene::UpdateCam()
 	simon->GetPosition(cx, cy);
 
 	// camera
-	if (simon->x >= SCREEN_WIDTH / 2 && simon->x < tilemap->GetMapWidth() - SCREEN_WIDTH / 2)
+	cx -= SCREEN_WIDTH / 2 - 30;
+	cy -= SCREEN_HEIGHT / 2;
+	if (cx > currentScene->camX && cx < currentScene->camX + tilemap->GetMapWidth() - SCREEN_WIDTH)
 	{
-		cx -= SCREEN_WIDTH / 2;
-		CGame::GetInstance()->SetCamPos(cx, 0.0f);
+		//cx -= SCREEN_WIDTH / 2 - 30;
+		//CGame::GetInstance()->SetCamPos(cx, 0.0f);
+		CGame::GetInstance()->SetCamPos(cx, currentScene->camY);
 	}
 }
 
@@ -430,9 +500,9 @@ void CPlayScene::UpdateItem()
 				objects->push_back(effect);
 			}
 		}
-		if (dynamic_cast<CSpearGuard*>(objects->at(i)))
+		if (dynamic_cast<CEnemy*>(objects->at(i)))
 		{
-			auto f = dynamic_cast<CSpearGuard*>(objects->at(i));
+			auto f = dynamic_cast<CEnemy*>(objects->at(i));
 
 			if (f->IsDestroy())
 			{
@@ -526,10 +596,10 @@ void CPlayScene::UpdateScene()
 		simon->lastStepOnStairPos = { float(currentScene->simonX), float(currentScene->simonY) };	
 		simon->SetNx(currentScene->nx);
 		//CGame::GetInstance()->SetCamPos(currentScene->camX - SCREEN_WIDTH, currentScene->camY);
-		//if (simon->nx == 1)
-			CGame::GetInstance()->SetCamPos(currentScene->camX, currentScene->camY);
-		//else 
-			//CGame::GetInstance()->SetCamPos(currentScene->camX - SCREEN_WIDTH, currentScene->camY);
+		if (currentScene->nx == 1)
+		CGame::GetInstance()->SetCamPos(currentScene->camX, currentScene->camY);
+		else 
+			CGame::GetInstance()->SetCamPos(currentScene->camX + tilemap->GetMapWidth() - SCREEN_WIDTH, currentScene->camY);
 		simon->idChangeScene = -1;
 
 		this->objects = this->pMapObjects.at(this->currentScene->objCollectId);

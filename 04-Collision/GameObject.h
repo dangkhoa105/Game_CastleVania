@@ -43,6 +43,7 @@ public:
 	float vy;
 
 	int nx;	 
+	int ny;
 
 	int state;
 
@@ -78,6 +79,9 @@ public:
 
 	void SetNx(int nx) { this->nx = nx; }
 	int GetNx() { return this->nx; }
+
+	void SetNy(int ny) { this->ny = ny; }
+	int GetNy() { return this->ny; }
 
 	bool GetBox() { return this->box; }
 

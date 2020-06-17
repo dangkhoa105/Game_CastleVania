@@ -31,9 +31,10 @@
 
   <enemies>
     <spearGuards>
-      <spearGuard x="96" y="96" beginPositionX="65" lastPositionX="284" bboxEnemyWidth="32" bboxEnemyHeight="64"/>
+      <spearGuard x="96" y="96" beginPositionX="65" lastPositionX="284" bboxEnemyWidth="32" bboxEnemyHeight="64" bboxEnemyActiveWidth="70" bboxEnemyActiveHeight="96"/>
     </spearGuards>   
-    <bat x="80" y="16" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="256" bboxEnemyActiveHeight="96"/>
+    
+    <bat x="80" y="16" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="224" bboxEnemyActiveHeight="96"/>
   </enemies>
 
   <changeScene x="272" y="0" idChangeScene="2"/>

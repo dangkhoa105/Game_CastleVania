@@ -2,15 +2,15 @@
 #include "Enemy.h"
 #include "Define.h"
 #include "ReadResourceFile.h"
-	
-class CSpearGuard : public CEnemy
-{	
+
+class CMonkey : public CEnemy
+{
+	DWORD jump_start = 0;
 public:
-	CSpearGuard()
+	CMonkey()
 	{
-		AddAnimation("spear_guard_ani");	
-		hp = 2;
-		this->SetState(SPEAR_GUARD_STATE_WALKING);
+		AddAnimation("monkey_ani_idle");
+		AddAnimation("monkey_ani_jumping");
 	}
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

@@ -77,9 +77,6 @@
 // Spear Guard
 #define SPEAR_GUARD_WALKING_SPEED		0.05f
 
-#define SPEAR_GUARD_BBOX_WIDTH			32
-#define SPEAR_GUARD_BBOX_HEIGTH			64
-
 #define SPEAR_GUARD_STATE_DIE			0
 #define SPEAR_GUARD_STATE_WALKING		1
 #define SPEAR_GUARD_CHASE_SIMON         2
@@ -97,6 +94,13 @@
 
 #define GHOST_STATE_IDLE				0
 #define GHOST_STATE_FLYING				1
+
+// Monkey
+#define MONKEY_JUMPING_SPEED_X			0.2f
+
+#define MONKEY_STATE_IDLE				0
+#define MONKEY_STATE_START				1
+#define MONKEY_STATE_JUMPING			2
 #pragma endregion
 
 #pragma region BREAK WALL

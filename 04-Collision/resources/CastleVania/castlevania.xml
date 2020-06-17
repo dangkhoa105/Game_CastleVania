@@ -122,6 +122,14 @@
   <sprite n="ghost_fly_1" l="1062" t="92" r="1090" b="122"/>
   <sprite n="ghost_fly_2" l="1091" t="92" r="1119" b="122"/>
 
+  <!--monkey-->
+  <sprite n="monkey_1" l="555" t="138" r="587" b="170"/>
+  <sprite n="monkey_2" l="593" t="138" r="625" b="170"/>
+
+  <!--skeleton-->
+  <sprite n="skeleton_1" l="549" t="22" r="580" b="88"/>
+  <sprite n="skeleton_2" l="585" t="22" r="617" b="88"/>
+
   <!--effect-->
   <sprite n="effect_1" l="483" t="580" r="525" b="624"/>
   <sprite n="effect_2" l="525" t="580" r="567" b="624"/>
@@ -323,6 +331,22 @@
     <frame spriteID="ghost_fly_2" time="100"/>
   </animation>
 
+  <!--monkey-->
+  <animation ID="monkey_ani_idle" defaultTime="100">
+    <frame spriteID="monkey_1" time="100"/>
+  </animation>
+
+  <animation ID="monkey_ani_jumping" defaultTime="100">
+    <frame spriteID="monkey_1" time="100"/>
+    <frame spriteID="monkey_2" time="100"/>
+  </animation>
+
+  <!--skeleton-->
+  <animation ID="skeleton_ani_jumping" defaultTime="100">
+    <frame spriteID="skeleton_1" time="100"/>
+    <frame spriteID="skeleton_2" time="100"/>
+  </animation>
+
   <!--effect-->
   <animation ID="effect" defaultTime="100">
     <frame spriteID="effect_1" time="100"/>
@@ -393,16 +417,16 @@
     <map texId="500" id="5" tileWidth="32" tileHeight="32" mapWidth="1536" mapHeight="384" pathText="resources\Map\Map3\map3_2.txt" pathImg="resources\Map\Map3\map3_2.png"/>
   </maps>
 
-  <scenes activeID="1">
+  <scenes activeID="4">
     <!-- map 1 -->
     <scene id="0" mapId="0" objcollectid="0" simonX="100" simonY="200" camX="0" camY="0" state="0" nx="1"/>
     <!-- map 2 -->
     <scene id="1" mapId="1" objcollectid="1" simonX="32" simonY="288" camX="0" camY="0" state="0" nx="1"/>
-    <scene id="2" mapId="2" objcollectid="2" simonX="738" simonY="322" camX="512" camY="0" state="10" nx="1"/>
+    <scene id="2" mapId="2" objcollectid="2" simonX="738" simonY="322" camX="1024" camY="0" state="10" nx="-1"/>
     <scene id="3" mapId="1" objcollectid="1" simonX="224" simonY="2" camX="0" camY="0" state="14" nx="1"/>
     <!-- map 3 -->
-    <scene id="4" mapId="4" objcollectid="4" simonX="1272" simonY="238" camX="1536" camY="0" state="0" nx="-1"/>
-    <scene id="5" mapId="5" objcollectid="5" simonX="1272" simonY="238" camX="1536" camY="0" state="0" nx="-1"/>
+    <scene id="4" mapId="4" objcollectid="4" simonX="1440" simonY="256" camX="1536" camY="0" state="0" nx="-1"/>
+    <scene id="5" mapId="5" objcollectid="5" simonX="128" simonY="238" camX="0" camY="0" state="0" nx="1"/>
   </scenes>
 </base>
 

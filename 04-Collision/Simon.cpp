@@ -61,7 +61,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 
 
-	bool colSweptAABBNY=false;
+	bool colSweptAABBNY = false;
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
 	{
@@ -89,7 +89,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					{
 						SetState(SIMON_STATE_IDLE);
 					}
-					
+
 					if (this->isOnStair) {
 						x += dx;
 						y += dy;
@@ -261,6 +261,35 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				else if (dynamic_cast<CSpearGuard*>(e->obj))
 				{
 					CSpearGuard* spearGuard = dynamic_cast<CSpearGuard*>(e->obj);
+					if (untouchable_start == 0) 
+					{
+						if (!this->isOnStair)
+						{
+							this->SetState(SIMON_STATE_HURT);
+							x += dx;
+							y += dy;
+						}
+						if (untouchable != 1) {
+							StartUntouchable();
+							break; // không xét tiếp va chạm khi defect
+						}
+					}
+					else 
+					{
+						if (e->nx != 0)
+						{
+							x += dx;
+						}
+						if (e->ny != 0)
+						{
+							y += dy;
+						}
+					}
+				}
+				else if (dynamic_cast<CBat*>(e->obj))
+				{
+					CBat* bat = dynamic_cast<CBat*>(e->obj);
+					bat->SetDestroy(true);
 					if (untouchable_start == 0) {
 
 						if (!this->isOnStair)
@@ -285,29 +314,32 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						}
 					}
 				}
-				else if (dynamic_cast<CBat*>(e->obj))
+				else if (dynamic_cast<CGhost*>(e->obj))
 				{
-					if (untouchable_start == 0) {
-
-						if (!this->isOnStair)
-						{
-							this->SetState(SIMON_STATE_HURT);
-							x += dx;
-							y += dy;
+					CGhost* ghost = dynamic_cast<CGhost*>(e->obj);
+					if (ghost->GetState() == GHOST_STATE_FLYING)
+					{						
+						if (untouchable_start == 0) {
+							if (!this->isOnStair)
+							{
+								this->SetState(SIMON_STATE_HURT);
+								x += dx;
+								y += dy;
+							}
+							if (untouchable != 1) {
+								StartUntouchable();
+								break; // không xét tiếp va chạm khi defect
+							}
 						}
-						if (untouchable != 1) {
-							StartUntouchable();
-							break; // không xét tiếp va chạm khi defect
-						}
-					}
-					else {
-						if (e->nx != 0)
-						{
-							x += dx;
-						}
-						if (e->ny != 0)
-						{
-							y += dy;
+						else {
+							if (e->nx != 0)
+							{
+								x += dx;
+							}
+							if (e->ny != 0)
+							{
+								y += dy;
+							}
 						}
 					}
 				}
@@ -414,23 +446,22 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						f->nx = -1;
 					}
 				}
-						
 			}
-			if (this->AABB(obj) == true)
+			if (this->AABB(obj) == true) // if e->obj is Item Heart 
 			{
 				if (untouchable_start == 0) {
 
 					if (!this->isOnStair)
 					{
 						this->SetState(SIMON_STATE_HURT);
-						x += dx;
-						y += dy;
+						/*x += dx;
+						y += dy;*/
 					}
 					if (untouchable != 1) {
 						StartUntouchable();
 						break; // không xét tiếp va chạm khi defect
 					}
-				}
+				}				
 			}
 		}
 		if (dynamic_cast<CBat*>(obj)) // if e->obj is Item Heart 
@@ -446,6 +477,44 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					f->SetState(BAT_STATE_FLYING);
 			}
 		}
+		if (dynamic_cast<CGhost*>(obj)) // if e->obj is Item Heart 
+		{
+			CGhost* f = dynamic_cast<CGhost*>(obj);
+			float sl, st, sr, sb;
+			float ml, mt, mr, mb;
+			this->GetBoundingBox(sl, st, sr, sb);
+			f->GetBoundingBoxActive(ml, mt, mr, mb);
+			if (CGame::AABB(ml, mt, mr, mb, sl, st, sr, sb) == true)
+			{
+				if (untouchable != 1)
+				{
+					if (f->x < this->x)
+					{
+						f->nx = 1;
+						f->vx = -GHOST_FLYING_SPEED_X * 1.5f;
+					}
+					else
+					{
+						f->vx = GHOST_FLYING_SPEED_X * 1.5f;
+						f->nx = -1;
+					}
+				}
+			}
+			if (this->AABB(obj) == true) // if e->obj is Item Heart 
+			{
+				if (untouchable_start == 0) {
+
+					if (!this->isOnStair)
+					{
+						this->SetState(SIMON_STATE_HURT);
+					}
+					if (untouchable != 1) {
+						StartUntouchable();
+						break; // không xét tiếp va chạm khi defect
+					}
+				}
+			}
+		}
 		if (dynamic_cast<CBrick*>(obj)) {
 			CBrick* e = dynamic_cast<CBrick*>(obj);
 
@@ -457,7 +526,21 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			if (CGame::AABB(l, t, r, b, ml, mt, mr, mb))
 			{
- 				colGround = true;
+				colGround = true;
+			}
+		}
+		if (dynamic_cast<CBreakWall*>(obj)) {
+			CBreakWall* e = dynamic_cast<CBreakWall*>(obj);
+
+			float l, t, r, b;
+			float ml, mt, mr, mb;
+			this->GetBoundingBox(l, t, r, b);
+			e->GetBoundingBox(ml, mt, mr, mb);
+			mt = mt - 2;
+
+			if (CGame::AABB(l, t, r, b, ml, mt, mr, mb))
+			{
+				colGround = true;
 			}
 		}
 		if (dynamic_cast<CBridge*>(obj)) {
@@ -484,7 +567,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else
 	{
-		this->isGround = false;		
+		this->isGround = false;
 	}
 
 	if (this->attack_start != 0)
@@ -588,7 +671,7 @@ void CSimon::SetState(int state)
 	case SIMON_STATE_JUMP:
 		this->whip->SetState(WHIP_STATE_IDLE);
 		this->knife->SetState(KNIFE_STATE_IDLE);
-		
+
 		vy = -SIMON_JUMP_SPEED_Y;
 		break;
 	case SIMON_STATE_SIT:
