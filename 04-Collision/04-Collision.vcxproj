@@ -124,6 +124,7 @@
   <ItemGroup>
     <ClInclude Include="Animations.h" />
     <ClInclude Include="Bat.h" />
+    <ClInclude Include="Bone.h" />
     <ClInclude Include="Boomerang.h" />
     <ClInclude Include="BreakWall.h" />
     <ClInclude Include="BreakWallTrigger.h" />
@@ -162,6 +163,7 @@
   <ItemGroup>
     <ClCompile Include="Animations.cpp" />
     <ClCompile Include="Bat.cpp" />
+    <ClCompile Include="Bone.cpp" />
     <ClCompile Include="Boomerang.cpp" />
     <ClCompile Include="BreakWall.cpp" />
     <ClCompile Include="BreakWallTrigger.cpp" />

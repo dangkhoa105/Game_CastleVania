@@ -24,7 +24,7 @@ void CKnife::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	bottom = top + KNIFE_BBOX_HEIGHT;
 }
 
-void CKnife::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
+void CKnife::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 
 	CGameObject::Update(dt);
@@ -40,9 +40,9 @@ void CKnife::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 
 	x += dx;
 	y += dy;
-	for (UINT i = 0; i < colliable_objects->size(); i++)
+	for (UINT i = 0; i < coObjects->size(); i++)
 	{
-		LPGAMEOBJECT obj = colliable_objects->at(i);
+		LPGAMEOBJECT obj = coObjects->at(i);
 
 		if (dynamic_cast<CCandle*>(obj))
 		{

@@ -340,7 +340,6 @@ void CPlayScene::Update(DWORD dt)
 {
 	// We know that Simon is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
-	
 
 	if (simon->spawnKnife)
 	{
@@ -358,8 +357,20 @@ void CPlayScene::Update(DWORD dt)
 		}
 		simon->spawnKnife = false;
 	}
+	for (int i = 0; i < objects->size(); i++)
+	{
+		if (dynamic_cast<CSkeleton*>(objects->at(i)))
+		{
+
+			auto bone = new CBone();
+			bone->nx = objects->at(i)->nx;
+			bone->SetPosition(objects->at(i)->x, objects->at(i)->y + 30);
+			this->objects->push_back(bone);
+		}
+	}
 
 	vector<LPGAMEOBJECT> coObjects;
+
 	for (int i = 0; i < objects->size(); i++)
 	{
 	/*	if (dynamic_cast<CSimon*>(objects->at(i)))

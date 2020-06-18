@@ -18,7 +18,7 @@ void CWhip::Render()
 		animations[ani]->Render(nx, x, y);
 		//	this->box = animations[ani]->GetOver();
 
-		RenderBoundingBox();
+		//RenderBoundingBox();
 	}
 }
 
@@ -60,7 +60,7 @@ void CWhip::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 	}
 }
 
-void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
+void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	switch (this->level)
 	{
@@ -88,9 +88,9 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 	}
 
 	int counter = 0;
-	for (UINT i = 0; i < colliable_objects->size(); i++)
+	for (UINT i = 0; i < coObjects->size(); i++)
 	{
-		LPGAMEOBJECT obj = colliable_objects->at(i);
+		LPGAMEOBJECT obj = coObjects->at(i);
 	
 
 		if (dynamic_cast<CCandle*>(obj))

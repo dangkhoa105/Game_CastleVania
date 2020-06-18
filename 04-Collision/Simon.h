@@ -101,7 +101,7 @@ public:
 	CWhip* whip;
 	CKnife* knife;
 
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render();
 	void SetState(int state);
 
@@ -158,5 +158,5 @@ public:
 		return this->isAutoWalk;
 	}
 
-	void CheckCollisionWithActiveEnemy(vector<LPGAMEOBJECT>* listObjects);
+	
 };

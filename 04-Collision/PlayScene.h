@@ -1,4 +1,7 @@
 #pragma once
+#ifndef _GAMECODE_H_
+#define _GAMECODE_H_
+
 #include<Windows.h>
 #include "Simon.h"
 #include "PScene.h"
@@ -26,6 +29,7 @@
 class CPlayScene
 {
 	CSimon* simon;
+	CSkeleton* skeleton;
 	CBat* bat;
 	CGoomba* goomba;
 	CWall* wall;
@@ -71,3 +75,4 @@ public:
 	}
 };
 
+#endif

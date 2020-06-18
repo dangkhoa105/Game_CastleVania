@@ -78,9 +78,9 @@ void CItem::GetBoundingBox(float& l, float& t, float& r, float& b)
 	}
 }
 
-void CItem::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
+void CItem::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	CGameObject::Update(dt, colliable_objects);
+	CGameObject::Update(dt);
 
 	vy += GRAVITY_ITEM * dt;
 
@@ -90,7 +90,7 @@ void CItem::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 	coEvents.clear();
 
 	// turn off collision when die 
-	CalcPotentialCollisions(colliable_objects, coEvents);// bắt đầu tính toán va chạm
+	CalcPotentialCollisions(coObjects, coEvents);// bắt đầu tính toán va chạm
 
 	if (coEvents.size() == 0)
 	{

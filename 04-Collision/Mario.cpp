@@ -6,7 +6,7 @@
 //
 //#include "Goomba.h"
 //
-//void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
+//void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL)
 //{
 //	// Calculate dx, dy 
 //	CGameObject::Update(dt);

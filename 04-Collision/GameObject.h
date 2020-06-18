@@ -1,5 +1,6 @@
 ﻿#pragma once
-
+#ifndef _PROJECTILOBJECT_H_
+#define _PROJECTILOBJECT_H_
 #include <Windows.h>
 #include <d3dx9.h>
 #include <vector>
@@ -7,12 +8,10 @@
 #include "Sprites.h"
 #include "Animations.h"
 
-
 using namespace std;
 
 class CGameObject; 
 typedef CGameObject * LPGAMEOBJECT;
-
 struct CCollisionEvent;
 typedef CCollisionEvent * LPCOLLISIONEVENT;
 struct CCollisionEvent
@@ -57,9 +56,7 @@ public:
 
 	unordered_map<string, LPANIMATION> animations;
 
-	bool isDestroy = false; // cờ hiệu để biết object bị hủy trong quá trình update; 
-
-public: 
+	bool isDestroy = false; // cờ hiệu để biết object bị hủy trong quá trình update; B
 
 	void SetDestroy(bool isDestroy) { this->isDestroy = isDestroy; }
 	bool IsDestroy() { return this->isDestroy; }
@@ -113,3 +110,4 @@ public:
 	~CGameObject();
 };
 
+#endif

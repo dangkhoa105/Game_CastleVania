@@ -38,7 +38,7 @@
     </monkeys>
 
     <skeletons>
-      <skeleton x="65" y="190" beginPositionX="65" lastPositionX="284" bboxEnemyWidth="32" bboxEnemyHeight="64" bboxEnemyActiveWidth="70" bboxEnemyActiveHeight="96"/>
+      <skeleton x="65" y="180" beginPositionX="65" lastPositionX="284" bboxEnemyWidth="32" bboxEnemyHeight="64" bboxEnemyActiveWidth="200" bboxEnemyActiveHeight="100"/>
     </skeletons>
   </enemies>
 

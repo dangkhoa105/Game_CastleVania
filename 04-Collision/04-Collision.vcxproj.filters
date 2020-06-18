@@ -159,6 +159,9 @@
     <ClInclude Include="Skeleton.h">
       <Filter>Source Files\Objects Collection\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Bone.h">
+      <Filter>Source Files\Objects Collection\Weapon\SupWeapon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -265,6 +268,9 @@
     </ClCompile>
     <ClCompile Include="Skeleton.cpp">
       <Filter>Source Files\Objects Collection\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Bone.cpp">
+      <Filter>Source Files\Objects Collection\Weapon\SupWeapon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

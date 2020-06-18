@@ -13,7 +13,7 @@ void CEntrace::GetBoundingBox(float& l, float& t, float& r, float& b)
 	b = y + ENTRACE_BBOX_HEIGHT;
 }
 
-void CEntrace::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
+void CEntrace::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	CGameObject::Update(dt, colliable_objects);
+	CGameObject::Update(dt);
 }

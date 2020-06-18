@@ -10,18 +10,13 @@
 #include "Whip.h"
 #include "Stair.h"
 
-CGameObject::CGameObject()
-{
-	x = y = 0;
-	vx = vy = 0;
-	nx = 1;	
-}
 
-void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
+
+void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	this->dt = dt;
-	dx = vx*dt;
-	dy = vy*dt;
+	dx = vx * dt;
+	dy = vy * dt;
 }
 
 /*
@@ -130,6 +125,22 @@ void CGameObject::FilterCollision(
 	if (min_iy>=0) coEventsResult.push_back(coEvents[min_iy]);
 }
 
+void CGameObject::AddAnimation(string aniId, bool isLoop)
+{
+	LPANIMATION ani = CAnimations::GetInstance()->Get(aniId);
+	ani->SetLoop(isLoop);
+	animations.insert(std::make_pair(aniId, ani));
+
+	CAnimations* anilist = CAnimations::GetInstance();
+}
+
+CGameObject::CGameObject()
+{
+	x = y = 0;
+	vx = vy = 0;
+	nx = 1;
+}
+
 
 void CGameObject::RenderBoundingBox()
 {
@@ -171,16 +182,6 @@ void CGameObject::RenderBoundingBox(RECT rect)
 
 }
 
-void CGameObject::AddAnimation(string aniId,bool isLoop)
-{
-	
-	LPANIMATION ani = CAnimations::GetInstance()->Get(aniId);
-	ani->SetLoop(isLoop);
-	animations.insert(std::make_pair(aniId,ani));
-
-	CAnimations* anilist = CAnimations::GetInstance();
-	
-}
 
 
 

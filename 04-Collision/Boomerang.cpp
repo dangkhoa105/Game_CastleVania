@@ -9,7 +9,7 @@ void CBoomerang::GetBoundingBox(float& left, float& top, float& right, float& bo
 {
 }
 
-void CBoomerang::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
+void CBoomerang::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 }
 

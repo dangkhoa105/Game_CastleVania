@@ -45,6 +45,10 @@
   <sprite n="boomerang_2" l="28" t="51" r="57" b="79"/>
   <sprite n="boomerang_3" l="57" t="51" r="84" b="79"/>
 
+  <!--bone-->
+  <sprite n="bone_1" l="632" t="139" r="661" b="164"/>
+  <sprite n="bone_2" l="680" t="137" r="691" b="168"/>
+
   <!--simon-->
   <sprite n="simon_idle" l="0" t="162" r="61" b="226"/>
   <sprite n="simon_walk_1" l="61" t="162" r="121" b="226"/>
@@ -213,6 +217,12 @@
     <frame spriteID="long_chain_10" time="0"/>
     <frame spriteID="long_chain_11" time="0"/>
     <frame spriteID="long_chain_12" time="0"/>
+  </animation>
+
+  <!--bone-->
+  <animation ID="bone_ani" defaultTime="100">
+    <frame spriteID="bone_1" time="100"/>
+    <frame spriteID="bone_2" time="100"/>
   </animation>
 
   <!--simon-->

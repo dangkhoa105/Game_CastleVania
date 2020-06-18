@@ -49,7 +49,7 @@ public:
 		level = MARIO_LEVEL_BIG;
 		untouchable = 0;
 	}
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	virtual void Render();
 	void SetState(int state);
 	void SetLevel(int l) { level = l; }

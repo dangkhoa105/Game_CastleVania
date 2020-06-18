@@ -91,16 +91,25 @@
 
 // Ghost
 #define GHOST_FLYING_SPEED_X			0.05f
+#define GHOST_DROP						15
 
 #define GHOST_STATE_IDLE				0
 #define GHOST_STATE_FLYING				1
 
 // Monkey
-#define MONKEY_JUMPING_SPEED_X			0.2f
+#define MONKEY_JUMPING_SPEED_X			0.1f
+#define MONKEY_GRAVITY					0.003f
 
 #define MONKEY_STATE_IDLE				0
 #define MONKEY_STATE_START				1
 #define MONKEY_STATE_JUMPING			2
+
+// Skeleton
+#define SKELETON_JUMPING_SPEED_X		0.1f
+#define SKELETON_GRAVITY				0.003f
+
+#define SKELETON_STATE_IDLE				0
+#define SKELETON_STATE_JUMPING			1
 #pragma endregion
 
 #pragma region BREAK WALL

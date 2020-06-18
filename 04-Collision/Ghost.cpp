@@ -64,7 +64,7 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	x -= dx;
 	
-	y = 15 * sin(x * BAT_FLYING_SPEED_Y) + drop;
+	y = GHOST_DROP * sin(x * BAT_FLYING_SPEED_Y) + drop;
 
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }

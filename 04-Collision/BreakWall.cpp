@@ -28,7 +28,7 @@ void CBreakWall::GetBoundingBox(float& l, float& t, float& r, float& b)
 	
 }
 
-void CBreakWall::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
+void CBreakWall::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt);
 	/*if (isDestroy)

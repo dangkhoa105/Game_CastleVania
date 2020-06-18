@@ -13,7 +13,7 @@ void CChangeScene::GetBoundingBox(float& l, float& t, float& r, float& b)
 	b = y + CHANGESCENE_BBOX_HEIGHT;
 }
 
-void CChangeScene::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
+void CChangeScene::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	CGameObject::Update(dt, colliable_objects);
+	CGameObject::Update(dt);
 }

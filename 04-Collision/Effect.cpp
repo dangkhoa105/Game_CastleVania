@@ -1,6 +1,6 @@
 #include "Effect.h"
 
-void CEffect::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
+void CEffect::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt);
 	if (isDestroy)

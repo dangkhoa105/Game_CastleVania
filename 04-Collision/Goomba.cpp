@@ -12,9 +12,9 @@
 //		bottom = y + GOOMBA_BBOX_HEIGHT;
 //}
 //
-//void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
+//void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL)
 //{
-//	CGameObject::Update(dt, coObjects);
+//	CGameObject::Update(dt);
 //
 //	//
 //	// TO-DO: make sure Goomba can interact with the world and to each of them too!

@@ -261,7 +261,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				else if (dynamic_cast<CSpearGuard*>(e->obj))
 				{
 					CSpearGuard* spearGuard = dynamic_cast<CSpearGuard*>(e->obj);
-					if (untouchable_start == 0) 
+					if (untouchable_start == 0)
 					{
 						if (!this->isOnStair)
 						{
@@ -274,7 +274,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							break; // không xét tiếp va chạm khi defect
 						}
 					}
-					else 
+					else
 					{
 						if (e->nx != 0)
 						{
@@ -318,7 +318,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					CGhost* ghost = dynamic_cast<CGhost*>(e->obj);
 					if (ghost->GetState() == GHOST_STATE_FLYING)
-					{						
+					{
 						if (untouchable_start == 0) {
 							if (!this->isOnStair)
 							{
@@ -342,6 +342,34 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							}
 						}
 					}
+				}
+				else if (dynamic_cast<CMonkey*>(e->obj))
+				{
+					CMonkey* monkey = dynamic_cast<CMonkey*>(e->obj);
+
+					if (untouchable_start == 0) {
+						if (!this->isOnStair)
+						{
+							this->SetState(SIMON_STATE_HURT);
+							x += dx;
+							y += dy;
+						}
+						if (untouchable != 1) {
+							StartUntouchable();
+							break; // không xét tiếp va chạm khi defect
+						}
+					}
+					else {
+						if (e->nx != 0)
+						{
+							x += dx;
+						}
+						if (e->ny != 0)
+						{
+							y += dy;
+						}
+					}
+
 				}
 			}
 		}
@@ -461,7 +489,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						StartUntouchable();
 						break; // không xét tiếp va chạm khi defect
 					}
-				}				
+				}
 			}
 		}
 		if (dynamic_cast<CBat*>(obj)) // if e->obj is Item Heart 
@@ -515,6 +543,44 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 			}
 		}
+		if (dynamic_cast<CGhost*>(obj)) // if e->obj is Item Heart 
+		{
+			CGhost* f = dynamic_cast<CGhost*>(obj);
+			float sl, st, sr, sb;
+			float ml, mt, mr, mb;
+			this->GetBoundingBox(sl, st, sr, sb);
+			f->GetBoundingBoxActive(ml, mt, mr, mb);
+			if (CGame::AABB(ml, mt, mr, mb, sl, st, sr, sb) == true)
+			{
+				if (untouchable != 1)
+				{
+					if (f->x < this->x)
+					{
+						f->nx = 1;
+						f->vx = -GHOST_FLYING_SPEED_X * 1.5f;
+					}
+					else
+					{
+						f->vx = GHOST_FLYING_SPEED_X * 1.5f;
+						f->nx = -1;
+					}
+				}
+			}
+			if (this->AABB(obj) == true) // if e->obj is Item Heart 
+			{
+				if (untouchable_start == 0) {
+
+					if (!this->isOnStair)
+					{
+						this->SetState(SIMON_STATE_HURT);
+					}
+					if (untouchable != 1) {
+						StartUntouchable();
+						break; // không xét tiếp va chạm khi defect
+					}
+				}
+			}
+		}		
 		if (dynamic_cast<CBrick*>(obj)) {
 			CBrick* e = dynamic_cast<CBrick*>(obj);
 
@@ -1012,39 +1078,5 @@ bool CSimon::AutoWalk(float step)
 	return false;
 }
 
-void CSimon::CheckCollisionWithActiveEnemy(vector<LPGAMEOBJECT>* listObjects)
-{
-	float simon_l, simon_t, simon_r, simon_b;
-
-	GetBoundingBox(simon_l, simon_t, simon_r, simon_b);
-
-	for (UINT i = 0; i < listObjects->size(); i++)
-	{
-		CEnemy* enemy = dynamic_cast<CEnemy*>(listObjects->at(i));
-		if (enemy == NULL)
-			continue;
-
-		// Không cần xét vùng active nữa khi nó đang active / destroyed
-		if (enemy->GetState() == 0)
-			continue;
-
-		float enemy_l, enemy_t, enemy_r, enemy_b;
-		enemy->GetBoundingBoxActive(enemy_l, enemy_t, enemy_r, enemy_b);
-
-		if (CGame::AABB(simon_l, simon_t, simon_r, simon_b, enemy_l, enemy_t, enemy_r, enemy_b) == true)
-		{
-			D3DXVECTOR2 enemyEntryPostion = enemy->GetEntryPosition();
-			int tempNx = x < enemy->x ? -1 : 1;
-			if (dynamic_cast<CBat*>(enemy))
-			{
-				CBat* bat = dynamic_cast<CBat*>(enemy);
-
-				if (bat->GetState() == BAT_STATE_IDLE && bat->IsActivate() == true)
-					bat->SetState(BAT_STATE_FLYING);
-				bat->SetNx(tempNx);
-			}
-		}
-	}
-}
 
 

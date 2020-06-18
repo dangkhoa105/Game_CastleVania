@@ -17,7 +17,7 @@ void CBreakWallTrigger::GetBoundingBox(float& l, float& t, float& r, float& b)
 	b = y + BREAKWALLTRIGGER_BBOX_HEIGHT;
 }
 
-void CBreakWallTrigger::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
+void CBreakWallTrigger::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt);
 }

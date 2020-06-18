@@ -14,14 +14,14 @@ void CBridge::GetBoundingBox(float& l, float& t, float& r, float& b)
 	b = y + BRIDGE_BBOX_HEIGHT;
 }
 
-void CBridge::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
+void CBridge::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt);
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
 	coEvents.clear();
-	CalcPotentialCollisions(colliable_objects, coEvents);
+	CalcPotentialCollisions(coObjects, coEvents);
 
 	
 
