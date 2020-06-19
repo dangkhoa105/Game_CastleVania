@@ -24,6 +24,7 @@
 #include "Skeleton.h"
 #include "Crow.h"
 #include <queue>
+#include "Grid.h"
 
 class CPlayScene
 {
@@ -43,10 +44,10 @@ class CPlayScene
 
 	std::queue<LPGAMEOBJECT> newObjectList;
 
-	vector<LPGAMEOBJECT>* objects;	
+	vector<LPGAMEOBJECT> objects;	
 	
 	std::unordered_map<int, CPScene*> pScenes;
-	std::unordered_map<int, vector<LPGAMEOBJECT>*> pMapObjects;
+	//std::unordered_map<int, vector<LPGAMEOBJECT>*> pMapObjects;
 
 	CPScene* currentScene;	
 
@@ -55,6 +56,12 @@ class CPlayScene
 	CAnimations* animations = CAnimations::GetInstance();
 
 	ReadResourceFile* ReadResourceFile = ReadResourceFile::GetInstance();
+
+	Grid* grid;// currentGrid;
+	std::unordered_map<int, Grid*> grids;
+	
+	void GetListobjectFromGrid();
+	void UpdateGrid();
 	
 public:
 	CPlayScene() {};
@@ -66,6 +73,8 @@ public:
 		newObjectList.push(obj);
 	}
 	
+
+	void AddtoGrid(LPGAMEOBJECT object, bool isAlwayUpdate = false);
 	void Update(DWORD dt);
 	void UpdateCam();
 	void UpdateItem();

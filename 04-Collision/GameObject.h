@@ -25,6 +25,11 @@ struct CCollisionEvent
 		return a->t < b->t;
 	}
 };
+struct CellIndex {
+	int x;
+	int y;
+	CellIndex(int x, int y) :x(x), y(y) {};
+};
 
 
 
@@ -50,6 +55,7 @@ public:
 	bool die;
 	bool fall;
 
+	
 	bool box;
 
 	DWORD dt; 
@@ -57,7 +63,25 @@ public:
 	unordered_map<string, LPANIMATION> animations;
 
 	bool isDestroy = false; // cờ hiệu để biết object bị hủy trong quá trình update; B
+	bool isActive = false;
+	CellIndex cellIndex = { -1,-1 };
 
+
+	void SetActive() {
+		isActive = true;
+	}
+	bool CheckActive() {
+		return isActive;
+	}
+
+	void SetCellIndex(int cellX, int cellY) {
+		CellIndex cellIndex = { cellX,cellY };
+		this->cellIndex = cellIndex;
+	}
+
+	CellIndex GetCellIndex() {
+		return cellIndex;
+	}
 	void SetDestroy(bool isDestroy) { this->isDestroy = isDestroy; }
 	bool IsDestroy() { return this->isDestroy; }
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }

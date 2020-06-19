@@ -111,10 +111,11 @@
 
 // crow
 #define CROW_FLYING_SPEED_X				0.15f
-#define CROW_FLYING_SPEED_y				0.03f
+#define CROW_FLYING_SPEED_Y				0.2f
 
 #define CROW_STATE_IDLE					0
-#define CROW_STATE_FLYING				1
+#define CROW_STATE_WAITING				1
+#define CROW_STATE_FLYING				2
 #pragma endregion
 
 #pragma region BREAK WALL

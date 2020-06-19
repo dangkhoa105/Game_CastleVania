@@ -5,6 +5,29 @@
 
 CPlayScene* CPlayScene::__instance = NULL;
 
+void CPlayScene::GetListobjectFromGrid()
+{
+	objects.clear();
+	while (newObjectList.size() > 0)
+	{
+		objects.push_back(newObjectList.front());
+		newObjectList.pop();
+	}
+	
+	grid->GetListobjectFromGrid(objects);
+}
+
+void CPlayScene::UpdateGrid()
+{
+	for (size_t i = 0; i < this->objects.size(); i++)
+	{
+		LPGAMEOBJECT obj = this->objects.at(i);
+		float x_, y_;
+		obj->GetPosition(x_, y_);
+		grid->Update(obj);
+	}
+}
+
 CPlayScene* CPlayScene::GetInstance()
 {
 	if (__instance == NULL) __instance = new CPlayScene();
@@ -19,8 +42,6 @@ void CPlayScene::LoadResource()
 	LoadObject();
 
 	LPANIMATION ani;
-
-	this->objects = this->pMapObjects.at(this->currentScene->objCollectId);
 
 	simon = new CSimon();
 	simon->SetState(currentScene->stateSimon);
@@ -109,6 +130,7 @@ void CPlayScene::LoadMap()
 	this->currentScene = pScenes.at(activeScene);
 
 	this->tilemap = this->tileMaps.Get(this->currentScene->mapId);
+	
 }
 
 void CPlayScene::LoadObject()
@@ -126,6 +148,10 @@ void CPlayScene::LoadObject()
 		const std::string childPath = std::string(child->first_attribute("path")->value());
 
 		const int objID = std::atoi(child->first_attribute("objcollectid")->value());
+		const int mapID = std::atoi(child->first_attribute("mapID")->value());
+		LPTILEMAP map = this->tileMaps.Get(mapID);
+		Grid* grid = new Grid(map->GetMapWidth(), map->GetHeightHeight());
+
 		rapidxml::file<> xmlFile(childPath.c_str());
 		rapidxml::xml_document<> doc;
 		doc.parse<0>(xmlFile.data());
@@ -134,6 +160,8 @@ void CPlayScene::LoadObject()
 		for (xml_node<>* oChild = objectNode->first_node(); oChild; oChild = oChild->next_sibling()) //cú pháp lập
 		{
 			const std::string nodeName = oChild->name();
+		
+		
 			if (nodeName == "bricks")
 			{
 				for (xml_node<>* grand = oChild->first_node(); grand; grand = grand->next_sibling()) //cú pháp lập
@@ -146,7 +174,7 @@ void CPlayScene::LoadObject()
 					brick->SetPosition(x, y);
 					brick->widthbbox = widthbbox;
 					brick->heightbbox = heightbbox;
-					_object->push_back(brick);
+					grid->Add(brick, true);
 				}
 			}
 			else if (nodeName == "candles")
@@ -161,7 +189,7 @@ void CPlayScene::LoadObject()
 					candle->SetItem(itemID);
 					candle->SetPosition(x, y);
 					candle->SetState(state);
-					_object->push_back(candle);
+					grid->Add(candle);
 				}
 			}
 			else if (nodeName == "entrace")
@@ -170,7 +198,7 @@ void CPlayScene::LoadObject()
 				const int x = std::atoi(oChild->first_attribute("x")->value());
 				const int y = std::atoi(oChild->first_attribute("y")->value());
 				entrace->SetPosition(x, y);
-				_object->push_back(entrace);
+				grid->Add(entrace);
 			}
 			else if (nodeName == "changeScene")
 			{
@@ -180,7 +208,7 @@ void CPlayScene::LoadObject()
 				const int idChangeScene = std::atoi(oChild->first_attribute("idChangeScene")->value());
 				changeScene->SetPosition(x, y);
 				changeScene->SetIdNextScene(idChangeScene);
-				_object->push_back(changeScene);
+				grid->Add(changeScene);
 			}
 			else if (nodeName == "moneyBagTrigger")
 			{
@@ -188,7 +216,7 @@ void CPlayScene::LoadObject()
 				const int x = std::atoi(oChild->first_attribute("x")->value());
 				const int y = std::atoi(oChild->first_attribute("y")->value());
 				moneyBagTrigger->SetPosition(x, y);
-				_object->push_back(moneyBagTrigger);
+				grid->Add(moneyBagTrigger);
 			}
 			else if (nodeName == "breakWallTrigger")
 			{
@@ -196,7 +224,7 @@ void CPlayScene::LoadObject()
 				const int x = std::atoi(oChild->first_attribute("x")->value());
 				const int y = std::atoi(oChild->first_attribute("y")->value());
 				breakWallTrigger->SetPosition(x, y);
-				_object->push_back(breakWallTrigger);
+				grid->Add(breakWallTrigger);
 			}
 			else if (nodeName == "wall")
 			{
@@ -204,7 +232,7 @@ void CPlayScene::LoadObject()
 				const int x = std::atoi(oChild->first_attribute("x")->value());
 				const int y = std::atoi(oChild->first_attribute("y")->value());
 				wall->SetPosition(x, y);
-				_object->push_back(wall);
+				grid->Add(wall);
 			}
 			else if (nodeName == "stairs")
 			{
@@ -216,7 +244,7 @@ void CPlayScene::LoadObject()
 					const int stairDirection = std::atoi(grand->first_attribute("stairDirection")->value());
 					stair->SetPosition(x, y);
 					stair->SetDirectionStair(stairDirection);
-					_object->push_back(stair);
+					grid->Add(stair);
 				}
 			}
 			else if (nodeName == "bridge")
@@ -228,7 +256,7 @@ void CPlayScene::LoadObject()
 				const int lastPositionX = std::atoi(oChild->first_attribute("lastPositionX")->value());
 				bridge->SetPosition(x, y);
 				bridge->SetReturnPosition(beginPositionX, lastPositionX);
-				_object->push_back(bridge);
+				grid->Add(bridge);
 			}
 			else if (nodeName == "breakWalls")
 			{
@@ -238,7 +266,7 @@ void CPlayScene::LoadObject()
 					const int x = std::atoi(grand->first_attribute("x")->value());
 					const int y = std::atoi(grand->first_attribute("y")->value());
 					breakWall->SetPosition(x, y);
-					_object->push_back(breakWall);
+					grid->Add(breakWall);
 				}
 			}
 			else if (nodeName == "enemies")
@@ -263,7 +291,7 @@ void CPlayScene::LoadObject()
 							spearGuard->SetReturnPosition(beginPositionX, lastPositionX);
 							spearGuard->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
 							spearGuard->SetBboxEnemyActive(bboxEnemyActiveWidth, bboxEnemyActiveHeight);
-							_object->push_back(spearGuard);
+							grid->Add(spearGuard);
 						}
 					}
 					else if (nodeNameGrand == "bat")
@@ -278,7 +306,7 @@ void CPlayScene::LoadObject()
 						bat->SetPosition(x, y);
 						bat->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
 						bat->SetBboxEnemyActive(bboxEnemyActiveWidth, bboxEnemyActiveHeight);
-						_object->push_back(bat);
+						grid->Add(bat);
 					}
 					else if (nodeNameGrand == "ghost")
 					{
@@ -296,7 +324,7 @@ void CPlayScene::LoadObject()
 						ghost->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
 						ghost->SetBboxEnemyActive(bboxEnemyActiveWidth, bboxEnemyActiveHeight);
 						ghost->SetEntryPosition(x, y);
-						_object->push_back(ghost);
+						grid->Add(ghost);
 					}
 					else if (nodeNameGrand == "monkeys")
 					{
@@ -315,7 +343,7 @@ void CPlayScene::LoadObject()
 							monkey->SetReturnPosition(beginPositionX, lastPositionX);
 							monkey->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
 							monkey->SetBboxEnemyActive(bboxEnemyActiveWidth, bboxEnemyActiveHeight);
-							_object->push_back(monkey);
+							grid->Add(monkey);
 						}
 					}
 					else if (nodeNameGrand == "skeletons")
@@ -335,7 +363,7 @@ void CPlayScene::LoadObject()
 							skeleton->SetReturnPosition(beginPositionX, lastPositionX);
 							skeleton->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
 							skeleton->SetBboxEnemyActive(bboxEnemyActiveWidth, bboxEnemyActiveHeight);
-							_object->push_back(skeleton);
+							grid->Add(skeleton);
 						}
 					}
 					else if (nodeNameGrand == "crows")
@@ -352,26 +380,31 @@ void CPlayScene::LoadObject()
 							crow->SetPosition(x, y);
 							crow->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
 							crow->SetBboxEnemyActive(bboxEnemyActiveWidth, bboxEnemyActiveHeight);
-							_object->push_back(crow);
+							grid->Add(crow);
 						}
 					}
 				}
 			}
 		}
-		this->pMapObjects.insert(std::make_pair(objID, _object));
+		
+		this->grids.insert(std::make_pair(mapID, grid));
 	}
+	this->grid = this->grids.at(this->currentScene->mapId);
+}
+
+void CPlayScene::AddtoGrid(LPGAMEOBJECT object, bool isAlwayUpdate)
+{
+	grid->Add(object, isAlwayUpdate);
 }
 
 void CPlayScene::Update(DWORD dt)
 {
 	// We know that Simon is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
-
-	while (newObjectList.size() > 0)
-	{
-		objects->push_back(newObjectList.front());
-		newObjectList.pop();
-	}
+	
+	
+	GetListobjectFromGrid();
+	
 
 	if (simon->spawnKnife)
 	{
@@ -384,7 +417,7 @@ void CPlayScene::Update(DWORD dt)
 				knife->SetPosition(simon->x, simon->y + 30);
 			else
 				knife->SetPosition(simon->x, simon->y + 10);
-			this->objects->push_back(knife);
+			this->AddtoGrid(knife);
 			break;
 		}
 		simon->spawnKnife = false;
@@ -392,25 +425,27 @@ void CPlayScene::Update(DWORD dt)
 	
 	vector<LPGAMEOBJECT> coObjects;
 
-	for (int i = 0; i < objects->size(); i++)
+	for (int i = 0; i < objects.size(); i++)
 	{
 		coObjects.push_back(simon);
-		coObjects.push_back(objects->at(i));	
+		coObjects.push_back(objects.at(i));	
 	}
 	simon->Update(dt, &coObjects);
 
-	for (int i = 0; i < objects->size(); i++)
+	for (int i = 0; i < objects.size(); i++)
 	{
-		objects->at(i)->Update(dt, &coObjects);
+		objects.at(i)->Update(dt, &coObjects);
 	}
 
 	UpdateItem();
 
 	UpdateCam();
 
-	UpdateScene();
+	UpdateGrid();
 
 	Unload();
+
+	UpdateScene();	
 }
 
 void CPlayScene::Render()
@@ -419,13 +454,13 @@ void CPlayScene::Render()
 
 	tilemap->Draw(game->GetCamPos());
 
-	for (int i = 0; i < objects->size(); i++)
+	for (int i = 0; i < objects.size(); i++)
 	{
-		if (objects->at(i)->isDestroy)
+		if (objects.at(i)->isDestroy)
 		{
 			return;
 		}
-		objects->at(i)->Render();
+		objects.at(i)->Render();
 	}
 
 	simon->Render();
@@ -436,10 +471,10 @@ void CPlayScene::Render()
 
 void CPlayScene::Unload()
 {
-	for (vector<LPGAMEOBJECT>::iterator it = objects->begin(); it != objects->end(); ) {
+	for (vector<LPGAMEOBJECT>::iterator it = objects.begin(); it != objects.end(); ) {
 
 		if ((*it)->IsDestroy()) {
-			it = objects->erase(it);
+			it = objects.erase(it);
 		}
 		else ++it;
 	}
@@ -461,11 +496,11 @@ void CPlayScene::UpdateCam()
 
 void CPlayScene::UpdateItem()
 {
-	for (int i = 0; i < objects->size(); i++)
+	for (int i = 0; i < objects.size(); i++)
 	{
-		if (dynamic_cast<CCandle*>(objects->at(i)))
+		if (dynamic_cast<CCandle*>(objects.at(i)))
 		{
-			auto f = dynamic_cast<CCandle*>(objects->at(i));
+			auto f = dynamic_cast<CCandle*>(objects.at(i));
 
 			if (f->IsDestroy())
 			{
@@ -479,7 +514,7 @@ void CPlayScene::UpdateItem()
 						heart->SetId(ID_IHEART);
 						heart->SetPosition(x, y);
 						//heart->SetState(STATE_IHEART);
-						objects->push_back(heart);
+						objects.push_back(heart);
 					}
 					if (f->GetItem() == ID_SMALL_IHEART)
 					{
@@ -487,46 +522,46 @@ void CPlayScene::UpdateItem()
 						small_heart->SetId(ID_SMALL_IHEART);
 						small_heart->SetPosition(x, y);
 						//small_heart->SetState(STATE_SMALL_IHEART);
-						objects->push_back(small_heart);
+						objects.push_back(small_heart);
 					}
 					if (f->GetItem() == ID_IWHIP)
 					{
 						auto whip = new CItem();
 						whip->SetId(ID_IWHIP);
 						whip->SetPosition(x, y);
-						objects->push_back(whip);
+						objects.push_back(whip);
 					}
 					if (f->GetItem() == ID_IKNIFE)
 					{
 						auto knife = new CItem();
 						knife->SetId(ID_IKNIFE);
 						knife->SetPosition(x, y);
-						objects->push_back(knife);
+						objects.push_back(knife);
 					}
 					if (f->GetItem() == ID_IBOOMERANG)
 					{
 						auto boomerang = new CItem();
 						boomerang->SetId(ID_IBOOMERANG);
 						boomerang->SetPosition(x, y);
-						objects->push_back(boomerang);
+						objects.push_back(boomerang);
 					}
 					if (f->GetItem() == ID_IMONEYBAG)
 					{
 						auto moneybag = new CItem();
 						moneybag->SetId(ID_IMONEYBAG);
 						moneybag->SetPosition(x, y);
-						objects->push_back(moneybag);
+						objects.push_back(moneybag);
 					}
 				}
 				auto effect = new CEffect();
 				effect->SetPosition(x, y);
 				effect->SetState(EFFECT_STATE_CANDLE);
-				objects->push_back(effect);
+				objects.push_back(effect);
 			}
 		}
-		if (dynamic_cast<CEnemy*>(objects->at(i)))
+		if (dynamic_cast<CEnemy*>(objects.at(i)))
 		{
-			auto f = dynamic_cast<CEnemy*>(objects->at(i));
+			auto f = dynamic_cast<CEnemy*>(objects.at(i));
 
 			if (f->IsDestroy())
 			{
@@ -535,34 +570,34 @@ void CPlayScene::UpdateItem()
 				auto effect = new CEffect();
 				effect->SetPosition(x, y);
 				effect->SetState(EFFECT_STATE_CANDLE);
-				objects->push_back(effect);
+				objects.push_back(effect);
 			}
 		}
-		if (dynamic_cast<CMoneyBagTrigger*>(objects->at(i)))
+		if (dynamic_cast<CMoneyBagTrigger*>(objects.at(i)))
 		{
-			auto f = dynamic_cast<CMoneyBagTrigger*>(objects->at(i));
+			auto f = dynamic_cast<CMoneyBagTrigger*>(objects.at(i));
 			if (f->IsDestroy())
 			{
 				auto moneyBag = new CItem();
 				moneyBag->SetId(ID_IMONEYBAG);
 				moneyBag->SetPosition(1207, 240);
-				objects->push_back(moneyBag);
+				objects.push_back(moneyBag);
 			}
 		}
-		if (dynamic_cast<CBreakWallTrigger*>(objects->at(i)))
+		if (dynamic_cast<CBreakWallTrigger*>(objects.at(i)))
 		{
-			auto f = dynamic_cast<CBreakWallTrigger*>(objects->at(i));
+			auto f = dynamic_cast<CBreakWallTrigger*>(objects.at(i));
 			if (f->IsDestroy())
 			{
 				auto crown = new CItem();
 				crown->SetId(ID_ICROWN);
 				crown->SetPosition(256, 270);
-				objects->push_back(crown);
+				objects.push_back(crown);
 			}
 		}
-		if (dynamic_cast<CBreakWall*>(objects->at(i)))
+		if (dynamic_cast<CBreakWall*>(objects.at(i)))
 		{
-			auto f = dynamic_cast<CBreakWall*>(objects->at(i));
+			auto f = dynamic_cast<CBreakWall*>(objects.at(i));
 
 			if (f->IsDestroy())
 			{
@@ -571,7 +606,7 @@ void CPlayScene::UpdateItem()
 					auto black = new CEffect();
 					black->SetState(EFFECT_STATE_BREAKWALL_DESTROYED);
 					black->SetPosition(f->x, f->y);
-					objects->push_back(black);
+					objects.push_back(black);
 
 					for (size_t i = 0; i < 4; i++)
 					{
@@ -582,7 +617,7 @@ void CPlayScene::UpdateItem()
 						float vy = (float)(-100 + rand() % 200) / 1000;
 						derbir->vx = vx;
 						derbir->vy = vy;
-						objects->push_back(derbir);
+						objects.push_back(derbir);
 					}
 				}
 				else if (currentScene->mapId == 2)
@@ -596,13 +631,13 @@ void CPlayScene::UpdateItem()
 						float vy = (float)(-100 + rand() % 200) / 1000;
 						derbir->vx = vx;
 						derbir->vy = vy;
-						objects->push_back(derbir);
+						objects.push_back(derbir);
 					}
 
 					auto doubleShot = new CItem();
 					doubleShot->SetId(ID_IDOUBLESHOT);
 					doubleShot->SetPosition(f->x, f->y);
-					objects->push_back(doubleShot);
+					objects.push_back(doubleShot);
 				}
 			}
 		}
@@ -615,6 +650,7 @@ void CPlayScene::UpdateScene()
 	{
 		SwitchScene(simon->idChangeScene);
 		this->tilemap = this->tileMaps.Get(this->currentScene->mapId);
+		this->grid = this->grids.at(this->currentScene->mapId);
 		simon->SetState(currentScene->stateSimon);
 		simon->SetPosition(currentScene->simonX, currentScene->simonY);		
 		simon->lastStepOnStairPos = { float(currentScene->simonX), float(currentScene->simonY) };	
@@ -626,7 +662,7 @@ void CPlayScene::UpdateScene()
 			CGame::GetInstance()->SetCamPos(currentScene->camX + tilemap->GetMapWidth() - SCREEN_WIDTH, currentScene->camY);
 		simon->idChangeScene = -1;
 
-		this->objects = this->pMapObjects.at(this->currentScene->objCollectId);
+		
 	}
 }
 

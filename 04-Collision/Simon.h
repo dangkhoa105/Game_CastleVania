@@ -107,6 +107,7 @@ public:
 	void SetState(int state);
 
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
+	int GetUntouchable() { return untouchable; }
 
 	int GetY() { return y; }
 	int GetX() { return x; }

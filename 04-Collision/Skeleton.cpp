@@ -2,7 +2,8 @@
 #include "Simon.h"
 #include "Brick.h"
 #include "Game.h"
-#include"PlayScene.h"
+#include "PlayScene.h"
+
 void CSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CEnemy::Update(dt);
@@ -44,7 +45,7 @@ void CSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		auto bone = new CBone();
 		bone->nx = this->nx;
 		bone->SetPosition(this->x, this->y + 30);
-		pScene->AddNewObject(bone);
+		pScene->AddtoGrid(bone);
 		throw_start = GetTickCount();
 	}
 

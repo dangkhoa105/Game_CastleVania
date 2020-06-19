@@ -443,23 +443,23 @@
     <map texId="500" id="5" tileWidth="32" tileHeight="32" mapWidth="1536" mapHeight="384" pathText="resources\Map\Map3\map3_2.txt" pathImg="resources\Map\Map3\map3_2.png"/>
   </maps>
 
-  <scenes activeID="4">
+  <scenes activeID="5">
     <!-- map 1 -->
     <scene id="0" mapId="0" objcollectid="0" simonX="100" simonY="200" camX="0" camY="0" state="0" nx="1"/>
     <!-- map 2 -->
     <scene id="1" mapId="1" objcollectid="1" simonX="32" simonY="288" camX="0" camY="0" state="0" nx="1"/>
     <scene id="2" mapId="2" objcollectid="2" simonX="738" simonY="322" camX="1024" camY="0" state="10" nx="-1"/>
     <scene id="3" mapId="1" objcollectid="1" simonX="224" simonY="2" camX="0" camY="0" state="14" nx="1"/>
-    <!-- map 3 -->
+    <!-- map 3 simonX="148" simonY="306"-->
     <scene id="4" mapId="4" objcollectid="4" simonX="1440" simonY="256" camX="1536" camY="0" state="0" nx="-1"/>
-    <scene id="5" mapId="5" objcollectid="5" simonX="148" simonY="306" camX="0" camY="0" state="12" nx="1"/>
+    <scene id="5" mapId="5" objcollectid="5" simonX="64" simonY="256" camX="0" camY="0" state="12" nx="1"/>
   </scenes>
 </base>
 
 <objectsCollection>
-  <object objcollectid="0" path="resources\CastleVania\map1_objects.xml"/>
-  <object objcollectid="1" path="resources\CastleVania\map2_1_objects.xml"/>
-  <object objcollectid="2" path="resources\CastleVania\map2_2_objects.xml"/>
-  <object objcollectid="4" path="resources\CastleVania\map3_1_objects.xml"/>
-  <object objcollectid="5" path="resources\CastleVania\map3_2_objects.xml"/>
+  <object objcollectid="0" mapID="0" path="resources\CastleVania\map1_objects.xml"/>
+  <object objcollectid="1" mapID="1" path="resources\CastleVania\map2_1_objects.xml"/>
+  <object objcollectid="2" mapID="2" path="resources\CastleVania\map2_2_objects.xml"/>
+  <object objcollectid="4" mapID="4" path="resources\CastleVania\map3_1_objects.xml"/>
+  <object objcollectid="5" mapID="5" path="resources\CastleVania\map3_2_objects.xml"/>
 </objectsCollection>

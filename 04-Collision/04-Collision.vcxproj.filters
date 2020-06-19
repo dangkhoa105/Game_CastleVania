@@ -49,6 +49,9 @@
     <Filter Include="Source Files\Scene">
       <UniqueIdentifier>{c5df3e83-602a-4c16-b3ae-a2501cbd4ee1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Grid">
+      <UniqueIdentifier>{f7d219cd-3d3c-409a-9417-959e57990509}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Textures.h">
@@ -165,6 +168,9 @@
     <ClInclude Include="Crow.h">
       <Filter>Source Files\Objects Collection\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Source Files\Grid</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -277,6 +283,9 @@
     </ClCompile>
     <ClCompile Include="Crow.cpp">
       <Filter>Source Files\Objects Collection\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Source Files\Grid</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

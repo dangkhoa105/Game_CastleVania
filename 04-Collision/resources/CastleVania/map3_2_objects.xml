@@ -34,8 +34,8 @@
     </skeletons>
 
     <crows>
-      <crow x="544" y="72" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="200" bboxEnemyActiveHeight="100"/>
-      <crow x="1289" y="256" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="200" bboxEnemyActiveHeight="100"/>
+      <crow x="544" y="72" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="100" bboxEnemyActiveHeight="256"/>
+      <crow x="1289" y="256" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="100" bboxEnemyActiveHeight="256"/>
     </corws>
   </enemies>
 </objects>

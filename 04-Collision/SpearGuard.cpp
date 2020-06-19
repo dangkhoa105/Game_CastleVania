@@ -56,6 +56,10 @@ void CSpearGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		x += dx;
 		y += dy;
 	}
+	else
+	{
+		x += dx;
+	}
 
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }

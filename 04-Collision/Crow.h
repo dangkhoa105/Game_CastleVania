@@ -6,7 +6,10 @@
 class CCrow : public CEnemy
 {
 	DWORD flyingWaiting_start = 0;
+	
+	bool isWaiting = true;
 public:
+	DWORD flying_start = 0;
 	CCrow()
 	{
 		hp = 1;
@@ -15,6 +18,7 @@ public:
 		reSpawnTime = ENEMY_SPAWN_TIME;
 		this->SetState(CROW_STATE_IDLE);
 		this->flyingWaiting_start = 0;
+		this->flying_start = 0;
 	};
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);

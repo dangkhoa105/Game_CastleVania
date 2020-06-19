@@ -82,7 +82,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			if (dynamic_cast<CBrick*>(e->obj) || dynamic_cast<CBreakWall*>(e->obj)) // if e->obj is Brick 
 			{
-				if (e->ny == -1)
+				if (e->ny < 0)
 				{
 					colBrickSweptAABB = false;
 					if (state == SIMON_STATE_JUMP)
@@ -116,7 +116,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					y += dy;
 					if (nx != 0) vx = 0;
 				}
-				else if (e->nx != 0) {
+				if (e->nx != 0) {
 					if (this->isStartOnStair || this->isOnStair)
 					{
 						x += dx;
@@ -154,8 +154,9 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				if (dynamic_cast<CCandle*>(e->obj)) // if e->obj is Candle 
 				{
-					x += dx;
-					if (e->ny != 0)
+					if (e->nx != 0)
+						x += dx;
+					if (e->ny != 0 && isGround == false)
 					{
 						y += dy;
 					}
@@ -401,6 +402,31 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					CBone* bone = dynamic_cast<CBone*>(e->obj);
 
+					if (untouchable_start == 0) {
+						if (!this->isOnStair)
+						{
+							this->SetState(SIMON_STATE_HURT);
+							x += dx;
+							y += dy;
+						}
+						if (untouchable != 1) {
+							StartUntouchable();
+							break; // không xét tiếp va chạm khi defect
+						}
+					}
+					else {
+						if (e->nx != 0)
+						{
+							x += dx;
+						}
+						if (e->ny != 0)
+						{
+							y += dy;
+						}
+					}
+				}
+				else if (dynamic_cast<CCrow*>(e->obj))
+				{
 					if (untouchable_start == 0) {
 						if (!this->isOnStair)
 						{
@@ -1029,12 +1055,12 @@ void CSimon::HandleFirstStepOnStair()
 		}
 	}
 	else if (this->onStairDirection == STAIRDIRECTION::DOWNLEFT) {
-		if (stairPos.x - this->x < 43) {
+		if (stairPos.x - this->x < 27) {
 			this->isAutoWalk = true;
 			SetState(SIMON_STATE_WALKING_LEFT);
 			return;
 		}
-		else if (stairPos.x - this->x > 43 + 5) {
+		else if (stairPos.x - this->x > 27 + 5) {
 			this->isAutoWalk = true;
 			SetState(SIMON_STATE_WALKING_RIGHT);
 			return;
