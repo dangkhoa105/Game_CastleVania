@@ -162,6 +162,9 @@
     <ClInclude Include="Bone.h">
       <Filter>Source Files\Objects Collection\Weapon\SupWeapon</Filter>
     </ClInclude>
+    <ClInclude Include="Crow.h">
+      <Filter>Source Files\Objects Collection\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -271,6 +274,9 @@
     </ClCompile>
     <ClCompile Include="Bone.cpp">
       <Filter>Source Files\Objects Collection\Weapon\SupWeapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Crow.cpp">
+      <Filter>Source Files\Objects Collection\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

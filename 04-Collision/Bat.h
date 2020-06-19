@@ -14,7 +14,7 @@ public:
 		hp = 1;
 		AddAnimation("bat_ani_idle");
 		AddAnimation("bat_ani_flying");
-		reSpawnTime = 3000;
+		reSpawnTime = ENEMY_SPAWN_TIME;
 		this->SetState(BAT_STATE_IDLE);
 	};
 

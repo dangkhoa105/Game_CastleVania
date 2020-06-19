@@ -369,7 +369,60 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							y += dy;
 						}
 					}
+				}
+				else if (dynamic_cast<CSkeleton*>(e->obj))
+				{
+					CSkeleton* skeleton = dynamic_cast<CSkeleton*>(e->obj);
 
+					if (untouchable_start == 0) {
+						if (!this->isOnStair)
+						{
+							this->SetState(SIMON_STATE_HURT);
+							x += dx;
+							y += dy;
+						}
+						if (untouchable != 1) {
+							StartUntouchable();
+							break; // không xét tiếp va chạm khi defect
+						}
+					}
+					else {
+						if (e->nx != 0)
+						{
+							x += dx;
+						}
+						if (e->ny != 0)
+						{
+							y += dy;
+						}
+					}
+				}
+				else if (dynamic_cast<CBone*>(e->obj))
+				{
+					CBone* bone = dynamic_cast<CBone*>(e->obj);
+
+					if (untouchable_start == 0) {
+						if (!this->isOnStair)
+						{
+							this->SetState(SIMON_STATE_HURT);
+							x += dx;
+							y += dy;
+						}
+						if (untouchable != 1) {
+							StartUntouchable();
+							break; // không xét tiếp va chạm khi defect
+						}
+					}
+					else {
+						if (e->nx != 0)
+						{
+							x += dx;
+						}
+						if (e->ny != 0)
+						{
+							y += dy;
+						}
+					}
 				}
 			}
 		}
@@ -542,45 +595,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					}
 				}
 			}
-		}
-		if (dynamic_cast<CGhost*>(obj)) // if e->obj is Item Heart 
-		{
-			CGhost* f = dynamic_cast<CGhost*>(obj);
-			float sl, st, sr, sb;
-			float ml, mt, mr, mb;
-			this->GetBoundingBox(sl, st, sr, sb);
-			f->GetBoundingBoxActive(ml, mt, mr, mb);
-			if (CGame::AABB(ml, mt, mr, mb, sl, st, sr, sb) == true)
-			{
-				if (untouchable != 1)
-				{
-					if (f->x < this->x)
-					{
-						f->nx = 1;
-						f->vx = -GHOST_FLYING_SPEED_X * 1.5f;
-					}
-					else
-					{
-						f->vx = GHOST_FLYING_SPEED_X * 1.5f;
-						f->nx = -1;
-					}
-				}
-			}
-			if (this->AABB(obj) == true) // if e->obj is Item Heart 
-			{
-				if (untouchable_start == 0) {
-
-					if (!this->isOnStair)
-					{
-						this->SetState(SIMON_STATE_HURT);
-					}
-					if (untouchable != 1) {
-						StartUntouchable();
-						break; // không xét tiếp va chạm khi defect
-					}
-				}
-			}
-		}		
+		}	
 		if (dynamic_cast<CBrick*>(obj)) {
 			CBrick* e = dynamic_cast<CBrick*>(obj);
 
@@ -962,16 +977,40 @@ void CSimon::HandleFirstStepOnStair()
 			this->isFirstStepOnStair = true;
 			this->lastStepOnStairPos = { floor(this->x),floor(this->y) };
 			//DebugOut(L"Step x=%f y=%f \n", this->LastStepOnStairPos.x, this->LastStepOnStairPos.y);
-			this->SetState(SIMON_STATE_STAIR_UP_RIGHT);
+			this->SetState(SIMON_STATE_STAIR_UP_LEFT);
 		}
 	}
-	else if (this->onStairDirection == STAIRDIRECTION::DOWNRIGHT) {
-		if (stairPos.x - this->x > 50) {
+	else if (this->onStairDirection == STAIRDIRECTION::UPLEFTRIGHT) {
+		if (stairPos.x - this->x < 8) {
+			this->isAutoWalk = true;
+			SetState(SIMON_STATE_WALKING_LEFT);
+			return;
+		}
+		else if (stairPos.x - this->x > 8 + 5) {
 			this->isAutoWalk = true;
 			SetState(SIMON_STATE_WALKING_RIGHT);
 			return;
 		}
-		else if (stairPos.x - this->x < 50 + 5) {
+		else {
+			if (state == SIMON_STATE_WALKING_RIGHT) {
+				if (nx == -1) nx = 1;
+				else if (nx == 1) nx = -1;
+			}
+			this->isAutoWalk = false;
+			this->isOnStair = true;
+			this->isFirstStepOnStair = true;
+			this->lastStepOnStairPos = { floor(this->x),floor(this->y) };
+			//DebugOut(L"Step x=%f y=%f \n", this->LastStepOnStairPos.x, this->LastStepOnStairPos.y);
+			this->SetState(SIMON_STATE_STAIR_UP_RIGHT);
+		}
+	}
+	else if (this->onStairDirection == STAIRDIRECTION::DOWNRIGHT) {
+		if (stairPos.x - this->x > -16) {
+			this->isAutoWalk = true;
+			SetState(SIMON_STATE_WALKING_RIGHT);
+			return;
+		}
+		else if (stairPos.x - this->x < -16 - 5) {
 			this->isAutoWalk = true;
 			SetState(SIMON_STATE_WALKING_LEFT);
 			return;
@@ -990,12 +1029,12 @@ void CSimon::HandleFirstStepOnStair()
 		}
 	}
 	else if (this->onStairDirection == STAIRDIRECTION::DOWNLEFT) {
-		if (stairPos.x - this->x < 18) {
+		if (stairPos.x - this->x < 43) {
 			this->isAutoWalk = true;
 			SetState(SIMON_STATE_WALKING_LEFT);
 			return;
 		}
-		else if (stairPos.x - this->x > 18 + 5) {
+		else if (stairPos.x - this->x > 43 + 5) {
 			this->isAutoWalk = true;
 			SetState(SIMON_STATE_WALKING_RIGHT);
 			return;

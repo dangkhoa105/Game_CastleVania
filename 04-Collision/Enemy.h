@@ -33,7 +33,8 @@ public:
 		}
 	}
 
-	D3DXVECTOR2 initPosition; //vị trí ban đầu
+	float initPositionX; //vị trí ban đầu
+	float initPositionY;
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObject = NULL);
 	virtual void Render() = 0;
@@ -45,13 +46,20 @@ public:
 	void StartRespawnTimeCounter();
 	bool IsActivate();
 	bool IsRespawn();
-	void SetEntryPosition(float x, float y) { initPosition.x = x; initPosition.y = y; }
-	D3DXVECTOR2 GetEntryPosition() { return initPosition; }	
+
+	void SetEntryPosition(float x, float y) 
+	{ 
+		this->initPositionX = x;
+		this->initPositionY = y;
+	}	
+	
+	float GetEntryPositionY() { return initPositionY; }
 	
 	void SetBboxEnemy(int bW, int bH) { this->bboxEnemyWidth = bW; this->bboxEnemyHeight = bH; }
 	void SetBboxEnemyActive(int bW, int bH) { this->bboxEnemyActiveWidth = bW; this->bboxEnemyActiveHeight = bH; }
 
-	void SetReturnPosition(int bX, int lX) {
+	void SetReturnPosition(int bX, int lX) 
+	{
 		this->beginPositionX = bX;
 		this->lastPositionX = lX;
 	}

@@ -9,6 +9,8 @@ public:
 	CBone() : CGameObject()
 	{
 		AddAnimation("bone_ani");
+		this->vx = BONE_SPEED_VX;
+		this->vy = -BONE_SPEED_VY;
 	}
 
 	virtual void Render();

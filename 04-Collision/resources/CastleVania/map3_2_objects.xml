@@ -18,4 +18,24 @@
     <brick x="1408" y="224" widthbbox="64" heightbbox="32"/>
     <brick x="1472" y="256" widthbbox="64" heightbbox="32"/>
   </bricks> 
+
+  <stairs>
+    <stair x="82" y="256" stairDirection="3"/>  
+    <stair x="112" y="318" stairDirection="1"/>  
+    <stair x="272" y="128" stairDirection="4"/>  
+  </stairs>
+
+  <enemies>
+    <ghost x="192" y="80" beginPositionX="256" lastPositionX="1312" bboxEnemyWidth="30" bboxEnemyHeight="30" bboxEnemyActiveWidth="100" bboxEnemyActiveHeight="100"/>
+
+    <skeletons>
+      <skeleton x="720" y="254" beginPositionX="65" lastPositionX="284" bboxEnemyWidth="32" bboxEnemyHeight="64" bboxEnemyActiveWidth="200" bboxEnemyActiveHeight="100"/>
+      <skeleton x="1289" y="254" beginPositionX="65" lastPositionX="284" bboxEnemyWidth="32" bboxEnemyHeight="64" bboxEnemyActiveWidth="200" bboxEnemyActiveHeight="100"/>
+    </skeletons>
+
+    <crows>
+      <crow x="544" y="72" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="200" bboxEnemyActiveHeight="100"/>
+      <crow x="1289" y="256" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="200" bboxEnemyActiveHeight="100"/>
+    </corws>
+  </enemies>
 </objects>

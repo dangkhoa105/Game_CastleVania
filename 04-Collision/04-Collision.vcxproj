@@ -132,6 +132,7 @@
     <ClInclude Include="Bridge.h" />
     <ClInclude Include="Candle.h" />
     <ClInclude Include="ChangeScene.h" />
+    <ClInclude Include="Crow.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Effect.h" />
@@ -171,6 +172,7 @@
     <ClCompile Include="Bridge.cpp" />
     <ClCompile Include="Candle.cpp" />
     <ClCompile Include="ChangeScene.cpp" />
+    <ClCompile Include="Crow.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Enemy.cpp" />

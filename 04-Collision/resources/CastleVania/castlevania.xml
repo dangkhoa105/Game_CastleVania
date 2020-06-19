@@ -134,6 +134,11 @@
   <sprite n="skeleton_1" l="549" t="22" r="580" b="88"/>
   <sprite n="skeleton_2" l="585" t="22" r="617" b="88"/>
 
+  <!--crow-->
+  <sprite n="crow_idle" l="701" t="140" r="732" b="163"/>
+  <sprite n="crow_fly_1" l="738" t="136" r="767" b="165"/>
+  <sprite n="crow_fly_2" l="772" t="136" r="803" b="167"/>
+  <sprite n="crow_fly_3" l="810" t="136" r="839" b="165"/>
   <!--effect-->
   <sprite n="effect_1" l="483" t="580" r="525" b="624"/>
   <sprite n="effect_2" l="525" t="580" r="567" b="624"/>
@@ -357,6 +362,17 @@
     <frame spriteID="skeleton_2" time="100"/>
   </animation>
 
+  <!--crow-->
+  <animation ID="crow_ani_idle" defaultTime="100">
+    <frame spriteID="crow_idle" time="100"/>
+  </animation>
+
+  <animation ID="crow_ani_flying" defaultTime="100">
+    <frame spriteID="crow_fly_1" time="100"/>
+    <frame spriteID="crow_fly_2" time="100"/>
+    <frame spriteID="crow_fly_3" time="100"/>
+  </animation>
+
   <!--effect-->
   <animation ID="effect" defaultTime="100">
     <frame spriteID="effect_1" time="100"/>
@@ -436,7 +452,7 @@
     <scene id="3" mapId="1" objcollectid="1" simonX="224" simonY="2" camX="0" camY="0" state="14" nx="1"/>
     <!-- map 3 -->
     <scene id="4" mapId="4" objcollectid="4" simonX="1440" simonY="256" camX="1536" camY="0" state="0" nx="-1"/>
-    <scene id="5" mapId="5" objcollectid="5" simonX="128" simonY="238" camX="0" camY="0" state="0" nx="1"/>
+    <scene id="5" mapId="5" objcollectid="5" simonX="148" simonY="306" camX="0" camY="0" state="12" nx="1"/>
   </scenes>
 </base>
 

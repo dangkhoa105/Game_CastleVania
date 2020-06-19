@@ -1,7 +1,4 @@
 #pragma once
-#ifndef _GAMECODE_H_
-#define _GAMECODE_H_
-
 #include<Windows.h>
 #include "Simon.h"
 #include "PScene.h"
@@ -25,9 +22,15 @@
 #include "Ghost.h"
 #include "Monkey.h"
 #include "Skeleton.h"
+#include "Crow.h"
+#include <queue>
 
 class CPlayScene
 {
+	static CPlayScene* __instance;
+
+
+
 	CSimon* simon;
 	CSkeleton* skeleton;
 	CBat* bat;
@@ -38,8 +41,10 @@ class CPlayScene
 	CTileMap* tilemap;
 	CTileMaps tileMaps;
 
-	vector<LPGAMEOBJECT>* objects;	
+	std::queue<LPGAMEOBJECT> newObjectList;
 
+	vector<LPGAMEOBJECT>* objects;	
+	
 	std::unordered_map<int, CPScene*> pScenes;
 	std::unordered_map<int, vector<LPGAMEOBJECT>*> pMapObjects;
 
@@ -52,11 +57,14 @@ class CPlayScene
 	ReadResourceFile* ReadResourceFile = ReadResourceFile::GetInstance();
 	
 public:
-	CPlayScene() {}
-
+	CPlayScene() {};
+	static CPlayScene* GetInstance();
 	void LoadResource();
 	void LoadMap();
 	void LoadObject();
+	void AddNewObject(LPGAMEOBJECT obj) {
+		newObjectList.push(obj);
+	}
 	
 	void Update(DWORD dt);
 	void UpdateCam();
@@ -74,5 +82,3 @@ public:
 		this->currentScene = this->pScenes.at(idScene);
 	}
 };
-
-#endif

@@ -72,8 +72,6 @@
 
 #pragma region ENEMY
 #define ENEMY_SPAWN_TIME				5000
-#define SPEAR_GUARD_ID					0
-#define BAT_ID							1
 // Spear Guard
 #define SPEAR_GUARD_WALKING_SPEED		0.05f
 
@@ -90,8 +88,8 @@
 #define BAT_STATE_FLYING				1
 
 // Ghost
-#define GHOST_FLYING_SPEED_X			0.05f
-#define GHOST_DROP						15
+#define GHOST_FLYING_SPEED_X			0.03f
+#define GHOST_DROP						20
 
 #define GHOST_STATE_IDLE				0
 #define GHOST_STATE_FLYING				1
@@ -110,6 +108,13 @@
 
 #define SKELETON_STATE_IDLE				0
 #define SKELETON_STATE_JUMPING			1
+
+// crow
+#define CROW_FLYING_SPEED_X				0.15f
+#define CROW_FLYING_SPEED_y				0.03f
+
+#define CROW_STATE_IDLE					0
+#define CROW_STATE_FLYING				1
 #pragma endregion
 
 #pragma region BREAK WALL
@@ -186,6 +191,14 @@
 
 #define KNIFE_STATE_IDLE				1
 #define KNIFE_STATE_FIGHT				2
+
+// Bone
+#define BONE_GRAVITY					0.001f
+#define BONE_SPEED_VX					0.3f
+#define BONE_SPEED_VY					0.4f
+
+#define BONE_BBOX_WIDTH					32
+#define BONE_BBOX_HEIGHT				32
 #pragma endregion
 
 #pragma region ITEMS

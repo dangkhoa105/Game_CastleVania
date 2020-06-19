@@ -89,7 +89,7 @@ void CMonkey::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 				
 			}	
-			else if (!dynamic_cast<CSimon*>(e->obj))
+			else
 			{
 				x += dx;
 				if (e->ny != 0)

@@ -2,11 +2,12 @@
 #include "Simon.h"
 #include "Brick.h"
 #include "Game.h"
-
+#include"PlayScene.h"
 void CSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CEnemy::Update(dt);
-
+	auto pScene = CPlayScene::GetInstance();
+	
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -17,6 +18,9 @@ void CSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (state == SKELETON_STATE_JUMPING)
 		vy += SKELETON_GRAVITY * dt;
 
+	if (throw_start != 0 && GetTickCount() - throw_start > 500)
+		throw_start = 0;
+		
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
 		LPGAMEOBJECT obj = coObjects->at(i);
@@ -30,9 +34,18 @@ void CSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			this->GetBoundingBoxActive(ml, mt, mr, mb);
 			if (CGame::AABB(ml, mt, mr, mb, sl, st, sr, sb) == true)
 			{
-				this->SetState(SKELETON_STATE_JUMPING);
+				this->SetState(SKELETON_STATE_JUMPING);						
 			}
 		}
+	}
+
+	if (throw_start == 0 && this->state == SKELETON_STATE_JUMPING)
+	{
+		auto bone = new CBone();
+		bone->nx = this->nx;
+		bone->SetPosition(this->x, this->y + 30);
+		pScene->AddNewObject(bone);
+		throw_start = GetTickCount();
 	}
 
 	if (coEvents.size() == 0)
@@ -81,7 +94,7 @@ void CSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 
 			}
-			else if (!dynamic_cast<CSimon*>(e->obj))
+			else 
 			{
 				x += dx;
 				if (e->ny != 0)
@@ -134,8 +147,8 @@ void CSkeleton::GetBoundingBox(float& left, float& top, float& right, float& bot
 
 void CSkeleton::GetBoundingBoxActive(float& left, float& top, float& right, float& bottom)
 {
-	left = x;
+	left = (x + bboxEnemyWidth / 2) - bboxEnemyActiveWidth;
 	top = y;
-	right = x + bboxEnemyActiveWidth;
-	bottom = y + bboxEnemyActiveHeight;
+	right = (x + bboxEnemyWidth / 2) + bboxEnemyActiveWidth;
+	bottom = y + bboxEnemyHeight;
 }

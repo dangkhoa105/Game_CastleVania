@@ -3,6 +3,14 @@
 #include "debug.h"
 #include "Game.h"
 
+CPlayScene* CPlayScene::__instance = NULL;
+
+CPlayScene* CPlayScene::GetInstance()
+{
+	if (__instance == NULL) __instance = new CPlayScene();
+	return __instance;
+}
+
 void CPlayScene::LoadResource()
 {
 	CGame* game = CGame::GetInstance();
@@ -287,6 +295,7 @@ void CPlayScene::LoadObject()
 						ghost->SetReturnPosition(beginPositionX, lastPositionX);
 						ghost->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
 						ghost->SetBboxEnemyActive(bboxEnemyActiveWidth, bboxEnemyActiveHeight);
+						ghost->SetEntryPosition(x, y);
 						_object->push_back(ghost);
 					}
 					else if (nodeNameGrand == "monkeys")
@@ -329,6 +338,23 @@ void CPlayScene::LoadObject()
 							_object->push_back(skeleton);
 						}
 					}
+					else if (nodeNameGrand == "crows")
+					{
+						for (xml_node<>* oGrand = grand->first_node(); oGrand; oGrand = oGrand->next_sibling()) //cú pháp lập
+						{
+							CCrow* crow = new CCrow();
+							const int x = std::atoi(oGrand->first_attribute("x")->value());
+							const int y = std::atoi(oGrand->first_attribute("y")->value());
+							const int bboxEnemyWidth = std::atoi(oGrand->first_attribute("bboxEnemyWidth")->value());
+							const int bboxEnemyHeight = std::atoi(oGrand->first_attribute("bboxEnemyHeight")->value());
+							const int bboxEnemyActiveWidth = std::atoi(oGrand->first_attribute("bboxEnemyActiveWidth")->value());
+							const int bboxEnemyActiveHeight = std::atoi(oGrand->first_attribute("bboxEnemyActiveHeight")->value());
+							crow->SetPosition(x, y);
+							crow->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
+							crow->SetBboxEnemyActive(bboxEnemyActiveWidth, bboxEnemyActiveHeight);
+							_object->push_back(crow);
+						}
+					}
 				}
 			}
 		}
@@ -340,6 +366,12 @@ void CPlayScene::Update(DWORD dt)
 {
 	// We know that Simon is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
+
+	while (newObjectList.size() > 0)
+	{
+		objects->push_back(newObjectList.front());
+		newObjectList.pop();
+	}
 
 	if (simon->spawnKnife)
 	{
@@ -357,32 +389,15 @@ void CPlayScene::Update(DWORD dt)
 		}
 		simon->spawnKnife = false;
 	}
-	for (int i = 0; i < objects->size(); i++)
-	{
-		if (dynamic_cast<CSkeleton*>(objects->at(i)))
-		{
-
-			auto bone = new CBone();
-			bone->nx = objects->at(i)->nx;
-			bone->SetPosition(objects->at(i)->x, objects->at(i)->y + 30);
-			this->objects->push_back(bone);
-		}
-	}
-
+	
 	vector<LPGAMEOBJECT> coObjects;
 
 	for (int i = 0; i < objects->size(); i++)
 	{
-	/*	if (dynamic_cast<CSimon*>(objects->at(i)))
-		{
-			continue;
-		}*/
 		coObjects.push_back(simon);
-		coObjects.push_back(objects->at(i));
-	
+		coObjects.push_back(objects->at(i));	
 	}
 	simon->Update(dt, &coObjects);
-	//simon->whip->Update(dt, objects);
 
 	for (int i = 0; i < objects->size(); i++)
 	{
@@ -440,8 +455,6 @@ void CPlayScene::UpdateCam()
 	cy -= SCREEN_HEIGHT / 2;
 	if (cx > currentScene->camX && cx < currentScene->camX + tilemap->GetMapWidth() - SCREEN_WIDTH)
 	{
-		//cx -= SCREEN_WIDTH / 2 - 30;
-		//CGame::GetInstance()->SetCamPos(cx, 0.0f);
 		CGame::GetInstance()->SetCamPos(cx, currentScene->camY);
 	}
 }

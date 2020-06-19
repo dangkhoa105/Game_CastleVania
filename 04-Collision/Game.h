@@ -42,10 +42,9 @@ class CGame
 
 	float cam_x = 0.0f;
 	float cam_y = 0.0f;
+
 	CPlayScene* pScene;
 public:
-
-
 	void Update(DWORD dt);
 	void Render();
 	void LoadResource();

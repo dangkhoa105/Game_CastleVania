@@ -18,6 +18,7 @@ enum class STAIRDIRECTION {
 	UPLEFT,
 	DOWNRIGHT,
 	DOWNLEFT,
+	UPLEFTRIGHT,
 };
 
 class CSimon : public CGameObject

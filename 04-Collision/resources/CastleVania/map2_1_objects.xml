@@ -20,7 +20,7 @@
 
   <stairs>
     <stair x="208" y="349" stairDirection="1"/>  
-    <stair x="336" y="160" stairDirection="4"/>
+    <stair x="366" y="160" stairDirection="4"/>
     <stair x="144" y="158" stairDirection="1"/>
   </stairs>
 

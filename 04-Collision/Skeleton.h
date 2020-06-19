@@ -7,12 +7,15 @@
 class CSkeleton : public CEnemy
 {
 	DWORD onGround_start = 0;
+	DWORD throw_start = 0;
 public:
 	CSkeleton()
 	{
 		AddAnimation("skeleton_ani_jumping");
-		DWORD onGround_start = 0;
-		this->state = SKELETON_STATE_IDLE;
+		onGround_start = 0;
+		throw_start = 0;
+		this->state = SKELETON_STATE_IDLE;	
+		reSpawnTime = ENEMY_SPAWN_TIME;
 	}
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);

@@ -27,11 +27,14 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			simon->GetBoundingBox(l, t, r, b);
 			simonPos.x = l + (r - l) / 2;
 			simonPos.y = t + (b - t) / 2;
+			int simonNx = this->nx;
 		}
 	}
-	simonPos;
+
 	if (this->x - int(simonPos.x) == 128)
+	{
 		this->SetState(GHOST_STATE_FLYING);
+	}
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -47,9 +50,6 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	else if (nx == -1) 
 		vx = GHOST_FLYING_SPEED_X;
 
-	float l, t, r, b;
-	this->GetBoundingBoxActive(l, t, r, b);
-
 	if (vx > 0 && x < this->beginPositionX) {
 		x = this->beginPositionX;
 		vx = vx;
@@ -63,8 +63,8 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 
 	x -= dx;
-	
-	y = GHOST_DROP * sin(x * BAT_FLYING_SPEED_Y) + drop;
+
+	y = GHOST_DROP * sin(x * BAT_FLYING_SPEED_Y) + this->GetEntryPositionY();
 
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
@@ -82,10 +82,10 @@ void CGhost::Render()
 
 void CGhost::SetState(int state)
 {
-	if (isDestroy)
+	/*if (isDestroy)
 	{
 		return;
-	}
+	}*/
 	switch (state)
 	{
 	case GHOST_STATE_IDLE:
@@ -107,8 +107,8 @@ void CGhost::SetState(int state)
 
 void CGhost::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (isDestroy)
-		return;
+	/*if (isDestroy)
+		return;*/
 
 	if (this->state == GHOST_STATE_IDLE)
 		left = top = right = bottom = 0;
