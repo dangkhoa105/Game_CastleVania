@@ -139,6 +139,12 @@
   <sprite n="crow_fly_1" l="738" t="136" r="767" b="165"/>
   <sprite n="crow_fly_2" l="772" t="136" r="803" b="167"/>
   <sprite n="crow_fly_3" l="810" t="136" r="839" b="165"/>
+
+  <!--boss-->
+  <sprite n="boss_idle" l="717" t="591" r="817" b="635"/>
+  <sprite n="boss_fly_1" l="817" t="591" r="917" b="635"/>
+  <sprite n="boss_fly_2" l="917" t="591" r="1017" b="635"/>
+
   <!--effect-->
   <sprite n="effect_1" l="483" t="580" r="525" b="624"/>
   <sprite n="effect_2" l="525" t="580" r="567" b="624"/>
@@ -373,6 +379,16 @@
     <frame spriteID="crow_fly_3" time="100"/>
   </animation>
 
+  <!--bosss-->
+  <animation ID="boss_ani_idle" defaultTime="100">
+    <frame spriteID="boss_idle" time="100"/>
+  </animation>
+
+  <animation ID="boss_ani_flying" defaultTime="100">
+    <frame spriteID="boss_fly_1" time="100"/>
+    <frame spriteID="boss_fly_2" time="100"/>
+  </animation>
+
   <!--effect-->
   <animation ID="effect" defaultTime="100">
     <frame spriteID="effect_1" time="100"/>
@@ -441,18 +457,21 @@
     <map texId="300" id="2" tileWidth="32" tileHeight="32" mapWidth="1024" mapHeight="384" pathText="resources\Map\Map2\map2_2.txt" pathImg="resources\Map\Map2\map2_2.png"/>
     <map texId="400" id="4" tileWidth="32" tileHeight="32" mapWidth="1536" mapHeight="384" pathText="resources\Map\Map3\map3_1.txt" pathImg="resources\Map\Map3\map3_1.png"/>
     <map texId="500" id="5" tileWidth="32" tileHeight="32" mapWidth="1536" mapHeight="384" pathText="resources\Map\Map3\map3_2.txt" pathImg="resources\Map\Map3\map3_2.png"/>
+    <map texId="600" id="6" tileWidth="32" tileHeight="32" mapWidth="1536" mapHeight="384" pathText="resources\Map\Map4\map4.txt" pathImg="resources\Map\Map4\map4.png"/>
   </maps>
 
-  <scenes activeID="5">
+  <scenes activeID="4">
     <!-- map 1 -->
     <scene id="0" mapId="0" objcollectid="0" simonX="100" simonY="200" camX="0" camY="0" state="0" nx="1"/>
     <!-- map 2 -->
     <scene id="1" mapId="1" objcollectid="1" simonX="32" simonY="288" camX="0" camY="0" state="0" nx="1"/>
     <scene id="2" mapId="2" objcollectid="2" simonX="738" simonY="322" camX="1024" camY="0" state="10" nx="-1"/>
     <scene id="3" mapId="1" objcollectid="1" simonX="224" simonY="2" camX="0" camY="0" state="14" nx="1"/>
-    <!-- map 3 simonX="148" simonY="306"-->
-    <scene id="4" mapId="4" objcollectid="4" simonX="1440" simonY="256" camX="1536" camY="0" state="0" nx="-1"/>
+    <!-- map 3 simonX="1440" simonY="256"-->
+    <scene id="4" mapId="4" objcollectid="4" simonX="256" simonY="256" camX="1536" camY="0" state="0" nx="-1"/>
     <scene id="5" mapId="5" objcollectid="5" simonX="64" simonY="256" camX="0" camY="0" state="12" nx="1"/>
+    <!-- map 4 -->
+    <scene id="6" mapId="6" objcollectid="4" simonX="32" simonY="96" camX="0" camY="0" state="0" nx="1"/>
   </scenes>
 </base>
 
@@ -462,4 +481,5 @@
   <object objcollectid="2" mapID="2" path="resources\CastleVania\map2_2_objects.xml"/>
   <object objcollectid="4" mapID="4" path="resources\CastleVania\map3_1_objects.xml"/>
   <object objcollectid="5" mapID="5" path="resources\CastleVania\map3_2_objects.xml"/>
+  <object objcollectid="6" mapID="6" path="resources\CastleVania\map4_objects.xml"/>
 </objectsCollection>

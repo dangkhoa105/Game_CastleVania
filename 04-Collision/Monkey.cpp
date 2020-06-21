@@ -108,9 +108,9 @@ void CMonkey::Render()
 	else if (state == MONKEY_STATE_JUMPING)
 		animations["monkey_ani_jumping"]->Render(-nx, x, y);
 
-	float l, t, r, b;
-	this->GetBoundingBoxActive(l, t, r, b);
-	RenderBoundingBox(RECT{ (long)l,(long)t,(long)r,(long)b });
+	//float l, t, r, b;
+	//this->GetBoundingBoxActive(l, t, r, b);
+	//RenderBoundingBox(RECT{ (long)l,(long)t,(long)r,(long)b });
 }
 
 void CMonkey::SetState(int state)
@@ -132,6 +132,8 @@ void CMonkey::SetState(int state)
 	case MONKEY_STATE_JUMPING:
 		//vx = MONKEY_JUMPING_SPEED_X * 2;	
 		this->isJumping = true;
+		vx = MONKEY_JUMPING_SPEED;
+		vy = -MONKEY_JUMPING_SPEED;
 		break;
 	default:
 		break;

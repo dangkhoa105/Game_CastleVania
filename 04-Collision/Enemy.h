@@ -6,7 +6,6 @@
 class CEnemy : public CGameObject
 {	
 public:
-	int idEnemy;
 	int hp;
 	bool isSpawn;
 	int spawnTime;
@@ -14,6 +13,7 @@ public:
 	int reSpawnTime;
 	DWORD reSpawnTimeStart;
 	bool isFinishReSpawn;
+	int reSpawnWaitingTime;
 
 	int bboxEnemyWidth;
 	int bboxEnemyHeight;
@@ -23,6 +23,17 @@ public:
 
 	int beginPositionX;
 	int lastPositionX;
+
+	CEnemy() 
+	{
+		isSpawn = false;
+		spawnTime = 0;;
+		isReSpawn = false;
+		reSpawnTime = 0;
+		reSpawnTimeStart = 0;
+		isFinishReSpawn = false;
+		reSpawnWaitingTime = 0;
+	}
 
 	void TakeDamage(int damage) 
 	{ 

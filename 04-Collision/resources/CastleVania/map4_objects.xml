@@ -1,0 +1,11 @@
+<objects>
+  <bricks>
+    <brick x="0" y="352" widthbbox="1536" heightbbox="32"/>
+    <brick x="0" y="160" widthbbox="224" heightbbox="32"/>
+    <brick x="256" y="224" widthbbox="352" heightbbox="32"/>
+  </bricks> 
+
+  <enemies>
+    <boss x="1152" y="32" bboxEnemyWidth="100" bboxEnemyHeight="46" bboxEnemyActiveWidth="100" bboxEnemyActiveHeight="100"/>
+  </enemies>
+</objects>

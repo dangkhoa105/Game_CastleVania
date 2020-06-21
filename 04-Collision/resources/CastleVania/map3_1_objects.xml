@@ -30,7 +30,7 @@
   </stairs>
 
   <enemies>
-    <ghost x="1306" y="289" beginPositionX="256" lastPositionX="1312" bboxEnemyWidth="30" bboxEnemyHeight="30" bboxEnemyActiveWidth="100" bboxEnemyActiveHeight="100"/>
+    <ghost x="1306" y="289" beginPositionX="256" lastPositionX="1312" bboxEnemyWidth="30" bboxEnemyHeight="30" bboxEnemyActiveWidth="300" bboxEnemyActiveHeight="100"/>
 
     <monkeys>
       <monkey x="849" y="224" beginPositionX="65" lastPositionX="284" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="256" bboxEnemyActiveHeight="96"/>

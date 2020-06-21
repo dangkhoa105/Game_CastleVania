@@ -7,6 +7,7 @@ class CItem : public CGameObject
 {
 public:
 	int idItem;
+	int positionInitX;
 	CItem()
 	{
 		AddAnimation("item_whip");
@@ -20,6 +21,8 @@ public:
 	}
 	int GetId() { return idItem; }
 	void SetId(int id) { this->idItem = id; }
+
+	void SetPositionInit(int x) { this->positionInitX = x; }
 
 	virtual void Render();
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);

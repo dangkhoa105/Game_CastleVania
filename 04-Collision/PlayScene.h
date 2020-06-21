@@ -23,14 +23,13 @@
 #include "Monkey.h"
 #include "Skeleton.h"
 #include "Crow.h"
+#include "Boss.h"
 #include <queue>
 #include "Grid.h"
 
 class CPlayScene
 {
 	static CPlayScene* __instance;
-
-
 
 	CSimon* simon;
 	CSkeleton* skeleton;

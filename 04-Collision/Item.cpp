@@ -92,14 +92,18 @@ void CItem::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// turn off collision when die 
 	CalcPotentialCollisions(coObjects, coEvents);// bắt đầu tính toán va chạm
 
+	if (this->idItem == ID_SMALL_IHEART)
+	{
+		x = 10 * cos(y * 0.07) + this->positionInitX;
+	}
+
 	if (coEvents.size() == 0)
 	{
 		x += dx;
 		y += dy;
 	}
 	else
-	{
-
+	{		
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];

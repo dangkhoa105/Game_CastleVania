@@ -38,4 +38,6 @@
       <crow x="1289" y="256" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="100" bboxEnemyActiveHeight="256"/>
     </corws>
   </enemies>
+
+  <changeScene x="1504" y="248" idChangeScene="6"/>
 </objects>

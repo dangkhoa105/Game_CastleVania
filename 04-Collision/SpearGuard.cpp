@@ -77,7 +77,7 @@ void CSpearGuard::Render()
 	this->GetBoundingBoxActive(l, t, r, b);*/
 
 	//RenderBoundingBox(RECT{(long)l,(long)t,(long)r,(long)b});
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CSpearGuard::SetState(int state)

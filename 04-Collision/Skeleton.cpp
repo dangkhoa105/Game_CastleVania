@@ -35,7 +35,7 @@ void CSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			this->GetBoundingBoxActive(ml, mt, mr, mb);
 			if (CGame::AABB(ml, mt, mr, mb, sl, st, sr, sb) == true)
 			{
-				this->SetState(SKELETON_STATE_JUMPING);						
+				this->SetState(SKELETON_STATE_JUMPING);			
 			}
 		}
 	}
@@ -44,7 +44,7 @@ void CSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		auto bone = new CBone();
 		bone->nx = this->nx;
-		bone->SetPosition(this->x, this->y + 30);
+		bone->SetPosition(this->x, this->y);
 		pScene->AddtoGrid(bone);
 		throw_start = GetTickCount();
 	}
@@ -137,9 +137,6 @@ void CSkeleton::SetState(int state)
 
 void CSkeleton::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (isDestroy)
-		return;
-
 	left = x;
 	top = y;
 	right = x + bboxEnemyWidth;

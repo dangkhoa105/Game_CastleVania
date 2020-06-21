@@ -3,27 +3,23 @@
 #include "Define.h"
 #include "ReadResourceFile.h"
 
-class CBat : public CEnemy
+class CBoss : public CEnemy
 {
-	float drop; 
-	DWORD attack_start = 0;
-	float time_x = 0;
+	float drop;
 public:
-	CBat()
+	CBoss()
 	{
-		hp = 1;
-		AddAnimation("bat_ani_idle");
-		AddAnimation("bat_ani_flying");
-		reSpawnWaitingTime = ENEMY_SPAWN_TIME;
-		this->SetState(BAT_STATE_IDLE);
-	};
+		AddAnimation("boss_ani_idle");
+		AddAnimation("boss_ani_flying");
+		this->SetState(GHOST_STATE_IDLE);
+		this->nx = -1;
+		reSpawnTime = ENEMY_SPAWN_TIME;
+	}
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render();
 	virtual void SetState(int state);
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void GetBoundingBoxActive(float& left, float& top, float& right, float& bottom);
-	
-	void SetDrop() { this->drop = this->y; }
 };
 

@@ -7,7 +7,6 @@ void CBat::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 	top = y;
 	right = x + bboxEnemyWidth;
 	bottom = y + bboxEnemyHeight;
-	//RenderBoundingBox();
 }
 
 void CBat::GetBoundingBoxActive(float& left, float& top, float& right, float& bottom)
@@ -16,12 +15,23 @@ void CBat::GetBoundingBoxActive(float& left, float& top, float& right, float& bo
 	top = y;
 	right = x + bboxEnemyActiveWidth;
 	bottom = y + bboxEnemyActiveHeight;
-	//RenderBoundingBox();
 }
 
 void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CEnemy::Update(dt);
+
+	//if (state == BAT_STATE_IDLE)
+	//	return;
+
+	//if (IsRespawn())
+	//{
+	//	SetState(BAT_STATE_IDLE);
+	//	this->SetPosition(initPositionX, initPositionY);
+	//	attack_start = 0;
+	//	return;
+	//}
+
 	D3DXVECTOR2 simonPos = { 0, 0 };
 	for (size_t i = 0; i < coObjects->size(); i++)
 	{
@@ -57,15 +67,6 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		dy = vy * dt;
 	}
 
-	if (state == BAT_STATE_IDLE)
-		return;
-
-	if (IsRespawn())
-	{
-		//SetState(BAT_STATE_IDLE);
-		return;
-	}
-
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -97,13 +98,13 @@ void CBat::SetState(int state)
 {
 	switch (state)
 	{
-	case BAT_STATE_IDLE:
+	case BAT_STATE_IDLE:		
 		vx = 0;
 		vy = 0;
 		isDestroy = false;
 		isFinishReSpawn = false;
 		this->bboxEnemyActiveWidth;
-		this->bboxEnemyActiveHeight;
+		this->bboxEnemyActiveHeight;	
 		StartRespawnTimeCounter();	
 		break;
 	case BAT_STATE_FLYING:

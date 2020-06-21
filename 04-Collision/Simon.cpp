@@ -593,18 +593,15 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			f->GetBoundingBoxActive(ml, mt, mr, mb);
 			if (CGame::AABB(ml, mt, mr, mb, sl, st, sr, sb) == true)
 			{
-				if (untouchable != 1)
+				if (f->x < this->x)
 				{
-					if (f->x < this->x)
-					{
-						f->nx = 1;
-						f->vx = -GHOST_FLYING_SPEED_X * 1.5f;
-					}
-					else
-					{
-						f->vx = GHOST_FLYING_SPEED_X * 1.5f;
-						f->nx = -1;
-					}
+					f->nx = 1;
+					f->vx = -GHOST_FLYING_SPEED_X * 1.5f;
+				}
+				else
+				{
+					f->vx = GHOST_FLYING_SPEED_X * 1.5f;
+					f->nx = -1;
 				}
 			}
 			if (this->AABB(obj) == true) // if e->obj is Item Heart 

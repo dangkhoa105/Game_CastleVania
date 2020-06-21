@@ -126,6 +126,7 @@
     <ClInclude Include="Bat.h" />
     <ClInclude Include="Bone.h" />
     <ClInclude Include="Boomerang.h" />
+    <ClInclude Include="Boss.h" />
     <ClInclude Include="BreakWall.h" />
     <ClInclude Include="BreakWallTrigger.h" />
     <ClInclude Include="Brick.h" />
@@ -167,6 +168,7 @@
     <ClCompile Include="Bat.cpp" />
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="Boomerang.cpp" />
+    <ClCompile Include="Boss.cpp" />
     <ClCompile Include="BreakWall.cpp" />
     <ClCompile Include="BreakWallTrigger.cpp" />
     <ClCompile Include="Brick.cpp" />

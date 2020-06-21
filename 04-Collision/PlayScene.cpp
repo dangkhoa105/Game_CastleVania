@@ -8,6 +8,7 @@ CPlayScene* CPlayScene::__instance = NULL;
 void CPlayScene::GetListobjectFromGrid()
 {
 	objects.clear();
+
 	while (newObjectList.size() > 0)
 	{
 		objects.push_back(newObjectList.front());
@@ -160,7 +161,6 @@ void CPlayScene::LoadObject()
 		for (xml_node<>* oChild = objectNode->first_node(); oChild; oChild = oChild->next_sibling()) //cú pháp lập
 		{
 			const std::string nodeName = oChild->name();
-		
 		
 			if (nodeName == "bricks")
 			{
@@ -383,6 +383,20 @@ void CPlayScene::LoadObject()
 							grid->Add(crow);
 						}
 					}
+					else if (nodeNameGrand == "boss")
+					{
+						CBoss* boss = new CBoss();
+						const int x = std::atoi(grand->first_attribute("x")->value());
+						const int y = std::atoi(grand->first_attribute("y")->value());
+						const int bboxEnemyWidth = std::atoi(grand->first_attribute("bboxEnemyWidth")->value());
+						const int bboxEnemyHeight = std::atoi(grand->first_attribute("bboxEnemyHeight")->value());
+						const int bboxEnemyActiveWidth = std::atoi(grand->first_attribute("bboxEnemyActiveWidth")->value());
+						const int bboxEnemyActiveHeight = std::atoi(grand->first_attribute("bboxEnemyActiveHeight")->value());
+						boss->SetPosition(x, y);
+						boss->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
+						boss->SetBboxEnemyActive(bboxEnemyActiveWidth, bboxEnemyActiveHeight);
+						grid->Add(boss);
+					}
 				}
 			}
 		}
@@ -520,6 +534,7 @@ void CPlayScene::UpdateItem()
 					{
 						auto small_heart = new CItem();
 						small_heart->SetId(ID_SMALL_IHEART);
+						small_heart->SetPositionInit(x);
 						small_heart->SetPosition(x, y);
 						//small_heart->SetState(STATE_SMALL_IHEART);
 						objects.push_back(small_heart);

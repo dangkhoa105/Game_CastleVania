@@ -80,7 +80,7 @@
 #define SPEAR_GUARD_CHASE_SIMON         2
 
 // Bat
-#define BAT_FLYING_SPEED_X				0.15f
+#define BAT_FLYING_SPEED_X				0.3f
 #define BAT_FLYING_SPEED_Y				0.02f
 #define BAT_DROP						30
 
@@ -88,14 +88,14 @@
 #define BAT_STATE_FLYING				1
 
 // Ghost
-#define GHOST_FLYING_SPEED_X			0.03f
+#define GHOST_FLYING_SPEED_X			0.06f
 #define GHOST_DROP						20
 
 #define GHOST_STATE_IDLE				0
 #define GHOST_STATE_FLYING				1
 
 // Monkey
-#define MONKEY_JUMPING_SPEED_X			0.1f
+#define MONKEY_JUMPING_SPEED			0.4f
 #define MONKEY_GRAVITY					0.003f
 
 #define MONKEY_STATE_IDLE				0
@@ -116,6 +116,14 @@
 #define CROW_STATE_IDLE					0
 #define CROW_STATE_WAITING				1
 #define CROW_STATE_FLYING				2
+
+// boss
+#define BOSS_FLYING_SPEED_X				0.15f
+#define BOSS_FLYING_SPEED_Y				0.2f
+
+#define BOSS_STATE_IDLE					0
+#define BOSS_STATE_WAITING				1
+#define BOSS_STATE_FLYING				2
 #pragma endregion
 
 #pragma region BREAK WALL

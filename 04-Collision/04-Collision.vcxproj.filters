@@ -171,6 +171,9 @@
     <ClInclude Include="Grid.h">
       <Filter>Source Files\Grid</Filter>
     </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>Source Files\Objects Collection\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -286,6 +289,9 @@
     </ClCompile>
     <ClCompile Include="Grid.cpp">
       <Filter>Source Files\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>Source Files\Objects Collection\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

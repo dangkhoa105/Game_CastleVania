@@ -18,7 +18,7 @@ void CEnemy::StartRespawnTimeCounter()
 
 bool CEnemy::IsActivate()
 {
-	if (isReSpawn == true && (GetTickCount() - reSpawnTimeStart >= reSpawnTime))
+	if (reSpawnWaitingTime != 0 && (GetTickCount() - reSpawnTimeStart >= reSpawnWaitingTime))
 		return true;
 	return false;
 }
@@ -30,7 +30,7 @@ bool CEnemy::IsRespawn()
 		if (isSpawn == false)
 		{
 			isSpawn = true;
-			spawnTime += GetTickCount();
+			spawnTime = GetTickCount();
 		}
 		else
 		{

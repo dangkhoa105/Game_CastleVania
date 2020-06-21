@@ -64,7 +64,7 @@ void CCrow::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (unTouchable != 1)
 	{
-		if (this->y - simonPos.y < 2 && this->GetState() == CROW_STATE_FLYING)
+		if (this->y - simonPos.y < 1 && this->GetState() == CROW_STATE_FLYING)
 		{
 			nx = 1;
 			vx = -CROW_FLYING_SPEED_X;
@@ -79,7 +79,7 @@ void CCrow::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			vy = -CROW_FLYING_SPEED_Y;
 			flying_start = GetTickCount();
 		}
-		else if (this->y - simonPos.y > 2 && this->y - simonPos.y < 6 && this->GetState() == CROW_STATE_FLYING)
+		else if (this->y - simonPos.y >= 1 && this->y - simonPos.y <= 6 && this->GetState() == CROW_STATE_FLYING)
 		{
 			if (this->x < simonPos.x)
 			{
@@ -95,22 +95,30 @@ void CCrow::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 		}
 	}
-	/*else {
-		int random = rand() % (2 + 1 - 1) + 1;
-		nx = random == 1 ? 1 : -1;
-		if (nx == 1)
+	else {
+		if (flying_start == 0)
 		{
-			vx = -CROW_FLYING_SPEED_X;
-			vy = CROW_FLYING_SPEED_Y;
 			flying_start = GetTickCount();
 		}
-		else
+
+		if (flying_start != 0 && GetTickCount() - flying_start > 500)
 		{
-			vx = CROW_FLYING_SPEED_X;
-			vy = -CROW_FLYING_SPEED_Y;
-			flying_start = GetTickCount();
+			int random = rand() % (2 + 1 - 1) + 1;
+			nx = random == 1 ? 1 : -1;
+			if (nx == 1 && this->GetState() == CROW_STATE_FLYING)
+			{
+				vx = -0.05;
+				vy = CROW_FLYING_SPEED_X;
+				flying_start = 0;
+			}
+			else if (nx == -1 && this->GetState() == CROW_STATE_FLYING)
+			{
+				vx = 0.05;
+				vy = -CROW_FLYING_SPEED_X;
+				flying_start = 0;
+			}
 		}
-	}*/
+	}
 
 	x += dx;
 	y += dy;
@@ -127,9 +135,9 @@ void CCrow::Render()
 	if (state == CROW_STATE_FLYING)
 		animations["crow_ani_flying"]->Render(nx, x, y);
 
-	float l, t, r, b;
-	this->GetBoundingBoxActive(l, t, r, b);
-	RenderBoundingBox(RECT{ (long)l,(long)t,(long)r,(long)b });
+	//float l, t, r, b;
+	//this->GetBoundingBoxActive(l, t, r, b);
+	//RenderBoundingBox(RECT{ (long)l,(long)t,(long)r,(long)b });
 }
 
 void CCrow::SetState(int state)
@@ -148,8 +156,7 @@ void CCrow::SetState(int state)
 		break;
 	case CROW_STATE_WAITING:
 		vx = 0;
-		vy = 0;
-		
+		vy = 0;		
 		break;
 	case CROW_STATE_FLYING:
 		reSpawnTimeStart = 0;

@@ -37,7 +37,7 @@ void Grid::Add(LPGAMEOBJECT object, bool isAlwayUpdateObject)
 	//tính vị trí của object
 	int cellX = (int)(x_ / this->cellSize);
 	int cellY = (int)(y_ / this->cellSize);
-	if ( cellX >= gridCol || cellX < 0 ||cellY < 0 || cellY > gridRow - 1)
+	if ( cellX >= gridCol || cellX < 0 || cellY < 0 || cellY > gridRow - 1)
 		return;
 
 	//đánh dấu object thuộc cell nào
@@ -67,14 +67,14 @@ void Grid::Update(LPGAMEOBJECT object)
 
 	if (CGame::GetInstance()->AABB(l, t, r, b, cx_, cy_, cx_ + SCREEN_WIDTH, cy_ + SCREEN_HEIGHT))
 		object->SetActive();
-	else {
-		if (object->CheckActive()) {
-			if (dynamic_cast<CItem*>(object)
-				|| dynamic_cast<CEnemy*>(object)
-				) {
-					object->isDestroy = true;
+	else 
+	{
+		if (object->CheckActive()) 
+		{
+			if (dynamic_cast<CItem*>(object) || dynamic_cast<CEnemy*>(object)) 
+			{
+				object->isDestroy = true;
 			}
-
 		}
 	}
 
@@ -85,8 +85,10 @@ void Grid::Update(LPGAMEOBJECT object)
 
 	if (object->IsDestroy())
 	{
-		for (vector<LPGAMEOBJECT>::iterator it = grid[oldCell.y][oldCell.x].begin(); it != grid[oldCell.y][oldCell.x].end(); ) {
-			if ((*it) == object) {
+		for (vector<LPGAMEOBJECT>::iterator it = grid[oldCell.y][oldCell.x].begin(); it != grid[oldCell.y][oldCell.x].end(); ) 
+		{
+			if ((*it) == object) 
+			{
 				it = grid[oldCell.y][oldCell.x].erase(it);
 			}
 			else ++it;
@@ -95,9 +97,12 @@ void Grid::Update(LPGAMEOBJECT object)
 	}
 
 	if (oldCell.x == cellX && oldCell.y == cellY) return;
-	if (oldCell.x != -1 && oldCell.y != -1) {				// loại bỏ cell cũ
-		for (vector<LPGAMEOBJECT>::iterator it = grid[oldCell.y][oldCell.x].begin(); it != grid[oldCell.y][oldCell.x].end(); ) {
-			if ((*it) == object) {
+	if (oldCell.x != -1 && oldCell.y != -1) 
+	{				// loại bỏ cell cũ
+		for (vector<LPGAMEOBJECT>::iterator it = grid[oldCell.y][oldCell.x].begin(); it != grid[oldCell.y][oldCell.x].end(); ) 
+		{
+			if ((*it) == object) 
+			{
 				it = grid[oldCell.y][oldCell.x].erase(it);
 			}
 			else ++it;
@@ -125,9 +130,11 @@ void Grid::GetListobjectFromGrid(vector<LPGAMEOBJECT>& listobjects)
 	endCol = endCol > gridCol ? gridCol : endCol + 1;
 	for (int i = 0; i < this->gridRow; i++) {
 		for (int j = startCol; j < endCol; j++) {
-			for (size_t k = 0; k < this->grid[i][j].size(); k++) {
+			for (size_t k = 0; k < this->grid[i][j].size(); k++) 
+			{
 				LPGAMEOBJECT obj = this->grid[i][j].at(k);
-				if (!obj->IsDestroy()) {
+				if (!obj->IsDestroy()) 
+				{
 					if (dynamic_cast<CEnemy*>(obj))
 						enemiesobject.push_back(obj);
 					else if (dynamic_cast<CItem*>(obj))
@@ -136,9 +143,6 @@ void Grid::GetListobjectFromGrid(vector<LPGAMEOBJECT>& listobjects)
 						effectobject.push_back(obj);
 					else
 						listobjects.push_back(obj);
-				}
-				else
-				{
 				}
 			}
 		}
