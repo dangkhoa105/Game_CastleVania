@@ -5,6 +5,20 @@ void CMonkey::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CEnemy::Update(dt);
 
+	D3DXVECTOR2 simonPos = { 0, 0 };
+	int simonUn = 0;
+	for (size_t i = 0; i < coObjects->size(); i++)
+	{
+		if (dynamic_cast<CSimon*>(coObjects->at(i)))
+		{
+			auto simon = dynamic_cast<CSimon*>(coObjects->at(i));
+			float l, t, r, b;
+			simon->GetBoundingBox(l, t, r, b);
+			simonPos.x = l + (r - l) / 2;
+			simonUn = simon->GetUntouchable();
+		}
+	}	
+
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -14,6 +28,8 @@ void CMonkey::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (this->GetJumpStartTime() && GetTickCount() - this->GetJumpStartTime() > 1000)
 	{
+		vx = MONKEY_JUMPING_SPEED;
+		vy = -MONKEY_JUMPING_SPEED;
 		this->SetState(MONKEY_STATE_JUMPING);
 		this->ResetJumpStartTime();
 	}
@@ -23,6 +39,23 @@ void CMonkey::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (this->GetJumpStartTime())
 		return;
+
+	if (simonUn != 1)
+	{
+		if ((simonPos.x >= this->beginPositionX && simonPos.x <= this->lastPositionX) || (this->x >= this->beginPositionX && this->x <= this->lastPositionX))
+		{
+			if (simonPos.x >= this->x)
+			{
+				nx = 1;
+				vx = abs(vx);
+			}
+			else
+			{
+				nx = -1;
+				vx = -abs(vx);
+			}
+		}
+	}
 
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
@@ -108,9 +141,9 @@ void CMonkey::Render()
 	else if (state == MONKEY_STATE_JUMPING)
 		animations["monkey_ani_jumping"]->Render(-nx, x, y);
 
-	//float l, t, r, b;
-	//this->GetBoundingBoxActive(l, t, r, b);
-	//RenderBoundingBox(RECT{ (long)l,(long)t,(long)r,(long)b });
+	float l, t, r, b;
+	this->GetBoundingBoxActive(l, t, r, b);
+	RenderBoundingBox(RECT{ (long)l,(long)t,(long)r,(long)b });
 }
 
 void CMonkey::SetState(int state)
@@ -130,10 +163,9 @@ void CMonkey::SetState(int state)
 		vx = vy = 0;
 		break;
 	case MONKEY_STATE_JUMPING:
-		//vx = MONKEY_JUMPING_SPEED_X * 2;	
 		this->isJumping = true;
-		vx = MONKEY_JUMPING_SPEED;
-		vy = -MONKEY_JUMPING_SPEED;
+		//vx = MONKEY_JUMPING_SPEED;
+		//vy = -MONKEY_JUMPING_SPEED;
 		break;
 	default:
 		break;
@@ -143,9 +175,6 @@ void CMonkey::SetState(int state)
 
 void CMonkey::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (isDestroy)
-		return;
-
 	left = x;
 	top = y;
 	right = x + bboxEnemyWidth;
@@ -154,13 +183,26 @@ void CMonkey::GetBoundingBox(float& left, float& top, float& right, float& botto
 
 void CMonkey::GetBoundingBoxActive(float& left, float& top, float& right, float& bottom)
 {
-	if (this->state == MONKEY_STATE_JUMPING)
-		left = top = right = bottom = 0;
-	else
+	if (this->state != MONKEY_STATE_JUMPING)
 	{
-		left = x;
+		left = (x + bboxEnemyWidth / 2) - bboxEnemyActiveWidth - bboxEnemyWidth;
 		top = y;
-		right = x + bboxEnemyActiveWidth;
+		right = (x + bboxEnemyWidth / 2) + bboxEnemyActiveWidth + bboxEnemyWidth;
 		bottom = y + bboxEnemyActiveHeight;
 	}
+	else
+		left = top = right = bottom = 0;
 }
+
+//void CMonkey::GetBoundingBoxStart(float& left, float& top, float& right, float& bottom)
+//{
+//	if (this->state == MONKEY_STATE_IDLE)
+//	{
+//		left = (x + bboxEnemyWidth / 2) - bboxEnemyActiveWidth - bboxEnemyWidth;
+//		top = y;
+//		right = (x + bboxEnemyWidth / 2) + bboxEnemyActiveWidth + bboxEnemyWidth;
+//		bottom = y + bboxEnemyActiveHeight;
+//	}
+//	else
+//		left = top = right = bottom = 0;
+//}

@@ -23,6 +23,15 @@ void CItem::Render()
 	case ID_IBOOMERANG:
 		animations["item_boomerang"]->Render(x, y);
 		break;
+	case ID_IAXE:
+		animations["item_axe"]->Render(x, y);
+		break;
+	case ID_ICLOCK:
+		animations["clock_ani"]->Render(x, y);
+		break;
+	case ID_IGAS:
+		animations["item_gas"]->Render(x, y);
+		break;
 	case ID_ICROWN:
 		animations["item_crown"]->Render(x, y);
 		break;
@@ -64,6 +73,18 @@ void CItem::GetBoundingBox(float& l, float& t, float& r, float& b)
 	case ID_IBOOMERANG:
 		r = x + IBOOMERANG_BBOX_WIDTH;
 		b = y + IBOOMERANG_BBOX_HEIGHT;
+		break;
+	case ID_IAXE:
+		r = x + IAXE_BBOX_WIDTH;
+		b = y + IAXE_BBOX_HEIGHT;
+		break;
+	case ID_ICLOCK:
+		r = x + ICLOCK_BBOX_WIDTH;
+		b = y + ICLOCK_BBOX_HEIGHT;
+		break;
+	case ID_IGAS:
+		r = x + IGAS_BBOX_WIDTH;
+		b = y + IGAS_BBOX_HEIGHT;
 		break;
 	case ID_ICROWN:
 		r = x + ICROWN_BBOX_WIDTH;

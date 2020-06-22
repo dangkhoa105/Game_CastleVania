@@ -45,6 +45,20 @@
   <sprite n="boomerang_2" l="28" t="51" r="57" b="79"/>
   <sprite n="boomerang_3" l="57" t="51" r="84" b="79"/>
 
+  <!--axe-->
+  <sprite n="axe_1" l="85" t="51" r="115" b="79"/>
+  <sprite n="axe_2" l="115" t="51" r="145" b="79"/>
+  <sprite n="axe_3" l="145" t="51" r="175" b="79"/>
+  <sprite n="axe_4" l="175" t="51" r="205" b="79"/>
+
+  <!--clock-->
+  <sprite n="clock" l="239" t="51" r="268" b="84"/>
+
+  <!--gas-->
+  <sprite n="gas_idle" l="268" t="51" r="300" b="79"/>
+  <sprite n="gas_burn_1" l="301" t="51" r="333" b="79"/>
+  <sprite n="gas_burn_2" l="333" t="51" r="365" b="79"/>
+
   <!--bone-->
   <sprite n="bone_1" l="632" t="139" r="661" b="164"/>
   <sprite n="bone_2" l="680" t="137" r="691" b="168"/>
@@ -174,6 +188,9 @@
 
   <!--item double shot-->
   <sprite n="item_double_shot" l="95" t="118" r="122" b="145"/>
+
+  <!--item gas-->
+  <sprite n="item_gas" l="31" t="118" r="62" b="149"/>
 </textureAtlas>
 
 <animations>
@@ -228,6 +245,36 @@
     <frame spriteID="long_chain_10" time="0"/>
     <frame spriteID="long_chain_11" time="0"/>
     <frame spriteID="long_chain_12" time="0"/>
+  </animation>
+
+  <!--boomerang-->
+  <animation ID="boomerang_ani" defaultTime="100">
+    <frame spriteID="boomerang_1" time="100"/>
+    <frame spriteID="boomerang_2" time="100"/>
+    <frame spriteID="boomerang_3" time="100"/>
+  </animation>
+
+  <!--axe-->
+  <animation ID="axe_ani" defaultTime="100">
+    <frame spriteID="axe_1" time="100"/>
+    <frame spriteID="axe_2" time="100"/>
+    <frame spriteID="axe_3" time="100"/>
+    <frame spriteID="axe_4" time="100"/>
+  </animation>
+
+  <!--clock-->
+  <animation ID="clock_ani" defaultTime="100">
+    <frame spriteID="clock" time="100"/>
+  </animation>
+
+  <!--gas-->
+  <animation ID="gas_ani_idle" defaultTime="100">
+    <frame spriteID="gas_idle" time="100"/>
+  </animation>
+
+  <animation ID="gas_ani_burning" defaultTime="100">
+    <frame spriteID="gas_burn_1" time="100"/>
+    <frame spriteID="gas_burn_2" time="100"/>
   </animation>
 
   <!--bone-->
@@ -430,6 +477,11 @@
     <frame spriteID="boomerang_1" time="100"/>
   </animation>
 
+  <!--item axe-->
+  <animation ID="item_axe" defaultTime="100">
+    <frame spriteID="axe_1" time="100"/>
+  </animation>
+
   <!--item crown-->
   <animation ID="item_crown" defaultTime="100">
     <frame spriteID="item_crown_yellow" time="100"/>
@@ -439,6 +491,11 @@
   <!--item double shot-->
   <animation ID="item_double_shot" defaultTime="100">
     <frame spriteID="item_double_shot" time="100"/>
+  </animation>
+
+  <!--item gas-->
+  <animation ID="item_gas" defaultTime="100">
+    <frame spriteID="item_gas" time="100"/>
   </animation>
 
   <animation ID="wall" defaultTime="100">
@@ -460,7 +517,7 @@
     <map texId="600" id="6" tileWidth="32" tileHeight="32" mapWidth="1536" mapHeight="384" pathText="resources\Map\Map4\map4.txt" pathImg="resources\Map\Map4\map4.png"/>
   </maps>
 
-  <scenes activeID="4">
+  <scenes activeID="1">
     <!-- map 1 -->
     <scene id="0" mapId="0" objcollectid="0" simonX="100" simonY="200" camX="0" camY="0" state="0" nx="1"/>
     <!-- map 2 -->
@@ -468,7 +525,7 @@
     <scene id="2" mapId="2" objcollectid="2" simonX="738" simonY="322" camX="1024" camY="0" state="10" nx="-1"/>
     <scene id="3" mapId="1" objcollectid="1" simonX="224" simonY="2" camX="0" camY="0" state="14" nx="1"/>
     <!-- map 3 simonX="1440" simonY="256"-->
-    <scene id="4" mapId="4" objcollectid="4" simonX="256" simonY="256" camX="1536" camY="0" state="0" nx="-1"/>
+    <scene id="4" mapId="4" objcollectid="4" simonX="1440" simonY="256" camX="1536" camY="0" state="0" nx="-1"/>
     <scene id="5" mapId="5" objcollectid="5" simonX="64" simonY="256" camX="0" camY="0" state="12" nx="1"/>
     <!-- map 4 -->
     <scene id="6" mapId="6" objcollectid="4" simonX="32" simonY="96" camX="0" camY="0" state="0" nx="1"/>

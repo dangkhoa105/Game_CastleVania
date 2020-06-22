@@ -33,8 +33,8 @@
     <ghost x="1306" y="289" beginPositionX="256" lastPositionX="1312" bboxEnemyWidth="30" bboxEnemyHeight="30" bboxEnemyActiveWidth="300" bboxEnemyActiveHeight="100"/>
 
     <monkeys>
-      <monkey x="849" y="224" beginPositionX="65" lastPositionX="284" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="256" bboxEnemyActiveHeight="96"/>
-      <monkey x="593" y="224" beginPositionX="65" lastPositionX="284" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="256" bboxEnemyActiveHeight="96"/>
+      <monkey x="849" y="224" beginPositionX="640" lastPositionX="1088" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="224" bboxEnemyActiveHeight="96"/>
+      <monkey x="593" y="224" beginPositionX="65" lastPositionX="284" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="224" bboxEnemyActiveHeight="96"/>
     </monkeys>
 
     <skeletons>

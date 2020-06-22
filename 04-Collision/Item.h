@@ -16,6 +16,9 @@ public:
 		AddAnimation("item_small_heart");
 		AddAnimation("item_knife");
 		AddAnimation("item_boomerang");
+		AddAnimation("item_axe");
+		AddAnimation("clock_ani");
+		AddAnimation("item_gas");
 		AddAnimation("item_crown");
 		AddAnimation("item_double_shot");
 	}

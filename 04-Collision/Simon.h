@@ -4,12 +4,16 @@
 #include "ReadResourceFile.h"
 
 #include "Whip.h"
-#include "Knife.h"
+#include "SubWeapon.h"
 #include "ChangeScene.h"
 
 enum class SUBWEAPON {
 	DEFAULT,
 	KNIFE,
+	BOOMERANG,
+	AXE,
+	CLOCK,
+	GAS,
 };
 
 enum class STAIRDIRECTION {
@@ -37,8 +41,8 @@ class CSimon : public CGameObject
 public:
 	bool isGround = false;	
 	bool isComplete = false;
-	bool isKnife = false;
-	bool spawnKnife = false;
+	bool isSubWeapon = false;
+	bool spawnSubWeapon = false;
 	bool isAutoWalk = false;
 	bool isOnStair = false;
 	bool isStartOnStair = false;
@@ -49,7 +53,7 @@ public:
 	D3DXVECTOR2 lastStepOnStairPos;
 	int idChangeScene = -1;
 
-	SUBWEAPON subWeapon;
+	SUBWEAPON subWeapons;
 
 	DWORD GetUpgradeTime() { return this->update_start; }
 	void ResetUpgradeTime() { this->update_start = 0; }
@@ -74,13 +78,13 @@ public:
 	CSimon() : CGameObject()
 	{
 		whip = new CWhip();
-		knife = new CKnife();
+		subWeapon = new CSubWeapon();
 
 		untouchable = 0;
 		update_start = 0;
 		attack_start = 0;
 
-		subWeapon = SUBWEAPON::DEFAULT;
+		subWeapons = SUBWEAPON::DEFAULT;
 
 		AddAnimation("simon_ani_idle");
 		AddAnimation("simon_ani_hurt");
@@ -100,7 +104,7 @@ public:
 	}
 
 	CWhip* whip;
-	CKnife* knife;
+	CSubWeapon* subWeapon;
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render();

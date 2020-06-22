@@ -179,7 +179,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					case ID_SMALL_IHEART:
 						break;
 					case ID_IKNIFE:
-						subWeapon = SUBWEAPON::KNIFE;
+						subWeapons = SUBWEAPON::KNIFE;
 						break;
 					case ID_IWHIP:
 						this->SetState(SIMON_STATE_ITEM);
@@ -190,6 +190,19 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						this->SetState(SIMON_STATE_ITEM);
 						break;
 					case ID_IBOOMERANG:
+						subWeapons = SUBWEAPON::BOOMERANG;
+						this->SetState(SIMON_STATE_ITEM);
+						break;
+					case ID_IAXE:
+						subWeapons = SUBWEAPON::AXE;
+						this->SetState(SIMON_STATE_ITEM);
+						break;
+					case ID_ICLOCK:
+						subWeapons = SUBWEAPON::CLOCK;
+						this->SetState(SIMON_STATE_ITEM);
+						break;
+					case ID_IGAS:
+						subWeapons = SUBWEAPON::GAS;
 						this->SetState(SIMON_STATE_ITEM);
 						break;
 					case ID_ICROWN:
@@ -476,7 +489,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				case ID_SMALL_IHEART:
 					break;
 				case ID_IKNIFE:
-					subWeapon = SUBWEAPON::KNIFE;
+					subWeapons = SUBWEAPON::KNIFE;
 					break;
 				case ID_IWHIP:
 					this->SetState(SIMON_STATE_ITEM);
@@ -487,6 +500,19 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					this->SetState(SIMON_STATE_ITEM);
 					break;
 				case ID_IBOOMERANG:
+					subWeapons = SUBWEAPON::BOOMERANG;
+					this->SetState(SIMON_STATE_ITEM);
+					break;
+				case ID_IAXE:
+					subWeapons = SUBWEAPON::AXE;
+					this->SetState(SIMON_STATE_ITEM);
+					break;
+				case ID_ICLOCK:
+					subWeapons = SUBWEAPON::CLOCK;
+					this->SetState(SIMON_STATE_ITEM);
+					break;
+				case ID_IGAS:
+					subWeapons = SUBWEAPON::GAS;
 					this->SetState(SIMON_STATE_ITEM);
 					break;
 				case ID_ICROWN:
@@ -545,11 +571,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					if (f->x < this->x)
 					{
 						f->nx = 1;
-						f->vx = SPEAR_GUARD_WALKING_SPEED * 1.5f;
+						f->vx = SPEAR_GUARD_WALKING_SPEED * 2;
 					}
 					else
 					{
-						f->vx = -SPEAR_GUARD_WALKING_SPEED * 1.5f;
+						f->vx = -SPEAR_GUARD_WALKING_SPEED * 2;
 						f->nx = -1;
 					}
 				}
@@ -676,7 +702,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (this->attack_start != 0)
 	{
-		if (!this->isKnife)
+		if (!this->isSubWeapon)
 		{
 			if (this->state == SIMON_STATE_SIT_ATTACK)
 			{
@@ -733,7 +759,7 @@ void CSimon::Render()
 	if (untouchable) alpha = 128;
 	animations[ani]->Render(nx, x, y, alpha);
 
-	if (this->attack_start != 0 && !this->isKnife)
+	if (this->attack_start != 0 && !this->isSubWeapon)
 		this->whip->Render();
 }
 
@@ -743,18 +769,18 @@ void CSimon::SetState(int state)
 	{
 	case SIMON_STATE_IDLE:
 		this->whip->SetState(WHIP_STATE_IDLE);
-		this->knife->SetState(KNIFE_STATE_IDLE);
+		this->subWeapon->SetIsFight(false);
 		vx = 0;
 		break;
 	case SIMON_STATE_AUTO_WALKING:
 		this->whip->SetState(WHIP_STATE_IDLE);
-		this->knife->SetState(KNIFE_STATE_IDLE);
+		this->subWeapon->SetIsFight(false);
 		nx = 1;
 		vx = SIMON_WALKING_SPEED / 2;
 		break;
 	case SIMON_STATE_WALKING_RIGHT:
 		this->whip->SetState(WHIP_STATE_IDLE);
-		this->knife->SetState(KNIFE_STATE_IDLE);
+		this->subWeapon->SetIsFight(false);
 		if (this->isAutoWalk) {
 			vx = SIMON_WALKING_STAIR_SPEED;
 		}
@@ -764,7 +790,7 @@ void CSimon::SetState(int state)
 		break;
 	case SIMON_STATE_WALKING_LEFT:
 		this->whip->SetState(WHIP_STATE_IDLE);
-		this->knife->SetState(KNIFE_STATE_IDLE);
+		this->subWeapon->SetIsFight(false);
 		if (this->isAutoWalk) {
 			vx = -SIMON_WALKING_STAIR_SPEED;
 		}
@@ -774,13 +800,13 @@ void CSimon::SetState(int state)
 		break;
 	case SIMON_STATE_JUMP:
 		this->whip->SetState(WHIP_STATE_IDLE);
-		this->knife->SetState(KNIFE_STATE_IDLE);
+		this->subWeapon->SetIsFight(false);
 
 		vy = -SIMON_JUMP_SPEED_Y;
 		break;
 	case SIMON_STATE_SIT:
 		this->whip->SetState(WHIP_STATE_IDLE);
-		this->knife->SetState(KNIFE_STATE_IDLE);
+		this->subWeapon->SetIsFight(false);
 		vx = 0;
 		vy = 0;
 		break;
@@ -844,40 +870,40 @@ void CSimon::SetState(int state)
 		this->ResetAttack();
 		this->update_start = GetTickCount();
 		this->whip->SetState(WHIP_STATE_IDLE);
-		this->knife->SetState(KNIFE_STATE_IDLE);
+		this->subWeapon->SetIsFight(false);
 		vx = 0;
 		isOnStair = false;
 		break;
 	case SIMON_STATE_SIT_ATTACK:
 		vx = 0;
-		if (isKnife == true)
+		if (isSubWeapon == true)
 		{
 			this->whip->ResetAttack();
 			this->whip->SetState(WHIP_STATE_FIGHT);
-			this->knife->SetState(KNIFE_STATE_FIGHT);
+			this->subWeapon->SetIsFight(true);
 		}
 		else
 		{
 			this->whip->ResetAttack();
 			this->whip->SetState(WHIP_STATE_FIGHT);
-			this->knife->SetState(KNIFE_STATE_IDLE);
+			this->subWeapon->SetIsFight(false);
 		}
 		this->attack_start = GetTickCount();
 		break;
 	case SIMON_STATE_STAND_ATTACK:
 		vx = this->state == SIMON_STATE_IDLE || this->state == SIMON_STATE_WALKING_LEFT
 			|| this->state == SIMON_STATE_WALKING_RIGHT ? 0 : vx;
-		if (isKnife == true)
+		if (isSubWeapon == true)
 		{
 			this->whip->ResetAttack();
 			this->whip->SetState(WHIP_STATE_FIGHT);
-			this->knife->SetState(KNIFE_STATE_FIGHT);
+			this->subWeapon->SetIsFight(true);
 		}
 		else
 		{
 			this->whip->ResetAttack();
 			this->whip->SetState(WHIP_STATE_FIGHT);
-			this->knife->SetState(KNIFE_STATE_IDLE);
+			this->subWeapon->SetIsFight(false);
 		}
 		this->attack_start = GetTickCount();
 		break;
@@ -900,17 +926,17 @@ void CSimon::SetState(int state)
 		this->isFirstStepOnStair = true;
 		this->vx = 0;
 		this->vy = 0;
-		if (isKnife == true)
+		if (isSubWeapon == true)
 		{
 			this->whip->ResetAttack();
 			this->whip->SetState(WHIP_STATE_FIGHT);
-			this->knife->SetState(KNIFE_STATE_FIGHT);
+			this->subWeapon->SetIsFight(true);
 		}
 		else
 		{
 			this->whip->ResetAttack();
 			this->whip->SetState(WHIP_STATE_FIGHT);
-			this->knife->SetState(KNIFE_STATE_IDLE);
+			this->subWeapon->SetIsFight(false);
 		}
 		this->attack_start = GetTickCount();
 		break;

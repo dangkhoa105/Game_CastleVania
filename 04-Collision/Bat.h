@@ -6,7 +6,7 @@
 class CBat : public CEnemy
 {
 	float drop; 
-	DWORD attack_start = 0;
+	DWORD attack_start;
 	float time_x = 0;
 public:
 	CBat()
@@ -16,6 +16,7 @@ public:
 		AddAnimation("bat_ani_flying");
 		reSpawnWaitingTime = ENEMY_SPAWN_TIME;
 		this->SetState(BAT_STATE_IDLE);
+		attack_start = 0;
 	};
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
@@ -25,5 +26,8 @@ public:
 	virtual void GetBoundingBoxActive(float& left, float& top, float& right, float& bottom);
 	
 	void SetDrop() { this->drop = this->y; }
+
+	void SetAttackTime(DWORD time) { this->attack_start = time; }
+	DWORD GetAttackTime() { return this->attack_start; }
 };
 

@@ -101,6 +101,7 @@
 #define MONKEY_STATE_IDLE				0
 #define MONKEY_STATE_START				1
 #define MONKEY_STATE_JUMPING			2
+#define MONKEY_STATE_JUMPING_ACTIVE		3
 
 // Skeleton
 #define SKELETON_JUMPING_SPEED_X		0.1f
@@ -185,21 +186,28 @@
 #pragma endregion
 
 #pragma region WEAPONS
+#define STATE_KNIFE						0
+#define STATE_BOOMERANG					1
+#define STATE_AXE						2
+#define STATE_CLOCK						3
+#define STATE_GAS						4
+
+#define SUBWEAPON_VX					0.5f
+#define SUBWEAPON_VY					0.5f
+#define SUBWEAPON_GRAVITY				0.002f
+
+#define SUBWEAPON_STATE_IDLE			1
+#define SUBWEAPON_STATE_FIGHT			2
+
+#define SUBWEAPON_BBOX_WIDTH			32
+#define SUBWEAPON_BBOX_HEIGHT			32
+
 // Whip
 #define WHIP_BBOX_WIDTH					32
 #define WHIP_BBOX_HEIGHT				32
 
 #define WHIP_STATE_IDLE					1
 #define WHIP_STATE_FIGHT				2
-
-// Knife
-#define KNIFE_VX						0.5f
-
-#define KNIFE_BBOX_WIDTH				32
-#define KNIFE_BBOX_HEIGHT				16
-
-#define KNIFE_STATE_IDLE				1
-#define KNIFE_STATE_FIGHT				2
 
 // Bone
 #define BONE_GRAVITY					0.001f
@@ -219,8 +227,11 @@
 #define ID_IKNIFE						4
 #define ID_IMONEYBAG					5
 #define ID_IBOOMERANG					6
-#define ID_ICROWN						7
-#define ID_IDOUBLESHOT					8
+#define ID_IAXE							7
+#define ID_ICLOCK						8
+#define ID_IGAS							9
+#define ID_ICROWN						10
+#define ID_IDOUBLESHOT					11
 
 // Heart
 #define IHEART_BBOX_WIDTH				16
@@ -244,6 +255,18 @@
 // Boomerang
 #define IBOOMERANG_BBOX_WIDTH			28
 #define IBOOMERANG_BBOX_HEIGHT			28
+
+// AXE
+#define IAXE_BBOX_WIDTH					30
+#define IAXE_BBOX_HEIGHT				30
+
+// CLOCK
+#define ICLOCK_BBOX_WIDTH				30
+#define ICLOCK_BBOX_HEIGHT				32
+
+// GAS
+#define IGAS_BBOX_WIDTH					32
+#define IGAS_BBOX_HEIGHT				32
 
 // Crown
 #define ICROWN_BBOX_WIDTH				31

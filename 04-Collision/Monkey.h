@@ -8,6 +8,7 @@ class CMonkey : public CEnemy
 	DWORD jump_start = 0;
 	DWORD onGround_start = 0;
 	bool isJumping = false;
+	bool isJumpingActive = false;
 public:
 	CMonkey()
 	{

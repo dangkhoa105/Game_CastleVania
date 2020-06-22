@@ -125,7 +125,6 @@
     <ClInclude Include="Animations.h" />
     <ClInclude Include="Bat.h" />
     <ClInclude Include="Bone.h" />
-    <ClInclude Include="Boomerang.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="BreakWall.h" />
     <ClInclude Include="BreakWallTrigger.h" />
@@ -145,7 +144,6 @@
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="Item.h" />
-    <ClInclude Include="Knife.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="MoneyBagTrigger.h" />
     <ClInclude Include="Monkey.h" />
@@ -158,6 +156,7 @@
     <ClInclude Include="SpearGuard.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Stair.h" />
+    <ClInclude Include="SubWeapon.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="Wall.h" />
@@ -167,7 +166,6 @@
     <ClCompile Include="Animations.cpp" />
     <ClCompile Include="Bat.cpp" />
     <ClCompile Include="Bone.cpp" />
-    <ClCompile Include="Boomerang.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="BreakWall.cpp" />
     <ClCompile Include="BreakWallTrigger.cpp" />
@@ -186,7 +184,6 @@
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Item.cpp" />
-    <ClCompile Include="Knife.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mario.cpp" />
     <ClCompile Include="MoneyBagTrigger.cpp" />
@@ -199,6 +196,7 @@
     <ClCompile Include="SpearGuard.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Stair.cpp" />
+    <ClCompile Include="SubWeapon.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="Wall.cpp" />

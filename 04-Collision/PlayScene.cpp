@@ -420,21 +420,49 @@ void CPlayScene::Update(DWORD dt)
 	GetListobjectFromGrid();
 	
 
-	if (simon->spawnKnife)
+	if (simon->spawnSubWeapon)
 	{
-		switch (simon->subWeapon)
+		auto subWeapon = new CSubWeapon();
+		switch (simon->subWeapons)
 		{
-		case SUBWEAPON::KNIFE:
-			auto knife = new CKnife();
-			knife->nx = simon->nx;
+		case SUBWEAPON::KNIFE:		
+			subWeapon->nx = simon->nx;
+			subWeapon->SetState(STATE_KNIFE);
 			if (simon->GetState() == SIMON_STATE_SIT_ATTACK)
-				knife->SetPosition(simon->x, simon->y + 30);
+				subWeapon->SetPosition(simon->x, simon->y + 30);
 			else
-				knife->SetPosition(simon->x, simon->y + 10);
-			this->AddtoGrid(knife);
+				subWeapon->SetPosition(simon->x, simon->y + 10);
+			break;
+		case SUBWEAPON::BOOMERANG:
+			subWeapon->nx = simon->nx;
+			subWeapon->SetState(STATE_BOOMERANG);
+			if (simon->GetState() == SIMON_STATE_SIT_ATTACK)
+				subWeapon->SetPosition(simon->x, simon->y + 15);
+			else
+				subWeapon->SetPosition(simon->x, simon->y + 10);			
+			break;
+		case SUBWEAPON::AXE:
+			subWeapon->nx = simon->nx;
+			subWeapon->SetState(STATE_AXE);
+			if (simon->GetState() == SIMON_STATE_SIT_ATTACK)
+				subWeapon->SetPosition(simon->x, simon->y + 15);
+			else
+				subWeapon->SetPosition(simon->x, simon->y + 10);
+			break;
+		case SUBWEAPON::CLOCK:
+			subWeapon->SetState(STATE_CLOCK);
+			break;
+		case SUBWEAPON::GAS:
+			subWeapon->nx = simon->nx;
+			subWeapon->SetState(STATE_GAS);
+			if (simon->GetState() == SIMON_STATE_SIT_ATTACK)
+				subWeapon->SetPosition(simon->x, simon->y + 15);
+			else
+				subWeapon->SetPosition(simon->x, simon->y + 10);
 			break;
 		}
-		simon->spawnKnife = false;
+		this->AddtoGrid(subWeapon);
+		simon->spawnSubWeapon = false;
 	}
 	
 	vector<LPGAMEOBJECT> coObjects;
@@ -522,51 +550,46 @@ void CPlayScene::UpdateItem()
 				f->GetPosition(x, y);
 				if (f->GetItem() != -1)
 				{
+					auto item = new CItem();
 					if (f->GetItem() == ID_IHEART)
-					{
-						auto heart = new CItem();
-						heart->SetId(ID_IHEART);
-						heart->SetPosition(x, y);
-						//heart->SetState(STATE_IHEART);
-						objects.push_back(heart);
+					{		
+						item->SetId(ID_IHEART);										
 					}
-					if (f->GetItem() == ID_SMALL_IHEART)
+					else if (f->GetItem() == ID_SMALL_IHEART)
 					{
-						auto small_heart = new CItem();
-						small_heart->SetId(ID_SMALL_IHEART);
-						small_heart->SetPositionInit(x);
-						small_heart->SetPosition(x, y);
-						//small_heart->SetState(STATE_SMALL_IHEART);
-						objects.push_back(small_heart);
+						item->SetId(ID_SMALL_IHEART);
+						item->SetPositionInit(x);
 					}
-					if (f->GetItem() == ID_IWHIP)
+					else if (f->GetItem() == ID_IWHIP)
 					{
-						auto whip = new CItem();
-						whip->SetId(ID_IWHIP);
-						whip->SetPosition(x, y);
-						objects.push_back(whip);
+						item->SetId(ID_IWHIP);
 					}
-					if (f->GetItem() == ID_IKNIFE)
+					else if (f->GetItem() == ID_IKNIFE)
 					{
-						auto knife = new CItem();
-						knife->SetId(ID_IKNIFE);
-						knife->SetPosition(x, y);
-						objects.push_back(knife);
+						item->SetId(ID_IKNIFE);
 					}
-					if (f->GetItem() == ID_IBOOMERANG)
+					else if (f->GetItem() == ID_IBOOMERANG)
 					{
-						auto boomerang = new CItem();
-						boomerang->SetId(ID_IBOOMERANG);
-						boomerang->SetPosition(x, y);
-						objects.push_back(boomerang);
+						item->SetId(ID_IBOOMERANG);
 					}
-					if (f->GetItem() == ID_IMONEYBAG)
+					else if (f->GetItem() == ID_IAXE)
 					{
-						auto moneybag = new CItem();
-						moneybag->SetId(ID_IMONEYBAG);
-						moneybag->SetPosition(x, y);
-						objects.push_back(moneybag);
+						item->SetId(ID_IAXE);
 					}
+					else if (f->GetItem() == ID_ICLOCK)
+					{
+						item->SetId(ID_ICLOCK);
+					}
+					else if (f->GetItem() == ID_IGAS)
+					{
+						item->SetId(ID_IGAS);
+					}
+					else if (f->GetItem() == ID_IMONEYBAG)
+					{
+						item->SetId(ID_IMONEYBAG);
+					}
+					item->SetPosition(x, y);
+					objects.push_back(item);
 				}
 				auto effect = new CEffect();
 				effect->SetPosition(x, y);
@@ -824,8 +847,8 @@ void CPlayScene::OnKeyDown(int KeyCode)
 	else if (KeyCode == DIK_Z) {		
 		if (simon->GetAttackTime() == 0)
 		{			
-			simon->whip->fight = true;
-			simon->isKnife = false;
+			simon->whip->fight = true;			
+			simon->isSubWeapon = false;
 			if (simon->CheckIsOnStair()) {
 				if (simon->GetState() == SIMON_STATE_STAIR_UP_IDLE &&
 					(simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPLEFT || simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPRIGHT))
@@ -843,10 +866,10 @@ void CPlayScene::OnKeyDown(int KeyCode)
 	}
 	else if (KeyCode == DIK_C) {
 		if (simon->GetAttackTime() == 0
-			&& simon->subWeapon != SUBWEAPON::DEFAULT)
+			&& simon->subWeapons != SUBWEAPON::DEFAULT)
 		{
-			simon->spawnKnife = true;
-			simon->isKnife = true;
+			simon->spawnSubWeapon = true;
+			simon->isSubWeapon = true;
 			if (simon->CheckIsOnStair()) {
 				if (simon->GetState() == SIMON_STATE_STAIR_UP_IDLE &&
 					(simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPLEFT || simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPRIGHT))

@@ -44,17 +44,19 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			simonPos.y = t + (b - t) / 2;
 		}
 	}
+
+	attack_start = 0;
 	
 	if (state == BAT_STATE_FLYING && attack_start == 0)
 	{
-		 time_x = abs(x + bboxEnemyWidth - simonPos.x) / BAT_FLYING_SPEED_X;
+		 time_x = abs(x + bboxEnemyWidth - simonPos.x) / (BAT_FLYING_SPEED_X / 2);
  		 if (x > simonPos.x)
 		 {
-			 vx = -BAT_FLYING_SPEED_X;
+			 vx = -(BAT_FLYING_SPEED_X / 2);
 		 }
 		 else
 		 {
-			 vx = BAT_FLYING_SPEED_X;
+			 vx = (BAT_FLYING_SPEED_X / 2);
 		 }
 
 		 vy = abs(y + bboxEnemyHeight - simonPos.y) / time_x;

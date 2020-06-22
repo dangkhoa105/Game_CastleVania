@@ -93,9 +93,6 @@
     <ClInclude Include="Whip.h">
       <Filter>Source Files\Objects Collection\Weapon</Filter>
     </ClInclude>
-    <ClInclude Include="Knife.h">
-      <Filter>Source Files\Objects Collection\Weapon\SupWeapon</Filter>
-    </ClInclude>
     <ClInclude Include="Entrace.h">
       <Filter>Source Files\Objects Collection\Static Object\Hidden</Filter>
     </ClInclude>
@@ -141,9 +138,6 @@
     <ClInclude Include="Enemy.h">
       <Filter>Source Files\Objects Collection\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Boomerang.h">
-      <Filter>Source Files\Objects Collection\Weapon\SupWeapon</Filter>
-    </ClInclude>
     <ClInclude Include="Bridge.h">
       <Filter>Source Files\Objects Collection</Filter>
     </ClInclude>
@@ -173,6 +167,9 @@
     </ClInclude>
     <ClInclude Include="Boss.h">
       <Filter>Source Files\Objects Collection\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="SubWeapon.h">
+      <Filter>Source Files\Objects Collection\Weapon\SupWeapon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -211,9 +208,6 @@
     </ClCompile>
     <ClCompile Include="Whip.cpp">
       <Filter>Source Files\Objects Collection\Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="Knife.cpp">
-      <Filter>Source Files\Objects Collection\Weapon\SupWeapon</Filter>
     </ClCompile>
     <ClCompile Include="Entrace.cpp">
       <Filter>Source Files\Objects Collection\Static Object\Hidden</Filter>
@@ -260,9 +254,6 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Source Files\Objects Collection\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Boomerang.cpp">
-      <Filter>Source Files\Objects Collection\Weapon\SupWeapon</Filter>
-    </ClCompile>
     <ClCompile Include="Bridge.cpp">
       <Filter>Source Files\Objects Collection</Filter>
     </ClCompile>
@@ -292,6 +283,9 @@
     </ClCompile>
     <ClCompile Include="Boss.cpp">
       <Filter>Source Files\Objects Collection\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="SubWeapon.cpp">
+      <Filter>Source Files\Objects Collection\Weapon\SupWeapon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
