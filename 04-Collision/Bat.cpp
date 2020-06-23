@@ -91,9 +91,9 @@ void CBat::Render()
 	if (state == BAT_STATE_FLYING)
 		animations["bat_ani_flying"]->Render(nx, x, y);
 
-	float l, t, r, b;
+	/*float l, t, r, b;
 	this->GetBoundingBoxActive(l, t, r, b);
-	RenderBoundingBox(RECT{ (long)l,(long)t,(long)r,(long)b });
+	RenderBoundingBox(RECT{ (long)l,(long)t,(long)r,(long)b });*/
 }
 
 void CBat::SetState(int state)

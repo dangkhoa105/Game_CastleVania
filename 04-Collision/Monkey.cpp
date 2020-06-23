@@ -98,8 +98,8 @@ void CMonkey::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					y += dy;
 				}
-				float minvy = -0.9;
-				float maxvy = -0.4;
+				float minvy = -0.4;
+				float maxvy = -0.1;
 				float minvx = 0.2;
 				float maxvx = 0.5;
 				vx = 0;

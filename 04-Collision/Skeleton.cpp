@@ -3,12 +3,13 @@
 #include "Brick.h"
 #include "Game.h"
 #include "PlayScene.h"
+#include "debug.h"
 
 void CSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CEnemy::Update(dt);
 	auto pScene = CPlayScene::GetInstance();
-	
+
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -21,7 +22,7 @@ void CSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (throw_start != 0 && GetTickCount() - throw_start > 500)
 		throw_start = 0;
-		
+
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
 		LPGAMEOBJECT obj = coObjects->at(i);
@@ -31,22 +32,44 @@ void CSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			CSimon* f = dynamic_cast<CSimon*>(obj);
 			float sl, st, sr, sb;
 			float ml, mt, mr, mb;
+			float al, at, ar, ab;
 			f->GetBoundingBox(sl, st, sr, sb);
-			this->GetBoundingBoxActive(ml, mt, mr, mb);
+			simonPos.x = sl + (sr - sl) / 2;
+			simonPos.y = st + (sb - st) / 2;
+			this->GetBoundingBoxChangeState(ml, mt, mr, mb);
+			this->GetBoundingBoxActive(al, at, ar, ab);
+
 			if (CGame::AABB(ml, mt, mr, mb, sl, st, sr, sb) == true)
+				this->SetState(SKELETON_STATE_JUMPING);
+
+			if (CGame::AABB(al, at, ar, ab, sl, st, sr, sb) == true)
 			{
-				this->SetState(SKELETON_STATE_JUMPING);			
+				if (simonPos.x > x)
+				{
+					nx = 1;
+					vx = -SKELETON_JUMPING_SPEED_X;
+				}
+				else if (simonPos.x < x)
+				{
+					nx = -1;
+					vx = SKELETON_JUMPING_SPEED_X;
+				}
+				vy = vy;
 			}
 		}
 	}
+	int random = rand() % (100 + 1 - 1) + 1;
 
-	if (throw_start == 0 && this->state == SKELETON_STATE_JUMPING)
+	if (random == 1)
 	{
-		auto bone = new CBone();
-		bone->nx = this->nx;
-		bone->SetPosition(this->x, this->y);
-		pScene->AddtoGrid(bone);
-		throw_start = GetTickCount();
+		if (throw_start == 0 && this->state == SKELETON_STATE_JUMPING)
+		{
+			auto bone = new CBone();
+			bone->nx = this->nx;
+			bone->SetPosition(this->x, this->y);
+			pScene->AddtoGrid(bone);
+			throw_start = GetTickCount();
+		}
 	}
 
 	if (coEvents.size() == 0)
@@ -59,43 +82,35 @@ void CSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		float min_tx, min_ty, nx = 0, ny;
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-		//x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-		//if (ny <= 0)
-		//	y += min_ty * dy + ny * 0.4f;
+		x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+		if (ny <= 0)
+			y += min_ty * dy + ny * 0.4f;
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 			if (dynamic_cast<CBrick*>(e->obj)) // if e->obj is Item Heart 
 			{
-				if (e->nx != 0)
-				{
-					y += dy;
-				}
-				float minvy = -0.9;
-				float maxvy = -0.4;
-				float minvx = 0.2;
-				float maxvx = 0.5;
-				vx = 0;
-				vy = 0;
+				if (ny == 0)
+					return;
+
+				if (ny != 0) vy = 0;
+
 				if (onGround_start == 0)
 				{
 					onGround_start = GetTickCount();
 				}
 				if (onGround_start != 0 && GetTickCount() - onGround_start > 300)
 				{
-					int random = rand() % (2 + 1 - 1) + 1;
-					vx = minvx + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (maxvx - minvx)));
-					vy = minvy + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (maxvy - minvy)));
-					vx = random == 1 ? vx : -vx;
-					if (vx > 0)
-						this->nx = 1;
-					else if (vx < 0)
-						this->nx = -1;
+					if (simonPos.x > x)
+						vx = SKELETON_JUMPING_SPEED_X * 2;
+					else
+						vx = -SKELETON_JUMPING_SPEED_X * 2;
+					vy = -SKELETON_JUMPING_SPEED_X * 6 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / -SKELETON_JUMPING_SPEED_X * 2));
+					//vy = -SKELETON_JUMPING_SPEED_X * 6;
 					onGround_start = 0;
 				}
-
 			}
-			else 
+			else
 			{
 				x += dx;
 				if (e->ny != 0)
@@ -103,7 +118,7 @@ void CSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 		}
 	}
-	
+
 }
 
 void CSkeleton::Render()
@@ -127,7 +142,15 @@ void CSkeleton::SetState(int state)
 		vx = vy = 0;
 		break;
 	case SKELETON_STATE_JUMPING:
-		//vx = MONKEY_JUMPING_SPEED_X * 2;	
+		if (nx > 0)
+		{
+			vx = -SKELETON_JUMPING_SPEED_X;
+		}
+		else
+		{
+			vx = SKELETON_JUMPING_SPEED_X;
+		}
+		vy = -SKELETON_JUMPING_SPEED_X * 2;
 		break;
 	default:
 		break;
@@ -148,5 +171,18 @@ void CSkeleton::GetBoundingBoxActive(float& left, float& top, float& right, floa
 	left = (x + bboxEnemyWidth / 2) - bboxEnemyActiveWidth;
 	top = y;
 	right = (x + bboxEnemyWidth / 2) + bboxEnemyActiveWidth;
-	bottom = y + bboxEnemyHeight;
+	bottom = y + bboxEnemyActiveHeight;
+}
+
+void CSkeleton::GetBoundingBoxChangeState(float& left, float& top, float& right, float& bottom)
+{
+	if (state == SKELETON_STATE_IDLE)
+	{
+		left = (x + bboxEnemyWidth / 2) - bboxEnemyActiveWidth - bboxEnemyWidth;
+		top = y;
+		right = (x + bboxEnemyWidth / 2) + bboxEnemyActiveWidth + bboxEnemyWidth;
+		bottom = y + bboxEnemyActiveHeight + bboxEnemyHeight;
+	}
+	else
+		left = top = right = bottom = 0;
 }

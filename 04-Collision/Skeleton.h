@@ -8,6 +8,7 @@ class CSkeleton : public CEnemy
 {
 	DWORD onGround_start = 0;
 	DWORD throw_start = 0;
+	D3DXVECTOR2 simonPos = { 0, 0 };
 public:
 	CSkeleton()
 	{
@@ -23,5 +24,6 @@ public:
 	virtual void SetState(int state);
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void GetBoundingBoxActive(float& left, float& top, float& right, float& bottom);
+	virtual void GetBoundingBoxChangeState(float& left, float& top, float& right, float& bottom);
 };
 

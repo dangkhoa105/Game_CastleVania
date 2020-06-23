@@ -1,4 +1,4 @@
-#include "Bone.h"
+﻿#include "Bone.h"
 
 void CBone::Render()
 {
@@ -17,19 +17,34 @@ void CBone::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 void CBone::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt);
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+	coEvents.clear();
+
+	CalcPotentialCollisions(coObjects, coEvents);// bắt đầu tính toán va chạm
+
 	if (nx == 1)
 	{
-		vx = BONE_SPEED_VX;
+		vx = BONE_SPEED_VX / 2;
 	}
 	else if (nx == -1)
 	{
-		vx = -BONE_SPEED_VX;
+		vx = -BONE_SPEED_VX / 2;
 	}
 
 	vy += BONE_GRAVITY * dt;
 
-	x += dx;
-	y += dy;
+	if (coEvents.size() == 0)
+	{
+		x += dx;
+		y += dy;
+	}
+	else
+	{
+		x += dx;
+		y += dy;
+	}
 }
 
 void CBone::SetState(int state)

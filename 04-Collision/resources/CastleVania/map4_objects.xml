@@ -6,6 +6,6 @@
   </bricks> 
 
   <enemies>
-    <boss x="1152" y="32" bboxEnemyWidth="100" bboxEnemyHeight="46" bboxEnemyActiveWidth="100" bboxEnemyActiveHeight="100"/>
+    <boss x="1152" y="32" bboxEnemyWidth="100" bboxEnemyHeight="46" bboxEnemyActiveWidth="200" bboxEnemyActiveHeight="200"/>
   </enemies>
 </objects>

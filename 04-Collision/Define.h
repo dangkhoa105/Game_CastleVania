@@ -110,7 +110,7 @@
 #define SKELETON_STATE_IDLE				0
 #define SKELETON_STATE_JUMPING			1
 
-// crow
+// Crow
 #define CROW_FLYING_SPEED_X				0.15f
 #define CROW_FLYING_SPEED_Y				0.2f
 
@@ -118,9 +118,13 @@
 #define CROW_STATE_WAITING				1
 #define CROW_STATE_FLYING				2
 
-// boss
+// Boss
 #define BOSS_FLYING_SPEED_X				0.15f
 #define BOSS_FLYING_SPEED_Y				0.2f
+
+#define BOSS_ATTACK_TIME				1000
+#define BOSS_WAITING_TIME_SHORT			600
+#define BOSS_FLYING_BACK_TIME				1000
 
 #define BOSS_STATE_IDLE					0
 #define BOSS_STATE_WAITING				1

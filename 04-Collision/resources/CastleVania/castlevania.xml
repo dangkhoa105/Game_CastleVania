@@ -517,7 +517,7 @@
     <map texId="600" id="6" tileWidth="32" tileHeight="32" mapWidth="1536" mapHeight="384" pathText="resources\Map\Map4\map4.txt" pathImg="resources\Map\Map4\map4.png"/>
   </maps>
 
-  <scenes activeID="1">
+  <scenes activeID="4">
     <!-- map 1 -->
     <scene id="0" mapId="0" objcollectid="0" simonX="100" simonY="200" camX="0" camY="0" state="0" nx="1"/>
     <!-- map 2 -->
@@ -525,7 +525,7 @@
     <scene id="2" mapId="2" objcollectid="2" simonX="738" simonY="322" camX="1024" camY="0" state="10" nx="-1"/>
     <scene id="3" mapId="1" objcollectid="1" simonX="224" simonY="2" camX="0" camY="0" state="14" nx="1"/>
     <!-- map 3 simonX="1440" simonY="256"-->
-    <scene id="4" mapId="4" objcollectid="4" simonX="1440" simonY="256" camX="1536" camY="0" state="0" nx="-1"/>
+    <scene id="4" mapId="4" objcollectid="4" simonX="320" simonY="256" camX="1536" camY="0" state="0" nx="-1"/>
     <scene id="5" mapId="5" objcollectid="5" simonX="64" simonY="256" camX="0" camY="0" state="12" nx="1"/>
     <!-- map 4 -->
     <scene id="6" mapId="6" objcollectid="4" simonX="32" simonY="96" camX="0" camY="0" state="0" nx="1"/>
