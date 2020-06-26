@@ -19,6 +19,7 @@ public:
 	CSprite(string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
 
 	void Draw(float x, float y, int alpha = 255);
+	void DrawHud(float x, float y, int alpha = 255);
 
 	void Draw(int nx, float x, float y, int alpha);
 };

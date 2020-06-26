@@ -7,7 +7,8 @@
 void CCrow::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CEnemy::Update(dt);
-	auto pScene = CPlayScene::GetInstance();
+	auto simon = CPlayScene::GetInstance()->GetSimon();
+	coObjects->push_back(simon);
 
 	D3DXVECTOR2 simonPos = { 0, 0 };
 	int unTouchable = 0;
@@ -141,8 +142,7 @@ void CCrow::Render()
 }
 
 void CCrow::SetState(int state)
-{
-	CEnemy::SetState(state);
+{	
 	switch (state)
 	{
 	case CROW_STATE_IDLE:
@@ -160,12 +160,13 @@ void CCrow::SetState(int state)
 		break;
 	case CROW_STATE_FLYING:
 		reSpawnTimeStart = 0;
-		isReSpawn = false;
+		isReSpawnWaiting = false;
 		flyingWaiting_start = GetTickCount();
 		break;
 	default:
 		break;
 	}
+	CEnemy::SetState(state);
 }
 
 void CCrow::GetBoundingBox(float& left, float& top, float& right, float& bottom)

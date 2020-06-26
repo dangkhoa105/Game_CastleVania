@@ -5,9 +5,14 @@
 
 class CBoss : public CEnemy
 {
-	DWORD attack_time;
-	DWORD waiting_time;
-	DWORD fly_time;
+	DWORD attack_start;
+	float attack_time = 0;
+	DWORD waiting_start;
+	float waiting_time = 0;
+	DWORD flyBack_start;
+	float flyBack_time = 0;
+	bool outOfArea = false;
+	bool flyRandom = false;
 
 	D3DXVECTOR2 simonPos = { 0, 0 };
 
@@ -18,9 +23,9 @@ public:
 		AddAnimation("boss_ani_idle");
 		AddAnimation("boss_ani_flying");
 		this->SetState(BOSS_STATE_IDLE);
-		attack_time = 0;
-		waiting_time = 0;
-		fly_time = 0;
+		attack_start = 0;
+		waiting_start = 0;
+		flyBack_start = 0;
 	}
 
 	void Reset()

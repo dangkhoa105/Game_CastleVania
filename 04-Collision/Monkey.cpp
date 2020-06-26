@@ -5,6 +5,9 @@ void CMonkey::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CEnemy::Update(dt);
 
+	auto simon = CPlayScene::GetInstance()->GetSimon();
+	coObjects->push_back(simon);
+
 	D3DXVECTOR2 simonPos = { 0, 0 };
 	int simonUn = 0;
 	for (size_t i = 0; i < coObjects->size(); i++)
@@ -28,7 +31,10 @@ void CMonkey::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (this->GetJumpStartTime() && GetTickCount() - this->GetJumpStartTime() > 1000)
 	{
-		vx = MONKEY_JUMPING_SPEED;
+		if (simonPos.x < this->x)
+			vx = -MONKEY_JUMPING_SPEED;
+		else 
+			vx = -MONKEY_JUMPING_SPEED;
 		vy = -MONKEY_JUMPING_SPEED;
 		this->SetState(MONKEY_STATE_JUMPING);
 		this->ResetJumpStartTime();
@@ -148,14 +154,18 @@ void CMonkey::Render()
 
 void CMonkey::SetState(int state)
 {
-	if (this->state == state)
-		return;
+	
+	/*if (this->state == state)
+		return;*/
 
 	switch (state)
 	{
 	case MONKEY_STATE_IDLE:
 		vx = vy = 0;
-		this->isJumping = false;
+		isDestroy = false;
+		this->isJumping = false;	
+		isFinishReSpawn = false;
+		StartRespawnTimeCounter();
 		break;
 	case MONKEY_STATE_START:
 		this->jump_start = GetTickCount();
@@ -164,8 +174,8 @@ void CMonkey::SetState(int state)
 		break;
 	case MONKEY_STATE_JUMPING:
 		this->isJumping = true;
-		//vx = MONKEY_JUMPING_SPEED;
-		//vy = -MONKEY_JUMPING_SPEED;
+		reSpawnTimeStart = 0;
+		isReSpawnWaiting = false;
 		break;
 	default:
 		break;

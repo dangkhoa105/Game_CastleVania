@@ -20,3 +20,5 @@ public:
 	void Update(LPGAMEOBJECT object);
 	void GetListobjectFromGrid(vector<LPGAMEOBJECT>& listobjects);
 };
+
+

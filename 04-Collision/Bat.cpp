@@ -1,6 +1,7 @@
 #include "Bat.h"
 #include "debug.h"
 #include"Simon.h"
+#include "PlayScene.h"
 void CBat::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
@@ -31,6 +32,8 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//	attack_start = 0;
 	//	return;
 	//}
+	auto simon = CPlayScene::GetInstance()->GetSimon();
+	coObjects->push_back(simon);
 
 	D3DXVECTOR2 simonPos = { 0, 0 };
 	for (size_t i = 0; i < coObjects->size(); i++)
@@ -45,7 +48,7 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 
-	attack_start = 0;
+	//attack_start = 0;
 	
 	if (state == BAT_STATE_FLYING && attack_start == 0)
 	{
@@ -65,6 +68,7 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (state == BAT_STATE_FLYING && attack_start != 0 && GetTickCount() - attack_start > time_x)
 	{
+		vx = vx;
 		vy = 0;
 		dy = vy * dt;
 	}
@@ -111,7 +115,7 @@ void CBat::SetState(int state)
 		break;
 	case BAT_STATE_FLYING:
 		reSpawnTimeStart = 0;
-		isReSpawn = false;
+		isReSpawnWaiting = false;
 		break;
 	}
 	CEnemy::SetState(state);

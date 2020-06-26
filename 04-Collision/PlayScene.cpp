@@ -39,16 +39,16 @@ void CPlayScene::LoadResource()
 {
 	CGame* game = CGame::GetInstance();
 
+	
 	LoadMap();
 	LoadObject();
 
 	LPANIMATION ani;
 
+	hud = new HUD();
+
 	simon = new CSimon();
-	simon->SetState(currentScene->stateSimon);
 	simon->SetPosition(currentScene->simonX, currentScene->simonY);
-	simon->lastStepOnStairPos = { float(currentScene->simonX), float(currentScene->simonY) };
-	simon->SetNx(currentScene->nx);
 }
 
 void CPlayScene::LoadMap()
@@ -112,6 +112,7 @@ void CPlayScene::LoadMap()
 				const int camY = std::atoi(grand->first_attribute("camY")->value());
 				const int stateSimon = std::atoi(grand->first_attribute("state")->value());
 				const int nx = std::atoi(grand->first_attribute("nx")->value());
+				const int camRight = std::atoi(grand->first_attribute("camRight")->value());
 				CPScene* pScene = new CPScene();
 				pScene->id = id;
 				pScene->mapId = mapID;
@@ -122,6 +123,7 @@ void CPlayScene::LoadMap()
 				pScene->camY = camY;
 				pScene->stateSimon = stateSimon;
 				pScene->nx = nx;
+				pScene->camRight = camRight;
 
 				pScenes.insert(std::make_pair(id, pScene));
 			}
@@ -383,6 +385,23 @@ void CPlayScene::LoadObject()
 							grid->Add(crow);
 						}
 					}
+					else if (nodeNameGrand == "zombies")
+					{
+						for (xml_node<>* oGrand = grand->first_node(); oGrand; oGrand = oGrand->next_sibling()) //cú pháp lập
+						{
+							CZombie* zombie = new CZombie();
+							const int x = std::atoi(oGrand->first_attribute("x")->value());
+							const int y = std::atoi(oGrand->first_attribute("y")->value());
+							const int nx = std::atoi(oGrand->first_attribute("nx")->value());
+							const int bboxEnemyWidth = std::atoi(oGrand->first_attribute("bboxEnemyWidth")->value());
+							const int bboxEnemyHeight = std::atoi(oGrand->first_attribute("bboxEnemyHeight")->value());
+							zombie->SetPosition(x, y);
+							zombie->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
+							zombie->SetNx(nx);
+							zombie->SetEntryPosition(x, y);
+							grid->Add(zombie);
+						}
+					}
 					else if (nodeNameGrand == "boss")
 					{
 						CBoss* boss = new CBoss();
@@ -469,7 +488,6 @@ void CPlayScene::Update(DWORD dt)
 
 	for (int i = 0; i < objects.size(); i++)
 	{
-		coObjects.push_back(simon);
 		coObjects.push_back(objects.at(i));	
 	}
 	simon->Update(dt, &coObjects);
@@ -479,15 +497,20 @@ void CPlayScene::Update(DWORD dt)
 		objects.at(i)->Update(dt, &coObjects);
 	}
 
+	
+
 	UpdateItem();
 
 	UpdateCam();
 
 	UpdateGrid();
 
+	UpdatePositionSpawnEnemy();
+
 	Unload();
 
 	UpdateScene();	
+	hud->Update();
 }
 
 void CPlayScene::Render()
@@ -504,7 +527,7 @@ void CPlayScene::Render()
 		}
 		objects.at(i)->Render();
 	}
-
+	hud->Render();
 	simon->Render();
 
 	if (simon->GetState() == SIMON_STATE_AUTO_WALKING)
@@ -687,20 +710,38 @@ void CPlayScene::UpdateScene()
 	if (simon->idChangeScene != -1)
 	{
 		SwitchScene(simon->idChangeScene);
+		simon->isOnStair = false;
+		simon->isColliWithStair = false;
 		this->tilemap = this->tileMaps.Get(this->currentScene->mapId);
 		this->grid = this->grids.at(this->currentScene->mapId);
+		simon->SetNx(currentScene->nx);
 		simon->SetState(currentScene->stateSimon);
 		simon->SetPosition(currentScene->simonX, currentScene->simonY);		
 		simon->lastStepOnStairPos = { float(currentScene->simonX), float(currentScene->simonY) };	
-		simon->SetNx(currentScene->nx);
+		
 		//CGame::GetInstance()->SetCamPos(currentScene->camX - SCREEN_WIDTH, currentScene->camY);
-		if (currentScene->nx == 1)
-		CGame::GetInstance()->SetCamPos(currentScene->camX, currentScene->camY);
+		if (this->currentScene->camRight == 0)
+			CGame::GetInstance()->SetCamPos(currentScene->camX, currentScene->camY);
 		else 
 			CGame::GetInstance()->SetCamPos(currentScene->camX + tilemap->GetMapWidth() - SCREEN_WIDTH, currentScene->camY);
-		simon->idChangeScene = -1;
+		simon->idChangeScene = -1;	
+	}
+}
 
-		
+void CPlayScene::UpdatePositionSpawnEnemy()
+{
+	for (int i = 0; i < objects.size(); i++)
+	{
+		if (dynamic_cast<CZombie*>(objects.at(i)))
+		{
+			auto f = dynamic_cast<CZombie*>(objects.at(i));
+			if (f->GetState() != ZOMBIE_STATE_IDLE && f->isFinishReSpawn == false)
+			{
+				f->isFinishReSpawn = true;			
+
+				f->SetState(ZOMBIE_STATE_WALKING);
+			}
+		}
 	}
 }
 
@@ -832,6 +873,31 @@ void CPlayScene::OnKeyDown(int KeyCode)
 
 	if (simon->GetAttackTime())
 		return;
+
+	switch (KeyCode)
+	{
+	case DIK_1:
+		simon->idChangeScene = 0;
+		break;
+	case DIK_2:
+		simon->idChangeScene = 1;
+		break;
+	case DIK_3:
+		simon->idChangeScene = 2;
+		break;
+	case DIK_4:
+		simon->idChangeScene = 4;
+		break;
+	case DIK_5:
+		simon->idChangeScene = 5;
+		break;
+	case DIK_6:
+		simon->idChangeScene = 6;
+		break;
+	default:
+		break;
+	}
+
 
 	if (KeyCode == DIK_SPACE) {
 		DebugOut(L"space \n");

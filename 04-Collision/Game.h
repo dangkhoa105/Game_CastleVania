@@ -44,11 +44,16 @@ class CGame
 	float cam_y = 0.0f;
 
 	CPlayScene* pScene;
+	ID3DXFont* font;
 public:
 	void Update(DWORD dt);
 	void Render();
 	void LoadResource();
 
+	ID3DXFont* GetFont() {
+		return this->font;
+	}
+	void DrawUIText(std::string text, RECT bound);
 	void KeyState(BYTE* states);
 	void OnKeyDown(int KeyCode);
 
@@ -58,7 +63,7 @@ public:
 	void Init(HWND hWnd);
 	void Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha = 255);
 	void Draw(int nx, float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha = 255);
-
+	void DrawHud(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha = 255);
 	int IsKeyDown(int KeyCode);
 	int IsKeyPress(int KeyCode);
 	void ProcessKeyboard();

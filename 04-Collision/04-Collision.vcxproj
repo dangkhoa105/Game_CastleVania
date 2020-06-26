@@ -143,6 +143,7 @@
     <ClInclude Include="Ghost.h" />
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="HUD.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="MoneyBagTrigger.h" />
@@ -161,6 +162,7 @@
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="Wall.h" />
     <ClInclude Include="Whip.h" />
+    <ClInclude Include="Zombie.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animations.cpp" />
@@ -183,6 +185,7 @@
     <ClCompile Include="Ghost.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mario.cpp" />
@@ -201,6 +204,7 @@
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="Wall.cpp" />
     <ClCompile Include="Whip.cpp" />
+    <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

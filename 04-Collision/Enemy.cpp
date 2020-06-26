@@ -12,13 +12,13 @@ void CEnemy::SetState(int state)
 
 void CEnemy::StartRespawnTimeCounter()
 {
-	isReSpawn = true;
+	isReSpawnWaiting = true;
 	reSpawnTimeStart = GetTickCount();
 }
 
 bool CEnemy::IsActivate()
 {
-	if (reSpawnWaitingTime != 0 && (GetTickCount() - reSpawnTimeStart >= reSpawnWaitingTime))
+	if (isReSpawnWaiting == true && (GetTickCount() - reSpawnTimeStart >= reSpawnWaitingTime))
 		return true;
 	return false;
 }

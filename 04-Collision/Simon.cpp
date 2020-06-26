@@ -302,12 +302,12 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 				else if (dynamic_cast<CBat*>(e->obj))
 				{
-					CBat* bat = dynamic_cast<CBat*>(e->obj);
-					bat->SetDestroy(true);
+					CBat* bat = dynamic_cast<CBat*>(e->obj);				
 					if (untouchable_start == 0) {
-
+						
 						if (!this->isOnStair)
 						{
+							bat->SetDestroy(true);
 							this->SetState(SIMON_STATE_HURT);
 							x += dx;
 							y += dy;
@@ -441,6 +441,32 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				else if (dynamic_cast<CCrow*>(e->obj))
 				{
 					if (untouchable_start == 0) {
+						if (!this->isOnStair)
+						{
+							this->SetState(SIMON_STATE_HURT);
+							x += dx;
+							y += dy;
+						}
+						if (untouchable != 1) {
+							StartUntouchable();
+							break; // không xét tiếp va chạm khi defect
+						}
+					}
+					else {
+						if (e->nx != 0)
+						{
+							x += dx;
+						}
+						if (e->ny != 0)
+						{
+							y += dy;
+						}
+					}
+				}
+				else if (dynamic_cast<CZombie*>(e->obj))
+				{
+					CZombie* f = dynamic_cast<CZombie*>(e->obj);
+					if (untouchable_start == 0 && f->state != ZOMBIE_STATE_IDLE) {
 						if (!this->isOnStair)
 						{
 							this->SetState(SIMON_STATE_HURT);
@@ -813,6 +839,7 @@ void CSimon::SetState(int state)
 	case SIMON_STATE_STAIR_UP_IDLE:
 		this->isFirstStepOnStair = true;
 		this->isStartOnStair = false; // cho phép nhấn tiếp
+		isOnStair = true;
 		//tránh trường hợp khi simon attack y thay đổi làm floor
 		// làm tròn xuống 1px
 		if (nx == 1)
@@ -829,16 +856,19 @@ void CSimon::SetState(int state)
 		vy = 0;
 		break;
 	case SIMON_STATE_STAIR_UP_RIGHT:
+		isOnStair = true;
 		vy = -SIMON_WALKING_STAIR_SPEED;
 		vx = SIMON_WALKING_STAIR_SPEED;
 		nx = 1;
 		break;
 	case SIMON_STATE_STAIR_DOWN_RIGHT:
+		isOnStair = true;
 		vy = SIMON_WALKING_STAIR_SPEED;
 		vx = SIMON_WALKING_STAIR_SPEED;
 		nx = 1;
 		break;
 	case SIMON_STATE_STAIR_DOWN_IDLE:
+		isOnStair = true;
 		this->isFirstStepOnStair = true;
 		this->isStartOnStair = false; // cho phép nhấn tiếp
 		//tránh trường hợp khi simon attack y thay đổi làm floor
@@ -857,11 +887,13 @@ void CSimon::SetState(int state)
 		vy = 0;
 		break;
 	case SIMON_STATE_STAIR_UP_LEFT:
+		isOnStair = true;
 		vy = -SIMON_WALKING_STAIR_SPEED;
 		vx = -SIMON_WALKING_STAIR_SPEED;
 		nx = -1;
 		break;
 	case SIMON_STATE_STAIR_DOWN_LEFT:
+		isOnStair = true;
 		vy = SIMON_WALKING_STAIR_SPEED;
 		vx = -SIMON_WALKING_STAIR_SPEED;
 		nx = -1;

@@ -25,6 +25,9 @@ void CSpearGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CEnemy::Update(dt, coObjects);
 
+	auto simon = CPlayScene::GetInstance()->GetSimon();
+	coObjects->push_back(simon);
+
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -82,5 +85,6 @@ void CSpearGuard::Render()
 
 void CSpearGuard::SetState(int state)
 {
+	isDestroy = false;
 	CEnemy::SetState(state);
 }

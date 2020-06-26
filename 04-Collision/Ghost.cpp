@@ -1,5 +1,6 @@
 #include "Ghost.h"
 #include "Simon.h"
+#include "PlayScene.h"
 
 void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
@@ -16,6 +17,8 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 
 	CEnemy::Update(dt);
+	auto simon = CPlayScene::GetInstance()->GetSimon();
+	coObjects->push_back(simon);
 
 	D3DXVECTOR2 simonPos = { 0, 0 };
 	for (size_t i = 0; i < coObjects->size(); i++)
@@ -31,16 +34,16 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 
-	if (this->x - int(simonPos.x) == 128)
+	if (this->x - int(simonPos.x) >= 128)
 	{
 		this->SetState(GHOST_STATE_FLYING);
 	}
 
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
+	//vector<LPCOLLISIONEVENT> coEvents;
+	//vector<LPCOLLISIONEVENT> coEventsResult;
 
-	coEvents.clear();
-	CalcPotentialCollisions(coObjects, coEvents);
+	//coEvents.clear();
+	//CalcPotentialCollisions(coObjects, coEvents);
 	//
 	// TO-DO: make sure Goomba can interact with the world and to each of them too!
 	// 
@@ -50,23 +53,23 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	else if (nx == -1) 
 		vx = GHOST_FLYING_SPEED_X;
 
-	if (vx > 0 && x < this->beginPositionX) {
-		x = this->beginPositionX;
-		vx = vx;
-		nx = -nx;
-	}
+	//if (vx > 0 && x < this->beginPositionX) {
+	//	x = this->beginPositionX;
+	//	vx = vx;
+	//	nx = -nx;
+	//}
 
-	if (vx < 0 && x > this->lastPositionX) {
-		x = this->lastPositionX;
-		vx = vx;
-		nx = -nx;
-	}
+	//if (vx < 0 && x > this->lastPositionX) {
+	//	x = this->lastPositionX;
+	//	vx = vx;
+	//	nx = -nx;
+	//}
 
 	x -= dx;
 
 	y = GHOST_DROP * sin(x * BAT_FLYING_SPEED_Y) + this->GetEntryPositionY();
 
-	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	//for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
 void CGhost::Render()
@@ -99,7 +102,7 @@ void CGhost::SetState(int state)
 		break;
 	case GHOST_STATE_FLYING:
 		reSpawnTimeStart = 0;
-		isReSpawn = false;
+		isReSpawnWaiting = false;
 		break;
 	}
 	CEnemy::SetState(state);
@@ -126,5 +129,5 @@ void CGhost::GetBoundingBoxActive(float& left, float& top, float& right, float& 
 	left = (x + bboxEnemyWidth / 2) - bboxEnemyActiveWidth;
 	top = y;
 	right = (x + bboxEnemyWidth / 2) + bboxEnemyActiveWidth;
-	bottom = y + bboxEnemyHeight;
+	bottom = y + bboxEnemyActiveHeight;
 }

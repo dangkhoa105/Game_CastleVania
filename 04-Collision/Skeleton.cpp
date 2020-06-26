@@ -9,6 +9,8 @@ void CSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CEnemy::Update(dt);
 	auto pScene = CPlayScene::GetInstance();
+	auto simon = pScene->GetSimon();
+	coObjects->push_back(simon);
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -54,7 +56,7 @@ void CSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					nx = -1;
 					vx = SKELETON_JUMPING_SPEED_X;
 				}
-				vy = vy;
+				//vy = vy;
 			}
 		}
 	}
@@ -106,7 +108,6 @@ void CSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					else
 						vx = -SKELETON_JUMPING_SPEED_X * 2;
 					vy = -SKELETON_JUMPING_SPEED_X * 6 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / -SKELETON_JUMPING_SPEED_X * 2));
-					//vy = -SKELETON_JUMPING_SPEED_X * 6;
 					onGround_start = 0;
 				}
 			}
@@ -133,13 +134,17 @@ void CSkeleton::Render()
 
 void CSkeleton::SetState(int state)
 {
-	if (this->state == state)
-		return;
+	
+	/*if (this->state == state)
+		return;*/
 
 	switch (state)
 	{
 	case SKELETON_STATE_IDLE:
 		vx = vy = 0;
+		isDestroy = false;
+		isFinishReSpawn = false;
+		StartRespawnTimeCounter();
 		break;
 	case SKELETON_STATE_JUMPING:
 		if (nx > 0)
@@ -151,6 +156,8 @@ void CSkeleton::SetState(int state)
 			vx = SKELETON_JUMPING_SPEED_X;
 		}
 		vy = -SKELETON_JUMPING_SPEED_X * 2;
+		reSpawnTimeStart = 0;
+		isReSpawnWaiting = false;
 		break;
 	default:
 		break;

@@ -15,7 +15,7 @@ public:
 		hp = 1;
 		AddAnimation("crow_ani_idle");
 		AddAnimation("crow_ani_flying");
-		reSpawnTime = ENEMY_SPAWN_TIME;
+		reSpawnWaitingTime = ENEMY_SPAWN_TIME;
 		this->SetState(CROW_STATE_IDLE);
 		this->flyingWaiting_start = 0;
 		this->flying_start = 0;

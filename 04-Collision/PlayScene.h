@@ -23,14 +23,17 @@
 #include "Monkey.h"
 #include "Skeleton.h"
 #include "Crow.h"
+#include "Zombie.h"
 #include "Boss.h"
 #include <queue>
 #include "Grid.h"
+#include "HUD.h"
 
 class CPlayScene
 {
 	static CPlayScene* __instance;
 
+	HUD* hud;
 	CSimon* simon;
 	CSkeleton* skeleton;
 	CBat* bat;
@@ -38,13 +41,14 @@ class CPlayScene
 	CWall* wall;
 	CChangeScene* changeScene;
 	CEffect* effect;
+
 	CTileMap* tilemap;
 	CTileMaps tileMaps;
 
 	std::queue<LPGAMEOBJECT> newObjectList;
 
-	vector<LPGAMEOBJECT> objects;	
-	
+
+	vector<LPGAMEOBJECT> objects;//ds object lay len tu grid moi lan update	
 	std::unordered_map<int, CPScene*> pScenes;
 	//std::unordered_map<int, vector<LPGAMEOBJECT>*> pMapObjects;
 
@@ -65,6 +69,9 @@ class CPlayScene
 public:
 	CPlayScene() {};
 	static CPlayScene* GetInstance();
+
+	CSimon* GetSimon() { return this->simon; }
+
 	void LoadResource();
 	void LoadMap();
 	void LoadObject();
@@ -78,6 +85,7 @@ public:
 	void UpdateCam();
 	void UpdateItem();
 	void UpdateScene();
+	void UpdatePositionSpawnEnemy();
 
 	void Render();
 	void Unload();

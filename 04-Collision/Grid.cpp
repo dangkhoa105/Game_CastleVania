@@ -11,7 +11,6 @@ Grid::Grid(int mapWidth, int mapHeight) :
 	mapHeight(mapHeight + 80)
 {
 	this->cellSize = CELL_SIZE;
-
 	this->gridCol = ceil((float)this->mapWidth / this->cellSize) + 1;
 	this->gridRow = ceil((float)this->mapHeight / this->cellSize);
 
@@ -87,7 +86,7 @@ void Grid::Update(LPGAMEOBJECT object)
 	{
 		for (vector<LPGAMEOBJECT>::iterator it = grid[oldCell.y][oldCell.x].begin(); it != grid[oldCell.y][oldCell.x].end(); ) 
 		{
-			if ((*it) == object) 
+			if ((*it) == object &&!dynamic_cast<CZombie*>(object)) 
 			{
 				it = grid[oldCell.y][oldCell.x].erase(it);
 			}
@@ -108,6 +107,8 @@ void Grid::Update(LPGAMEOBJECT object)
 			else ++it;
 		}
 	}
+
+
 	Add(object);
 }
 
@@ -133,7 +134,7 @@ void Grid::GetListobjectFromGrid(vector<LPGAMEOBJECT>& listobjects)
 			for (size_t k = 0; k < this->grid[i][j].size(); k++) 
 			{
 				LPGAMEOBJECT obj = this->grid[i][j].at(k);
-				if (!obj->IsDestroy()) 
+				if (!obj->IsDestroy() )
 				{
 					if (dynamic_cast<CEnemy*>(obj))
 						enemiesobject.push_back(obj);
@@ -143,6 +144,10 @@ void Grid::GetListobjectFromGrid(vector<LPGAMEOBJECT>& listobjects)
 						effectobject.push_back(obj);
 					else
 						listobjects.push_back(obj);
+				}
+				else if (dynamic_cast<CZombie*>(obj))
+				{
+					enemiesobject.push_back(obj);
 				}
 			}
 		}

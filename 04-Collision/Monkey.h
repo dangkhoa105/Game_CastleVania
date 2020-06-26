@@ -14,9 +14,10 @@ public:
 	{
 		AddAnimation("monkey_ani_idle");
 		AddAnimation("monkey_ani_jumping");
+		this->SetState(MONKEY_STATE_IDLE);
 		this->jump_start = 0;
 		this->onGround_start = 0;
-		reSpawnTime = ENEMY_SPAWN_TIME;
+		reSpawnWaitingTime = ENEMY_SPAWN_TIME;
 	}
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);

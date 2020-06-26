@@ -9,11 +9,10 @@ public:
 	int hp;
 	bool isSpawn;
 	int spawnTime;
-	bool isReSpawn;
-	int reSpawnTime;
 	DWORD reSpawnTimeStart;
-	bool isFinishReSpawn;
+	bool isReSpawnWaiting;
 	int reSpawnWaitingTime;
+	bool isFinishReSpawn;
 
 	int bboxEnemyWidth;
 	int bboxEnemyHeight;
@@ -26,13 +25,12 @@ public:
 
 	CEnemy() 
 	{
-		isSpawn = false;
-		spawnTime = 0;;
-		isReSpawn = false;
-		reSpawnTime = 0;
+		isReSpawnWaiting = false;
+		reSpawnWaitingTime = 0;
+		spawnTime = 0;;	
 		reSpawnTimeStart = 0;
 		isFinishReSpawn = false;
-		reSpawnWaitingTime = 0;
+		isDestroy = true;
 	}
 
 	void TakeDamage(int damage) 

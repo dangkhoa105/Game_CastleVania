@@ -2,10 +2,17 @@
   <bricks>
     <brick x="0" y="352" widthbbox="1536" heightbbox="32"/>
     <brick x="0" y="160" widthbbox="224" heightbbox="32"/>
-    <brick x="256" y="224" widthbbox="352" heightbbox="32"/>
+    <brick x="258" y="224" widthbbox="352" heightbbox="32"/>
+    <brick x="0" y="320" widthbbox="32" heightbbox="32"/>
   </bricks> 
 
   <enemies>
+    <zombies>
+      <zombie x="32" y="286" nx="1" bboxEnemyWidth="32" bboxEnemyHeight="64"/>
+      <zombie x="737" y="286" nx="-1" bboxEnemyWidth="32" bboxEnemyHeight="64"/>
+      <zombie x="543" y="158" nx="-1" bboxEnemyWidth="32" bboxEnemyHeight="64"/>
+    </zombies>
+
     <boss x="1152" y="32" bboxEnemyWidth="100" bboxEnemyHeight="46" bboxEnemyActiveWidth="200" bboxEnemyActiveHeight="200"/>
   </enemies>
 </objects>

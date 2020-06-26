@@ -52,6 +52,9 @@
     <Filter Include="Source Files\Grid">
       <UniqueIdentifier>{f7d219cd-3d3c-409a-9417-959e57990509}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\HUD">
+      <UniqueIdentifier>{cb8b4cf1-55b7-45e7-956e-3629ae9d2530}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Textures.h">
@@ -171,6 +174,12 @@
     <ClInclude Include="SubWeapon.h">
       <Filter>Source Files\Objects Collection\Weapon\SupWeapon</Filter>
     </ClInclude>
+    <ClInclude Include="Zombie.h">
+      <Filter>Source Files\Objects Collection\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>Source Files\HUD</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -286,6 +295,12 @@
     </ClCompile>
     <ClCompile Include="SubWeapon.cpp">
       <Filter>Source Files\Objects Collection\Weapon\SupWeapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Zombie.cpp">
+      <Filter>Source Files\Objects Collection\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>Source Files\HUD</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

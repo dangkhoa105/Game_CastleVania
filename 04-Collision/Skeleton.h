@@ -15,8 +15,8 @@ public:
 		AddAnimation("skeleton_ani_jumping");
 		onGround_start = 0;
 		throw_start = 0;
-		this->state = SKELETON_STATE_IDLE;	
-		reSpawnTime = ENEMY_SPAWN_TIME;
+		this->SetState(SKELETON_STATE_IDLE);
+		reSpawnWaitingTime = ENEMY_SPAWN_TIME;
 	}
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
