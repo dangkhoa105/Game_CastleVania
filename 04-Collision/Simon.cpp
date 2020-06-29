@@ -558,9 +558,36 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			CStair* f = dynamic_cast<CStair*>(obj);
 			if (this->AABB(obj) == true)
 			{
+				if (state == SIMON_STATE_STAIR_UP_LEFT && f->GetDirectionStair() == (int)STAIRDIRECTION::UPLEFTRIGHT)
+				{
+					float sl, st, sr, sb;
+					f->GetBoundingBox(sl, st, sr, sb);
+					float l, t, r, b;
+					this->GetBoundingBox(l, t, r, b);
+
+					if (b < sb)
+					{
+						SetState(SIMON_STATE_IDLE);
+						this->isOnStair = false;
+						this->isStartOnStair = false;
+						this->isFirstStepOnStair = false;
+						this->onStairDirection = static_cast<STAIRDIRECTION>(f->GetDirectionStair());
+						return;
+					}
+				}
+
+				if ((state == SIMON_STATE_STAIR_DOWN_LEFT && f->GetDirectionStair() == (int)STAIRDIRECTION::UPLEFTRIGHT))
+				{
+					SetState(SIMON_STATE_IDLE);
+					this->isOnStair = false;
+					this->isStartOnStair = false;
+					this->isFirstStepOnStair = false;
+					return;
+				}
+
 				if (!this->isColliWithStair)
 				{
-					if (this->isOnStair)
+					if (this->isOnStair && f->GetDirectionStair() != (int)STAIRDIRECTION::UPLEFTRIGHT)
 					{
 						SetState(SIMON_STATE_IDLE);
 						this->isOnStair = false;
@@ -1012,125 +1039,130 @@ void CSimon::HandleFirstStepOnStair()
 		int a = 2;
 	}
 
-	// up right
-	if (this->onStairDirection == STAIRDIRECTION::UPRIGHT) {
-		if (stairPos.x - this->x > 20) {
-			this->isAutoWalk = true;
-			SetState(SIMON_STATE_WALKING_RIGHT);
-			return;
-		}
-		else if (stairPos.x - this->x < 20 - 5) {
-			this->isAutoWalk = true;
-			SetState(SIMON_STATE_WALKING_LEFT);
-			return;
-		}
-		else {
-			if (state == SIMON_STATE_WALKING_LEFT) {
-				if (nx == -1) nx = 1;
-				else if (nx == 1) nx = -1;
+	if (isUpStair)
+	{// up right
+		if (this->onStairDirection == STAIRDIRECTION::UPRIGHT || this->onStairDirection == STAIRDIRECTION::UPLEFTRIGHT) {
+			if (stairPos.x - this->x > 20) {
+				this->isAutoWalk = true;
+				SetState(SIMON_STATE_WALKING_RIGHT);
+				return;
 			}
-			this->isAutoWalk = false;
-			this->isOnStair = true;
-			this->isFirstStepOnStair = true;
-			this->lastStepOnStairPos = { floor(this->x),floor(this->y) };
-			//DebugOut(L"Step x=%f y=%f \n", this->LastStepOnStairPos.x, this->LastStepOnStairPos.y);
-			this->SetState(SIMON_STATE_STAIR_UP_RIGHT);
+			else if (stairPos.x - this->x < 20 - 5) {
+				this->isAutoWalk = true;
+				SetState(SIMON_STATE_WALKING_LEFT);
+				return;
+			}
+			else {
+				if (state == SIMON_STATE_WALKING_LEFT) {
+					if (nx == -1) nx = 1;
+					else if (nx == 1) nx = -1;
+				}
+				this->isAutoWalk = false;
+				this->isOnStair = true;
+				this->isFirstStepOnStair = true;
+				this->lastStepOnStairPos = { floor(this->x),floor(this->y) };
+				//DebugOut(L"Step x=%f y=%f \n", this->LastStepOnStairPos.x, this->LastStepOnStairPos.y);
+				this->SetState(SIMON_STATE_STAIR_UP_RIGHT);
+			}
+		}
+		else if (this->onStairDirection == STAIRDIRECTION::UPLEFT) {
+			if (stairPos.x - this->x < 8) {
+				this->isAutoWalk = true;
+				SetState(SIMON_STATE_WALKING_LEFT);
+				return;
+			}
+			else if (stairPos.x - this->x > 8 + 5) {
+				this->isAutoWalk = true;
+				SetState(SIMON_STATE_WALKING_RIGHT);
+				return;
+			}
+			else {
+				if (state == SIMON_STATE_WALKING_RIGHT) {
+					if (nx == -1) nx = 1;
+					else if (nx == 1) nx = -1;
+				}
+				this->isAutoWalk = false;
+				this->isOnStair = true;
+				this->isFirstStepOnStair = true;
+				this->lastStepOnStairPos = { floor(this->x),floor(this->y) };
+				//DebugOut(L"Step x=%f y=%f \n", this->LastStepOnStairPos.x, this->LastStepOnStairPos.y);
+				this->SetState(SIMON_STATE_STAIR_UP_LEFT);
+			}
 		}
 	}
-	else if (this->onStairDirection == STAIRDIRECTION::UPLEFT) {
-		if (stairPos.x - this->x < 8) {
-			this->isAutoWalk = true;
-			SetState(SIMON_STATE_WALKING_LEFT);
-			return;
-		}
-		else if (stairPos.x - this->x > 8 + 5) {
-			this->isAutoWalk = true;
-			SetState(SIMON_STATE_WALKING_RIGHT);
-			return;
-		}
-		else {
-			if (state == SIMON_STATE_WALKING_RIGHT) {
-				if (nx == -1) nx = 1;
-				else if (nx == 1) nx = -1;
+	else
+	{
+		if (this->onStairDirection == STAIRDIRECTION::UPLEFTRIGHT ) {
+			if (stairPos.x - this->x > 20) {
+				this->isAutoWalk = true;
+				SetState(SIMON_STATE_WALKING_RIGHT);
+				return;
 			}
-			this->isAutoWalk = false;
-			this->isOnStair = true;
-			this->isFirstStepOnStair = true;
-			this->lastStepOnStairPos = { floor(this->x),floor(this->y) };
-			//DebugOut(L"Step x=%f y=%f \n", this->LastStepOnStairPos.x, this->LastStepOnStairPos.y);
-			this->SetState(SIMON_STATE_STAIR_UP_LEFT);
-		}
-	}
-	else if (this->onStairDirection == STAIRDIRECTION::UPLEFTRIGHT) {
-		if (stairPos.x - this->x < 8) {
-			this->isAutoWalk = true;
-			SetState(SIMON_STATE_WALKING_LEFT);
-			return;
-		}
-		else if (stairPos.x - this->x > 8 + 5) {
-			this->isAutoWalk = true;
-			SetState(SIMON_STATE_WALKING_RIGHT);
-			return;
-		}
-		else {
-			if (state == SIMON_STATE_WALKING_RIGHT) {
-				if (nx == -1) nx = 1;
-				else if (nx == 1) nx = -1;
+			else if (stairPos.x - this->x < 20 - 5) {
+				this->isAutoWalk = true;
+				SetState(SIMON_STATE_WALKING_LEFT);
+				return;
 			}
-			this->isAutoWalk = false;
-			this->isOnStair = true;
-			this->isFirstStepOnStair = true;
-			this->lastStepOnStairPos = { floor(this->x),floor(this->y) };
-			//DebugOut(L"Step x=%f y=%f \n", this->LastStepOnStairPos.x, this->LastStepOnStairPos.y);
-			this->SetState(SIMON_STATE_STAIR_UP_RIGHT);
-		}
-	}
-	else if (this->onStairDirection == STAIRDIRECTION::DOWNRIGHT) {
-		if (stairPos.x - this->x > -16) {
-			this->isAutoWalk = true;
-			SetState(SIMON_STATE_WALKING_RIGHT);
-			return;
-		}
-		else if (stairPos.x - this->x < -16 - 5) {
-			this->isAutoWalk = true;
-			SetState(SIMON_STATE_WALKING_LEFT);
-			return;
-		}
-		else {
-			if (state == SIMON_STATE_WALKING_LEFT) {
-				if (nx == -1) nx = 1;
-				else if (nx == 1) nx = -1;
+			else {
+				if (state == SIMON_STATE_WALKING_LEFT) {
+					if (nx == -1) nx = 1;
+					else if (nx == 1) nx = -1;
+				}
+				this->isAutoWalk = false;
+				this->isOnStair = true;
+				this->isFirstStepOnStair = true;
+				this->lastStepOnStairPos = { floor(this->x),floor(this->y) };
+				//DebugOut(L"Step x=%f y=%f \n", this->LastStepOnStairPos.x, this->LastStepOnStairPos.y);
+				this->SetState(SIMON_STATE_STAIR_DOWN_RIGHT);
 			}
-			this->isAutoWalk = false;
-			this->isOnStair = true;
-			this->isFirstStepOnStair = true;
-			this->lastStepOnStairPos = { floor(this->x),floor(this->y) };
-			//DebugOut(L"Step x=%f y=%f \n", this->LastStepOnStairPos.x, this->LastStepOnStairPos.y);
-			this->SetState(SIMON_STATE_STAIR_DOWN_RIGHT);
 		}
-	}
-	else if (this->onStairDirection == STAIRDIRECTION::DOWNLEFT) {
-		if (stairPos.x - this->x < 27) {
-			this->isAutoWalk = true;
-			SetState(SIMON_STATE_WALKING_LEFT);
-			return;
-		}
-		else if (stairPos.x - this->x > 27 + 5) {
-			this->isAutoWalk = true;
-			SetState(SIMON_STATE_WALKING_RIGHT);
-			return;
-		}
-		else {
-			if (state == SIMON_STATE_WALKING_RIGHT) {
-				if (nx == -1) nx = 1;
-				else if (nx == 1) nx = -1;
+		else if (this->onStairDirection == STAIRDIRECTION::DOWNRIGHT) {
+			if (stairPos.x - this->x > -16) {
+				this->isAutoWalk = true;
+				SetState(SIMON_STATE_WALKING_RIGHT);
+				return;
 			}
-			this->isAutoWalk = false;
-			this->isOnStair = true;
-			this->isFirstStepOnStair = true;
-			this->lastStepOnStairPos = { floor(this->x),floor(this->y) };
-			//DebugOut(L"Step x=%f y=%f \n", this->LastStepOnStairPos.x, this->LastStepOnStairPos.y);
-			this->SetState(SIMON_STATE_STAIR_DOWN_LEFT);
+			else if (stairPos.x - this->x < -16 - 5) {
+				this->isAutoWalk = true;
+				SetState(SIMON_STATE_WALKING_LEFT);
+				return;
+			}
+			else {
+				if (state == SIMON_STATE_WALKING_LEFT) {
+					if (nx == -1) nx = 1;
+					else if (nx == 1) nx = -1;
+				}
+				this->isAutoWalk = false;
+				this->isOnStair = true;
+				this->isFirstStepOnStair = true;
+				this->lastStepOnStairPos = { floor(this->x),floor(this->y) };
+				//DebugOut(L"Step x=%f y=%f \n", this->LastStepOnStairPos.x, this->LastStepOnStairPos.y);
+				this->SetState(SIMON_STATE_STAIR_DOWN_RIGHT);
+			}
+		}
+		else if (this->onStairDirection == STAIRDIRECTION::DOWNLEFT) {
+			if (stairPos.x - this->x < 11) {
+				this->isAutoWalk = true;
+				SetState(SIMON_STATE_WALKING_LEFT);
+				return;
+			}
+			else if (stairPos.x - this->x > 11 + 5) {
+				this->isAutoWalk = true;
+				SetState(SIMON_STATE_WALKING_RIGHT);
+				return;
+			}
+			else {
+				if (state == SIMON_STATE_WALKING_RIGHT) {
+					if (nx == -1) nx = 1;
+					else if (nx == 1) nx = -1;
+				}
+				this->isAutoWalk = false;
+				this->isOnStair = true;
+				this->isFirstStepOnStair = true;
+				this->lastStepOnStairPos = { floor(this->x),floor(this->y) };
+				//DebugOut(L"Step x=%f y=%f \n", this->LastStepOnStairPos.x, this->LastStepOnStairPos.y);
+				this->SetState(SIMON_STATE_STAIR_DOWN_LEFT);
+			}
 		}
 	}
 }

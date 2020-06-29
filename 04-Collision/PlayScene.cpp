@@ -807,10 +807,12 @@ void CPlayScene::KeyState(BYTE* states)
 		else if (simon->CheckCanStepUp()) {
 			if (!simon->CheckIsOnStair() && simon->CheckColliWithStair()) {
 				simon->SetStartOnStair();
+				simon->isUpStair = true;
 			}
 			else if (simon->GetState() == SIMON_STATE_STAIR_UP_IDLE) {
 
 				simon->SetStartOnStair();
+				simon->isUpStair = true;
 			}
 			return;
 		}
@@ -819,23 +821,24 @@ void CPlayScene::KeyState(BYTE* states)
 		if (simon->GetState() == SIMON_STATE_STAIR_UP_IDLE) {
 			if (simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPRIGHT)
 			{
-
-
 				simon->SetOnStairDirection(STAIRDIRECTION::DOWNLEFT);
 			}
 			else if (simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPLEFT)
 				simon->SetOnStairDirection(STAIRDIRECTION::DOWNRIGHT);
 			simon->SetStartOnStair();
+			simon->isUpStair = false;
 			DebugOut(L"Simon down \n");
 			return;
 		}
 		else if (simon->CheckCanStepDown()) {
 			if (!simon->CheckIsOnStair() && simon->CheckColliWithStair()) {
 				simon->SetStartOnStair();
+				simon->isUpStair = false;
 			}
 			else if (simon->GetState() == SIMON_STATE_STAIR_DOWN_IDLE) {
 
 				simon->SetStartOnStair();
+				simon->isUpStair = false;
 			}
 		
 			return;
@@ -867,6 +870,7 @@ void CPlayScene::KeyState(BYTE* states)
 void CPlayScene::OnKeyDown(int KeyCode)
 {
 	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
+	CGame* game = CGame::GetInstance();
 
 	if (simon->GetState() == SIMON_STATE_ITEM || simon->GetState() == SIMON_STATE_AUTO_WALKING || simon->GetState() == SIMON_STATE_HURT)
 		return;
@@ -898,7 +902,6 @@ void CPlayScene::OnKeyDown(int KeyCode)
 		break;
 	}
 
-
 	if (KeyCode == DIK_SPACE) {
 		DebugOut(L"space \n");
 		if (!simon->isGround||
@@ -913,40 +916,40 @@ void CPlayScene::OnKeyDown(int KeyCode)
 	else if (KeyCode == DIK_Z) {		
 		if (simon->GetAttackTime() == 0)
 		{			
-			simon->whip->fight = true;			
-			simon->isSubWeapon = false;
-			if (simon->CheckIsOnStair()) {
-				if (simon->GetState() == SIMON_STATE_STAIR_UP_IDLE &&
-					(simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPLEFT || simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPRIGHT))
-					simon->SetState(SIMON_STATE_ATTACK_STAIR_UP);
-				else if (simon->GetState() == SIMON_STATE_STAIR_DOWN_IDLE &&
-					(simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNLEFT || simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNRIGHT))
-					simon->SetState(SIMON_STATE_ATTACK_STAIR_DOWN);
+			if (game->IsKeyDown(DIK_UP) && simon->subWeapons != SUBWEAPON::DEFAULT)
+			{
+				simon->spawnSubWeapon = true;
+				simon->isSubWeapon = true;
+				if (simon->CheckIsOnStair()) {
+					if (simon->GetState() == SIMON_STATE_STAIR_UP_IDLE &&
+						(simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPLEFT || simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPRIGHT))
+						simon->SetState(SIMON_STATE_ATTACK_STAIR_UP);
+					else if (simon->GetState() == SIMON_STATE_STAIR_DOWN_IDLE &&
+						(simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNLEFT || simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNRIGHT))
+						simon->SetState(SIMON_STATE_ATTACK_STAIR_DOWN);
+				}
+				else {
+					if (simon->GetState() == SIMON_STATE_SIT) simon->SetState(SIMON_STATE_SIT_ATTACK);
+					else simon->SetState(SIMON_STATE_STAND_ATTACK);
+				}
 			}
-			else {
-				if (simon->GetState() == SIMON_STATE_SIT) simon->SetState(SIMON_STATE_SIT_ATTACK);
-				else simon->SetState(SIMON_STATE_STAND_ATTACK);
-			}
-			DebugOut(L"3 \n");
-		}
-	}
-	else if (KeyCode == DIK_C) {
-		if (simon->GetAttackTime() == 0
-			&& simon->subWeapons != SUBWEAPON::DEFAULT)
-		{
-			simon->spawnSubWeapon = true;
-			simon->isSubWeapon = true;
-			if (simon->CheckIsOnStair()) {
-				if (simon->GetState() == SIMON_STATE_STAIR_UP_IDLE &&
-					(simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPLEFT || simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPRIGHT))
-					simon->SetState(SIMON_STATE_ATTACK_STAIR_UP);
-				else if (simon->GetState() == SIMON_STATE_STAIR_DOWN_IDLE &&
-					(simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNLEFT || simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNRIGHT))
-					simon->SetState(SIMON_STATE_ATTACK_STAIR_DOWN);
-			}
-			else {
-				if (simon->GetState() == SIMON_STATE_SIT) simon->SetState(SIMON_STATE_SIT_ATTACK);
-				else simon->SetState(SIMON_STATE_STAND_ATTACK);
+			else 
+			{
+				simon->whip->fight = true;
+				simon->isSubWeapon = false;
+				if (simon->CheckIsOnStair()) {
+					if (simon->GetState() == SIMON_STATE_STAIR_UP_IDLE &&
+						(simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPLEFT || simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPRIGHT))
+						simon->SetState(SIMON_STATE_ATTACK_STAIR_UP);
+					else if (simon->GetState() == SIMON_STATE_STAIR_DOWN_IDLE &&
+						(simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNLEFT || simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNRIGHT))
+						simon->SetState(SIMON_STATE_ATTACK_STAIR_DOWN);
+				}
+				else {
+					if (simon->GetState() == SIMON_STATE_SIT) simon->SetState(SIMON_STATE_SIT_ATTACK);
+					else simon->SetState(SIMON_STATE_STAND_ATTACK);
+				}
+				DebugOut(L"3 \n");
 			}
 		}
 	}

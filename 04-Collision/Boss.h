@@ -20,6 +20,7 @@ class CBoss : public CEnemy
 public:
 	CBoss()
 	{
+		hp = 16;
 		AddAnimation("boss_ani_idle");
 		AddAnimation("boss_ani_flying");
 		this->SetState(BOSS_STATE_IDLE);
@@ -32,6 +33,8 @@ public:
 	{
 
 	}
+
+	
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render();

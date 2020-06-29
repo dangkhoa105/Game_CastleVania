@@ -12,6 +12,7 @@ class CMonkey : public CEnemy
 public:
 	CMonkey()
 	{
+		hp = 1;
 		AddAnimation("monkey_ani_idle");
 		AddAnimation("monkey_ani_jumping");
 		this->SetState(MONKEY_STATE_IDLE);

@@ -5,6 +5,7 @@
 #include "Simon.h"
 #include "Bat.h"
 #include "Brick.h"
+#include "PlayScene.h"
 
 void CSubWeapon::Render()
 {
@@ -70,6 +71,9 @@ void CSubWeapon::GetBoundingBox(float& left, float& top, float& right, float& bo
 void CSubWeapon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt);
+
+	auto simon = CPlayScene::GetInstance()->GetSimon();
+	coObjects->push_back(simon);
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -141,6 +145,11 @@ void CSubWeapon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						this->SetDestroy(true);
 						burning_start = 0;
 					}
+				}
+				if (state == STATE_BOOMERANG)
+				{
+					x += dx;
+					y += dy;
 				}
 			}
 			else

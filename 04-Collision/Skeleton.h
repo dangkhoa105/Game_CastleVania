@@ -12,6 +12,7 @@ class CSkeleton : public CEnemy
 public:
 	CSkeleton()
 	{
+		hp = 1;
 		AddAnimation("skeleton_ani_jumping");
 		onGround_start = 0;
 		throw_start = 0;

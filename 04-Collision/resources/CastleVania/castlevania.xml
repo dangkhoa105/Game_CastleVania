@@ -2,11 +2,11 @@
   <!--HUD-->
   <sprite n="blackBoard" l="482" t="537" r="578" b="578"/>
 
-  <sprite n="simonHp" l="822" t="904" r="832" b="924"/>
+  <sprite n="simonHp" l="2" t="2" r="8" b="14"/>
 
-  <sprite n="bossHp" l="836" t="904" r="846" b="924"/>
+  <sprite n="bossHp" l="17" t="2" r="23" b="14"/>
 
-  <sprite n="subHp" l="949" t="904" r="859" b="924"/>
+  <sprite n="subHp" l="10" t="2" r="15" b="14"/>
 
   <!--brick-->
   <sprite n="brick" l="131" t="18" r="163" b="50"/>
@@ -140,10 +140,10 @@
   <sprite n="spear_guard_walk_3" l="717" t="22" r="749" b="88"/>
 
   <!--bat-->
-  <sprite n="bat_idle" l="0" t="22" r="32" b="50"/>
-  <sprite n="bat_fly_1" l="32" t="22" r="64" b="50"/>
-  <sprite n="bat_fly_2" l="64" t="22" r="96" b="50"/>
-  <sprite n="bat_fly_3" l="96" t="22" r="128" b="50"/>
+  <sprite n="bat_idle" l="963" t="88" r="995" b="121"/>
+  <sprite n="bat_fly_1" l="866" t="88" r="898" b="121"/>
+  <sprite n="bat_fly_2" l="899" t="88" r="930" b="121"/>
+  <sprite n="bat_fly_3" l="931" t="88" r="962" b="121"/>
 
   <!--ghost-->
   <sprite n="ghost_fly_1" l="1062" t="92" r="1090" b="122"/>
@@ -553,14 +553,14 @@
     <map texId="600" id="6" tileWidth="32" tileHeight="32" mapWidth="1536" mapHeight="384" pathText="resources\Map\Map4\map4.txt" pathImg="resources\Map\Map4\map4.png"/>
   </maps>
 
-  <scenes activeID="3">
+  <scenes activeID="0">
     <!-- map 1 -->
     <scene id="0" mapId="0" objcollectid="0" simonX="100" simonY="200" camX="0" camY="0" state="0" nx="1" camRight="0"/>
     <!-- map 2 -->
     <scene id="1" mapId="1" objcollectid="1" simonX="32" simonY="288" camX="0" camY="0" state="0" nx="1" camRight="0"/>
     <scene id="2" mapId="2" objcollectid="2" simonX="738" simonY="322" camX="1024" camY="0" state="10" nx="1" camRight="1"/>
     <scene id="3" mapId="1" objcollectid="1" simonX="224" simonY="2" camX="0" camY="0" state="14" nx="-1" camRight="0"/>
-    <!-- map 3 1440-->
+    <!-- map 3 1440 simonX="162" simonY="320"-->
     <scene id="4" mapId="4" objcollectid="4" simonX="1440" simonY="256" camX="1536" camY="0" state="0" nx="-1" camRight="1"/>
     <scene id="5" mapId="5" objcollectid="5" simonX="162" simonY="320" camX="0" camY="0" state="12" nx="1" camRight="0"/>
     <!-- map 4 -->

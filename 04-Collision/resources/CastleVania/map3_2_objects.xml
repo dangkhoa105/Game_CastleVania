@@ -20,9 +20,8 @@
   </bricks> 
 
   <stairs>
-    <stair x="82" y="256" stairDirection="3"/>  
-    <stair x="112" y="318" stairDirection="1"/>  
-    <stair x="272" y="128" stairDirection="4"/>  
+    <stair x="240" y="128" stairDirection="4"/>  
+    <stair x="112" y="316" stairDirection="5"/>  
   </stairs>
 
   <enemies>

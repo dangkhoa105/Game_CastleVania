@@ -28,6 +28,8 @@ enum class STAIRDIRECTION {
 class CSimon : public CGameObject
 {
 	int level = 1;
+	int hp;
+	int score;
 	int untouchable;
 	
 
@@ -48,6 +50,7 @@ public:
 	bool isStartOnStair = false;
 	bool isColliWithStair = false;
 	bool isFirstStepOnStair = false;
+	bool isUpStair = false;
 	STAIRDIRECTION onStairDirection = STAIRDIRECTION::DEFAULT;
 	D3DXVECTOR2 stairPos;
 	D3DXVECTOR2 lastStepOnStairPos;
@@ -77,6 +80,8 @@ public:
 
 	CSimon() : CGameObject()
 	{
+		hp = 16;
+		score = 0;
 		whip = new CWhip();
 		subWeapon = new CSubWeapon();
 
@@ -116,6 +121,9 @@ public:
 	int GetY() { return y; }
 	int GetX() { return x; }
 	int GetVy() { return vy; }
+
+	int GetHp() { return hp; }
+	int GetScore() { return score; }
 	//int GetIdChangeScene() { return idChangeScene; }
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
@@ -135,13 +143,13 @@ public:
 	}
 
 	bool CheckCanStepUp() {
-		if (this->onStairDirection == STAIRDIRECTION::UPLEFT || this->onStairDirection == STAIRDIRECTION::UPRIGHT)
+		if (this->onStairDirection == STAIRDIRECTION::UPLEFT || this->onStairDirection == STAIRDIRECTION::UPRIGHT || this->onStairDirection == STAIRDIRECTION::UPLEFTRIGHT)
 			return true;
 		return false;
 	}
 
 	bool CheckCanStepDown() {
-		if (this->onStairDirection == STAIRDIRECTION::DOWNLEFT || this->onStairDirection == STAIRDIRECTION::DOWNRIGHT)
+		if (this->onStairDirection == STAIRDIRECTION::DOWNLEFT || this->onStairDirection == STAIRDIRECTION::DOWNRIGHT || this->onStairDirection == STAIRDIRECTION::UPLEFTRIGHT)
 			return true;
 		return false;
 	}

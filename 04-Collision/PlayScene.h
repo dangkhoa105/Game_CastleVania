@@ -67,6 +67,7 @@ class CPlayScene
 	void UpdateGrid();
 	
 public:
+
 	CPlayScene() {};
 	static CPlayScene* GetInstance();
 

@@ -7,9 +7,10 @@ class CStair : public CGameObject
 {
 	int directionStair;
 	bool isActive = false;
+public:
 	virtual void Render();
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
-public:
+
 	int GetDirectionStair() { return this->directionStair; }
 	void SetDirectionStair(int directionStair) { this->directionStair = directionStair; }
 

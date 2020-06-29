@@ -13,6 +13,8 @@ public:
 		this->SetState(SPEAR_GUARD_STATE_WALKING);
 	}
 
+	int GetHp() { return this->hp; };
+
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render();
 	virtual void SetState(int state);
