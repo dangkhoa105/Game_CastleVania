@@ -50,6 +50,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		untouchable = 0;
 	}
 
+	if (this->heart == 0)
+	{
+		subWeapons = SUBWEAPON::DEFAULT;
+	}
+
 	// Simple fall down
 	if (!this->isStartOnStair && !this->isOnStair
 		&& state != SIMON_STATE_STAIR_UP_IDLE
@@ -175,8 +180,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					switch (item->idItem)
 					{
 					case ID_IHEART:
+						this->heart += 5;
 						break;
 					case ID_SMALL_IHEART:
+						this->heart += 1;
 						break;
 					case ID_IKNIFE:
 						subWeapons = SUBWEAPON::KNIFE;
@@ -186,7 +193,16 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						this->level += 1;
 						this->whip->SetLevel(level);
 						break;
-					case ID_IMONEYBAG:
+					case ID_IMONEYBAG_400:
+						score += 400;
+						this->SetState(SIMON_STATE_ITEM);
+						break;
+					case ID_IMONEYBAG_700:
+						score += 700;
+						this->SetState(SIMON_STATE_ITEM);
+						break;
+					case ID_IMONEYBAG_1000:
+						score += 1000;
 						this->SetState(SIMON_STATE_ITEM);
 						break;
 					case ID_IBOOMERANG:
@@ -206,9 +222,14 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						this->SetState(SIMON_STATE_ITEM);
 						break;
 					case ID_ICROWN:
+						score += 2000;
 						this->SetState(SIMON_STATE_ITEM);
 						break;
 					case ID_IDOUBLESHOT:
+						this->SetState(SIMON_STATE_ITEM);
+						break;
+					case ID_IKFC:
+						this->hp += 4;
 						this->SetState(SIMON_STATE_ITEM);
 						break;
 					default:
@@ -282,6 +303,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							this->SetState(SIMON_STATE_HURT);
 							x += dx;
 							y += dy;
+							this->SetHp();
 						}
 						if (untouchable != 1) {
 							StartUntouchable();
@@ -302,15 +324,16 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 				else if (dynamic_cast<CBat*>(e->obj))
 				{
-					CBat* bat = dynamic_cast<CBat*>(e->obj);				
+					CBat* bat = dynamic_cast<CBat*>(e->obj);
 					if (untouchable_start == 0) {
-						
+
 						if (!this->isOnStair)
 						{
 							bat->SetDestroy(true);
 							this->SetState(SIMON_STATE_HURT);
 							x += dx;
 							y += dy;
+							this->SetHp();
 						}
 						if (untouchable != 1) {
 							StartUntouchable();
@@ -339,6 +362,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 								this->SetState(SIMON_STATE_HURT);
 								x += dx;
 								y += dy;
+								this->SetHp();
 							}
 							if (untouchable != 1) {
 								StartUntouchable();
@@ -367,6 +391,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							this->SetState(SIMON_STATE_HURT);
 							x += dx;
 							y += dy;
+							this->SetHp();
 						}
 						if (untouchable != 1) {
 							StartUntouchable();
@@ -394,6 +419,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							this->SetState(SIMON_STATE_HURT);
 							x += dx;
 							y += dy;
+							this->SetHp();
 						}
 						if (untouchable != 1) {
 							StartUntouchable();
@@ -421,6 +447,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							this->SetState(SIMON_STATE_HURT);
 							x += dx;
 							y += dy;
+							this->SetHp();
 						}
 						if (untouchable != 1) {
 							StartUntouchable();
@@ -446,6 +473,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							this->SetState(SIMON_STATE_HURT);
 							x += dx;
 							y += dy;
+							this->SetHp();
 						}
 						if (untouchable != 1) {
 							StartUntouchable();
@@ -472,6 +500,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							this->SetState(SIMON_STATE_HURT);
 							x += dx;
 							y += dy;
+							this->SetHp();
 						}
 						if (untouchable != 1) {
 							StartUntouchable();
@@ -522,7 +551,16 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					this->level += 1;
 					this->whip->SetLevel(level);
 					break;
-				case ID_IMONEYBAG:
+				case ID_IMONEYBAG_400:
+					score += 400;
+					this->SetState(SIMON_STATE_ITEM);
+					break;
+				case ID_IMONEYBAG_700:
+					score += 700;
+					this->SetState(SIMON_STATE_ITEM);
+					break;
+				case ID_IMONEYBAG_1000:
+					score += 1000;
 					this->SetState(SIMON_STATE_ITEM);
 					break;
 				case ID_IBOOMERANG:
@@ -542,9 +580,14 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					this->SetState(SIMON_STATE_ITEM);
 					break;
 				case ID_ICROWN:
+					score += 2000;
 					this->SetState(SIMON_STATE_ITEM);
 					break;
 				case ID_IDOUBLESHOT:
+					this->SetState(SIMON_STATE_ITEM);
+					break;
+				case ID_IKFC:
+					this->hp += 4;
 					this->SetState(SIMON_STATE_ITEM);
 					break;
 				default:
@@ -642,6 +685,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						this->SetState(SIMON_STATE_HURT);
 						/*x += dx;
 						y += dy;*/
+						this->SetHp();
 					}
 					if (untouchable != 1) {
 						StartUntouchable();
@@ -666,23 +710,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (dynamic_cast<CGhost*>(obj)) // if e->obj is Item Heart 
 		{
 			CGhost* f = dynamic_cast<CGhost*>(obj);
-			float sl, st, sr, sb;
-			float ml, mt, mr, mb;
-			this->GetBoundingBox(sl, st, sr, sb);
-			f->GetBoundingBoxActive(ml, mt, mr, mb);
-			if (CGame::AABB(ml, mt, mr, mb, sl, st, sr, sb) == true)
-			{
-				if (f->x < this->x)
-				{
-					f->nx = 1;
-					f->vx = -GHOST_FLYING_SPEED_X * 1.5f;
-				}
-				else
-				{
-					f->vx = GHOST_FLYING_SPEED_X * 1.5f;
-					f->nx = -1;
-				}
-			}
 			if (this->AABB(obj) == true) // if e->obj is Item Heart 
 			{
 				if (untouchable_start == 0) {
@@ -690,6 +717,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					if (!this->isOnStair)
 					{
 						this->SetState(SIMON_STATE_HURT);
+						this->SetHp();
 					}
 					if (untouchable != 1) {
 						StartUntouchable();
@@ -697,7 +725,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					}
 				}
 			}
-		}	
+		}
 		if (dynamic_cast<CBrick*>(obj)) {
 			CBrick* e = dynamic_cast<CBrick*>(obj);
 
@@ -1092,7 +1120,7 @@ void CSimon::HandleFirstStepOnStair()
 	}
 	else
 	{
-		if (this->onStairDirection == STAIRDIRECTION::UPLEFTRIGHT ) {
+		if (this->onStairDirection == STAIRDIRECTION::UPLEFTRIGHT) {
 			if (stairPos.x - this->x > 20) {
 				this->isAutoWalk = true;
 				SetState(SIMON_STATE_WALKING_RIGHT);

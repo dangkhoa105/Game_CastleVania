@@ -5,44 +5,43 @@
 void HUD::Update()
 {
 	auto simon = CPlayScene::GetInstance()->GetSimon();
+	heart = simon->GetHeart() < 10 ? "0" + std::to_string(simon->GetHeart()) : std::to_string(simon->GetHeart());
 	simonHp = simon->GetHp();
 
-	//unsigned int score = CSimon::GetScore();
-	//string scoreTempt;
-	//if (score < 10)
-	//{
-	//	scoreTempt = "00000" + std::to_string(score);
-	//}
-	//else if (score < 100)
-	//{
-	//	scoreTempt = "0000" + std::to_string(score);
-	//}
-	//else if (score_ < 1000) {
-	//	scoreTempt = "000" + std::to_string(score);
-	//}
-	//else if (score_ < 10000)
-	//{
-	//	scoreTempt = "00" + std::to_string(score);
-	//}
-	//else if (score_ < 100000)
-	//{
-	//	scoreTempt = "0" + std::to_string(score);
-	//}
-	//else {
-	//	scoreTempt = std::to_string(score);
-	//}
+	unsigned int score = simon->GetScore();
+	string scoreTempt;
+	if (score < 10)
+	{
+		scoreTempt = "00000" + std::to_string(score);
+	}
+	else if (score < 100)
+	{
+		scoreTempt = "0000" + std::to_string(score);
+	}
+	else if (score < 1000) {
+		scoreTempt = "000" + std::to_string(score);
+	}
+	else if (score < 10000)
+	{
+		scoreTempt = "00" + std::to_string(score);
+	}
+	else if (score < 100000)
+	{
+		scoreTempt = "0" + std::to_string(score);
+	}
+	else {
+		scoreTempt = std::to_string(score);
+	}
 
-
-	//_UIinfor = "SCORE-" + score + " TIME 0" + std::to_string(scene->GetTime()) + " STAGE 0" + std::to_string(this->state) + "\n";
-	//_UIinfor = _UIinfor + "PLAYER                  -" + enery_ + "\n";
-	//_UIinfor += "ENEMY                   -02\n";
-//}
+	information = "SCORE-" + scoreTempt + " TIME 0" + std::to_string(CPlayScene::GetInstance()->GetGameTime()) + " SCENE 0" + std::to_string(CPlayScene::GetInstance()->GetCurrentScene()) + "\n";
+	information = information + "PLAYER                  -" + heart + "\n";
+	information += "ENEMY                   -02\n";
 }
 
 void HUD::Render()
-{	
+{
 	CGame::GetInstance()->DrawUIText(this->information, rect);
-	CSprites::GetInstance()->Get("blackBoard")->DrawHud(297,33);
+	CSprites::GetInstance()->Get("blackBoard")->DrawHud(297, 33);
 	auto simon = CPlayScene::GetInstance()->GetSimon();
 
 	switch (simon->subWeapons)

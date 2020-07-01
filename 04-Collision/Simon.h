@@ -30,8 +30,9 @@ class CSimon : public CGameObject
 	int level = 1;
 	int hp;
 	int score;
+	int heart;
 	int untouchable;
-	
+
 
 	DWORD untouchable_start;
 
@@ -41,7 +42,7 @@ class CSimon : public CGameObject
 	bool colBrickSweptAABB;
 
 public:
-	bool isGround = false;	
+	bool isGround = false;
 	bool isComplete = false;
 	bool isSubWeapon = false;
 	bool spawnSubWeapon = false;
@@ -66,7 +67,7 @@ public:
 
 	//DWORD GetEntraceTime() { return this->entrace_start; }
 	//void ResetEntraceTime() { this->entrace_start = 0; }
-	
+
 	void ResetAttack()
 	{
 		whip->ResetAttack();
@@ -82,6 +83,7 @@ public:
 	{
 		hp = 16;
 		score = 0;
+		heart = 5;
 		whip = new CWhip();
 		subWeapon = new CSubWeapon();
 
@@ -123,7 +125,10 @@ public:
 	int GetVy() { return vy; }
 
 	int GetHp() { return hp; }
+	void SetHp() { hp -= 2; }
 	int GetScore() { return score; }
+	int GetHeart() { return heart; }
+	void SetHeart() { heart--; }
 	//int GetIdChangeScene() { return idChangeScene; }
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
@@ -172,5 +177,5 @@ public:
 		return this->isAutoWalk;
 	}
 
-	
+
 };

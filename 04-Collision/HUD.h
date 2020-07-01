@@ -13,6 +13,7 @@ class HUD
 	int simonHp;
 	int bossHp = 0;
 	int score;
+	string heart;
 	int time;
 	int subWeapon;
 public:
@@ -25,7 +26,7 @@ public:
 
 		SetRect(&rect, 10, 16, SCREEN_WIDTH, SCREEN_HEIGHT);
 		information = "SCORE-000000 TIME 0000 SCENE 00\n";
-		information += "PLAYER                  -00\n";
+		information += " PLAYER                  -00\n";
 		information += "ENEMY                   -00\n";
 
 		bossHp = 16;

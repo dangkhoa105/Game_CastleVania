@@ -12,10 +12,10 @@
   </bricks> 
 
   <candles>
-    <candle x="1460" y="256" itemId="5" state="1"/>
+    <candle x="1460" y="256" itemId="6" state="1"/>
     <candle x="1332" y="289" itemId="2" state="1"/>
     <candle x="1204" y="289" itemId="2" state="1"/>
-    <candle x="1076" y="289" itemId="2" state="1"/>
+    <candle x="1076" y="289" itemId="11" state="1"/>
     <candle x="948" y="289" itemId="2" state="1"/>
     <candle x="820" y="289" itemId="2" state="1"/>
     <candle x="692" y="289" itemId="2" state="1"/>
@@ -25,16 +25,21 @@
     <candle x="320" y="128" itemId="1" state="1"/>
   </candles>
 
+  <breakWalls>
+    <breakWall x="833" y="256"/>
+  </breakWalls>
+
   <stairs>
     <stair x="306" y="188" stairDirection="2"/>  
   </stairs>
 
-  <enemies>
-    <ghost x="1306" y="289" beginPositionX="256" lastPositionX="1312" bboxEnemyWidth="30" bboxEnemyHeight="30" bboxEnemyActiveWidth="300" bboxEnemyActiveHeight="100"/>
+  <enemies> 
+    <ghost x="1306" y="289" beginPositionX="256" lastPositionX="1312" bboxEnemyWidth="30" bboxEnemyHeight="30" bboxEnemyActiveWidth="128" bboxEnemyActiveHeight="64"/>
 
     <monkeys>
       <monkey x="849" y="224" beginPositionX="640" lastPositionX="1088" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="224" bboxEnemyActiveHeight="96"/>
       <monkey x="593" y="224" beginPositionX="65" lastPositionX="284" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="224" bboxEnemyActiveHeight="96"/>
+      <monkey x="320" y="160" beginPositionX="65" lastPositionX="284" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="224" bboxEnemyActiveHeight="96"/>
     </monkeys>
 
     <skeletons>

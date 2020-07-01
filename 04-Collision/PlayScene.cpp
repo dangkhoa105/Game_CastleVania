@@ -14,7 +14,7 @@ void CPlayScene::GetListobjectFromGrid()
 		objects.push_back(newObjectList.front());
 		newObjectList.pop();
 	}
-	
+
 	grid->GetListobjectFromGrid(objects);
 }
 
@@ -39,7 +39,7 @@ void CPlayScene::LoadResource()
 {
 	CGame* game = CGame::GetInstance();
 
-	
+
 	LoadMap();
 	LoadObject();
 
@@ -133,7 +133,7 @@ void CPlayScene::LoadMap()
 	this->currentScene = pScenes.at(activeScene);
 
 	this->tilemap = this->tileMaps.Get(this->currentScene->mapId);
-	
+
 }
 
 void CPlayScene::LoadObject()
@@ -163,7 +163,7 @@ void CPlayScene::LoadObject()
 		for (xml_node<>* oChild = objectNode->first_node(); oChild; oChild = oChild->next_sibling()) //cú pháp lập
 		{
 			const std::string nodeName = oChild->name();
-		
+
 			if (nodeName == "bricks")
 			{
 				for (xml_node<>* grand = oChild->first_node(); grand; grand = grand->next_sibling()) //cú pháp lập
@@ -419,7 +419,7 @@ void CPlayScene::LoadObject()
 				}
 			}
 		}
-		
+
 		this->grids.insert(std::make_pair(mapID, grid));
 	}
 	this->grid = this->grids.at(this->currentScene->mapId);
@@ -434,17 +434,17 @@ void CPlayScene::Update(DWORD dt)
 {
 	// We know that Simon is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
-	
-	
+
+
 	GetListobjectFromGrid();
-	
+
 
 	if (simon->spawnSubWeapon)
 	{
 		auto subWeapon = new CSubWeapon();
 		switch (simon->subWeapons)
 		{
-		case SUBWEAPON::KNIFE:		
+		case SUBWEAPON::KNIFE:
 			subWeapon->nx = simon->nx;
 			subWeapon->SetState(STATE_KNIFE);
 			if (simon->GetState() == SIMON_STATE_SIT_ATTACK)
@@ -458,7 +458,7 @@ void CPlayScene::Update(DWORD dt)
 			if (simon->GetState() == SIMON_STATE_SIT_ATTACK)
 				subWeapon->SetPosition(simon->x, simon->y + 15);
 			else
-				subWeapon->SetPosition(simon->x, simon->y + 10);			
+				subWeapon->SetPosition(simon->x, simon->y + 10);
 			break;
 		case SUBWEAPON::AXE:
 			subWeapon->nx = simon->nx;
@@ -483,12 +483,12 @@ void CPlayScene::Update(DWORD dt)
 		this->AddtoGrid(subWeapon);
 		simon->spawnSubWeapon = false;
 	}
-	
+
 	vector<LPGAMEOBJECT> coObjects;
 
 	for (int i = 0; i < objects.size(); i++)
 	{
-		coObjects.push_back(objects.at(i));	
+		coObjects.push_back(objects.at(i));
 	}
 	simon->Update(dt, &coObjects);
 
@@ -497,7 +497,7 @@ void CPlayScene::Update(DWORD dt)
 		objects.at(i)->Update(dt, &coObjects);
 	}
 
-	
+	UpdateGameTime();
 
 	UpdateItem();
 
@@ -509,7 +509,7 @@ void CPlayScene::Update(DWORD dt)
 
 	Unload();
 
-	UpdateScene();	
+	UpdateScene();
 	hud->Update();
 }
 
@@ -553,7 +553,7 @@ void CPlayScene::UpdateCam()
 	// camera
 	cx -= SCREEN_WIDTH / 2 - 30;
 	cy -= SCREEN_HEIGHT / 2;
-	if (cx > currentScene->camX && cx < currentScene->camX + tilemap->GetMapWidth() - SCREEN_WIDTH)
+	if (cx > currentScene->camX&& cx < currentScene->camX + tilemap->GetMapWidth() - SCREEN_WIDTH)
 	{
 		CGame::GetInstance()->SetCamPos(cx, currentScene->camY);
 	}
@@ -575,8 +575,8 @@ void CPlayScene::UpdateItem()
 				{
 					auto item = new CItem();
 					if (f->GetItem() == ID_IHEART)
-					{		
-						item->SetId(ID_IHEART);										
+					{
+						item->SetId(ID_IHEART);
 					}
 					else if (f->GetItem() == ID_SMALL_IHEART)
 					{
@@ -607,9 +607,17 @@ void CPlayScene::UpdateItem()
 					{
 						item->SetId(ID_IGAS);
 					}
-					else if (f->GetItem() == ID_IMONEYBAG)
+					else if (f->GetItem() == ID_IMONEYBAG_400)
 					{
-						item->SetId(ID_IMONEYBAG);
+						item->SetId(ID_IMONEYBAG_400);
+					}
+					else if (f->GetItem() == ID_IMONEYBAG_700)
+					{
+						item->SetId(ID_IMONEYBAG_700);
+					}
+					else if (f->GetItem() == ID_IMONEYBAG_1000)
+					{
+						item->SetId(ID_IMONEYBAG_1000);
 					}
 					item->SetPosition(x, y);
 					objects.push_back(item);
@@ -640,7 +648,7 @@ void CPlayScene::UpdateItem()
 			if (f->IsDestroy())
 			{
 				auto moneyBag = new CItem();
-				moneyBag->SetId(ID_IMONEYBAG);
+				moneyBag->SetId(ID_IMONEYBAG_700);
 				moneyBag->SetPosition(1207, 240);
 				objects.push_back(moneyBag);
 			}
@@ -700,6 +708,25 @@ void CPlayScene::UpdateItem()
 					doubleShot->SetPosition(f->x, f->y);
 					objects.push_back(doubleShot);
 				}
+				else if (currentScene->mapId == 4)
+				{
+					for (size_t i = 0; i < 4; i++)
+					{
+						auto derbir = new CEffect();
+						derbir->SetState(EFFECT_STATE_BREAKWALL);
+						derbir->SetPosition(f->x, f->y);
+						float vx = (float)(-100 + rand() % 200) / 1000;
+						float vy = (float)(-100 + rand() % 200) / 1000;
+						derbir->vx = vx;
+						derbir->vy = vy;
+						objects.push_back(derbir);
+					}
+
+					auto kfc = new CItem();
+					kfc->SetId(ID_IKFC);
+					kfc->SetPosition(f->x, f->y);
+					objects.push_back(kfc);
+				}
 			}
 		}
 	}
@@ -716,15 +743,15 @@ void CPlayScene::UpdateScene()
 		this->grid = this->grids.at(this->currentScene->mapId);
 		simon->SetNx(currentScene->nx);
 		simon->SetState(currentScene->stateSimon);
-		simon->SetPosition(currentScene->simonX, currentScene->simonY);		
-		simon->lastStepOnStairPos = { float(currentScene->simonX), float(currentScene->simonY) };	
-		
+		simon->SetPosition(currentScene->simonX, currentScene->simonY);
+		simon->lastStepOnStairPos = { float(currentScene->simonX), float(currentScene->simonY) };
+
 		//CGame::GetInstance()->SetCamPos(currentScene->camX - SCREEN_WIDTH, currentScene->camY);
 		if (this->currentScene->camRight == 0)
 			CGame::GetInstance()->SetCamPos(currentScene->camX, currentScene->camY);
-		else 
+		else
 			CGame::GetInstance()->SetCamPos(currentScene->camX + tilemap->GetMapWidth() - SCREEN_WIDTH, currentScene->camY);
-		simon->idChangeScene = -1;	
+		simon->idChangeScene = -1;
 	}
 }
 
@@ -737,11 +764,25 @@ void CPlayScene::UpdatePositionSpawnEnemy()
 			auto f = dynamic_cast<CZombie*>(objects.at(i));
 			if (f->GetState() != ZOMBIE_STATE_IDLE && f->isFinishReSpawn == false)
 			{
-				f->isFinishReSpawn = true;			
+				f->isFinishReSpawn = true;
 
 				f->SetState(ZOMBIE_STATE_WALKING);
 			}
 		}
+	}
+}
+
+void CPlayScene::UpdateGameTime()
+{
+	if (gameCountTime == 0)
+		gameCountTime = GetTickCount();
+
+	if (gameCountTime != 0 && GetTickCount() - gameCountTime >= 1000)
+	{
+		if (gameTime > 0)
+			gameTime--;
+
+		gameCountTime = 0;
 	}
 }
 
@@ -768,7 +809,7 @@ void CPlayScene::KeyState(BYTE* states)
 
 	if (simon->GetAttackTime() && GetTickCount() - simon->GetAttackTime() > SIMON_ATTACK_TIME)
 	{
-	
+
 		if (simon->CheckIsOnStair()) {
 			if (simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPLEFT || simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPRIGHT) {
 				simon->SetState(SIMON_STATE_ATTACK_STAIR_UP);
@@ -840,7 +881,7 @@ void CPlayScene::KeyState(BYTE* states)
 				simon->SetStartOnStair();
 				simon->isUpStair = false;
 			}
-		
+
 			return;
 		}
 	}
@@ -860,7 +901,7 @@ void CPlayScene::KeyState(BYTE* states)
 			simon->SetState(SIMON_STATE_SIT);
 			DebugOut(L"sitting \n");
 		}
-			
+
 	}
 	else {
 		simon->SetState(SIMON_STATE_IDLE);
@@ -904,20 +945,21 @@ void CPlayScene::OnKeyDown(int KeyCode)
 
 	if (KeyCode == DIK_SPACE) {
 		DebugOut(L"space \n");
-		if (!simon->isGround||
+		if (!simon->isGround ||
 			!simon->IsHitting() == true &&
 			!simon->CheckIsOnStair() &&
-			!simon->CheckStartOnStair() && 
-			simon->GetState()== SIMON_STATE_JUMP)
+			!simon->CheckStartOnStair() &&
+			simon->GetState() == SIMON_STATE_JUMP)
 			return;
 		simon->SetState(SIMON_STATE_JUMP);
 		DebugOut(L"2 \n");
 	}
-	else if (KeyCode == DIK_Z) {		
+	else if (KeyCode == DIK_Z) {
 		if (simon->GetAttackTime() == 0)
-		{			
+		{
 			if (game->IsKeyDown(DIK_UP) && simon->subWeapons != SUBWEAPON::DEFAULT)
 			{
+				simon->SetHeart();
 				simon->spawnSubWeapon = true;
 				simon->isSubWeapon = true;
 				if (simon->CheckIsOnStair()) {
@@ -933,7 +975,7 @@ void CPlayScene::OnKeyDown(int KeyCode)
 					else simon->SetState(SIMON_STATE_STAND_ATTACK);
 				}
 			}
-			else 
+			else
 			{
 				simon->whip->fight = true;
 				simon->isSubWeapon = false;

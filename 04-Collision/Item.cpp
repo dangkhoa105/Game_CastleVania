@@ -17,8 +17,14 @@ void CItem::Render()
 	case ID_IWHIP:
 		animations["item_whip"]->Render(x, y);
 		break;
-	case ID_IMONEYBAG:
-		animations["item_money_bag"]->Render(x, y);
+	case ID_IMONEYBAG_400:
+		animations["item_money_bag_400"]->Render(x, y);
+		break;
+	case ID_IMONEYBAG_700:
+		animations["item_money_bag_700"]->Render(x, y);
+		break;
+	case ID_IMONEYBAG_1000:
+		animations["item_money_bag_1000"]->Render(x, y);
 		break;
 	case ID_IBOOMERANG:
 		animations["item_boomerang"]->Render(x, y);
@@ -37,6 +43,9 @@ void CItem::Render()
 		break;
 	case ID_IDOUBLESHOT:
 		animations["item_double_shot"]->Render(x, y);
+		break;
+	case ID_IKFC:
+		animations["item_kfc"]->Render(x, y);
 		break;
 	default:
 		break;
@@ -66,7 +75,15 @@ void CItem::GetBoundingBox(float& l, float& t, float& r, float& b)
 		r = x + IWHIP_BBOX_WIDTH;
 		b = y + IWHIP_BBOX_HEIGHT;
 		break;
-	case ID_IMONEYBAG:
+	case ID_IMONEYBAG_400:
+		r = x + IMONEYBAG_BBOX_WIDTH;
+		b = y + IMONEYBAG_BBOX_HEIGHT;
+		break;
+	case ID_IMONEYBAG_700:
+		r = x + IMONEYBAG_BBOX_WIDTH;
+		b = y + IMONEYBAG_BBOX_HEIGHT;
+		break;
+	case ID_IMONEYBAG_1000:
 		r = x + IMONEYBAG_BBOX_WIDTH;
 		b = y + IMONEYBAG_BBOX_HEIGHT;
 		break;
@@ -94,12 +111,16 @@ void CItem::GetBoundingBox(float& l, float& t, float& r, float& b)
 		r = x + IDOUBLESHOT_BBOX_WIDTH;
 		b = y + IDOUBLESHOT_BBOX_HEIGHT;
 		break;
+	case ID_IKFC:
+		r = x + IKFC_BBOX_WIDTH;
+		b = y + IKFC_BBOX_HEIGHT;
+		break;
 	default:
 		break;
 	}
 }
 
-void CItem::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
+void CItem::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt);
 
@@ -124,7 +145,7 @@ void CItem::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		y += dy;
 	}
 	else
-	{		
+	{
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];

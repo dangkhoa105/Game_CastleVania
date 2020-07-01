@@ -1,6 +1,7 @@
 #include "Ghost.h"
 #include "Simon.h"
 #include "PlayScene.h"
+#include "Game.h"
 
 void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
@@ -21,55 +22,43 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	coObjects->push_back(simon);
 
 	D3DXVECTOR2 simonPos = { 0, 0 };
+	D3DXVECTOR2 ghostPos = { 0, 0 };
 	for (size_t i = 0; i < coObjects->size(); i++)
 	{
 		if (dynamic_cast<CSimon*>(coObjects->at(i)))
 		{
 			auto simon = dynamic_cast<CSimon*>(coObjects->at(i));
 			float l, t, r, b;
+			float lg, tg, rg, bg;
 			simon->GetBoundingBox(l, t, r, b);
 			simonPos.x = l + (r - l) / 2;
 			simonPos.y = t + (b - t) / 2;
 			int simonNx = this->nx;
+			this->GetBoundingBoxActive(lg, tg, rg, bg);
+			if (CGame::GetInstance()->AABB(l, t, r, b, lg, tg, rg, bg))
+				this->SetState(GHOST_STATE_FLYING);
 		}
 	}
 
-	if (this->x - int(simonPos.x) >= 128)
+	float l, t, r, b;
+	this->GetBoundingBox(l, t, r, b);
+	ghostPos.x = l + (r - l) / 2;
+	ghostPos.y = t + (b - t) / 2;
+
+	if (simonPos.x > ghostPos.x + 32)
 	{
-		this->SetState(GHOST_STATE_FLYING);
+		nx = 1;
+		vx = GHOST_FLYING_SPEED_X;
+	}
+	else if (simonPos.x < ghostPos.x - 32)
+	{
+		nx = -1;
+		vx = -GHOST_FLYING_SPEED_X;
 	}
 
-	//vector<LPCOLLISIONEVENT> coEvents;
-	//vector<LPCOLLISIONEVENT> coEventsResult;
-
-	//coEvents.clear();
-	//CalcPotentialCollisions(coObjects, coEvents);
-	//
-	// TO-DO: make sure Goomba can interact with the world and to each of them too!
-	// 
-
-	if (nx == 1) 
-		vx = -GHOST_FLYING_SPEED_X;
-	else if (nx == -1) 
-		vx = GHOST_FLYING_SPEED_X;
-
-	//if (vx > 0 && x < this->beginPositionX) {
-	//	x = this->beginPositionX;
-	//	vx = vx;
-	//	nx = -nx;
-	//}
-
-	//if (vx < 0 && x > this->lastPositionX) {
-	//	x = this->lastPositionX;
-	//	vx = vx;
-	//	nx = -nx;
-	//}
-
-	x -= dx;
+	x += dx;
 
 	y = GHOST_DROP * sin(x * BAT_FLYING_SPEED_Y) + this->GetEntryPositionY();
-
-	//for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
 void CGhost::Render()
@@ -77,9 +66,9 @@ void CGhost::Render()
 	if (state == GHOST_STATE_FLYING)
 		animations["ghost_ani_flying"]->Render(-nx, x, y);
 
-	//float l, t, r, b;
-	//this->GetBoundingBoxActive(l, t, r, b);
-	//RenderBoundingBox(RECT{ (long)l,(long)t,(long)r,(long)b });
+	float l, t, r, b;
+	this->GetBoundingBoxActive(l, t, r, b);
+	RenderBoundingBox(RECT{ (long)l,(long)t,(long)r,(long)b });
 	//RenderBoundingBox();
 }
 
@@ -126,8 +115,8 @@ void CGhost::GetBoundingBox(float& left, float& top, float& right, float& bottom
 
 void CGhost::GetBoundingBoxActive(float& left, float& top, float& right, float& bottom)
 {
-	left = (x + bboxEnemyWidth / 2) - bboxEnemyActiveWidth;
+	left = x - bboxEnemyActiveWidth;
 	top = y;
-	right = (x + bboxEnemyWidth / 2) + bboxEnemyActiveWidth;
+	right = x - bboxEnemyActiveWidth - bboxEnemyWidth;
 	bottom = y + bboxEnemyActiveHeight;
 }

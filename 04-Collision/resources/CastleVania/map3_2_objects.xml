@@ -22,10 +22,29 @@
   <stairs>
     <stair x="240" y="128" stairDirection="4"/>  
     <stair x="112" y="316" stairDirection="5"/>  
+
+    <stair x="752" y="316" stairDirection="1"/>  
+    <stair x="816" y="194" stairDirection="4"/>  
+
+    <stair x="1136" y="130" stairDirection="3"/>  
+    <stair x="1264" y="316" stairDirection="2"/>  
   </stairs>
 
+  <candles>
+    <candle x="312" y="128" itemId="1" state="1"/>
+    <candle x="440" y="256" itemId="2" state="1"/>
+    <candle x="568" y="256" itemId="2" state="1"/>
+    <candle x="696" y="256" itemId="2" state="1"/>
+    <candle x="824" y="192" itemId="7" state="1"/>
+    <candle x="952" y="288" itemId="2" state="1"/>
+    <candle x="1080" y="288" itemId="2" state="1"/>
+    <candle x="1208" y="256" itemId="9" state="1"/>
+    <candle x="1336" y="256" itemId="2" state="1"/>
+    <candle x="1464" y="160" itemId="5" state="1"/>
+  </candles>
+
   <enemies>
-    <ghost x="192" y="80" beginPositionX="256" lastPositionX="1312" bboxEnemyWidth="30" bboxEnemyHeight="30" bboxEnemyActiveWidth="100" bboxEnemyActiveHeight="100"/>
+    <ghost x="192" y="80" beginPositionX="256" lastPositionX="1312" bboxEnemyWidth="30" bboxEnemyHeight="30" bboxEnemyActiveWidth="32" bboxEnemyActiveHeight="190"/>
 
     <skeletons>
       <skeleton x="720" y="254" beginPositionX="65" lastPositionX="284" bboxEnemyWidth="32" bboxEnemyHeight="64" bboxEnemyActiveWidth="200" bboxEnemyActiveHeight="100"/>
@@ -34,7 +53,9 @@
 
     <crows>
       <crow x="544" y="72" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="100" bboxEnemyActiveHeight="256"/>
-      <crow x="1289" y="256" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="100" bboxEnemyActiveHeight="256"/>
+      <crow x="832" y="192" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="100" bboxEnemyActiveHeight="256"/>
+      <crow x="960" y="95" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="100" bboxEnemyActiveHeight="256"/>
+      <crow x="1040" y="320" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="100" bboxEnemyActiveHeight="256"/>
     </corws>
   </enemies>
 

@@ -4,17 +4,22 @@
 
 void CZombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	CEnemy::Update(dt);
+	auto simon = CPlayScene::GetInstance()->GetSimon();
+
 	if (IsRespawn())
 	{
 		SetState(ZOMBIE_STATE_IDLE);
+		if (simon->x < this->x)
+			nx = -1;
+		else
+			nx = 1;
 		return;
 	}
 
-	CEnemy::Update(dt);
-
 	D3DXVECTOR2 cam = CGame::GetInstance()->GetCamPos();
 
-	if ((this->x < cam.x || this->x > cam.x + SCREEN_WIDTH - 100 || this->y < cam.y || this->y > cam.y + SCREEN_HEIGHT ) && state == ZOMBIE_STATE_WALKING)
+	if ((this->x < cam.x - bboxEnemyWidth || this->x > cam.x + SCREEN_WIDTH || this->y < cam.y || this->y > cam.y + SCREEN_HEIGHT) && state == ZOMBIE_STATE_WALKING)
 	{
 		isDestroy = true;
 	}
@@ -35,7 +40,7 @@ void CZombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (coEvents.size() == 0)
 	{
 		x += dx;
-		y += dy;	
+		y += dy;
 		//vy += MONKEY_GRAVITY * dt;
 	}
 	else
@@ -69,7 +74,7 @@ void CZombie::Render()
 	float l, t, r, b;
 	this->GetBoundingBoxActive(l, t, r, b);
 	RenderBoundingBox(RECT{ (long)l,(long)t,(long)r,(long)b });
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CZombie::SetState(int state)
@@ -82,7 +87,7 @@ void CZombie::SetState(int state)
 		y = initPositionY;
 		isDestroy = false;
 		isFinishReSpawn = false;
-		StartRespawnTimeCounter();	
+		StartRespawnTimeCounter();
 		break;
 	case ZOMBIE_STATE_WALKING:
 		if (nx > 0)

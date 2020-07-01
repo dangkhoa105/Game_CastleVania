@@ -20,7 +20,7 @@ void CMonkey::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			simonPos.x = l + (r - l) / 2;
 			simonUn = simon->GetUntouchable();
 		}
-	}	
+	}
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -33,8 +33,8 @@ void CMonkey::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		if (simonPos.x < this->x)
 			vx = -MONKEY_JUMPING_SPEED;
-		else 
-			vx = -MONKEY_JUMPING_SPEED;
+		else
+			vx = MONKEY_JUMPING_SPEED;
 		vy = -MONKEY_JUMPING_SPEED;
 		this->SetState(MONKEY_STATE_JUMPING);
 		this->ResetJumpStartTime();
@@ -69,7 +69,7 @@ void CMonkey::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		if (dynamic_cast<CSimon*>(obj)) // if e->obj is Item Heart 
 		{
-			
+
 			CSimon* f = dynamic_cast<CSimon*>(obj);
 			float sl, st, sr, sb;
 			float ml, mt, mr, mb;
@@ -97,7 +97,7 @@ void CMonkey::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		//	y += min_ty * dy + ny * 0.4f;
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
-			LPCOLLISIONEVENT e = coEventsResult[i];		
+			LPCOLLISIONEVENT e = coEventsResult[i];
 			if (dynamic_cast<CBrick*>(e->obj)) // if e->obj is Item Heart 
 			{
 				if (e->nx != 0)
@@ -112,22 +112,22 @@ void CMonkey::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				vy = 0;
 				if (onGround_start == 0)
 				{
-					onGround_start = GetTickCount();					
+					onGround_start = GetTickCount();
 				}
 				if (onGround_start != 0 && GetTickCount() - onGround_start > 300)
 				{
-					int random = rand()%(2 + 1 - 1) + 1;
+					int random = rand() % (2 + 1 - 1) + 1;
 					vx = minvx + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (maxvx - minvx)));
 					vy = minvy + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (maxvy - minvy)));
 					vx = random == 1 ? vx : -vx;
 					if (vx > 0)
 						this->nx = 1;
-					else if(vx < 0)
+					else if (vx < 0)
 						this->nx = -1;
 					onGround_start = 0;
 				}
-				
-			}	
+
+			}
 			else
 			{
 				x += dx;
@@ -154,7 +154,7 @@ void CMonkey::Render()
 
 void CMonkey::SetState(int state)
 {
-	
+
 	/*if (this->state == state)
 		return;*/
 
@@ -163,7 +163,7 @@ void CMonkey::SetState(int state)
 	case MONKEY_STATE_IDLE:
 		vx = vy = 0;
 		isDestroy = false;
-		this->isJumping = false;	
+		this->isJumping = false;
 		isFinishReSpawn = false;
 		StartRespawnTimeCounter();
 		break;

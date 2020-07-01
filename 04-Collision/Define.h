@@ -12,6 +12,8 @@
 #define DEFAULT_CELL_HEIGHT		240
 
 #define MAX_FRAME_RATE			120
+
+#define GAMETIME				300
 #pragma endregion
 
 #pragma region ID TEXTURE
@@ -235,13 +237,16 @@
 #define ID_SMALL_IHEART					2
 #define ID_IWHIP						3
 #define ID_IKNIFE						4
-#define ID_IMONEYBAG					5
-#define ID_IBOOMERANG					6
-#define ID_IAXE							7
-#define ID_ICLOCK						8
-#define ID_IGAS							9
-#define ID_ICROWN						10
-#define ID_IDOUBLESHOT					11
+#define ID_IMONEYBAG_400				5
+#define ID_IMONEYBAG_700				6
+#define ID_IMONEYBAG_1000				7
+#define ID_IBOOMERANG					8
+#define ID_IAXE							9
+#define ID_ICLOCK						10
+#define ID_IGAS							11
+#define ID_ICROWN						12
+#define ID_IDOUBLESHOT					13
+#define ID_IKFC							14
 
 // Heart
 #define IHEART_BBOX_WIDTH				16
@@ -266,15 +271,15 @@
 #define IBOOMERANG_BBOX_WIDTH			28
 #define IBOOMERANG_BBOX_HEIGHT			28
 
-// AXE
+// Axe
 #define IAXE_BBOX_WIDTH					30
 #define IAXE_BBOX_HEIGHT				30
 
-// CLOCK
+// Clock
 #define ICLOCK_BBOX_WIDTH				30
 #define ICLOCK_BBOX_HEIGHT				32
 
-// GAS
+// Gas
 #define IGAS_BBOX_WIDTH					32
 #define IGAS_BBOX_HEIGHT				32
 
@@ -285,4 +290,8 @@
 // Double Shot
 #define IDOUBLESHOT_BBOX_WIDTH			27
 #define IDOUBLESHOT_BBOX_HEIGHT			27
+
+// Kfc
+#define IKFC_BBOX_WIDTH					32
+#define IKFC_BBOX_HEIGHT				26
 #pragma endregion

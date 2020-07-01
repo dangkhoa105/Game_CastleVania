@@ -42,17 +42,19 @@ class CPlayScene
 	CChangeScene* changeScene;
 	CEffect* effect;
 
+	DWORD gameTime = GAMETIME;
+	DWORD gameCountTime = 0;
+
 	CTileMap* tilemap;
 	CTileMaps tileMaps;
 
 	std::queue<LPGAMEOBJECT> newObjectList;
 
-
 	vector<LPGAMEOBJECT> objects;//ds object lay len tu grid moi lan update	
 	std::unordered_map<int, CPScene*> pScenes;
 	//std::unordered_map<int, vector<LPGAMEOBJECT>*> pMapObjects;
 
-	CPScene* currentScene;	
+	CPScene* currentScene;
 
 	CTextures* textures = CTextures::GetInstance();
 	CSprites* sprites = CSprites::GetInstance();
@@ -62,10 +64,10 @@ class CPlayScene
 
 	Grid* grid;// currentGrid;
 	std::unordered_map<int, Grid*> grids;
-	
+
 	void GetListobjectFromGrid();
 	void UpdateGrid();
-	
+
 public:
 
 	CPlayScene() {};
@@ -79,7 +81,7 @@ public:
 	void AddNewObject(LPGAMEOBJECT obj) {
 		newObjectList.push(obj);
 	}
-	
+
 
 	void AddtoGrid(LPGAMEOBJECT object, bool isAlwayUpdate = false);
 	void Update(DWORD dt);
@@ -87,6 +89,7 @@ public:
 	void UpdateItem();
 	void UpdateScene();
 	void UpdatePositionSpawnEnemy();
+	void UpdateGameTime();
 
 	void Render();
 	void Unload();
@@ -98,4 +101,10 @@ public:
 	{
 		this->currentScene = this->pScenes.at(idScene);
 	}
+
+	DWORD GetGameTime() { return this->gameTime; }
+
+	int GetCurrentScene() {
+		return this->currentScene->id;
+	};
 };

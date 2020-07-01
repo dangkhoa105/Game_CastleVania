@@ -6,7 +6,7 @@
 
   <sprite n="bossHp" l="17" t="2" r="23" b="14"/>
 
-  <sprite n="subHp" l="10" t="2" r="15" b="14"/>
+  <sprite n="subHp" l="10" t="2" r="16" b="14"/>
 
   <!--brick-->
   <sprite n="brick" l="131" t="18" r="163" b="50"/>
@@ -190,7 +190,9 @@
   <sprite n="item_knife" l="163" t="86" r="195" b="104"/>
 
   <!--item money bag-->
-  <sprite n="item_money_bag" l="71" t="86" r="101" b="116"/>
+  <sprite n="item_money_bag_400" l="41" t="85" r="70" b="115"/>
+  <sprite n="item_money_bag_700" l="71" t="85" r="100" b="115"/>
+  <sprite n="item_money_bag_1000" l="101" t="85" r="130" b="115"/>
 
   <!--wall-->
   <sprite n="wall" l="722" t="733" r="818" b="1022"/>
@@ -204,6 +206,9 @@
 
   <!--item gas-->
   <sprite n="item_gas" l="31" t="118" r="62" b="149"/>
+
+  <!--item kfc-->
+  <sprite n="item_kfc" l="63" t="118" r="94" b="143"/>
 </textureAtlas>
 
 <animations>
@@ -504,8 +509,14 @@
   </animation>
 
   <!--item money bag-->
-  <animation ID="item_money_bag" defaultTime="100">
-    <frame spriteID="item_money_bag" time="100"/>
+  <animation ID="item_money_bag_400" defaultTime="100">
+    <frame spriteID="item_money_bag_400" time="100"/>
+  </animation>
+  <animation ID="item_money_bag_700" defaultTime="100">
+    <frame spriteID="item_money_bag_700" time="100"/>
+  </animation>
+  <animation ID="item_money_bag_1000" defaultTime="100">
+    <frame spriteID="item_money_bag_1000" time="100"/>
   </animation>
 
   <!--item boomerang-->
@@ -532,6 +543,11 @@
   <!--item gas-->
   <animation ID="item_gas" defaultTime="100">
     <frame spriteID="item_gas" time="100"/>
+  </animation>
+
+  <!--item kfc-->
+  <animation ID="item_kfc" defaultTime="100">
+    <frame spriteID="item_kfc" time="100"/>
   </animation>
 
   <animation ID="wall" defaultTime="100">
