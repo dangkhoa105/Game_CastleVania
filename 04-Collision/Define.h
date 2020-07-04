@@ -247,6 +247,7 @@
 #define ID_ICROWN						12
 #define ID_IDOUBLESHOT					13
 #define ID_IKFC							14
+#define ID_IPOTION						15
 
 // Heart
 #define IHEART_BBOX_WIDTH				16
@@ -294,4 +295,8 @@
 // Kfc
 #define IKFC_BBOX_WIDTH					32
 #define IKFC_BBOX_HEIGHT				26
+
+// Potion
+#define IPOTION_BBOX_WIDTH					32
+#define IPOTION_BBOX_HEIGHT				26
 #pragma endregion

@@ -66,9 +66,9 @@ void CGhost::Render()
 	if (state == GHOST_STATE_FLYING)
 		animations["ghost_ani_flying"]->Render(-nx, x, y);
 
-	float l, t, r, b;
-	this->GetBoundingBoxActive(l, t, r, b);
-	RenderBoundingBox(RECT{ (long)l,(long)t,(long)r,(long)b });
+	//float l, t, r, b;
+	//this->GetBoundingBoxActive(l, t, r, b);
+	//RenderBoundingBox(RECT{ (long)l,(long)t,(long)r,(long)b });
 	//RenderBoundingBox();
 }
 

@@ -5,6 +5,7 @@
 #include"Effect.h"
 #include"Enemy.h"
 #include "Candle.h"
+#include "PlayScene.h"
 
 Grid::Grid(int mapWidth, int mapHeight) :
 	mapWidth(mapWidth),
@@ -70,9 +71,15 @@ void Grid::Update(LPGAMEOBJECT object)
 	{
 		if (object->CheckActive()) 
 		{
-			if (dynamic_cast<CItem*>(object) || dynamic_cast<CEnemy*>(object)) 
+			if (dynamic_cast<CItem*>(object) || dynamic_cast<CEnemy*>(object) || dynamic_cast<CSubWeapon*>(object))
 			{
 				object->isDestroy = true;
+			}
+
+			if (dynamic_cast<CSubWeapon*>(object))
+			{
+				object->isDestroy = true;
+				CPlayScene::GetInstance()->SetCountSW();
 			}
 		}
 	}
@@ -86,7 +93,7 @@ void Grid::Update(LPGAMEOBJECT object)
 	{
 		for (vector<LPGAMEOBJECT>::iterator it = grid[oldCell.y][oldCell.x].begin(); it != grid[oldCell.y][oldCell.x].end(); ) 
 		{
-			if ((*it) == object &&!dynamic_cast<CZombie*>(object)) 
+			if ((*it) == object && !dynamic_cast<CZombie*>(object)) 
 			{
 				it = grid[oldCell.y][oldCell.x].erase(it);
 			}
@@ -117,9 +124,11 @@ void Grid::GetListobjectFromGrid(vector<LPGAMEOBJECT>& listobjects)
 	vector<LPGAMEOBJECT> enemiesobject;
 	vector<LPGAMEOBJECT> itemobject;
 	vector<LPGAMEOBJECT> effectobject;
+	vector<LPGAMEOBJECT> subweaponobject;
 	enemiesobject.clear();
 	itemobject.clear();
 	effectobject.clear();
+	subweaponobject.clear();
 
 	float camx, camy;
 	D3DXVECTOR2 cam = CGame::GetInstance()->GetCamPos();
@@ -142,6 +151,8 @@ void Grid::GetListobjectFromGrid(vector<LPGAMEOBJECT>& listobjects)
 						itemobject.push_back(obj);
 					else if (dynamic_cast<CEffect*>(obj))
 						effectobject.push_back(obj);
+					else if (dynamic_cast<CSubWeapon*>(obj))
+						subweaponobject.push_back(obj);
 					else
 						listobjects.push_back(obj);
 				}
@@ -157,4 +168,5 @@ void Grid::GetListobjectFromGrid(vector<LPGAMEOBJECT>& listobjects)
 	listobjects.insert(listobjects.end(), itemobject.begin(), itemobject.end());
 	listobjects.insert(listobjects.end(), enemiesobject.begin(), enemiesobject.end());
 	listobjects.insert(listobjects.end(), effectobject.begin(), effectobject.end());
+	listobjects.insert(listobjects.end(), subweaponobject.begin(), subweaponobject.end());
 }

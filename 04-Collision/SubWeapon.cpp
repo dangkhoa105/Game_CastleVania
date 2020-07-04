@@ -124,7 +124,10 @@ void CSubWeapon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				CSimon* f = dynamic_cast<CSimon*>(e->obj);
 				if (state == STATE_BOOMERANG)
+				{
 					this->SetDestroy(true);
+					CPlayScene::GetInstance()->SetCountSW();
+				}
 				if (state == STATE_GAS)
 				{
 					f->x += f->dx;
@@ -181,6 +184,7 @@ void CSubWeapon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					if (GetTickCount() - freeze_start >= 2000)
 					{
 						this->SetDestroy(true);
+						CPlayScene::GetInstance()->SetCountSW();
 						freeze_start = 0;
 					}
 				}
@@ -193,7 +197,10 @@ void CSubWeapon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			if (this->AABB(obj) == true)
 			{
 				if (state == STATE_KNIFE)
+				{
 					this->SetDestroy(true);
+					CPlayScene::GetInstance()->SetCountSW();
+				}
 				if (e->GetState() != CANDLE_STATE_DESTROYED)
 				{
 					e->SetState(CANDLE_STATE_DESTROYED);

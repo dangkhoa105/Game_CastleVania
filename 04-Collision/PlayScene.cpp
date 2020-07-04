@@ -438,51 +438,7 @@ void CPlayScene::Update(DWORD dt)
 
 	GetListobjectFromGrid();
 
-
-	if (simon->spawnSubWeapon)
-	{
-		auto subWeapon = new CSubWeapon();
-		switch (simon->subWeapons)
-		{
-		case SUBWEAPON::KNIFE:
-			subWeapon->nx = simon->nx;
-			subWeapon->SetState(STATE_KNIFE);
-			if (simon->GetState() == SIMON_STATE_SIT_ATTACK)
-				subWeapon->SetPosition(simon->x, simon->y + 30);
-			else
-				subWeapon->SetPosition(simon->x, simon->y + 10);
-			break;
-		case SUBWEAPON::BOOMERANG:
-			subWeapon->nx = simon->nx;
-			subWeapon->SetState(STATE_BOOMERANG);
-			if (simon->GetState() == SIMON_STATE_SIT_ATTACK)
-				subWeapon->SetPosition(simon->x, simon->y + 15);
-			else
-				subWeapon->SetPosition(simon->x, simon->y + 10);
-			break;
-		case SUBWEAPON::AXE:
-			subWeapon->nx = simon->nx;
-			subWeapon->SetState(STATE_AXE);
-			if (simon->GetState() == SIMON_STATE_SIT_ATTACK)
-				subWeapon->SetPosition(simon->x, simon->y + 15);
-			else
-				subWeapon->SetPosition(simon->x, simon->y + 10);
-			break;
-		case SUBWEAPON::CLOCK:
-			subWeapon->SetState(STATE_CLOCK);
-			break;
-		case SUBWEAPON::GAS:
-			subWeapon->nx = simon->nx;
-			subWeapon->SetState(STATE_GAS);
-			if (simon->GetState() == SIMON_STATE_SIT_ATTACK)
-				subWeapon->SetPosition(simon->x, simon->y + 15);
-			else
-				subWeapon->SetPosition(simon->x, simon->y + 10);
-			break;
-		}
-		this->AddtoGrid(subWeapon);
-		simon->spawnSubWeapon = false;
-	}
+	UpdateSubWeapon();
 
 	vector<LPGAMEOBJECT> coObjects;
 
@@ -510,6 +466,7 @@ void CPlayScene::Update(DWORD dt)
 	Unload();
 
 	UpdateScene();
+
 	hud->Update();
 }
 
@@ -537,7 +494,6 @@ void CPlayScene::Render()
 void CPlayScene::Unload()
 {
 	for (vector<LPGAMEOBJECT>::iterator it = objects.begin(); it != objects.end(); ) {
-
 		if ((*it)->IsDestroy()) {
 			it = objects.erase(it);
 		}
@@ -619,6 +575,10 @@ void CPlayScene::UpdateItem()
 					{
 						item->SetId(ID_IMONEYBAG_1000);
 					}
+					else if (f->GetItem() == ID_IPOTION)
+					{
+						item->SetId(ID_IPOTION);
+					}
 					item->SetPosition(x, y);
 					objects.push_back(item);
 				}
@@ -689,7 +649,7 @@ void CPlayScene::UpdateItem()
 						objects.push_back(derbir);
 					}
 				}
-				else if (currentScene->mapId == 2)
+				else if (currentScene->mapId == 2 || currentScene->mapId == 6)
 				{
 					for (size_t i = 0; i < 4; i++)
 					{
@@ -783,6 +743,56 @@ void CPlayScene::UpdateGameTime()
 			gameTime--;
 
 		gameCountTime = 0;
+	}
+}
+
+void CPlayScene::UpdateSubWeapon()
+{
+	if (simon->spawnSubWeapon)
+	{
+		countSubWeapon++;
+
+		auto subWeapon = new CSubWeapon();
+		switch (simon->subWeapons)
+		{
+		case SUBWEAPON::KNIFE:
+			subWeapon->nx = simon->nx;
+			subWeapon->SetState(STATE_KNIFE);
+			if (simon->GetState() == SIMON_STATE_SIT_ATTACK)
+				subWeapon->SetPosition(simon->x, simon->y + 30);
+			else
+				subWeapon->SetPosition(simon->x, simon->y + 10);
+			break;
+		case SUBWEAPON::BOOMERANG:
+			subWeapon->nx = simon->nx;
+			subWeapon->SetState(STATE_BOOMERANG);
+			if (simon->GetState() == SIMON_STATE_SIT_ATTACK)
+				subWeapon->SetPosition(simon->x, simon->y + 15);
+			else
+				subWeapon->SetPosition(simon->x, simon->y + 10);
+			break;
+		case SUBWEAPON::AXE:
+			subWeapon->nx = simon->nx;
+			subWeapon->SetState(STATE_AXE);
+			if (simon->GetState() == SIMON_STATE_SIT_ATTACK)
+				subWeapon->SetPosition(simon->x, simon->y + 15);
+			else
+				subWeapon->SetPosition(simon->x, simon->y + 10);
+			break;
+		case SUBWEAPON::CLOCK:
+			subWeapon->SetState(STATE_CLOCK);
+			break;
+		case SUBWEAPON::GAS:
+			subWeapon->nx = simon->nx;
+			subWeapon->SetState(STATE_GAS);
+			if (simon->GetState() == SIMON_STATE_SIT_ATTACK)
+				subWeapon->SetPosition(simon->x, simon->y + 15);
+			else
+				subWeapon->SetPosition(simon->x, simon->y + 10);
+			break;
+		}
+		this->AddtoGrid(subWeapon);
+		simon->spawnSubWeapon = false;
 	}
 }
 
@@ -959,20 +969,41 @@ void CPlayScene::OnKeyDown(int KeyCode)
 		{
 			if (game->IsKeyDown(DIK_UP) && simon->subWeapons != SUBWEAPON::DEFAULT)
 			{
-				simon->SetHeart();
-				simon->spawnSubWeapon = true;
-				simon->isSubWeapon = true;
-				if (simon->CheckIsOnStair()) {
-					if (simon->GetState() == SIMON_STATE_STAIR_UP_IDLE &&
-						(simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPLEFT || simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPRIGHT))
-						simon->SetState(SIMON_STATE_ATTACK_STAIR_UP);
-					else if (simon->GetState() == SIMON_STATE_STAIR_DOWN_IDLE &&
-						(simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNLEFT || simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNRIGHT))
-						simon->SetState(SIMON_STATE_ATTACK_STAIR_DOWN);
+				if (simon->isDoubleShot && countSubWeapon < 2)
+				{
+					simon->SetHeart();
+					simon->spawnSubWeapon = true;
+					simon->isSubWeapon = true;
+					if (simon->CheckIsOnStair()) {
+						if (simon->GetState() == SIMON_STATE_STAIR_UP_IDLE &&
+							(simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPLEFT || simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPRIGHT))
+							simon->SetState(SIMON_STATE_ATTACK_STAIR_UP);
+						else if (simon->GetState() == SIMON_STATE_STAIR_DOWN_IDLE &&
+							(simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNLEFT || simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNRIGHT))
+							simon->SetState(SIMON_STATE_ATTACK_STAIR_DOWN);
+					}
+					else {
+						if (simon->GetState() == SIMON_STATE_SIT) simon->SetState(SIMON_STATE_SIT_ATTACK);
+						else simon->SetState(SIMON_STATE_STAND_ATTACK);
+					}
 				}
-				else {
-					if (simon->GetState() == SIMON_STATE_SIT) simon->SetState(SIMON_STATE_SIT_ATTACK);
-					else simon->SetState(SIMON_STATE_STAND_ATTACK);
+				else if (!simon->isDoubleShot && countSubWeapon < 1)
+				{
+					simon->SetHeart();
+					simon->spawnSubWeapon = true;
+					simon->isSubWeapon = true;
+					if (simon->CheckIsOnStair()) {
+						if (simon->GetState() == SIMON_STATE_STAIR_UP_IDLE &&
+							(simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPLEFT || simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPRIGHT))
+							simon->SetState(SIMON_STATE_ATTACK_STAIR_UP);
+						else if (simon->GetState() == SIMON_STATE_STAIR_DOWN_IDLE &&
+							(simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNLEFT || simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNRIGHT))
+							simon->SetState(SIMON_STATE_ATTACK_STAIR_DOWN);
+					}
+					else {
+						if (simon->GetState() == SIMON_STATE_SIT) simon->SetState(SIMON_STATE_SIT_ATTACK);
+						else simon->SetState(SIMON_STATE_STAND_ATTACK);
+					}
 				}
 			}
 			else

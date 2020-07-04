@@ -6,7 +6,7 @@ void CBreakWallTrigger::Render()
 	{
 		return;
 	}
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CBreakWallTrigger::GetBoundingBox(float& l, float& t, float& r, float& b)

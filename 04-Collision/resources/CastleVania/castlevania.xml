@@ -209,6 +209,9 @@
 
   <!--item kfc-->
   <sprite n="item_kfc" l="63" t="118" r="94" b="143"/>
+
+  <!--item potion-->
+  <sprite n="item_potion" l="287" t="85" r="312" b="117"/>
 </textureAtlas>
 
 <animations>
@@ -548,6 +551,11 @@
   <!--item kfc-->
   <animation ID="item_kfc" defaultTime="100">
     <frame spriteID="item_kfc" time="100"/>
+  </animation>
+
+  <!--item potion-->
+  <animation ID="item_potion" defaultTime="100">
+    <frame spriteID="item_potion" time="100"/>
   </animation>
 
   <animation ID="wall" defaultTime="100">

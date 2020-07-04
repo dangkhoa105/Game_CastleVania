@@ -47,6 +47,9 @@ void CItem::Render()
 	case ID_IKFC:
 		animations["item_kfc"]->Render(x, y);
 		break;
+	case ID_IPOTION:
+		animations["item_potion"]->Render(x, y);
+		break;
 	default:
 		break;
 	}
@@ -114,6 +117,10 @@ void CItem::GetBoundingBox(float& l, float& t, float& r, float& b)
 	case ID_IKFC:
 		r = x + IKFC_BBOX_WIDTH;
 		b = y + IKFC_BBOX_HEIGHT;
+		break;
+	case ID_IPOTION:
+		r = x + IPOTION_BBOX_WIDTH;
+		b = y + IPOTION_BBOX_HEIGHT;
 		break;
 	default:
 		break;

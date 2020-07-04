@@ -146,9 +146,9 @@ void CBoss::Render()
 	if (state == BOSS_STATE_FLYING || state == BOSS_STATE_WAITING)
 		animations["boss_ani_flying"]->Render(-nx, x, y);
 
-	float l, t, r, b;
-	this->GetBoundingBoxActive(l, t, r, b);
-	RenderBoundingBox(RECT{ (long)l,(long)t,(long)r,(long)b });
+	//float l, t, r, b;
+	//this->GetBoundingBoxActive(l, t, r, b);
+	//RenderBoundingBox(RECT{ (long)l,(long)t,(long)r,(long)b });
 }
 
 void CBoss::SetState(int state)

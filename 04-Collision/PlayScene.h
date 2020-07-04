@@ -65,6 +65,8 @@ class CPlayScene
 	Grid* grid;// currentGrid;
 	std::unordered_map<int, Grid*> grids;
 
+	int countSubWeapon = 0;
+
 	void GetListobjectFromGrid();
 	void UpdateGrid();
 
@@ -90,6 +92,7 @@ public:
 	void UpdateScene();
 	void UpdatePositionSpawnEnemy();
 	void UpdateGameTime();
+	void UpdateSubWeapon();
 
 	void Render();
 	void Unload();
@@ -107,4 +110,7 @@ public:
 	int GetCurrentScene() {
 		return this->currentScene->id;
 	};
+
+	int GetCountSW() { return countSubWeapon; }
+	void SetCountSW() { countSubWeapon--; }
 };
