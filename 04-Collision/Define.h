@@ -14,6 +14,7 @@
 #define MAX_FRAME_RATE			120
 
 #define GAMETIME				300
+#define RESETSIMONTIME			2000
 #pragma endregion
 
 #pragma region ID TEXTURE
@@ -297,6 +298,6 @@
 #define IKFC_BBOX_HEIGHT				26
 
 // Potion
-#define IPOTION_BBOX_WIDTH					32
+#define IPOTION_BBOX_WIDTH				32
 #define IPOTION_BBOX_HEIGHT				26
 #pragma endregion

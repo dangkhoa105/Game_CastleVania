@@ -41,7 +41,7 @@ public:
 
 	void Draw(D3DXVECTOR2 camPosition);
 	int GetMapWidth() { return map_Width; }
-	int GetHeightHeight() { return map_Height; }
+	int GetMapHeight() { return map_Height; }
 	void SetTileMap(LPDIRECT3DTEXTURE9 texTM) { this->texMap = texTM; }
 
 	~CTileMap();

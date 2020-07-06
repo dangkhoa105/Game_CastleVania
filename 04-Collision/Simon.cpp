@@ -1,6 +1,6 @@
 ﻿#include <algorithm>
 #include "debug.h"
-#include "ReadResourceFile.h"
+#include "ReadResourceFile.h" 
 #include "Simon.h"
 #include "Game.h"
 
@@ -14,6 +14,9 @@
 
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (state == SIMON_STATE_DIE)
+		return;
+
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
@@ -90,9 +93,15 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				if (e->ny < 0)
 				{
 					colBrickSweptAABB = false;
-					if (state == SIMON_STATE_JUMP)
+					if (hp == 0)
 					{
-						SetState(SIMON_STATE_IDLE);
+						this->SetState(SIMON_STATE_DIE);
+						this->isOnStair = false;
+						break;
+					}
+					if (this->state == SIMON_STATE_JUMP)
+					{
+						this->SetState(SIMON_STATE_IDLE);
 					}
 
 					if (this->isOnStair) {
@@ -315,7 +324,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 								this->SetState(SIMON_STATE_HURT);
 								x += dx;
 								y += dy;
-								this->SetHp();
 							}
 							if (untouchable != 1) {
 								StartUntouchable();
@@ -342,8 +350,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							{
 								this->SetState(SIMON_STATE_HURT);
 								x += dx;
-								y += dy;
-								this->SetHp();
+								y += dy;								
 							}
 							if (untouchable != 1) {
 								StartUntouchable();
@@ -539,9 +546,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					if (!this->isOnStair)
 					{
 						this->SetState(SIMON_STATE_HURT);
-						/*x += dx;
-						y += dy;*/
-						this->SetHp();
 					}
 					if (untouchable != 1) {
 						StartUntouchable();
@@ -573,7 +577,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					if (!this->isOnStair)
 					{
 						this->SetState(SIMON_STATE_HURT);
-						this->SetHp();
 					}
 					if (untouchable != 1) {
 						StartUntouchable();
@@ -592,7 +595,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					if (!this->isOnStair)
 					{
 						this->SetState(SIMON_STATE_HURT);
-						this->SetHp();
 					}
 					if (untouchable != 1) {
 						StartUntouchable();
@@ -710,6 +712,8 @@ void CSimon::Render()
 		ani = "simon_ani_attack_stair_up";
 	else if (state == SIMON_STATE_ATTACK_STAIR_DOWN)
 		ani = "simon_ani_attack_stair_down";
+	else if (state == SIMON_STATE_DIE)
+		ani = "simon_ani_die";
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
@@ -871,8 +875,9 @@ void CSimon::SetState(int state)
 		break;
 	case SIMON_STATE_HURT:
 		this->ResetAttack();
-		this->update_start = GetTickCount();
+		this->attack_start = GetTickCount();
 		this->vy = -SIMON_HURT_SPEED_Y;
+		this->SetHp();
 		if (this->nx == 1)
 		{
 			this->vx = -SIMON_HURT_SPEED_X;
@@ -901,6 +906,9 @@ void CSimon::SetState(int state)
 			this->subWeapon->SetIsFight(false);
 		}
 		this->attack_start = GetTickCount();
+		break;
+	case SIMON_STATE_DIE:
+		vx = vy = 0;
 		break;
 	default:
 		break;

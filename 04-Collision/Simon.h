@@ -109,6 +109,7 @@ public:
 		AddAnimation("simon_ani_attack_stair_up");
 		AddAnimation("simon_ani_attack_stair_down");
 		AddAnimation("simon_ani_item");
+		AddAnimation("simon_ani_die");
 	}
 
 	CWhip* whip;
@@ -126,10 +127,16 @@ public:
 	int GetVy() { return vy; }
 
 	int GetHp() { return hp; }
-	void SetHp() { hp -= 2; }
+	void SetHp() 
+	{ 
+		hp -= 16;
+		if (hp < 0)
+			hp = 0;
+	}
 	int GetScore() { return score; }
 	int GetHeart() { return heart; }
 	void SetHeart() { heart--; }
+	void ResetHPHeart() { hp = 16; heart = 5; }
 	//int GetIdChangeScene() { return idChangeScene; }
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);

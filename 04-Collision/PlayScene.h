@@ -45,6 +45,8 @@ class CPlayScene
 	DWORD gameTime = GAMETIME;
 	DWORD gameCountTime = 0;
 
+	DWORD resetSimonTime = 0;
+
 	CTileMap* tilemap;
 	CTileMaps tileMaps;
 

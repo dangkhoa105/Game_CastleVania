@@ -326,6 +326,10 @@
     <frame spriteID="simon_idle" time="100"/>
   </animation>
 
+  <animation ID="simon_ani_die" defaultTime="100">
+    <frame spriteID="simon_die" time="100"/>
+  </animation>
+
   <animation ID="simon_ani_hurt" defaultTime="100">
     <frame spriteID="simon_hurt" time="100"/>
   </animation>

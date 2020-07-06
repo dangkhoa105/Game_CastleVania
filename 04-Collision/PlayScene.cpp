@@ -153,7 +153,7 @@ void CPlayScene::LoadObject()
 		const int objID = std::atoi(child->first_attribute("objcollectid")->value());
 		const int mapID = std::atoi(child->first_attribute("mapID")->value());
 		LPTILEMAP map = this->tileMaps.Get(mapID);
-		Grid* grid = new Grid(map->GetMapWidth(), map->GetHeightHeight());
+		Grid* grid = new Grid(map->GetMapWidth(), map->GetMapHeight());
 
 		rapidxml::file<> xmlFile(childPath.c_str());
 		rapidxml::xml_document<> doc;
@@ -435,6 +435,21 @@ void CPlayScene::Update(DWORD dt)
 	// We know that Simon is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
 
+	if (simon->y > currentScene->camY + tilemap->GetMapHeight())
+		simon->SetState(SIMON_STATE_DIE);
+
+	if (simon->GetState() == SIMON_STATE_DIE)
+	{
+		if (resetSimonTime == 0)
+			resetSimonTime = GetTickCount();
+		else if (GetTickCount() - resetSimonTime > RESETSIMONTIME)
+		{ 
+			simon->ResetHPHeart();
+			simon->idChangeScene = currentScene->mapId;
+			UpdateScene();
+			resetSimonTime = 0;
+		}
+	}
 
 	GetListobjectFromGrid();
 
@@ -806,7 +821,7 @@ void CPlayScene::KeyState(BYTE* states)
 	if (simon->CheckAutoWalk())
 		return;
 
-	if (simon->GetState() == SIMON_STATE_JUMP)
+	if (simon->GetState() == SIMON_STATE_JUMP || simon->GetState() == SIMON_STATE_DIE)
 		return;
 
 
@@ -923,7 +938,7 @@ void CPlayScene::OnKeyDown(int KeyCode)
 	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 	CGame* game = CGame::GetInstance();
 
-	if (simon->GetState() == SIMON_STATE_ITEM || simon->GetState() == SIMON_STATE_AUTO_WALKING || simon->GetState() == SIMON_STATE_HURT)
+	if (simon->GetState() == SIMON_STATE_ITEM || simon->GetState() == SIMON_STATE_AUTO_WALKING || simon->GetState() == SIMON_STATE_HURT || simon->GetState() == SIMON_STATE_DIE)
 		return;
 
 	if (simon->GetAttackTime())
