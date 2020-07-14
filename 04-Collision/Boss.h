@@ -29,12 +29,7 @@ public:
 		flyBack_start = 0;
 	}
 
-	void Reset()
-	{
-
-	}
-
-	
+	int GetHp() { return this->hp; }
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render();

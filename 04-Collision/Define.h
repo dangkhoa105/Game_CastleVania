@@ -196,6 +196,10 @@
 
 #define BRIDGE_BBOX_WIDTH				64
 #define BRIDGE_BBOX_HEIGHT				16
+
+#pragma region SETLASTSCENETRIGGER
+#define SETLASTSCENETRIGGER_BBOX_WIDTH	96
+#define SETLASTSCENETRIGGER_BBOX_HEIGHT	16
 #pragma endregion
 
 #pragma region WEAPONS
@@ -249,6 +253,7 @@
 #define ID_IDOUBLESHOT					13
 #define ID_IKFC							14
 #define ID_IPOTION						15
+#define ID_IMONEYBAG_SPECIAL			16
 
 // Heart
 #define IHEART_BBOX_WIDTH				16

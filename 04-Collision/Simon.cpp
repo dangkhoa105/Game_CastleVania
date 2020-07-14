@@ -53,11 +53,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		untouchable = 0;
 	}
 
-	if (this->heart == 0)
-	{
-		subWeapons = SUBWEAPON::DEFAULT;
-	}
-
 	// Simple fall down
 	if (!this->isStartOnStair && !this->isOnStair
 		&& state != SIMON_STATE_STAIR_UP_IDLE
@@ -202,44 +197,37 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						this->level += 1;
 						this->whip->SetLevel(level);
 						break;
+					case ID_IMONEYBAG_SPECIAL:
+						score += 1000;
+						break;
 					case ID_IMONEYBAG_400:
 						score += 400;
-						this->SetState(SIMON_STATE_ITEM);
 						break;
 					case ID_IMONEYBAG_700:
 						score += 700;
-						this->SetState(SIMON_STATE_ITEM);
 						break;
 					case ID_IMONEYBAG_1000:
 						score += 1000;
-						this->SetState(SIMON_STATE_ITEM);
 						break;
 					case ID_IBOOMERANG:
 						subWeapons = SUBWEAPON::BOOMERANG;
-						this->SetState(SIMON_STATE_ITEM);
 						break;
 					case ID_IAXE:
 						subWeapons = SUBWEAPON::AXE;
-						this->SetState(SIMON_STATE_ITEM);
 						break;
 					case ID_ICLOCK:
 						subWeapons = SUBWEAPON::CLOCK;
-						this->SetState(SIMON_STATE_ITEM);
 						break;
 					case ID_IGAS:
 						subWeapons = SUBWEAPON::GAS;
-						this->SetState(SIMON_STATE_ITEM);
 						break;
 					case ID_ICROWN:
 						score += 2000;
-						this->SetState(SIMON_STATE_ITEM);
 						break;
 					case ID_IDOUBLESHOT:
-						this->SetState(SIMON_STATE_ITEM);
 						break;
 					case ID_IKFC:
 						this->hp += 4;
-						this->SetState(SIMON_STATE_ITEM);
 						break;
 					case ID_IPOTION:
 						if (untouchable_start == 0)
@@ -249,7 +237,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 								break; // không xét tiếp va chạm khi defect
 							}
 						}
-						this->SetState(SIMON_STATE_ITEM);
 						break;
 					default:
 						break;
@@ -312,39 +299,34 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						}
 					}
 				}
-				else if (dynamic_cast<CEnemy*>(e->obj))
+				else if (dynamic_cast<CSetLastSceneTrigger*>(e->obj)) // if e->obj is Money Bag Trigger
 				{
-					if (dynamic_cast<CZombie*>(e->obj))
+					x += dx;
+					if (e->ny != 0)
 					{
-						CZombie* f = dynamic_cast<CZombie*>(e->obj);
-						if (untouchable_start == 0 && f->state != ZOMBIE_STATE_IDLE)
+						y += dy;
+					}
+
+					for (UINT i = 0; i < coObjects->size(); i++)
+					{
+						LPGAMEOBJECT obj = coObjects->at(i);
+
+						if (dynamic_cast<CSetLastSceneTrigger*>(obj))
 						{
-							if (!this->isOnStair)
+							CSetLastSceneTrigger* e = dynamic_cast<CSetLastSceneTrigger*> (obj);
+
+							if (this->AABB(obj) == true)
 							{
-								this->SetState(SIMON_STATE_HURT);
-								x += dx;
-								y += dy;
-							}
-							if (untouchable != 1) {
-								StartUntouchable();
-								break; // không xét tiếp va chạm khi defect
-							}
-						}
-						else
-						{
-							if (e->nx != 0)
-							{
-								x += dx;
-							}
-							if (e->ny != 0)
-							{
-								y += dy;
+								e->SetDestroy(true);
+								this->isColliWithTrigger = true;
 							}
 						}
 					}
-					else
-					{
-						if (untouchable_start == 0)
+				}
+				else if (dynamic_cast<CEnemy*>(e->obj))
+				{
+				auto f = dynamic_cast<CEnemy*>(e->obj);
+						if (untouchable_start == 0 && f->state != ZOMBIE_STATE_IDLE && !f->isDestroy)
 						{
 							if (!this->isOnStair)
 							{
@@ -368,7 +350,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 								y += dy;
 							}
 						}
-					}
+					
 				}
 			}
 		}
@@ -392,8 +374,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				switch (item->idItem)
 				{
 				case ID_IHEART:
+					this->heart += 5;
 					break;
 				case ID_SMALL_IHEART:
+					this->heart += 1;
 					break;
 				case ID_IKNIFE:
 					subWeapons = SUBWEAPON::KNIFE;
@@ -403,45 +387,38 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					this->level += 1;
 					this->whip->SetLevel(level);
 					break;
+				case ID_IMONEYBAG_SPECIAL:
+					score += 1000;
+					break;
 				case ID_IMONEYBAG_400:
 					score += 400;
-					this->SetState(SIMON_STATE_ITEM);
 					break;
 				case ID_IMONEYBAG_700:
 					score += 700;
-					this->SetState(SIMON_STATE_ITEM);
 					break;
 				case ID_IMONEYBAG_1000:
 					score += 1000;
-					this->SetState(SIMON_STATE_ITEM);
 					break;
 				case ID_IBOOMERANG:
 					subWeapons = SUBWEAPON::BOOMERANG;
-					this->SetState(SIMON_STATE_ITEM);
 					break;
 				case ID_IAXE:
 					subWeapons = SUBWEAPON::AXE;
-					this->SetState(SIMON_STATE_ITEM);
 					break;
 				case ID_ICLOCK:
 					subWeapons = SUBWEAPON::CLOCK;
-					this->SetState(SIMON_STATE_ITEM);
 					break;
 				case ID_IGAS:
 					subWeapons = SUBWEAPON::GAS;
-					this->SetState(SIMON_STATE_ITEM);
 					break;
 				case ID_ICROWN:
 					score += 2000;
-					this->SetState(SIMON_STATE_ITEM);
 					break;
 				case ID_IDOUBLESHOT:
 					this->isDoubleShot = true;
-					this->SetState(SIMON_STATE_ITEM);
 					break;
 				case ID_IKFC:
 					this->hp += 4;
-					this->SetState(SIMON_STATE_ITEM);
 					break;
 				case ID_IPOTION:
 					if (untouchable_start == 0)
@@ -451,7 +428,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							break; // không xét tiếp va chạm khi defect
 						}
 					}
-					this->SetState(SIMON_STATE_ITEM);
 					break;
 				default:
 					break;
@@ -541,7 +517,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 			if (this->AABB(obj) == true) // if e->obj is Item Heart 
 			{
-				if (untouchable_start == 0) {
+				if (untouchable_start == 0 && !f->isDestroy) {
 
 					if (!this->isOnStair)
 					{
@@ -572,7 +548,25 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			CGhost* f = dynamic_cast<CGhost*>(obj);
 			if (this->AABB(obj) == true) // if e->obj is Item Heart 
 			{
-				if (untouchable_start == 0) {
+				if (untouchable_start == 0 && f->state != GHOST_STATE_IDLE && !f->isDestroy)
+				{
+					if (!this->isOnStair)
+					{
+						this->SetState(SIMON_STATE_HURT);
+					}
+					if (untouchable != 1) {
+						StartUntouchable();
+						break; // không xét tiếp va chạm khi defect
+					}
+				}
+			}
+		}
+		if (dynamic_cast<CMonkey*>(obj)) // if e->obj is Item Heart 
+		{
+			CMonkey* f = dynamic_cast<CMonkey*>(obj);
+			if (this->AABB(obj) == true) // if e->obj is Item Heart 
+			{
+				if (untouchable_start == 0 && f->state != MONKEY_STATE_IDLE && !f->isDestroy) {
 
 					if (!this->isOnStair)
 					{

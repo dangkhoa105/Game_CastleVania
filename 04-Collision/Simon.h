@@ -53,6 +53,7 @@ public:
 	bool isFirstStepOnStair = false;
 	bool isUpStair = false;
 	bool isDoubleShot = false;
+	bool isColliWithTrigger = false;
 	STAIRDIRECTION onStairDirection = STAIRDIRECTION::DEFAULT;
 	D3DXVECTOR2 stairPos;
 	D3DXVECTOR2 lastStepOnStairPos;
@@ -84,7 +85,7 @@ public:
 	{
 		hp = 16;
 		score = 0;
-		heart = 99;
+		heart = 5;
 		whip = new CWhip();
 		subWeapon = new CSubWeapon();
 
@@ -129,7 +130,7 @@ public:
 	int GetHp() { return hp; }
 	void SetHp() 
 	{ 
-		hp -= 16;
+		hp -= 2;
 		if (hp < 0)
 			hp = 0;
 	}

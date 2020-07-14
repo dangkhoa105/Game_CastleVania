@@ -14,6 +14,8 @@ public:
 	int reSpawnWaitingTime;
 	bool isFinishReSpawn;
 
+	DWORD count_start;
+
 	int bboxEnemyWidth;
 	int bboxEnemyHeight;
 
@@ -26,11 +28,12 @@ public:
 	CEnemy() 
 	{
 		isReSpawnWaiting = false;
+		count_start = 0;
 		reSpawnWaitingTime = 0;
 		spawnTime = 0;;	
 		reSpawnTimeStart = 0;
 		isFinishReSpawn = false;
-		isDestroy = true;
+		isDestroy = false;
 	}
 
 	void TakeDamage(int damage) 

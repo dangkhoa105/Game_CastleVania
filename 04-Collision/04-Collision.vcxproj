@@ -152,6 +152,7 @@
     <ClInclude Include="PScene.h" />
     <ClInclude Include="ReadResourceFile.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="SetLastSceneTrigger.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="Skeleton.h" />
     <ClInclude Include="SpearGuard.h" />
@@ -194,6 +195,7 @@
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="PScene.cpp" />
     <ClCompile Include="ReadResourceFile.cpp" />
+    <ClCompile Include="SetLastSceneTrigger.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="SpearGuard.cpp" />

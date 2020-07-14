@@ -8,6 +8,19 @@
 void CSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CEnemy::Update(dt);
+
+	if (IsRespawn())
+	{
+		if (count_start == 0)
+			count_start = GetTickCount();
+		if (count_start != 0 && GetTickCount() - count_start > reSpawnWaitingTime)
+		{
+			SetState(SKELETON_STATE_IDLE);
+			count_start = 0;
+		}
+		return;
+	}
+
 	auto pScene = CPlayScene::GetInstance();
 	auto simon = pScene->GetSimon();
 	coObjects->push_back(simon);
@@ -127,9 +140,10 @@ void CSkeleton::Render()
 	if (this->state == SKELETON_STATE_JUMPING)
 		animations["skeleton_ani_jumping"]->Render(-nx, x, y);
 
-	//float l, t, r, b;
-	//this->GetBoundingBoxActive(l, t, r, b);
-	//RenderBoundingBox(RECT{ (long)l,(long)t,(long)r,(long)b });
+	float l, t, r, b;
+	this->GetBoundingBoxActive(l, t, r, b);
+	RenderBoundingBox(RECT{ (long)l,(long)t,(long)r,(long)b });
+	RenderBoundingBox();
 }
 
 void CSkeleton::SetState(int state)
@@ -142,6 +156,8 @@ void CSkeleton::SetState(int state)
 	{
 	case SKELETON_STATE_IDLE:
 		vx = vy = 0;
+		x = initPositionX;
+		y = initPositionY;
 		isDestroy = false;
 		isFinishReSpawn = false;
 		StartRespawnTimeCounter();

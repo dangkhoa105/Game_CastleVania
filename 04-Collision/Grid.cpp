@@ -75,12 +75,6 @@ void Grid::Update(LPGAMEOBJECT object)
 			{
 				object->isDestroy = true;
 			}
-
-			if (dynamic_cast<CSubWeapon*>(object))
-			{
-				object->isDestroy = true;
-				CPlayScene::GetInstance()->SetCountSW();
-			}
 		}
 	}
 
@@ -93,7 +87,7 @@ void Grid::Update(LPGAMEOBJECT object)
 	{
 		for (vector<LPGAMEOBJECT>::iterator it = grid[oldCell.y][oldCell.x].begin(); it != grid[oldCell.y][oldCell.x].end(); ) 
 		{
-			if ((*it) == object && !dynamic_cast<CZombie*>(object)) 
+			if ((*it) == object && !dynamic_cast<CEnemy*>(object))
 			{
 				it = grid[oldCell.y][oldCell.x].erase(it);
 			}
@@ -143,7 +137,7 @@ void Grid::GetListobjectFromGrid(vector<LPGAMEOBJECT>& listobjects)
 			for (size_t k = 0; k < this->grid[i][j].size(); k++) 
 			{
 				LPGAMEOBJECT obj = this->grid[i][j].at(k);
-				if (!obj->IsDestroy() )
+				if (1 == 1)
 				{
 					if (dynamic_cast<CEnemy*>(obj))
 						enemiesobject.push_back(obj);
@@ -155,10 +149,6 @@ void Grid::GetListobjectFromGrid(vector<LPGAMEOBJECT>& listobjects)
 						subweaponobject.push_back(obj);
 					else
 						listobjects.push_back(obj);
-				}
-				else if (dynamic_cast<CZombie*>(obj))
-				{
-					enemiesobject.push_back(obj);
 				}
 			}
 		}

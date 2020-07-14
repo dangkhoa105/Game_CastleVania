@@ -25,13 +25,19 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//if (state == BAT_STATE_IDLE)
 	//	return;
 
-	//if (IsRespawn())
-	//{
-	//	SetState(BAT_STATE_IDLE);
-	//	this->SetPosition(initPositionX, initPositionY);
-	//	attack_start = 0;
-	//	return;
-	//}
+	if (IsRespawn())
+	{
+		if (count_start == 0)
+			count_start = GetTickCount();
+		if (count_start != 0 && GetTickCount() - count_start > reSpawnWaitingTime)
+		{
+			attack_start = 0;
+			SetState(BAT_STATE_IDLE);		
+			count_start = 0;
+		}
+		return;
+	}
+
 	auto simon = CPlayScene::GetInstance()->GetSimon();
 	coObjects->push_back(simon);
 
@@ -95,9 +101,9 @@ void CBat::Render()
 	if (state == BAT_STATE_FLYING)
 		animations["bat_ani_flying"]->Render(nx, x, y);
 
-	/*float l, t, r, b;
+	float l, t, r, b;
 	this->GetBoundingBoxActive(l, t, r, b);
-	RenderBoundingBox(RECT{ (long)l,(long)t,(long)r,(long)b });*/
+	RenderBoundingBox(RECT{ (long)l,(long)t,(long)r,(long)b });
 }
 
 void CBat::SetState(int state)
@@ -105,12 +111,11 @@ void CBat::SetState(int state)
 	switch (state)
 	{
 	case BAT_STATE_IDLE:		
-		vx = 0;
-		vy = 0;
+		vx = vy = 0;
+		x = initPositionX;
+		y = initPositionY;
 		isDestroy = false;
 		isFinishReSpawn = false;
-		this->bboxEnemyActiveWidth;
-		this->bboxEnemyActiveHeight;	
 		StartRespawnTimeCounter();	
 		break;
 	case BAT_STATE_FLYING:

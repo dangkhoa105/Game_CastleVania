@@ -16,7 +16,7 @@ class CEffect : public CGameObject
 public:	
 	CEffect() : CGameObject()
 	{
-		life_start = GetTickCount();
+		life_start = 0;
 		AddAnimation("effect");
 		AddAnimation("effect_enemies_die");
 		AddAnimation("breakWall_breaking");

@@ -516,6 +516,11 @@
   </animation>
 
   <!--item money bag-->
+  <animation ID="item_money_bag_special" defaultTime="100">
+    <frame spriteID="item_money_bag_400" time="100"/>
+    <frame spriteID="item_money_bag_700" time="100"/>
+    <frame spriteID="item_money_bag_1000" time="100"/>
+  </animation>
   <animation ID="item_money_bag_400" defaultTime="100">
     <frame spriteID="item_money_bag_400" time="100"/>
   </animation>

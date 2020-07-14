@@ -11,6 +11,7 @@ public:
 	CItem()
 	{
 		AddAnimation("item_whip");
+		AddAnimation("item_money_bag_special");
 		AddAnimation("item_money_bag_400");
 		AddAnimation("item_money_bag_700");
 		AddAnimation("item_money_bag_1000");

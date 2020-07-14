@@ -11,7 +11,7 @@ class HUD
 	unordered_map<string, LPANIMATION> animations;
 
 	int simonHp;
-	int bossHp = 0;
+	int bossHp;
 	int score;
 	string heart;
 	int time;
@@ -34,5 +34,6 @@ public:
 
 	void Update();
 	void Render();
+	void SetBossHp(int hp) { this->bossHp = hp; }
 };
 

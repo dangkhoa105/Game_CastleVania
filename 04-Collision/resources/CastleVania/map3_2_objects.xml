@@ -44,7 +44,7 @@
   </candles>
 
   <enemies>
-    <ghost x="192" y="80" beginPositionX="256" lastPositionX="1312" bboxEnemyWidth="30" bboxEnemyHeight="30" bboxEnemyActiveWidth="32" bboxEnemyActiveHeight="190"/>
+    <ghost x="192" y="80" beginPositionX="256" lastPositionX="1312" bboxEnemyWidth="30" bboxEnemyHeight="30" bboxEnemyActiveWidth="32" bboxEnemyActiveHeight="192"/>
 
     <skeletons>
       <skeleton x="720" y="254" beginPositionX="65" lastPositionX="284" bboxEnemyWidth="32" bboxEnemyHeight="64" bboxEnemyActiveWidth="200" bboxEnemyActiveHeight="100"/>

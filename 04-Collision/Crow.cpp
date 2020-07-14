@@ -7,6 +7,19 @@
 void CCrow::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CEnemy::Update(dt);
+
+	if (IsRespawn())
+	{
+		if (count_start == 0)
+			count_start = GetTickCount();
+		if (count_start != 0 && GetTickCount() - count_start > reSpawnWaitingTime)
+		{
+			SetState(CROW_STATE_IDLE);
+			count_start = 0;
+		}
+		return;
+	}
+
 	auto simon = CPlayScene::GetInstance()->GetSimon();
 	coObjects->push_back(simon);
 
@@ -150,8 +163,6 @@ void CCrow::SetState(int state)
 		vy = 0;
 		isDestroy = false;
 		isFinishReSpawn = false;
-		this->bboxEnemyActiveWidth;
-		this->bboxEnemyActiveHeight;
 		StartRespawnTimeCounter();
 		break;
 	case CROW_STATE_WAITING:

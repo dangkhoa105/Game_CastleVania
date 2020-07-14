@@ -6,6 +6,7 @@ void CZombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CEnemy::Update(dt);
 	auto simon = CPlayScene::GetInstance()->GetSimon();
+	coObjects->push_back(simon);
 
 	if (IsRespawn())
 	{
@@ -19,10 +20,10 @@ void CZombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	D3DXVECTOR2 cam = CGame::GetInstance()->GetCamPos();
 
-	if ((this->x < cam.x - bboxEnemyWidth || this->x > cam.x + SCREEN_WIDTH || this->y < cam.y || this->y > cam.y + SCREEN_HEIGHT) && state == ZOMBIE_STATE_WALKING)
-	{
-		isDestroy = true;
-	}
+	//if ((this->x < cam.x - bboxEnemyWidth || this->x > cam.x + SCREEN_WIDTH || this->y < cam.y || this->y > cam.y + SCREEN_HEIGHT) && state == ZOMBIE_STATE_WALKING)
+	//{
+	//	isDestroy = true;
+	//}
 
 	if (this->GetState() == ZOMBIE_STATE_IDLE && this->IsActivate() == true)
 		this->SetState(ZOMBIE_STATE_WALKING);
@@ -74,7 +75,7 @@ void CZombie::Render()
 	float l, t, r, b;
 	this->GetBoundingBoxActive(l, t, r, b);
 	RenderBoundingBox(RECT{ (long)l,(long)t,(long)r,(long)b });
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
 
 void CZombie::SetState(int state)

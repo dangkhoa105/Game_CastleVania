@@ -18,7 +18,7 @@ public:
 		this->SetState(MONKEY_STATE_IDLE);
 		this->jump_start = 0;
 		this->onGround_start = 0;
-		reSpawnWaitingTime = ENEMY_SPAWN_TIME;
+		reSpawnWaitingTime = ENEMY_SPAWN_TIME * 2;
 	}
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);

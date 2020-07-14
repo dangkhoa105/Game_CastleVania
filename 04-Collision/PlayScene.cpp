@@ -271,6 +271,14 @@ void CPlayScene::LoadObject()
 					grid->Add(breakWall);
 				}
 			}
+			else if (nodeName == "setLastSceneTrigger")
+			{
+				CSetLastSceneTrigger* setLastSceneTrigger = new CSetLastSceneTrigger();
+				const int x = std::atoi(oChild->first_attribute("x")->value());
+				const int y = std::atoi(oChild->first_attribute("y")->value());
+				setLastSceneTrigger->SetPosition(x, y);
+				grid->Add(setLastSceneTrigger);
+			}
 			else if (nodeName == "enemies")
 			{
 				for (xml_node<>* grand = oChild->first_node(); grand; grand = grand->next_sibling()) //cú pháp lập
@@ -293,6 +301,7 @@ void CPlayScene::LoadObject()
 							spearGuard->SetReturnPosition(beginPositionX, lastPositionX);
 							spearGuard->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
 							spearGuard->SetBboxEnemyActive(bboxEnemyActiveWidth, bboxEnemyActiveHeight);
+							spearGuard->SetEntryPosition(x, y);
 							grid->Add(spearGuard);
 						}
 					}
@@ -308,6 +317,7 @@ void CPlayScene::LoadObject()
 						bat->SetPosition(x, y);
 						bat->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
 						bat->SetBboxEnemyActive(bboxEnemyActiveWidth, bboxEnemyActiveHeight);
+						bat->SetEntryPosition(x, y);
 						grid->Add(bat);
 					}
 					else if (nodeNameGrand == "ghost")
@@ -345,6 +355,7 @@ void CPlayScene::LoadObject()
 							monkey->SetReturnPosition(beginPositionX, lastPositionX);
 							monkey->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
 							monkey->SetBboxEnemyActive(bboxEnemyActiveWidth, bboxEnemyActiveHeight);
+							monkey->SetEntryPosition(x, y);
 							grid->Add(monkey);
 						}
 					}
@@ -365,6 +376,7 @@ void CPlayScene::LoadObject()
 							skeleton->SetReturnPosition(beginPositionX, lastPositionX);
 							skeleton->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
 							skeleton->SetBboxEnemyActive(bboxEnemyActiveWidth, bboxEnemyActiveHeight);
+							skeleton->SetEntryPosition(x, y);
 							grid->Add(skeleton);
 						}
 					}
@@ -382,6 +394,7 @@ void CPlayScene::LoadObject()
 							crow->SetPosition(x, y);
 							crow->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
 							crow->SetBboxEnemyActive(bboxEnemyActiveWidth, bboxEnemyActiveHeight);
+							crow->SetEntryPosition(x, y);
 							grid->Add(crow);
 						}
 					}
@@ -414,6 +427,7 @@ void CPlayScene::LoadObject()
 						boss->SetPosition(x, y);
 						boss->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
 						boss->SetBboxEnemyActive(bboxEnemyActiveWidth, bboxEnemyActiveHeight);
+						boss->SetEntryPosition(x, y);
 						grid->Add(boss);
 					}
 				}
@@ -446,6 +460,7 @@ void CPlayScene::Update(DWORD dt)
 		{ 
 			simon->ResetHPHeart();
 			simon->idChangeScene = currentScene->mapId;
+			simon->isColliWithTrigger = false;
 			UpdateScene();
 			resetSimonTime = 0;
 		}
@@ -468,11 +483,21 @@ void CPlayScene::Update(DWORD dt)
 		objects.at(i)->Update(dt, &coObjects);
 	}
 
+	CBrick* brick = new CBrick();
+	if (simon->isColliWithTrigger)
+	{
+		brick->SetPosition(976, 224);
+		brick->widthbbox = 32;
+		brick->heightbbox = 92;
+		objects.push_back(brick);
+	}
+
 	UpdateGameTime();
 
 	UpdateItem();
 
-	UpdateCam();
+	if (!simon->isColliWithTrigger)
+		UpdateCam();	
 
 	UpdateGrid();
 
@@ -524,7 +549,7 @@ void CPlayScene::UpdateCam()
 	// camera
 	cx -= SCREEN_WIDTH / 2 - 30;
 	cy -= SCREEN_HEIGHT / 2;
-	if (cx > currentScene->camX&& cx < currentScene->camX + tilemap->GetMapWidth() - SCREEN_WIDTH)
+	if (cx > currentScene->camX && cx < currentScene->camX + tilemap->GetMapWidth() - SCREEN_WIDTH)
 	{
 		CGame::GetInstance()->SetCamPos(cx, currentScene->camY);
 	}
@@ -607,7 +632,7 @@ void CPlayScene::UpdateItem()
 		{
 			auto f = dynamic_cast<CEnemy*>(objects.at(i));
 
-			if (f->IsDestroy())
+			if (f->IsDestroy() && f->count_start == 0)
 			{
 				float x, y;
 				f->GetPosition(x, y);
@@ -623,7 +648,7 @@ void CPlayScene::UpdateItem()
 			if (f->IsDestroy())
 			{
 				auto moneyBag = new CItem();
-				moneyBag->SetId(ID_IMONEYBAG_700);
+				moneyBag->SetId(ID_IMONEYBAG_SPECIAL);
 				moneyBag->SetPosition(1207, 240);
 				objects.push_back(moneyBag);
 			}
@@ -645,13 +670,12 @@ void CPlayScene::UpdateItem()
 
 			if (f->IsDestroy())
 			{
+				auto black = new CEffect();
+				black->SetState(EFFECT_STATE_BREAKWALL_DESTROYED);
+				black->SetPosition(f->x, f->y);
+				objects.push_back(black);
 				if (currentScene->mapId == 1)
 				{
-					auto black = new CEffect();
-					black->SetState(EFFECT_STATE_BREAKWALL_DESTROYED);
-					black->SetPosition(f->x, f->y);
-					objects.push_back(black);
-
 					for (size_t i = 0; i < 4; i++)
 					{
 						auto derbir = new CEffect();
@@ -744,7 +768,28 @@ void CPlayScene::UpdatePositionSpawnEnemy()
 				f->SetState(ZOMBIE_STATE_WALKING);
 			}
 		}
+		if (dynamic_cast<CGhost*>(objects.at(i)))
+		{
+			auto f = dynamic_cast<CGhost*>(objects.at(i));
+			if (f->GetState() != GHOST_STATE_IDLE && f->isFinishReSpawn == false)
+			{
+				f->isFinishReSpawn = true;
+
+				f->SetState(GHOST_STATE_FLYING);
+			}
+		}
+		if (dynamic_cast<CSkeleton*>(objects.at(i)))
+		{
+			auto f = dynamic_cast<CSkeleton*>(objects.at(i));
+			if (f->GetState() != SKELETON_STATE_IDLE && f->isFinishReSpawn == false)
+			{
+				f->isFinishReSpawn = true;
+
+				f->SetState(SKELETON_STATE_JUMPING);
+			}
+		}
 	}
+
 }
 
 void CPlayScene::UpdateGameTime()
@@ -834,7 +879,6 @@ void CPlayScene::KeyState(BYTE* states)
 
 	if (simon->GetAttackTime() && GetTickCount() - simon->GetAttackTime() > SIMON_ATTACK_TIME)
 	{
-
 		if (simon->CheckIsOnStair()) {
 			if (simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPLEFT || simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPRIGHT) {
 				simon->SetState(SIMON_STATE_ATTACK_STAIR_UP);
@@ -845,10 +889,14 @@ void CPlayScene::KeyState(BYTE* states)
 				simon->SetState(SIMON_STATE_ATTACK_STAIR_DOWN);
 				simon->SetState(SIMON_STATE_STAIR_DOWN_IDLE);
 			}
-
 		}
 		else
-			simon->SetState(SIMON_STATE_IDLE);
+			if (simon->IsHitting())
+			{
+				float tempt = simon->vx;
+				simon->SetState(SIMON_STATE_IDLE);
+				simon->vx = tempt;
+			}
 
 		simon->ResetAttack();
 		return;
@@ -926,7 +974,6 @@ void CPlayScene::KeyState(BYTE* states)
 			simon->SetState(SIMON_STATE_SIT);
 			DebugOut(L"sitting \n");
 		}
-
 	}
 	else {
 		simon->SetState(SIMON_STATE_IDLE);
@@ -977,12 +1024,11 @@ void CPlayScene::OnKeyDown(int KeyCode)
 			simon->GetState() == SIMON_STATE_JUMP)
 			return;
 		simon->SetState(SIMON_STATE_JUMP);
-		DebugOut(L"2 \n");
 	}
 	else if (KeyCode == DIK_Z) {
 		if (simon->GetAttackTime() == 0)
 		{
-			if (game->IsKeyDown(DIK_UP) && simon->subWeapons != SUBWEAPON::DEFAULT)
+			if (game->IsKeyDown(DIK_UP) && simon->subWeapons != SUBWEAPON::DEFAULT && simon->GetHeart() != 0)
 			{
 				if (simon->isDoubleShot && countSubWeapon < 2)
 				{
@@ -999,7 +1045,8 @@ void CPlayScene::OnKeyDown(int KeyCode)
 					}
 					else {
 						if (simon->GetState() == SIMON_STATE_SIT) simon->SetState(SIMON_STATE_SIT_ATTACK);
-						else simon->SetState(SIMON_STATE_STAND_ATTACK);
+						else 
+							simon->SetState(SIMON_STATE_STAND_ATTACK);
 					}
 				}
 				else if (!simon->isDoubleShot && countSubWeapon < 1)
@@ -1037,7 +1084,6 @@ void CPlayScene::OnKeyDown(int KeyCode)
 					if (simon->GetState() == SIMON_STATE_SIT) simon->SetState(SIMON_STATE_SIT_ATTACK);
 					else simon->SetState(SIMON_STATE_STAND_ATTACK);
 				}
-				DebugOut(L"3 \n");
 			}
 		}
 	}

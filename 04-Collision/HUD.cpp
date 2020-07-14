@@ -1,10 +1,10 @@
 #include "HUD.h"
-#include"Game.h"
-#include"Sprites.h"
+#include "Game.h"
+#include "Sprites.h"
 
 void HUD::Update()
 {
-	auto simon = CPlayScene::GetInstance()->GetSimon();
+	auto simon = CPlayScene::GetInstance()->GetSimon();;
 	heart = simon->GetHeart() < 10 ? "0" + std::to_string(simon->GetHeart()) : std::to_string(simon->GetHeart());
 	simonHp = simon->GetHp();
 
@@ -18,7 +18,8 @@ void HUD::Update()
 	{
 		scoreTempt = "0000" + std::to_string(score);
 	}
-	else if (score < 1000) {
+	else if (score < 1000) 
+	{
 		scoreTempt = "000" + std::to_string(score);
 	}
 	else if (score < 10000)
@@ -29,7 +30,8 @@ void HUD::Update()
 	{
 		scoreTempt = "0" + std::to_string(score);
 	}
-	else {
+	else 
+	{
 		scoreTempt = std::to_string(score);
 	}
 
@@ -77,4 +79,3 @@ void HUD::Render()
 		else
 			CSprites::GetInstance()->Get("subHp")->DrawHud(109 + i * 9, 52, 255);
 }
-

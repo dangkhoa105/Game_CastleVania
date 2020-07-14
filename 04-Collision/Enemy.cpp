@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#include "debug.h"
 
 void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 {
@@ -24,26 +25,29 @@ bool CEnemy::IsActivate()
 }
 
 bool CEnemy::IsRespawn()
-{
+{	
 	if (this->isDestroy)
 	{
-		if (isSpawn == false)
+		if (!isSpawn)
 		{
 			isSpawn = true;
 			spawnTime = GetTickCount();
 		}
-		else
+		if (isSpawn)
 		{
 			float remain = GetTickCount() - spawnTime;
 
-			if (remain > (DWORD)450)
+			if (remain > 1)
 			{
 				isSpawn = false;
 				spawnTime = 0;
+				isDestroy = true;
 				return true;
 			}
 		}
-	}	
+	}		
 	else
+	{
 		return false;
+	}
 }

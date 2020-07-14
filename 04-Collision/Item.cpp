@@ -17,6 +17,9 @@ void CItem::Render()
 	case ID_IWHIP:
 		animations["item_whip"]->Render(x, y);
 		break;
+	case ID_IMONEYBAG_SPECIAL:
+		animations["item_money_bag_special"]->Render(x, y);
+		break;
 	case ID_IMONEYBAG_400:
 		animations["item_money_bag_400"]->Render(x, y);
 		break;
@@ -77,6 +80,10 @@ void CItem::GetBoundingBox(float& l, float& t, float& r, float& b)
 	case ID_IWHIP:
 		r = x + IWHIP_BBOX_WIDTH;
 		b = y + IWHIP_BBOX_HEIGHT;
+		break;
+	case ID_IMONEYBAG_SPECIAL:
+		r = x + IMONEYBAG_BBOX_WIDTH;
+		b = y + IMONEYBAG_BBOX_HEIGHT;
 		break;
 	case ID_IMONEYBAG_400:
 		r = x + IMONEYBAG_BBOX_WIDTH;

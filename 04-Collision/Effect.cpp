@@ -6,9 +6,13 @@ void CEffect::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	if (isDestroy)
 		return;
 
+	if (life_start == 0)
+		life_start = GetTickCount();
+
 	if (GetTickCount() - life_start > EFFECT_TIME)
 	{
 		this->SetDestroy(true);
+		life_start = 0;
 	}
 
 	switch (state)

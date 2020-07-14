@@ -180,6 +180,9 @@
     <ClInclude Include="HUD.h">
       <Filter>Source Files\HUD</Filter>
     </ClInclude>
+    <ClInclude Include="SetLastSceneTrigger.h">
+      <Filter>Source Files\Objects Collection\Static Object\Hidden</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -301,6 +304,9 @@
     </ClCompile>
     <ClCompile Include="HUD.cpp">
       <Filter>Source Files\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="SetLastSceneTrigger.cpp">
+      <Filter>Source Files\Objects Collection\Static Object\Hidden</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

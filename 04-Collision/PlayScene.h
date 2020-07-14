@@ -19,6 +19,7 @@
 #include "Bridge.h"
 #include "BreakWall.h"
 #include "BreakWallTrigger.h"
+#include "SetLastSceneTrigger.h"
 #include "Ghost.h"
 #include "Monkey.h"
 #include "Skeleton.h"
@@ -35,8 +36,6 @@ class CPlayScene
 
 	HUD* hud;
 	CSimon* simon;
-	CSkeleton* skeleton;
-	CBat* bat;
 	CGoomba* goomba;
 	CWall* wall;
 	CChangeScene* changeScene;
@@ -78,6 +77,7 @@ public:
 	static CPlayScene* GetInstance();
 
 	CSimon* GetSimon() { return this->simon; }
+	HUD* GetHud() { return this->hud; }
 
 	void LoadResource();
 	void LoadMap();
@@ -85,7 +85,6 @@ public:
 	void AddNewObject(LPGAMEOBJECT obj) {
 		newObjectList.push(obj);
 	}
-
 
 	void AddtoGrid(LPGAMEOBJECT object, bool isAlwayUpdate = false);
 	void Update(DWORD dt);
@@ -115,4 +114,5 @@ public:
 
 	int GetCountSW() { return countSubWeapon; }
 	void SetCountSW() { countSubWeapon--; }
+	void SetCountSubWeapon(int count) { countSubWeapon = count; }
 };

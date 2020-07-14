@@ -2,27 +2,37 @@
 #include "Simon.h"
 #include "Game.h"
 #include "PlayScene.h"
+#include "HUD.h"
+
 void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CEnemy::Update(dt);
-
-	auto simon = CPlayScene::GetInstance()->GetSimon();
+	auto pScene = CPlayScene::GetInstance();
+	auto simon = pScene->GetSimon();
+	auto hud = pScene->GetHud();
 	coObjects->push_back(simon);
+	
+	hud->SetBossHp(this->hp);
 
-
+	float l, t, r, b;
 	float sl, st, sr, sb;
 	float acl, act, acr, acb;
-
+	
 	float awl, awt, awr, awb;
 	simon->GetBoundingBox(sl, st, sr, sb);
+	this->GetBoundingBox(l, t, r, b);
 	this->GetBoundingBoxAwake(awl, awt, awr, awb);
 	this->GetBoundingBoxActive(acl, act, acr, acb);
 	simonPos.x = sl + (sr - sl) / 2;
 	simonPos.y = st + (sb - st) / 2;
+	
 	if (CGame::AABB(awl, awt, awr, awb, sl, st, sr, sb) == true)
 	{
 		this->SetState(BOSS_STATE_FLYING);
 	}
+
+	float xBoss = l + (r - l) / 2;
+	float yBoss = t + (b - t) / 2;
 
 	D3DXVECTOR2 cam = CGame::GetInstance()->GetCamPos();
 
@@ -41,8 +51,8 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		float targetX = cam.x + rand() % (SCREEN_WIDTH);
 		float targetY = cam.y + rand() % (SCREEN_HEIGHT);
 
-		flyBack_time = abs(targetX - x) / BOSS_FLYING_SPEED_X;
-		this->vy = (targetY - y) / BOSS_FLYING_BACK_TIME;
+		flyBack_time = abs(targetX - xBoss) / BOSS_FLYING_SPEED_X;
+		this->vy = (targetY - yBoss) / BOSS_FLYING_BACK_TIME;
 	}
 
 	if (waiting_start != 0 && GetTickCount() - waiting_start > this->waiting_time)
@@ -55,8 +65,7 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		flyRandom = false;
 		if (CGame::AABB(acl, act, acr, acb, sl, st, sr, sb) == true)
 		{
-			float time_x = abs(x - simonPos.x) / (BAT_FLYING_SPEED_X);
-			if (x > simonPos.x)
+			if (xBoss > simonPos.x)
 			{
 				vx = -(BOSS_FLYING_SPEED_X);
 			}
@@ -65,7 +74,7 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				vx = (BOSS_FLYING_SPEED_X);
 			}
 
-			vy = abs(y - simonPos.y) / time_x;
+			vy = abs(yBoss - simonPos.y) / BOSS_ATTACK_TIME;
 			attack_start = GetTickCount();
 		}
 		else

@@ -5,8 +5,8 @@
     <brick x="0" y="352" widthbbox="1536" heightbbox="32"/>
     <brick x="0" y="160" widthbbox="224" heightbbox="32"/>
     <brick x="258" y="224" widthbbox="352" heightbbox="32"/>
-    <brick x="1344" y="288" widthbbox="64" heightbbox="32"/>
-    <brick x="1440" y="226" widthbbox="96" heightbbox="32"/>
+    <brick x="1344" y="288" widthbbox="32" heightbbox="32"/>
+    <brick x="1442" y="226" widthbbox="96" heightbbox="32"/>
     <brick x="1536" y="96" widthbbox="32" heightbbox="96"/>
     <brick x="1536" y="192" widthbbox="32" heightbbox="96"/>
   </bricks> 
@@ -31,12 +31,14 @@
     <candle x="1078" y="224" itemId="1" state="1"/>
     <candle x="1206" y="288" itemId="2" state="1"/>
     <candle x="1334" y="224" itemId="2" state="1"/>
-    <candle x="1462" y="224" itemId="1" state="1"/>
+    <candle x="1462" y="228" itemId="1" state="1"/>
   </candles>
 
   <breakWalls>
     <breakWall x="1376" y="288"/>
   </breakWalls>
+
+  <setLastSceneTrigger x="1312" y="336"/>
 
   <enemies>
     <zombies>

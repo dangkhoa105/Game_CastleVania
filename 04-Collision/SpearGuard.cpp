@@ -25,6 +25,21 @@ void CSpearGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CEnemy::Update(dt, coObjects);
 
+	if (IsRespawn())
+	{
+		if (count_start == 0)
+			count_start = GetTickCount();
+		if (count_start != 0 && GetTickCount() - count_start > reSpawnWaitingTime)
+		{
+			isDestroy = false;
+			x = initPositionX;
+			y = initPositionY;
+			hp = 2;
+			count_start = 0;
+		}
+		return;
+	}
+
 	auto simon = CPlayScene::GetInstance()->GetSimon();
 	coObjects->push_back(simon);
 
@@ -86,5 +101,9 @@ void CSpearGuard::Render()
 void CSpearGuard::SetState(int state)
 {
 	isDestroy = false;
+	isFinishReSpawn = false;
+	StartRespawnTimeCounter();
+	reSpawnTimeStart = 0;
+	isReSpawnWaiting = false;
 	CEnemy::SetState(state);
 }

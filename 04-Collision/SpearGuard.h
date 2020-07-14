@@ -11,6 +11,7 @@ public:
 		AddAnimation("spear_guard_ani");	
 		hp = 2;
 		this->SetState(SPEAR_GUARD_STATE_WALKING);
+		reSpawnWaitingTime = ENEMY_SPAWN_TIME * 2;
 	}
 
 	int GetHp() { return this->hp; };

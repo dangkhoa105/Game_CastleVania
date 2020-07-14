@@ -5,6 +5,18 @@ void CMonkey::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CEnemy::Update(dt);
 
+	if (IsRespawn())
+	{
+		if (count_start == 0)
+			count_start = GetTickCount();
+		if (count_start != 0 && GetTickCount() - count_start > reSpawnWaitingTime)
+		{
+			SetState(MONKEY_STATE_IDLE);
+			count_start = 0;
+		}
+		return;
+	}
+
 	auto simon = CPlayScene::GetInstance()->GetSimon();
 	coObjects->push_back(simon);
 
@@ -21,6 +33,7 @@ void CMonkey::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			simonUn = simon->GetUntouchable();
 		}
 	}
+
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -126,7 +139,6 @@ void CMonkey::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						this->nx = -1;
 					onGround_start = 0;
 				}
-
 			}
 			else
 			{
@@ -162,6 +174,8 @@ void CMonkey::SetState(int state)
 	{
 	case MONKEY_STATE_IDLE:
 		vx = vy = 0;
+		x = initPositionX;
+		y = initPositionY;
 		isDestroy = false;
 		this->isJumping = false;
 		isFinishReSpawn = false;
@@ -174,6 +188,7 @@ void CMonkey::SetState(int state)
 		break;
 	case MONKEY_STATE_JUMPING:
 		this->isJumping = true;
+		isDestroy = false;
 		reSpawnTimeStart = 0;
 		isReSpawnWaiting = false;
 		break;
@@ -204,15 +219,3 @@ void CMonkey::GetBoundingBoxActive(float& left, float& top, float& right, float&
 		left = top = right = bottom = 0;
 }
 
-//void CMonkey::GetBoundingBoxStart(float& left, float& top, float& right, float& bottom)
-//{
-//	if (this->state == MONKEY_STATE_IDLE)
-//	{
-//		left = (x + bboxEnemyWidth / 2) - bboxEnemyActiveWidth - bboxEnemyWidth;
-//		top = y;
-//		right = (x + bboxEnemyWidth / 2) + bboxEnemyActiveWidth + bboxEnemyWidth;
-//		bottom = y + bboxEnemyActiveHeight;
-//	}
-//	else
-//		left = top = right = bottom = 0;
-//}
