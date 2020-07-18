@@ -40,6 +40,18 @@ void CEffect::Render()
 		animations["breakWall_breaking"]->Render(x, y);
 	else if (state == EFFECT_STATE_BREAKWALL_DESTROYED)
 		animations["breakWall_destroyed"]->Render(x, y);
+	else if (state == EFFECT_STATE_MONEYBAG_SPECIAL)
+		animations["effect_moneybag_special"]->Render(x, y);
+	else if (state == EFFECT_STATE_MONEYBAG_400)
+		animations["effect_moneybag_400"]->Render(x, y);
+	else if (state == EFFECT_STATE_MONEYBAG_700)
+		animations["effect_moneybag_700"]->Render(x, y);
+	else if (state == EFFECT_STATE_MONEYBAG_1000)
+		animations["effect_moneybag_1000"]->Render(x, y);
+	else if (state == EFFECT_STATE_2000)
+		animations["effect_2000"]->Render(x, y);
+
+	//RenderBoundingBox();
 }
 
 void CEffect::GetBoundingBox(float& l, float& t, float& r, float& b)

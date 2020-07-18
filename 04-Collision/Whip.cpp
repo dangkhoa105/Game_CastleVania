@@ -4,6 +4,7 @@
 #include "SpearGuard.h"
 #include "BreakWall.h"
 #include"debug.h"
+#include "Boss.h"
 void CWhip::Render()
 {
 	string ani;
@@ -112,10 +113,8 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			if (fight)
 			{
 				CEnemy* e = dynamic_cast<CEnemy*> (obj);
-
-				this->AABB(obj);
-				if (this->AABB(obj) == true)
-				{
+				if (this->AABB(obj) == true && e->state != 0)
+				{				
 					if (!e->isDestroy)
 					{
 						e->TakeDamage(damage);
@@ -128,6 +127,28 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					}
 				}
 			
+			}
+		}
+		if (dynamic_cast<CBoss*>(obj))
+		{
+			if (fight)
+			{
+				CBoss* e = dynamic_cast<CBoss*> (obj);
+				if (this->AABB(obj) == true && e->state != 0)
+				{
+					isColliWithBoss = true;
+					if (!e->isDestroy)
+					{
+						e->TakeDamage(damage);
+						if (e->hp == 0)
+						{
+							e->SetDestroy(true);
+						}
+						DebugOut(L"Take damage \n");
+						fight = false;
+					}
+				}
+
 			}
 		}
 		if (dynamic_cast<CBreakWall*>(obj))

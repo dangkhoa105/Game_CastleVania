@@ -8,7 +8,7 @@
     <brick x="192" y="192" widthbbox="192" heightbbox="32"/>
     <brick x="32" y="160" widthbbox="32" heightbbox="96"/>
     <brick x="577" y="256" widthbbox="64" heightbbox="32"/>
-    <brick x="833" y="256" widthbbox="64" heightbbox="32"/>
+    <brick x="865" y="256" widthbbox="32" heightbbox="32"/>
   </bricks> 
 
   <candles>

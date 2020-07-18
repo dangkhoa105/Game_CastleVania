@@ -6,7 +6,7 @@
 #include "Bat.h"
 #include "Brick.h"
 #include "PlayScene.h"
-
+#include"Game.h"
 void CSubWeapon::Render()
 {
 	if (state == STATE_CLOCK)
@@ -71,8 +71,11 @@ void CSubWeapon::GetBoundingBox(float& left, float& top, float& right, float& bo
 void CSubWeapon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt);
+	auto cGame = CGame::GetInstance();
 
 	auto simon = CPlayScene::GetInstance()->GetSimon();
+
+	D3DXVECTOR2 cam = cGame->GetCamPos();
 	coObjects->push_back(simon);
 
 	vector<LPCOLLISIONEVENT> coEvents;
@@ -85,8 +88,42 @@ void CSubWeapon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	switch (this->state)
 	{
 	case STATE_BOOMERANG:
-		if (nx > 0) vx -= (SUBWEAPON_VX / 50);
-		else vx += (SUBWEAPON_VX / 50);
+		if (nx > 0)
+		{
+			vx -= (SUBWEAPON_VX / 50);
+			if (vx < 0) reserve_right = true;
+		}
+		else
+		{
+			vx += (SUBWEAPON_VX / 50);
+			if (vx > 0) reserve_left = true;
+		}
+		if (this->x < cam.x)
+		{
+			reserve_left = true;
+			if (!reserve_right)
+			{
+				vx = !reset ? 0 : vx;
+				reset = true;
+			}
+		}
+		else
+		{
+			reset = nx < 0 ? false : reset;
+		}
+		if (this->x + 32 > cam.x + SCREEN_WIDTH)
+		{
+			reserve_right = true;
+			if (!reserve_left)
+			{
+				vx = !reset ? 0 : vx;
+				reset = true;
+			}
+		}
+		else
+		{
+			reset = nx > 0 ? false : reset;
+		}
 		break;
 	case STATE_AXE:
 		if (nx > 0) vx = SUBWEAPON_VX * 3 / 5;
@@ -135,21 +172,71 @@ void CSubWeapon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						f->y += f->dy;
 				}
 			}
+			else if (dynamic_cast<CEnemy*>(e->obj)) // if e->obj is Simon 
+			{
+				CEnemy* enemy = dynamic_cast<CEnemy*>(e->obj);
+				float vxs = enemy->vx;
+				float vys = enemy->vy;
+				if (state == STATE_CLOCK)
+				{
+					if (freeze_start != 0)
+					{
+						enemy->vx = 0;
+						enemy->vy = 0;
+					}
+					if (GetTickCount() - freeze_start >= 2000)
+					{
+						enemy->vx = vxs;
+						enemy->vy = vys;
+						freeze_start = 0;
+					}
+				}
+				else
+				{
+					if (simon->subWeapon->fight)
+					{
+						if (!enemy->isDestroy && enemy->state != 0)
+						{
+							enemy->TakeDamage(damage);
+							if (enemy->hp == 0)
+							{
+								enemy->SetDestroy(true);
+							}
+							DebugOut(L"Take damage \n");
+							simon->subWeapon->fight = false;
+						}
+					}
+				}
+
+				if (nx != 0)
+				{
+					x += dx;
+				}
+				if (ny != 0)
+				{
+					y += dy;
+				}
+			}
 			else if (dynamic_cast<CBrick*>(e->obj)) // if e->obj is Simon 
 			{
 				if (state == STATE_GAS)
 				{
-					isBurning = true;					
+					isBurning = true;
 					vx = 0;
 					vy = 0;
 
-					if (burning_start != 0 && GetTickCount() - burning_start >= 2000)
+					if (burning_start == 0)
+						burning_start = GetTickCount();
+
+					if (burning_start != 0 && GetTickCount() - burning_start > 2000)
 					{
+						isBurning = false;
 						this->SetDestroy(true);
+						CPlayScene::GetInstance()->SetCountSW();
 						burning_start = 0;
 					}
 				}
-				if (state == STATE_BOOMERANG)
+				else
 				{
 					x += dx;
 					y += dy;
@@ -176,16 +263,16 @@ void CSubWeapon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					isBurning = true;
 					vx = 0;
 					vy = 0;
-					if (freeze_start != 0)
+
+					if (burning_start == 0)
+						burning_start = GetTickCount();
+
+					if (burning_start != 0 && GetTickCount() - burning_start > 2000)
 					{
-						vx = 0;
-						vy = 0;
-					}
-					if (GetTickCount() - freeze_start >= 2000)
-					{
+						isBurning = false;
 						this->SetDestroy(true);
 						CPlayScene::GetInstance()->SetCountSW();
-						freeze_start = 0;
+						burning_start = 0;
 					}
 				}
 			}
@@ -209,7 +296,7 @@ void CSubWeapon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 			}
 		}
-		if (dynamic_cast<CEnemy*>(obj))
+		/*if (dynamic_cast<CEnemy*>(obj))
 		{
 			CEnemy* e = dynamic_cast<CEnemy*> (obj);
 			float vxs = e->vx;
@@ -228,10 +315,9 @@ void CSubWeapon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					freeze_start = 0;
 				}
 			}
-			fight = true;
-			if (fight)
-			{				
-				CEnemy* e = dynamic_cast<CEnemy*> (obj);			
+			if (simon->subWeapon->fight)
+			{
+				CEnemy* e = dynamic_cast<CEnemy*> (obj);
 
 				if (this->AABB(obj) == true)
 				{
@@ -243,12 +329,11 @@ void CSubWeapon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							e->SetDestroy(true);
 						}
 						DebugOut(L"Take damage \n");
-						fight = false;
+						simon->subWeapon->fight = false;
 					}
 				}
-
 			}
-		}
+		}*/
 	}
 }
 
@@ -271,7 +356,7 @@ void CSubWeapon::SetState(int state)
 		vx = SUBWEAPON_VX;
 		vy = -SUBWEAPON_VY;
 		break;
-	case STATE_CLOCK:		
+	case STATE_CLOCK:
 		freeze_start = GetTickCount();
 		break;
 	case STATE_GAS:
@@ -280,7 +365,7 @@ void CSubWeapon::SetState(int state)
 			vx = SUBWEAPON_VX;
 			vy = -SUBWEAPON_VY;
 		}
-		else 
+		else
 			burning_start = GetTickCount();
 		break;
 	}

@@ -5,16 +5,17 @@
 
 class CSubWeapon : public CGameObject
 {	
-	int damage = 1;
+	int damage = 2;
 	bool isFight = false;
-	bool fight;
-
+	bool reset=false;
+	bool reserve_left = false;
+	bool reserve_right = false;
 	DWORD freeze_start;
 
 	bool isBurning = false;
 	DWORD burning_start;
 public:
-	
+	bool fight;
 	CSubWeapon() : CGameObject()
 	{
 		AddAnimation("boomerang_ani");
@@ -24,7 +25,7 @@ public:
 		AddAnimation("gas_ani_burning");
 		isFight = true;
 		freeze_start = GetTickCount();
-		burning_start = GetTickCount();
+		burning_start = 0;
 	}
 
 	virtual void Render();

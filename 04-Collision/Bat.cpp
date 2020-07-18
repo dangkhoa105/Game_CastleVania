@@ -99,11 +99,11 @@ void CBat::Render()
 	if (state == BAT_STATE_IDLE)
 		animations["bat_ani_idle"]->Render(nx, x, y);
 	if (state == BAT_STATE_FLYING)
-		animations["bat_ani_flying"]->Render(nx, x, y);
+		animations["bat_ani_flying"]->Render(-nx, x, y);
 
-	float l, t, r, b;
-	this->GetBoundingBoxActive(l, t, r, b);
-	RenderBoundingBox(RECT{ (long)l,(long)t,(long)r,(long)b });
+	//float l, t, r, b;
+	//this->GetBoundingBoxActive(l, t, r, b);
+	//RenderBoundingBox(RECT{ (long)l,(long)t,(long)r,(long)b });
 }
 
 void CBat::SetState(int state)

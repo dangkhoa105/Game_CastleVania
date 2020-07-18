@@ -9,7 +9,7 @@ class CGhost : public CEnemy
 public:
 	CGhost()
 	{
-		hp = 1;
+		hp = 2;
 		AddAnimation("ghost_ani_flying");
 		this->SetState(GHOST_STATE_IDLE);
 		this->nx = -1;

@@ -14,6 +14,7 @@ class CWhip : public CGameObject
 
 public:
 	bool fight;
+	bool isColliWithBoss = false;
 	CWhip() : CGameObject()
 	{
 		AddAnimation("whip_ani", false);

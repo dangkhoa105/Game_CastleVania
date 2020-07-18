@@ -73,66 +73,69 @@ void CSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 		}
 	}
-	int random = rand() % (100 + 1 - 1) + 1;
 
-	if (random == 1)
+	if (!isDestroy)
 	{
-		if (throw_start == 0 && this->state == SKELETON_STATE_JUMPING)
+		int random = rand() % (100 + 1 - 1) + 1;
+
+		if (random == 1)
 		{
-			auto bone = new CBone();
-			bone->nx = this->nx;
-			bone->SetPosition(this->x, this->y);
-			pScene->AddtoGrid(bone);
-			throw_start = GetTickCount();
-		}
-	}
-
-	if (coEvents.size() == 0)
-	{
-		x += dx;
-		y += dy;
-	}
-	else
-	{
-		float min_tx, min_ty, nx = 0, ny;
-
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-		x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-		if (ny <= 0)
-			y += min_ty * dy + ny * 0.4f;
-		for (UINT i = 0; i < coEventsResult.size(); i++)
-		{
-			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (dynamic_cast<CBrick*>(e->obj)) // if e->obj is Item Heart 
+			if (throw_start == 0 && this->state == SKELETON_STATE_JUMPING)
 			{
-				if (ny == 0)
-					return;
-
-				if (ny != 0) vy = 0;
-
-				if (onGround_start == 0)
-				{
-					onGround_start = GetTickCount();
-				}
-				if (onGround_start != 0 && GetTickCount() - onGround_start > 300)
-				{
-					if (simonPos.x > x)
-						vx = SKELETON_JUMPING_SPEED_X * 2;
-					else
-						vx = -SKELETON_JUMPING_SPEED_X * 2;
-					vy = -SKELETON_JUMPING_SPEED_X * 6 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / -SKELETON_JUMPING_SPEED_X * 2));
-					onGround_start = 0;
-				}
-			}
-			else
-			{
-				x += dx;
-				if (e->ny != 0)
-					y += dy;
+				auto bone = new CBone();
+				bone->nx = this->nx;
+				bone->SetPosition(this->x, this->y);
+				pScene->AddtoGrid(bone);
+				throw_start = GetTickCount();
 			}
 		}
-	}
 
+		if (coEvents.size() == 0)
+		{
+			x += dx;
+			y += dy;
+		}
+		else
+		{
+			float min_tx, min_ty, nx = 0, ny;
+
+			FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+			x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+			if (ny <= 0)
+				y += min_ty * dy + ny * 0.4f;
+			for (UINT i = 0; i < coEventsResult.size(); i++)
+			{
+				LPCOLLISIONEVENT e = coEventsResult[i];
+				if (dynamic_cast<CBrick*>(e->obj)) // if e->obj is Item Heart 
+				{
+					if (ny == 0)
+						return;
+
+					if (ny != 0) vy = 0;
+
+					if (onGround_start == 0)
+					{
+						onGround_start = GetTickCount();
+					}
+					if (onGround_start != 0 && GetTickCount() - onGround_start > 300)
+					{
+						if (simonPos.x > x)
+							vx = SKELETON_JUMPING_SPEED_X * 2;
+						else
+							vx = -SKELETON_JUMPING_SPEED_X * 2;
+						vy = -SKELETON_JUMPING_SPEED_X * 6 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / -SKELETON_JUMPING_SPEED_X * 2));
+						onGround_start = 0;
+					}
+				}
+				else
+				{
+					x += dx;
+					if (e->ny != 0)
+						y += dy;
+				}
+			}
+		}
+	}
 }
 
 void CSkeleton::Render()
@@ -140,10 +143,10 @@ void CSkeleton::Render()
 	if (this->state == SKELETON_STATE_JUMPING)
 		animations["skeleton_ani_jumping"]->Render(-nx, x, y);
 
-	float l, t, r, b;
-	this->GetBoundingBoxActive(l, t, r, b);
-	RenderBoundingBox(RECT{ (long)l,(long)t,(long)r,(long)b });
-	RenderBoundingBox();
+	//float l, t, r, b;
+	//this->GetBoundingBoxActive(l, t, r, b);
+	//RenderBoundingBox(RECT{ (long)l,(long)t,(long)r,(long)b });
+	//RenderBoundingBox();
 }
 
 void CSkeleton::SetState(int state)

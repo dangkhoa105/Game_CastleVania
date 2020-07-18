@@ -177,6 +177,12 @@
   <sprite n="effect_2" l="525" t="580" r="567" b="624"/>
   <sprite n="effect_3" l="567" t="580" r="609" b="624"/>
 
+  <sprite n="effect_moneybag_special" l="972" t="427" r="1005" b="442"/>
+  <sprite n="effect_moneybag_400" l="972" t="461" r="998" b="476"/>
+  <sprite n="effect_moneybag_700" l="972" t="444" r="998" b="459"/>
+  <sprite n="effect_moneybag_1000" l="972" t="392" r="1005" b="408"/>
+  <sprite n="effect_2000" l="972" t="374" r="1004" b="389"/>
+
   <!--items-->
   <!--item heart-->
   <sprite n="item_heart" l="17" t="86" r="41" b="106"/>
@@ -190,9 +196,9 @@
   <sprite n="item_knife" l="163" t="86" r="195" b="104"/>
 
   <!--item money bag-->
-  <sprite n="item_money_bag_400" l="41" t="85" r="70" b="115"/>
+  <sprite n="item_money_bag_1000" l="41" t="85" r="70" b="115"/>
   <sprite n="item_money_bag_700" l="71" t="85" r="100" b="115"/>
-  <sprite n="item_money_bag_1000" l="101" t="85" r="130" b="115"/>
+  <sprite n="item_money_bag_400" l="101" t="85" r="130" b="115"/>
 
   <!--wall-->
   <sprite n="wall" l="722" t="733" r="818" b="1022"/>
@@ -491,8 +497,31 @@
     <frame spriteID="effect_3" time="100"/>
   </animation>
 
-    <animation ID="effect_enemies_die" defaultTime="100">
+  <animation ID="effect_enemies_die" defaultTime="100">
     <frame spriteID="enemies_die" time="100"/>
+    <frame spriteID="effect_1" time="100"/>
+    <frame spriteID="effect_2" time="100"/>
+    <frame spriteID="effect_3" time="100"/>
+  </animation>
+
+  <animation ID="effect_moneybag_special" defaultTime="100">
+    <frame spriteID="effect_moneybag_special" time="100"/>
+  </animation>
+
+  <animation ID="effect_moneybag_400" defaultTime="100">
+    <frame spriteID="effect_moneybag_400" time="100"/>
+  </animation>
+
+  <animation ID="effect_moneybag_700" defaultTime="100">
+    <frame spriteID="effect_moneybag_700" time="100"/>
+  </animation>
+
+  <animation ID="effect_moneybag_1000" defaultTime="100">
+    <frame spriteID="effect_moneybag_1000" time="100"/>
+  </animation>
+
+  <animation ID="effect_2000" defaultTime="100">
+    <frame spriteID="effect_2000" time="100"/>
   </animation>
 
   <!--items-->
@@ -596,6 +625,7 @@
     <!-- map 3 1440 simonX="162" simonY="320"-->
     <scene id="4" mapId="4" objcollectid="4" simonX="1440" simonY="256" camX="1536" camY="0" state="0" nx="-1" camRight="1"/>
     <scene id="5" mapId="5" objcollectid="5" simonX="162" simonY="320" camX="0" camY="0" state="12" nx="1" camRight="0"/>
+    <scene id="7" mapId="4" objcollectid="4" simonX="176" simonY="16" camX="0" camY="0" state="15" nx="1" camRight="0"/>
     <!-- map 4 -->
     <scene id="6" mapId="6" objcollectid="4" simonX="32" simonY="96" camX="0" camY="0" state="0" nx="1" camRight="0"/>
   </scenes>

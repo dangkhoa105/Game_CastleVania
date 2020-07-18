@@ -18,7 +18,7 @@ void CZombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		return;
 	}
 
-	D3DXVECTOR2 cam = CGame::GetInstance()->GetCamPos();
+	//D3DXVECTOR2 cam = CGame::GetInstance()->GetCamPos();
 
 	//if ((this->x < cam.x - bboxEnemyWidth || this->x > cam.x + SCREEN_WIDTH || this->y < cam.y || this->y > cam.y + SCREEN_HEIGHT) && state == ZOMBIE_STATE_WALKING)
 	//{
@@ -46,20 +46,33 @@ void CZombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else
 	{
-		float min_tx, min_ty, nx = 0, ny;
+		float min_tx, min_ty, nx = 0, ny = 0;
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-		x += min_tx * dx + nx * 0.1f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-		y += min_ty * dy + ny * 0.1f;
+		x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+		if (ny <= 0)
+			y += min_ty * dy + ny * 0.4f;
 
-		if (nx != 0 && ny == 0)
+		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
-			this->nx *= -1;
-			this->vx = -vx;
-		}
-		else if (ny == -1)
-		{
-			vy = 0;
+			LPCOLLISIONEVENT e = coEventsResult[i];
+			if (dynamic_cast<CBrick*>(e->obj)) // if e->obj is Item Heart 
+			{
+				if (nx != 0 && ny == 0)
+				{
+					this->nx *= -1;
+					this->vx = -vx;
+				}
+
+				if (ny == -1.0f)
+					vy = 0;
+			}
+			else
+			{
+				x += dx;
+				if (e->ny != 0)
+					y += dy;
+			}
 		}
 	}
 
@@ -72,10 +85,10 @@ void CZombie::Render()
 	if (state == ZOMBIE_STATE_WALKING)
 		animations["zombie_ani_walking"]->Render(-nx, x, y);
 
-	float l, t, r, b;
-	this->GetBoundingBoxActive(l, t, r, b);
-	RenderBoundingBox(RECT{ (long)l,(long)t,(long)r,(long)b });
-	RenderBoundingBox();
+	//float l, t, r, b;
+	//this->GetBoundingBoxActive(l, t, r, b);
+	//RenderBoundingBox(RECT{ (long)l,(long)t,(long)r,(long)b });
+	//RenderBoundingBox();
 }
 
 void CZombie::SetState(int state)

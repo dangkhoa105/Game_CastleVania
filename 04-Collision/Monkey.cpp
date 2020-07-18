@@ -63,7 +63,7 @@ void CMonkey::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		if ((simonPos.x >= this->beginPositionX && simonPos.x <= this->lastPositionX) || (this->x >= this->beginPositionX && this->x <= this->lastPositionX))
 		{
-			if (simonPos.x >= this->x)
+			if (simonPos.x > this->x)
 			{
 				nx = 1;
 				vx = abs(vx);
@@ -91,6 +91,10 @@ void CMonkey::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			if (CGame::AABB(ml, mt, mr, mb, sl, st, sr, sb) == true)
 			{
 				this->SetState(MONKEY_STATE_START);
+				if (simonPos.x < this->x)
+					nx = -1;
+				else
+					nx = 1;
 			}
 		}
 	}

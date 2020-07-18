@@ -325,32 +325,40 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 				else if (dynamic_cast<CEnemy*>(e->obj))
 				{
-				auto f = dynamic_cast<CEnemy*>(e->obj);
-						if (untouchable_start == 0 && f->state != ZOMBIE_STATE_IDLE && !f->isDestroy)
+					auto f = dynamic_cast<CEnemy*>(e->obj);
+					CBat* bat = dynamic_cast<CBat*>(e->obj);
+					CCrow* crow = dynamic_cast<CCrow*>(e->obj);
+					if (untouchable_start == 0 && f->state != 0 && !f->isDestroy)
+					{
+						if (!this->isOnStair)
 						{
-							if (!this->isOnStair)
-							{
-								this->SetState(SIMON_STATE_HURT);
-								x += dx;
-								y += dy;								
-							}
-							if (untouchable != 1) {
-								StartUntouchable();
-								break; // không xét tiếp va chạm khi defect
-							}
+							if (dynamic_cast<CBat*>(e->obj))
+								bat->isDestroy = true;
+							if (dynamic_cast<CCrow*>(e->obj))
+								crow->isDestroy = true;
+							this->SetState(SIMON_STATE_HURT);
+							x += dx;
+							y += dy;
 						}
-						else
+						else 
+							this->SetHp();
+
+						if (untouchable != 1) {
+							StartUntouchable();
+							break; // không xét tiếp va chạm khi defect
+						}
+					}
+					else
+					{
+						if (e->nx != 0)
 						{
-							if (e->nx != 0)
-							{
-								x += dx;
-							}
-							if (e->ny != 0)
-							{
-								y += dy;
-							}
+							x += dx;
 						}
-					
+						if (e->ny != 0)
+						{
+							y += dy;
+						}
+					}
 				}
 			}
 		}
@@ -520,13 +528,17 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				if (untouchable_start == 0 && !f->isDestroy) {
 
 					if (!this->isOnStair)
-					{
+					{						
 						this->SetState(SIMON_STATE_HURT);
 					}
+					else
+						this->SetHp();
+
 					if (untouchable != 1) {
 						StartUntouchable();
 						break; // không xét tiếp va chạm khi defect
 					}
+					
 				}
 			}
 		}
@@ -554,6 +566,9 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					{
 						this->SetState(SIMON_STATE_HURT);
 					}
+					else
+						this->SetHp();
+
 					if (untouchable != 1) {
 						StartUntouchable();
 						break; // không xét tiếp va chạm khi defect
@@ -572,6 +587,30 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					{
 						this->SetState(SIMON_STATE_HURT);
 					}
+					else
+						this->SetHp();
+
+					if (untouchable != 1) {
+						StartUntouchable();
+						break; // không xét tiếp va chạm khi defect
+					}
+				}
+			}
+		}
+		if (dynamic_cast<CBone*>(obj)) // if e->obj is Item Heart 
+		{
+			CBone* f = dynamic_cast<CBone*>(obj);
+			if (this->AABB(obj) == true) // if e->obj is Item Heart 
+			{
+				if (untouchable_start == 0) {
+
+					if (!this->isOnStair)
+					{
+						this->SetState(SIMON_STATE_HURT);
+					}
+					else
+						this->SetHp();
+
 					if (untouchable != 1) {
 						StartUntouchable();
 						break; // không xét tiếp va chạm khi defect
@@ -590,6 +629,9 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					{
 						this->SetState(SIMON_STATE_HURT);
 					}
+					else
+						this->SetHp();
+
 					if (untouchable != 1) {
 						StartUntouchable();
 						break; // không xét tiếp va chạm khi defect

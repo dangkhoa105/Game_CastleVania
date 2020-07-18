@@ -1,15 +1,16 @@
 <objects>
   <bricks>
-    <brick x="0 " y="288" widthbbox="1536" heightbbox="32"/>
+    <brick x="0" y="288" widthbbox="1536" heightbbox="32"/>
     <brick x="-32" y="214" widthbbox="32" heightbbox="32"/>
     <brick x="-32" y="214" widthbbox="32" heightbbox="32"/>
   </bricks>
 
   <candles>
-    <candle x="160" y="224" itemId="15" state="0"/>
+    <candle x="160" y="224" itemId="1" state="0"/>
     <candle x="430" y="224" itemId="3" state="0"/>
     <candle x="700" y="224" itemId="3" state="0"/>
-    <candle x="970" y="224" itemId="4" state="0"/>
+    <candle x="970" y="224" itemId="1" state="0"/>
+    <candle x="1240" y="224" itemId="4" state="0"/>
   </candles>
 
   <entrace x="1375" y="274"/>

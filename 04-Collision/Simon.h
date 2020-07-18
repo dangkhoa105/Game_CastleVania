@@ -54,6 +54,7 @@ public:
 	bool isUpStair = false;
 	bool isDoubleShot = false;
 	bool isColliWithTrigger = false;
+
 	STAIRDIRECTION onStairDirection = STAIRDIRECTION::DEFAULT;
 	D3DXVECTOR2 stairPos;
 	D3DXVECTOR2 lastStepOnStairPos;
@@ -136,7 +137,13 @@ public:
 	}
 	int GetScore() { return score; }
 	int GetHeart() { return heart; }
-	void SetHeart() { heart--; }
+	void SetHeart() 
+	{ 
+		if (subWeapons != SUBWEAPON::CLOCK)
+			heart--;
+		else
+			heart -= 5;
+	}
 	void ResetHPHeart() { hp = 16; heart = 5; }
 	//int GetIdChangeScene() { return idChangeScene; }
 

@@ -60,4 +60,5 @@
   </enemies>
 
   <changeScene x="1504" y="248" idChangeScene="6"/>
+   <changeScene x="198" y="384" idChangeScene="7"/>
 </objects>

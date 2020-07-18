@@ -638,7 +638,7 @@ void CPlayScene::UpdateItem()
 				f->GetPosition(x, y);
 				auto effect = new CEffect();
 				effect->SetPosition(x, y);
-				effect->SetState(EFFECT_STATE_CANDLE);
+				effect->SetState(EFFECT_STATE_ENEMIES);
 				objects.push_back(effect);
 			}
 		}
@@ -662,6 +662,50 @@ void CPlayScene::UpdateItem()
 				crown->SetId(ID_ICROWN);
 				crown->SetPosition(256, 270);
 				objects.push_back(crown);
+			}
+		}
+		if (dynamic_cast<CItem*>(objects.at(i)))
+		{
+			auto f = dynamic_cast<CItem*>(objects.at(i));
+
+			if (f->IsDestroy() && (f->GetId() == ID_IMONEYBAG_SPECIAL || 
+				f->GetId() == ID_IMONEYBAG_400 || 
+				f->GetId() == ID_IMONEYBAG_700 || 
+				f->GetId() == ID_IMONEYBAG_1000 ||
+				f->GetId() == ID_ICROWN))
+			{
+				float x, y;
+				f->GetPosition(x, y);	
+				auto effect = new CEffect();
+				effect->SetPosition(x + IMONEYBAG_BBOX_WIDTH, y);
+
+				if (f->GetId() == ID_IMONEYBAG_SPECIAL)
+				{
+					effect->SetState(EFFECT_STATE_MONEYBAG_SPECIAL);
+					f->SetId(ID_IMONEYBAG_SPECIAL);
+				}
+				else if (f->GetId() == ID_IMONEYBAG_400)
+				{
+					effect->SetState(EFFECT_STATE_MONEYBAG_400);
+					f->SetId(ID_IMONEYBAG_400);
+				}
+				else if (f->GetId() == ID_IMONEYBAG_700)
+				{
+					effect->SetState(EFFECT_STATE_MONEYBAG_700);
+					f->SetId(ID_IMONEYBAG_700);
+				}
+				else if (f->GetId() == ID_IMONEYBAG_1000)
+				{
+					effect->SetState(EFFECT_STATE_MONEYBAG_1000);
+					f->SetId(ID_IMONEYBAG_1000);
+				}
+				else if (f->GetId() == ID_ICROWN)
+				{
+					effect->SetState(EFFECT_STATE_2000);
+					f->SetId(ID_ICROWN);
+				}
+				
+				objects.push_back(effect);
 			}
 		}
 		if (dynamic_cast<CBreakWall*>(objects.at(i)))
@@ -726,6 +770,17 @@ void CPlayScene::UpdateItem()
 					kfc->SetPosition(f->x, f->y);
 					objects.push_back(kfc);
 				}
+			}
+		}
+		if (dynamic_cast<CBoss*>(objects.at(i)))
+		{
+			auto f = dynamic_cast<CBoss*>(objects.at(i));
+			if (simon->whip->isColliWithBoss)
+			{
+				auto black = new CEffect();
+				black->SetState(EFFECT_STATE_ENEMIES);
+				black->SetPosition(f->x, f->y);
+				objects.push_back(black);
 			}
 		}
 	}
@@ -1032,6 +1087,7 @@ void CPlayScene::OnKeyDown(int KeyCode)
 			{
 				if (simon->isDoubleShot && countSubWeapon < 2)
 				{
+					simon->subWeapon->fight = true;
 					simon->SetHeart();
 					simon->spawnSubWeapon = true;
 					simon->isSubWeapon = true;
@@ -1051,6 +1107,7 @@ void CPlayScene::OnKeyDown(int KeyCode)
 				}
 				else if (!simon->isDoubleShot && countSubWeapon < 1)
 				{
+					simon->subWeapon->fight = true;
 					simon->SetHeart();
 					simon->spawnSubWeapon = true;
 					simon->isSubWeapon = true;

@@ -71,9 +71,14 @@ void Grid::Update(LPGAMEOBJECT object)
 	{
 		if (object->CheckActive()) 
 		{
-			if (dynamic_cast<CItem*>(object) || dynamic_cast<CEnemy*>(object) || dynamic_cast<CSubWeapon*>(object))
+			if (dynamic_cast<CItem*>(object) || dynamic_cast<CEnemy*>(object))
 			{
 				object->isDestroy = true;
+			}
+			if (dynamic_cast<CSubWeapon*>(object))
+			{
+				object->isDestroy = true;
+				CPlayScene::GetInstance()->SetCountSW();
 			}
 		}
 	}
@@ -87,7 +92,7 @@ void Grid::Update(LPGAMEOBJECT object)
 	{
 		for (vector<LPGAMEOBJECT>::iterator it = grid[oldCell.y][oldCell.x].begin(); it != grid[oldCell.y][oldCell.x].end(); ) 
 		{
-			if ((*it) == object && !dynamic_cast<CEnemy*>(object))
+			if ((*it) == object && !dynamic_cast<CEnemy*>(object) || dynamic_cast<CBoss*>(object))
 			{
 				it = grid[oldCell.y][oldCell.x].erase(it);
 			}
@@ -139,12 +144,12 @@ void Grid::GetListobjectFromGrid(vector<LPGAMEOBJECT>& listobjects)
 				LPGAMEOBJECT obj = this->grid[i][j].at(k);
 				if (1 == 1)
 				{
-					if (dynamic_cast<CEnemy*>(obj))
-						enemiesobject.push_back(obj);
+					if (dynamic_cast<CEffect*>(obj))
+						effectobject.push_back(obj);
 					else if (dynamic_cast<CItem*>(obj))
 						itemobject.push_back(obj);
-					else if (dynamic_cast<CEffect*>(obj))
-						effectobject.push_back(obj);
+					else if (dynamic_cast<CEnemy*>(obj))
+						enemiesobject.push_back(obj);
 					else if (dynamic_cast<CSubWeapon*>(obj))
 						subweaponobject.push_back(obj);
 					else
@@ -155,8 +160,8 @@ void Grid::GetListobjectFromGrid(vector<LPGAMEOBJECT>& listobjects)
 	}
 
 	listobjects.insert(listobjects.end(), alwaysUpdateList.begin(), alwaysUpdateList.end());
+	listobjects.insert(listobjects.end(), effectobject.begin(), effectobject.end());
 	listobjects.insert(listobjects.end(), itemobject.begin(), itemobject.end());
 	listobjects.insert(listobjects.end(), enemiesobject.begin(), enemiesobject.end());
-	listobjects.insert(listobjects.end(), effectobject.begin(), effectobject.end());
 	listobjects.insert(listobjects.end(), subweaponobject.begin(), subweaponobject.end());
 }

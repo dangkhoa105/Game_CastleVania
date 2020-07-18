@@ -17,6 +17,8 @@ class CBoss : public CEnemy
 	D3DXVECTOR2 simonPos = { 0, 0 };
 
 	bool awake = false;
+
+	DWORD untouchable_start;
 public:
 	CBoss()
 	{
@@ -27,6 +29,7 @@ public:
 		attack_start = 0;
 		waiting_start = 0;
 		flyBack_start = 0;
+		reSpawnWaitingTime = ENEMY_SPAWN_TIME;
 	}
 
 	int GetHp() { return this->hp; }
