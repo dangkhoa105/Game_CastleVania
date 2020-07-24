@@ -11,7 +11,7 @@ void CPlayScene::GetListobjectFromGrid()
 
 	while (newObjectList.size() > 0)
 	{
-		objects.push_back(newObjectList.front());
+		grid->AddWhenUpdate(newObjectList.front());
 		newObjectList.pop();
 	}
 
@@ -41,7 +41,7 @@ void CPlayScene::LoadResource()
 
 
 	LoadMap();
-	LoadObject();
+	LoadGrids();
 
 	LPANIMATION ani;
 
@@ -89,7 +89,6 @@ void CPlayScene::LoadMap()
 				auto texMap = textures->Get(texID);
 
 				CTileMap* tilemap = new CTileMap(pathText, mapWidth, mapHeight, tileWidth, tileHeight, id);
-				//tilemap = new CTileMap(L"resources\\Map\\map2.txt", 1024, 768, 32, 32);
 				tilemap->SetTileMap(texMap);
 				tilemap->LoadResources();
 
@@ -136,305 +135,23 @@ void CPlayScene::LoadMap()
 
 }
 
-void CPlayScene::LoadObject()
+void CPlayScene::LoadGrids()
 {
-	//load objects item
 	const std::string path = "resources\\CastleVania\\castlevania.xml";
 	rapidxml::file<> xmlFile(path.c_str());
 	rapidxml::xml_document<> doc;
 	doc.parse<0>(xmlFile.data());
-	xml_node<>* rootNode = doc.first_node("objectsCollection");
+	xml_node<>* rootNode = doc.first_node("grids");
 	int objCollectId = 0;
 
 	for (xml_node<>* child = rootNode->first_node(); child; child = child->next_sibling()) //cú pháp lập
 	{
+	
 		const std::string childPath = std::string(child->first_attribute("path")->value());
-
-		const int objID = std::atoi(child->first_attribute("objcollectid")->value());
-		const int mapID = std::atoi(child->first_attribute("mapID")->value());
-		LPTILEMAP map = this->tileMaps.Get(mapID);
-		Grid* grid = new Grid(map->GetMapWidth(), map->GetMapHeight());
-
-		rapidxml::file<> xmlFile(childPath.c_str());
-		rapidxml::xml_document<> doc;
-		doc.parse<0>(xmlFile.data());
-		xml_node<>* objectNode = doc.first_node("objects");
-		std::vector<LPGAMEOBJECT>* _object = new std::vector<LPGAMEOBJECT>();
-		for (xml_node<>* oChild = objectNode->first_node(); oChild; oChild = oChild->next_sibling()) //cú pháp lập
-		{
-			const std::string nodeName = oChild->name();
-
-			if (nodeName == "bricks")
-			{
-				for (xml_node<>* grand = oChild->first_node(); grand; grand = grand->next_sibling()) //cú pháp lập
-				{
-					CBrick* brick = new CBrick();
-					const int x = std::atoi(grand->first_attribute("x")->value());
-					const int y = std::atoi(grand->first_attribute("y")->value());
-					const int widthbbox = std::atoi(grand->first_attribute("widthbbox")->value());
-					const int heightbbox = std::atoi(grand->first_attribute("heightbbox")->value());
-					brick->SetPosition(x, y);
-					brick->widthbbox = widthbbox;
-					brick->heightbbox = heightbbox;
-					grid->Add(brick, true);
-				}
-			}
-			else if (nodeName == "candles")
-			{
-				for (xml_node<>* grand = oChild->first_node(); grand; grand = grand->next_sibling()) //cú pháp lập
-				{
-					CCandle* candle = new CCandle();
-					const int x = std::atoi(grand->first_attribute("x")->value());
-					const int y = std::atoi(grand->first_attribute("y")->value());
-					const int itemID = std::atoi(grand->first_attribute("itemId")->value());
-					const int state = std::atoi(grand->first_attribute("state")->value());
-					candle->SetItem(itemID);
-					candle->SetPosition(x, y);
-					candle->SetState(state);
-					grid->Add(candle);
-				}
-			}
-			else if (nodeName == "entrace")
-			{
-				CEntrace* entrace = new CEntrace();
-				const int x = std::atoi(oChild->first_attribute("x")->value());
-				const int y = std::atoi(oChild->first_attribute("y")->value());
-				entrace->SetPosition(x, y);
-				grid->Add(entrace);
-			}
-			else if (nodeName == "changeScene")
-			{
-				CChangeScene* changeScene = new CChangeScene();
-				const int x = std::atoi(oChild->first_attribute("x")->value());
-				const int y = std::atoi(oChild->first_attribute("y")->value());
-				const int idChangeScene = std::atoi(oChild->first_attribute("idChangeScene")->value());
-				changeScene->SetPosition(x, y);
-				changeScene->SetIdNextScene(idChangeScene);
-				grid->Add(changeScene);
-			}
-			else if (nodeName == "moneyBagTrigger")
-			{
-				CMoneyBagTrigger* moneyBagTrigger = new CMoneyBagTrigger();
-				const int x = std::atoi(oChild->first_attribute("x")->value());
-				const int y = std::atoi(oChild->first_attribute("y")->value());
-				moneyBagTrigger->SetPosition(x, y);
-				grid->Add(moneyBagTrigger);
-			}
-			else if (nodeName == "breakWallTrigger")
-			{
-				CBreakWallTrigger* breakWallTrigger = new CBreakWallTrigger();
-				const int x = std::atoi(oChild->first_attribute("x")->value());
-				const int y = std::atoi(oChild->first_attribute("y")->value());
-				breakWallTrigger->SetPosition(x, y);
-				grid->Add(breakWallTrigger);
-			}
-			else if (nodeName == "wall")
-			{
-				wall = new CWall();
-				const int x = std::atoi(oChild->first_attribute("x")->value());
-				const int y = std::atoi(oChild->first_attribute("y")->value());
-				wall->SetPosition(x, y);
-				grid->Add(wall);
-			}
-			else if (nodeName == "stairs")
-			{
-				for (xml_node<>* grand = oChild->first_node(); grand; grand = grand->next_sibling()) //cú pháp lập
-				{
-					CStair* stair = new CStair();
-					const int x = std::atoi(grand->first_attribute("x")->value());
-					const int y = std::atoi(grand->first_attribute("y")->value());
-					const int stairDirection = std::atoi(grand->first_attribute("stairDirection")->value());
-					stair->SetPosition(x, y);
-					stair->SetDirectionStair(stairDirection);
-					grid->Add(stair);
-				}
-			}
-			else if (nodeName == "bridge")
-			{
-				CBridge* bridge = new CBridge();
-				const int x = std::atoi(oChild->first_attribute("x")->value());
-				const int y = std::atoi(oChild->first_attribute("y")->value());
-				const int beginPositionX = std::atoi(oChild->first_attribute("beginPositionX")->value());
-				const int lastPositionX = std::atoi(oChild->first_attribute("lastPositionX")->value());
-				bridge->SetPosition(x, y);
-				bridge->SetReturnPosition(beginPositionX, lastPositionX);
-				grid->Add(bridge);
-			}
-			else if (nodeName == "breakWalls")
-			{
-				for (xml_node<>* grand = oChild->first_node(); grand; grand = grand->next_sibling()) //cú pháp lập
-				{
-					CBreakWall* breakWall = new CBreakWall();
-					const int x = std::atoi(grand->first_attribute("x")->value());
-					const int y = std::atoi(grand->first_attribute("y")->value());
-					breakWall->SetPosition(x, y);
-					grid->Add(breakWall);
-				}
-			}
-			else if (nodeName == "setLastSceneTrigger")
-			{
-				CSetLastSceneTrigger* setLastSceneTrigger = new CSetLastSceneTrigger();
-				const int x = std::atoi(oChild->first_attribute("x")->value());
-				const int y = std::atoi(oChild->first_attribute("y")->value());
-				setLastSceneTrigger->SetPosition(x, y);
-				grid->Add(setLastSceneTrigger);
-			}
-			else if (nodeName == "enemies")
-			{
-				for (xml_node<>* grand = oChild->first_node(); grand; grand = grand->next_sibling()) //cú pháp lập
-				{
-					const std::string nodeNameGrand = grand->name();
-					if (nodeNameGrand == "spearGuards")
-					{
-						for (xml_node<>* oGrand = grand->first_node(); oGrand; oGrand = oGrand->next_sibling()) //cú pháp lập
-						{
-							CSpearGuard* spearGuard = new CSpearGuard();
-							const int x = std::atoi(oGrand->first_attribute("x")->value());
-							const int y = std::atoi(oGrand->first_attribute("y")->value());
-							const int beginPositionX = std::atoi(oGrand->first_attribute("beginPositionX")->value());
-							const int lastPositionX = std::atoi(oGrand->first_attribute("lastPositionX")->value());
-							const int bboxEnemyWidth = std::atoi(oGrand->first_attribute("bboxEnemyWidth")->value());
-							const int bboxEnemyHeight = std::atoi(oGrand->first_attribute("bboxEnemyHeight")->value());
-							const int bboxEnemyActiveWidth = std::atoi(oGrand->first_attribute("bboxEnemyActiveWidth")->value());
-							const int bboxEnemyActiveHeight = std::atoi(oGrand->first_attribute("bboxEnemyActiveHeight")->value());
-							spearGuard->SetPosition(x, y);
-							spearGuard->SetReturnPosition(beginPositionX, lastPositionX);
-							spearGuard->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
-							spearGuard->SetBboxEnemyActive(bboxEnemyActiveWidth, bboxEnemyActiveHeight);
-							spearGuard->SetEntryPosition(x, y);
-							grid->Add(spearGuard);
-						}
-					}
-					else if (nodeNameGrand == "bat")
-					{
-						CBat* bat = new CBat();
-						const int x = std::atoi(grand->first_attribute("x")->value());
-						const int y = std::atoi(grand->first_attribute("y")->value());
-						const int bboxEnemyWidth = std::atoi(grand->first_attribute("bboxEnemyWidth")->value());
-						const int bboxEnemyHeight = std::atoi(grand->first_attribute("bboxEnemyHeight")->value());
-						const int bboxEnemyActiveWidth = std::atoi(grand->first_attribute("bboxEnemyActiveWidth")->value());
-						const int bboxEnemyActiveHeight = std::atoi(grand->first_attribute("bboxEnemyActiveHeight")->value());
-						bat->SetPosition(x, y);
-						bat->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
-						bat->SetBboxEnemyActive(bboxEnemyActiveWidth, bboxEnemyActiveHeight);
-						bat->SetEntryPosition(x, y);
-						grid->Add(bat);
-					}
-					else if (nodeNameGrand == "ghost")
-					{
-						CGhost* ghost = new CGhost();
-						const int x = std::atoi(grand->first_attribute("x")->value());
-						const int y = std::atoi(grand->first_attribute("y")->value());
-						const int beginPositionX = std::atoi(grand->first_attribute("beginPositionX")->value());
-						const int lastPositionX = std::atoi(grand->first_attribute("lastPositionX")->value());
-						const int bboxEnemyWidth = std::atoi(grand->first_attribute("bboxEnemyWidth")->value());
-						const int bboxEnemyHeight = std::atoi(grand->first_attribute("bboxEnemyHeight")->value());
-						const int bboxEnemyActiveWidth = std::atoi(grand->first_attribute("bboxEnemyActiveWidth")->value());
-						const int bboxEnemyActiveHeight = std::atoi(grand->first_attribute("bboxEnemyActiveHeight")->value());
-						ghost->SetPosition(x, y);
-						ghost->SetReturnPosition(beginPositionX, lastPositionX);
-						ghost->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
-						ghost->SetBboxEnemyActive(bboxEnemyActiveWidth, bboxEnemyActiveHeight);
-						ghost->SetEntryPosition(x, y);
-						grid->Add(ghost);
-					}
-					else if (nodeNameGrand == "monkeys")
-					{
-						for (xml_node<>* oGrand = grand->first_node(); oGrand; oGrand = oGrand->next_sibling()) //cú pháp lập
-						{
-							CMonkey* monkey = new CMonkey();
-							const int x = std::atoi(oGrand->first_attribute("x")->value());
-							const int y = std::atoi(oGrand->first_attribute("y")->value());
-							const int beginPositionX = std::atoi(oGrand->first_attribute("beginPositionX")->value());
-							const int lastPositionX = std::atoi(oGrand->first_attribute("lastPositionX")->value());
-							const int bboxEnemyWidth = std::atoi(oGrand->first_attribute("bboxEnemyWidth")->value());
-							const int bboxEnemyHeight = std::atoi(oGrand->first_attribute("bboxEnemyHeight")->value());
-							const int bboxEnemyActiveWidth = std::atoi(oGrand->first_attribute("bboxEnemyActiveWidth")->value());
-							const int bboxEnemyActiveHeight = std::atoi(oGrand->first_attribute("bboxEnemyActiveHeight")->value());
-							monkey->SetPosition(x, y);
-							monkey->SetReturnPosition(beginPositionX, lastPositionX);
-							monkey->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
-							monkey->SetBboxEnemyActive(bboxEnemyActiveWidth, bboxEnemyActiveHeight);
-							monkey->SetEntryPosition(x, y);
-							grid->Add(monkey);
-						}
-					}
-					else if (nodeNameGrand == "skeletons")
-					{
-						for (xml_node<>* oGrand = grand->first_node(); oGrand; oGrand = oGrand->next_sibling()) //cú pháp lập
-						{
-							CSkeleton* skeleton = new CSkeleton();
-							const int x = std::atoi(oGrand->first_attribute("x")->value());
-							const int y = std::atoi(oGrand->first_attribute("y")->value());
-							const int beginPositionX = std::atoi(oGrand->first_attribute("beginPositionX")->value());
-							const int lastPositionX = std::atoi(oGrand->first_attribute("lastPositionX")->value());
-							const int bboxEnemyWidth = std::atoi(oGrand->first_attribute("bboxEnemyWidth")->value());
-							const int bboxEnemyHeight = std::atoi(oGrand->first_attribute("bboxEnemyHeight")->value());
-							const int bboxEnemyActiveWidth = std::atoi(oGrand->first_attribute("bboxEnemyActiveWidth")->value());
-							const int bboxEnemyActiveHeight = std::atoi(oGrand->first_attribute("bboxEnemyActiveHeight")->value());
-							skeleton->SetPosition(x, y);
-							skeleton->SetReturnPosition(beginPositionX, lastPositionX);
-							skeleton->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
-							skeleton->SetBboxEnemyActive(bboxEnemyActiveWidth, bboxEnemyActiveHeight);
-							skeleton->SetEntryPosition(x, y);
-							grid->Add(skeleton);
-						}
-					}
-					else if (nodeNameGrand == "crows")
-					{
-						for (xml_node<>* oGrand = grand->first_node(); oGrand; oGrand = oGrand->next_sibling()) //cú pháp lập
-						{
-							CCrow* crow = new CCrow();
-							const int x = std::atoi(oGrand->first_attribute("x")->value());
-							const int y = std::atoi(oGrand->first_attribute("y")->value());
-							const int bboxEnemyWidth = std::atoi(oGrand->first_attribute("bboxEnemyWidth")->value());
-							const int bboxEnemyHeight = std::atoi(oGrand->first_attribute("bboxEnemyHeight")->value());
-							const int bboxEnemyActiveWidth = std::atoi(oGrand->first_attribute("bboxEnemyActiveWidth")->value());
-							const int bboxEnemyActiveHeight = std::atoi(oGrand->first_attribute("bboxEnemyActiveHeight")->value());
-							crow->SetPosition(x, y);
-							crow->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
-							crow->SetBboxEnemyActive(bboxEnemyActiveWidth, bboxEnemyActiveHeight);
-							crow->SetEntryPosition(x, y);
-							grid->Add(crow);
-						}
-					}
-					else if (nodeNameGrand == "zombies")
-					{
-						for (xml_node<>* oGrand = grand->first_node(); oGrand; oGrand = oGrand->next_sibling()) //cú pháp lập
-						{
-							CZombie* zombie = new CZombie();
-							const int x = std::atoi(oGrand->first_attribute("x")->value());
-							const int y = std::atoi(oGrand->first_attribute("y")->value());
-							const int nx = std::atoi(oGrand->first_attribute("nx")->value());
-							const int bboxEnemyWidth = std::atoi(oGrand->first_attribute("bboxEnemyWidth")->value());
-							const int bboxEnemyHeight = std::atoi(oGrand->first_attribute("bboxEnemyHeight")->value());
-							zombie->SetPosition(x, y);
-							zombie->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
-							zombie->SetNx(nx);
-							zombie->SetEntryPosition(x, y);
-							grid->Add(zombie);
-						}
-					}
-					else if (nodeNameGrand == "boss")
-					{
-						CBoss* boss = new CBoss();
-						const int x = std::atoi(grand->first_attribute("x")->value());
-						const int y = std::atoi(grand->first_attribute("y")->value());
-						const int bboxEnemyWidth = std::atoi(grand->first_attribute("bboxEnemyWidth")->value());
-						const int bboxEnemyHeight = std::atoi(grand->first_attribute("bboxEnemyHeight")->value());
-						const int bboxEnemyActiveWidth = std::atoi(grand->first_attribute("bboxEnemyActiveWidth")->value());
-						const int bboxEnemyActiveHeight = std::atoi(grand->first_attribute("bboxEnemyActiveHeight")->value());
-						boss->SetPosition(x, y);
-						boss->SetBboxEnemy(bboxEnemyWidth, bboxEnemyHeight);
-						boss->SetBboxEnemyActive(bboxEnemyActiveWidth, bboxEnemyActiveHeight);
-						boss->SetEntryPosition(x, y);
-						grid->Add(boss);
-					}
-				}
-			}
-		}
-
-		this->grids.insert(std::make_pair(mapID, grid));
+		const int gridID = std::atoi(child->first_attribute("gridId")->value());
+		Grid* grid = new Grid();
+		grid->LoadGridObject(childPath);
+		this->grids.insert(std::make_pair(gridID, grid));
 	}
 	this->grid = this->grids.at(this->currentScene->mapId);
 }
@@ -461,17 +178,18 @@ void CPlayScene::Update(DWORD dt)
 			simon->ResetHPHeart();
 			simon->idChangeScene = currentScene->mapId;
 			simon->isColliWithTrigger = false;
+			lockCam = false;
 			UpdateScene();
 			resetSimonTime = 0;
 		}
 	}
 
 	GetListobjectFromGrid();
-
+	DebugOut(L"Ga e objest: %d \n", this->objects.size());
 	UpdateSubWeapon();
 
 	vector<LPGAMEOBJECT> coObjects;
-
+	coObjects.push_back(simon);
 	for (int i = 0; i < objects.size(); i++)
 	{
 		coObjects.push_back(objects.at(i));
@@ -489,14 +207,16 @@ void CPlayScene::Update(DWORD dt)
 		brick->SetPosition(976, 224);
 		brick->widthbbox = 32;
 		brick->heightbbox = 92;
-		objects.push_back(brick);
+		grid->AddWhenUpdate(brick);
+		simon->isColliWithTrigger = false;
+		lockCam = true;
 	}
 
 	UpdateGameTime();
 
 	UpdateItem();
 
-	if (!simon->isColliWithTrigger)
+	if (!lockCam)
 		UpdateCam();	
 
 	UpdateGrid();
@@ -567,6 +287,11 @@ void CPlayScene::UpdateItem()
 			{
 				float x, y;
 				f->GetPosition(x, y);
+				auto effect = new CEffect();
+				effect->SetPosition(x, y);
+				effect->SetState(EFFECT_STATE_CANDLE);
+				grid->AddWhenUpdate(effect);
+
 				if (f->GetItem() != -1)
 				{
 					auto item = new CItem();
@@ -619,13 +344,28 @@ void CPlayScene::UpdateItem()
 					{
 						item->SetId(ID_IPOTION);
 					}
+					else if (f->GetItem() == ID_IDOUBLESHOT)
+					{
+						item->SetId(ID_IDOUBLESHOT);
+					}
 					item->SetPosition(x, y);
-					objects.push_back(item);
+					grid->AddWhenUpdate(item);
 				}
+				
+			}
+		}
+		if (dynamic_cast<CBoss*>(objects.at(i)))
+		{
+			auto f = dynamic_cast<CBoss*>(objects.at(i));
+
+			if (f->IsDestroy() && f->count_start == 0)
+			{
+				float x, y;
+				f->GetPosition(x, y);
 				auto effect = new CEffect();
 				effect->SetPosition(x, y);
-				effect->SetState(EFFECT_STATE_CANDLE);
-				objects.push_back(effect);
+				effect->SetState(EFFECT_STATE_ENEMIES);
+				grid->AddWhenUpdate(effect);
 			}
 		}
 		if (dynamic_cast<CEnemy*>(objects.at(i)))
@@ -639,7 +379,7 @@ void CPlayScene::UpdateItem()
 				auto effect = new CEffect();
 				effect->SetPosition(x, y);
 				effect->SetState(EFFECT_STATE_ENEMIES);
-				objects.push_back(effect);
+				grid->AddWhenUpdate(effect);
 			}
 		}
 		if (dynamic_cast<CMoneyBagTrigger*>(objects.at(i)))
@@ -650,7 +390,7 @@ void CPlayScene::UpdateItem()
 				auto moneyBag = new CItem();
 				moneyBag->SetId(ID_IMONEYBAG_SPECIAL);
 				moneyBag->SetPosition(1207, 240);
-				objects.push_back(moneyBag);
+				grid->AddWhenUpdate(moneyBag);
 			}
 		}
 		if (dynamic_cast<CBreakWallTrigger*>(objects.at(i)))
@@ -661,7 +401,7 @@ void CPlayScene::UpdateItem()
 				auto crown = new CItem();
 				crown->SetId(ID_ICROWN);
 				crown->SetPosition(256, 270);
-				objects.push_back(crown);
+				grid->AddWhenUpdate(crown);
 			}
 		}
 		if (dynamic_cast<CItem*>(objects.at(i)))
@@ -703,9 +443,9 @@ void CPlayScene::UpdateItem()
 				{
 					effect->SetState(EFFECT_STATE_2000);
 					f->SetId(ID_ICROWN);
-				}
+				}				
 				
-				objects.push_back(effect);
+				grid->AddWhenUpdate(effect);
 			}
 		}
 		if (dynamic_cast<CBreakWall*>(objects.at(i)))
@@ -717,7 +457,7 @@ void CPlayScene::UpdateItem()
 				auto black = new CEffect();
 				black->SetState(EFFECT_STATE_BREAKWALL_DESTROYED);
 				black->SetPosition(f->x, f->y);
-				objects.push_back(black);
+				grid->AddWhenUpdate(black);
 				if (currentScene->mapId == 1)
 				{
 					for (size_t i = 0; i < 4; i++)
@@ -729,7 +469,7 @@ void CPlayScene::UpdateItem()
 						float vy = (float)(-100 + rand() % 200) / 1000;
 						derbir->vx = vx;
 						derbir->vy = vy;
-						objects.push_back(derbir);
+						grid->AddWhenUpdate(derbir);
 					}
 				}
 				else if (currentScene->mapId == 2 || currentScene->mapId == 6)
@@ -743,13 +483,13 @@ void CPlayScene::UpdateItem()
 						float vy = (float)(-100 + rand() % 200) / 1000;
 						derbir->vx = vx;
 						derbir->vy = vy;
-						objects.push_back(derbir);
+						grid->AddWhenUpdate(derbir);
 					}
 
 					auto doubleShot = new CItem();
 					doubleShot->SetId(ID_IDOUBLESHOT);
 					doubleShot->SetPosition(f->x, f->y);
-					objects.push_back(doubleShot);
+					grid->AddWhenUpdate(doubleShot);
 				}
 				else if (currentScene->mapId == 4)
 				{
@@ -762,25 +502,27 @@ void CPlayScene::UpdateItem()
 						float vy = (float)(-100 + rand() % 200) / 1000;
 						derbir->vx = vx;
 						derbir->vy = vy;
-						objects.push_back(derbir);
+						grid->AddWhenUpdate(derbir);
 					}
 
 					auto kfc = new CItem();
 					kfc->SetId(ID_IKFC);
 					kfc->SetPosition(f->x, f->y);
-					objects.push_back(kfc);
+					grid->AddWhenUpdate(kfc);
 				}
 			}
 		}
 		if (dynamic_cast<CBoss*>(objects.at(i)))
 		{
 			auto f = dynamic_cast<CBoss*>(objects.at(i));
-			if (simon->whip->isColliWithBoss)
+			if (simon->whip->isColliWithBoss|| simon->subWeapon->isColliWithBoss)
 			{
 				auto black = new CEffect();
 				black->SetState(EFFECT_STATE_ENEMIES);
 				black->SetPosition(f->x, f->y);
-				objects.push_back(black);
+				grid->AddWhenUpdate(black);
+				simon->whip->isColliWithBoss = false;
+				simon->subWeapon->isColliWithBoss = false;
 			}
 		}
 	}
@@ -874,39 +616,40 @@ void CPlayScene::UpdateSubWeapon()
 			subWeapon->nx = simon->nx;
 			subWeapon->SetState(STATE_KNIFE);
 			if (simon->GetState() == SIMON_STATE_SIT_ATTACK)
-				subWeapon->SetPosition(simon->x, simon->y + 30);
+				subWeapon->SetPosition(simon->x, simon->y + SUBWEAPON_POSITION_X * 2);
 			else
-				subWeapon->SetPosition(simon->x, simon->y + 10);
+				subWeapon->SetPosition(simon->x, simon->y + SUBWEAPON_POSITION_Y);
 			break;
 		case SUBWEAPON::BOOMERANG:
 			subWeapon->nx = simon->nx;
 			subWeapon->SetState(STATE_BOOMERANG);
 			if (simon->GetState() == SIMON_STATE_SIT_ATTACK)
-				subWeapon->SetPosition(simon->x, simon->y + 15);
+				subWeapon->SetPosition(simon->x, simon->y + SUBWEAPON_POSITION_X);
 			else
-				subWeapon->SetPosition(simon->x, simon->y + 10);
+				subWeapon->SetPosition(simon->x, simon->y + SUBWEAPON_POSITION_Y);
 			break;
 		case SUBWEAPON::AXE:
 			subWeapon->nx = simon->nx;
 			subWeapon->SetState(STATE_AXE);
 			if (simon->GetState() == SIMON_STATE_SIT_ATTACK)
-				subWeapon->SetPosition(simon->x, simon->y + 15);
+				subWeapon->SetPosition(simon->x, simon->y + SUBWEAPON_POSITION_X);
 			else
-				subWeapon->SetPosition(simon->x, simon->y + 10);
+				subWeapon->SetPosition(simon->x, simon->y + SUBWEAPON_POSITION_Y);
 			break;
 		case SUBWEAPON::CLOCK:
+			subWeapon->SetPosition(simon->x, simon->y + SUBWEAPON_POSITION_X * 2);
 			subWeapon->SetState(STATE_CLOCK);
 			break;
 		case SUBWEAPON::GAS:
 			subWeapon->nx = simon->nx;
 			subWeapon->SetState(STATE_GAS);
 			if (simon->GetState() == SIMON_STATE_SIT_ATTACK)
-				subWeapon->SetPosition(simon->x, simon->y + 15);
+				subWeapon->SetPosition(simon->x, simon->y + SUBWEAPON_POSITION_X);
 			else
-				subWeapon->SetPosition(simon->x, simon->y + 10);
+				subWeapon->SetPosition(simon->x, simon->y + SUBWEAPON_POSITION_Y);
 			break;
 		}
-		this->AddtoGrid(subWeapon);
+		grid->AddWhenUpdate(subWeapon);
 		simon->spawnSubWeapon = false;
 	}
 }
@@ -1087,6 +830,10 @@ void CPlayScene::OnKeyDown(int KeyCode)
 			{
 				if (simon->isDoubleShot && countSubWeapon < 2)
 				{
+					if (simon->subWeapons == SUBWEAPON::CLOCK)
+					{
+						countSubWeapon--;
+					}
 					simon->subWeapon->fight = true;
 					simon->SetHeart();
 					simon->spawnSubWeapon = true;
@@ -1107,6 +854,10 @@ void CPlayScene::OnKeyDown(int KeyCode)
 				}
 				else if (!simon->isDoubleShot && countSubWeapon < 1)
 				{
+					if (simon->subWeapons == SUBWEAPON::CLOCK)
+					{
+						countSubWeapon--;
+					}
 					simon->subWeapon->fight = true;
 					simon->SetHeart();
 					simon->spawnSubWeapon = true;

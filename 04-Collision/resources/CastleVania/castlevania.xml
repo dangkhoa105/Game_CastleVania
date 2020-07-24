@@ -316,9 +316,9 @@
     <frame spriteID="gas_idle" time="100"/>
   </animation>
 
-  <animation ID="gas_ani_burning" defaultTime="100">
-    <frame spriteID="gas_burn_1" time="100"/>
-    <frame spriteID="gas_burn_2" time="100"/>
+  <animation ID="gas_ani_burning" defaultTime="300">
+    <frame spriteID="gas_burn_1" time="300"/>
+    <frame spriteID="gas_burn_2" time="300"/>
   </animation>
 
   <!--bone-->
@@ -627,15 +627,24 @@
     <scene id="5" mapId="5" objcollectid="5" simonX="162" simonY="320" camX="0" camY="0" state="12" nx="1" camRight="0"/>
     <scene id="7" mapId="4" objcollectid="4" simonX="176" simonY="16" camX="0" camY="0" state="15" nx="1" camRight="0"/>
     <!-- map 4 -->
-    <scene id="6" mapId="6" objcollectid="4" simonX="32" simonY="96" camX="0" camY="0" state="0" nx="1" camRight="0"/>
+    <scene id="6" mapId="6" objcollectid="6" simonX="32" simonY="96" camX="0" camY="0" state="0" nx="1" camRight="0"/>
   </scenes>
 </base>
 
-<objectsCollection>
+<!-- <objectsCollection>
   <object objcollectid="0" mapID="0" path="resources\CastleVania\map1_objects.xml"/>
   <object objcollectid="1" mapID="1" path="resources\CastleVania\map2_1_objects.xml"/>
   <object objcollectid="2" mapID="2" path="resources\CastleVania\map2_2_objects.xml"/>
   <object objcollectid="4" mapID="4" path="resources\CastleVania\map3_1_objects.xml"/>
   <object objcollectid="5" mapID="5" path="resources\CastleVania\map3_2_objects.xml"/>
   <object objcollectid="6" mapID="6" path="resources\CastleVania\map4_objects.xml"/>
-</objectsCollection>
+</objectsCollection> -->
+
+<grids>
+  <grid gridId="0" mapID="0" path="resources\CastleVania\map1_grid.xml"/>
+  <grid gridId="1" mapID="1" path="resources\CastleVania\map2_1_grid.xml"/>
+  <grid gridId="2" mapID="2" path="resources\CastleVania\map2_2_grid.xml"/>
+  <grid gridId="4" mapID="4" path="resources\CastleVania\map3_1_grid.xml"/>
+  <grid gridId="5" mapID="5" path="resources\CastleVania\map3_2_grid.xml"/>
+  <grid gridId="6" mapID="6" path="resources\CastleVania\map4_grid.xml"/>
+</grids>

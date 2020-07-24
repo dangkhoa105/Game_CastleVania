@@ -91,8 +91,7 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	int counter = 0;
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
-		LPGAMEOBJECT obj = coObjects->at(i);
-	
+		LPGAMEOBJECT obj = coObjects->at(i);	
 
 		if (dynamic_cast<CCandle*>(obj))
 		{
@@ -110,47 +109,50 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 		if (dynamic_cast<CEnemy*>(obj))
 		{
-			if (fight)
+			if (dynamic_cast<CBoss*>(obj))
 			{
-				CEnemy* e = dynamic_cast<CEnemy*> (obj);
-				if (this->AABB(obj) == true && e->state != 0)
-				{				
-					if (!e->isDestroy)
-					{
-						e->TakeDamage(damage);
-						if (e->hp == 0)
-						{
-							e->SetDestroy(true);
-						}
-						DebugOut(L"Take damage \n");
-						fight = false;
-					}
-				}
-			
-			}
-		}
-		if (dynamic_cast<CBoss*>(obj))
-		{
-			if (fight)
-			{
-				CBoss* e = dynamic_cast<CBoss*> (obj);
-				if (this->AABB(obj) == true && e->state != 0)
+				if (fight)
 				{
-					isColliWithBoss = true;
-					if (!e->isDestroy)
+					CBoss* e = dynamic_cast<CBoss*> (obj);
+					if (this->AABB(obj) == true && e->state != 0)
 					{
-						e->TakeDamage(damage);
-						if (e->hp == 0)
+						isColliWithBoss = true;
+						if (!e->isDestroy)
 						{
-							e->SetDestroy(true);
+							e->TakeDamage(damage);
+							if (e->hp == 0)
+							{
+								e->SetDestroy(true);
+							}
+							DebugOut(L"Take damage \n");
+							fight = false;
 						}
-						DebugOut(L"Take damage \n");
-						fight = false;
+					}
+
+				}
+			}
+			else
+			{
+				if (fight)
+				{
+					CEnemy* e = dynamic_cast<CEnemy*> (obj);
+					if (this->AABB(obj) == true && e->state != 0)
+					{
+						if (!e->isDestroy)
+						{
+							e->TakeDamage(damage);
+							if (e->hp == 0)
+							{
+								e->SetDestroy(true);
+							}
+							DebugOut(L"Take damage \n");
+							fight = false;
+						}
 					}
 				}
-
 			}
 		}
+		
 		if (dynamic_cast<CBreakWall*>(obj))
 		{
 			CBreakWall* e = dynamic_cast<CBreakWall*> (obj);

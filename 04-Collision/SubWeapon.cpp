@@ -133,12 +133,13 @@ void CSubWeapon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	case STATE_GAS:
 		if (!isBurning)
 		{
-			if (nx > 0) vx = SUBWEAPON_VX * 2 / 5;
-			else vx = -SUBWEAPON_VX * 2 / 5;
-			vy += SUBWEAPON_GRAVITY * dt;
+			if (nx > 0) vx = SUBWEAPON_VX * 3.5f / 5;
+			else vx = -SUBWEAPON_VX * 3.5f / 5;
+			vy += SUBWEAPON_GRAVITY * 2.5f * dt;
 		}
 		break;
 	}
+
 
 	if (coEvents.size() == 0)
 	{
@@ -177,18 +178,22 @@ void CSubWeapon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				CEnemy* enemy = dynamic_cast<CEnemy*>(e->obj);
 				float vxs = enemy->vx;
 				float vys = enemy->vy;
-				if (state == STATE_CLOCK)
+
+				if (dynamic_cast<CBoss*>(e->obj))
 				{
-					if (freeze_start != 0)
+					if (simon->subWeapon->fight)
 					{
-						enemy->vx = 0;
-						enemy->vy = 0;
-					}
-					if (GetTickCount() - freeze_start >= 2000)
-					{
-						enemy->vx = vxs;
-						enemy->vy = vys;
-						freeze_start = 0;
+						simon->subWeapon->isColliWithBoss = true;
+						if (!enemy->isDestroy && enemy->state != 0)
+						{
+							enemy->TakeDamage(damage);
+							if (enemy->hp == 0)
+							{
+								enemy->SetDestroy(true);
+							}
+							DebugOut(L"Take damage \n");
+							simon->subWeapon->fight = false;
+						}
 					}
 				}
 				else
@@ -207,6 +212,7 @@ void CSubWeapon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						}
 					}
 				}
+
 
 				if (nx != 0)
 				{
@@ -228,11 +234,10 @@ void CSubWeapon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					if (burning_start == 0)
 						burning_start = GetTickCount();
 
-					if (burning_start != 0 && GetTickCount() - burning_start > 2000)
+					if (burning_start != 0 && GetTickCount() - burning_start > FREEZE_TIME)
 					{
 						isBurning = false;
 						this->SetDestroy(true);
-						CPlayScene::GetInstance()->SetCountSW();
 						burning_start = 0;
 					}
 				}
@@ -250,10 +255,25 @@ void CSubWeapon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 
+	D3DXVECTOR2 simonPos = { 0, 0 };
+
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
 		LPGAMEOBJECT obj = coObjects->at(i);
 
+		if (dynamic_cast<CSimon*>(obj))
+		{
+			auto simon = dynamic_cast<CSimon*>(obj);
+			float l, t, r, b;
+			simon->GetBoundingBox(l, t, r, b);
+			if (state==STATE_CLOCK)
+			{
+				x = l;
+				y = t;
+			}
+			simonPos.x = l + (r - l) / 2;
+			simonPos.y = t + (b - t) / 2;
+		}
 		if (dynamic_cast<CBrick*>(obj))
 		{
 			if (this->AABB(obj) == true)
@@ -265,15 +285,7 @@ void CSubWeapon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					vy = 0;
 
 					if (burning_start == 0)
-						burning_start = GetTickCount();
-
-					if (burning_start != 0 && GetTickCount() - burning_start > 2000)
-					{
-						isBurning = false;
-						this->SetDestroy(true);
-						CPlayScene::GetInstance()->SetCountSW();
-						burning_start = 0;
-					}
+						burning_start = GetTickCount();				
 				}
 			}
 		}
@@ -296,44 +308,35 @@ void CSubWeapon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 			}
 		}
-		/*if (dynamic_cast<CEnemy*>(obj))
+		if (dynamic_cast<CEnemy*>(obj))
 		{
-			CEnemy* e = dynamic_cast<CEnemy*> (obj);
+			CEnemy* e = dynamic_cast<CEnemy*>(obj);
 			float vxs = e->vx;
 			float vys = e->vy;
+
 			if (state == STATE_CLOCK)
 			{
 				if (freeze_start != 0)
 				{
-					obj->vx = 0;
-					obj->vy = 0;
+				
+					e->freezeEnemy = true;
 				}
-				if (GetTickCount() - freeze_start >= 2000)
-				{
-					obj->vx = vxs;
-					obj->vy = vys;
+				if (GetTickCount() - freeze_start >= FREEZE_TIME)
+				{					
+					e->freezeEnemy = false;					
 					freeze_start = 0;
+					this->isDestroy = true;
 				}
 			}
-			if (simon->subWeapon->fight)
-			{
-				CEnemy* e = dynamic_cast<CEnemy*> (obj);
+		}
+	}
 
-				if (this->AABB(obj) == true)
-				{
-					if (!e->isDestroy)
-					{
-						e->TakeDamage(damage);
-						if (e->hp == 0)
-						{
-							e->SetDestroy(true);
-						}
-						DebugOut(L"Take damage \n");
-						simon->subWeapon->fight = false;
-					}
-				}
-			}
-		}*/
+	if (burning_start != 0 && GetTickCount() - burning_start > FREEZE_TIME)
+	{
+		isBurning = false;
+		this->SetDestroy(true);
+		CPlayScene::GetInstance()->SetCountSW();
+		burning_start = 0;
 	}
 }
 

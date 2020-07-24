@@ -6,6 +6,7 @@
 class CEnemy : public CGameObject
 {	
 public:
+	bool freezeEnemy=false;
 	int hp;
 	bool isSpawn;
 	int spawnTime;
@@ -34,6 +35,7 @@ public:
 		reSpawnTimeStart = 0;
 		isFinishReSpawn = false;
 		isDestroy = false;
+		freezeEnemy = false;
 	}
 
 	void TakeDamage(int damage) 

@@ -41,7 +41,7 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	auto simon = CPlayScene::GetInstance()->GetSimon();
 	coObjects->push_back(simon);
 
-	D3DXVECTOR2 simonPos = { 0, 0 };
+	
 	for (size_t i = 0; i < coObjects->size(); i++)
 	{
 		if (dynamic_cast<CSimon*>(coObjects->at(i)))
@@ -74,9 +74,9 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (state == BAT_STATE_FLYING && attack_start != 0 && GetTickCount() - attack_start > time_x)
 	{
-		vx = vx;
-		vy = 0;
-		dy = vy * dt;
+		this->vx = this->vx;
+		this->vy = 0;
+		dy = this->vy * dt;
 	}
 
 	vector<LPCOLLISIONEVENT> coEvents;

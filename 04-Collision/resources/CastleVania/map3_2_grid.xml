@@ -1,0 +1,64 @@
+<grid cellSize="256" numCol="6" numRow="2" >
+  <bricks>
+    <brick x="64" y="320" col="0" row="2" widthbbox="64" heightbbox="32"/>
+    <brick x="32" y="224" col="0" row="1" widthbbox="32" heightbbox="96"/>
+    <brick x="160" y="320" col="0" row="2" widthbbox="32" heightbbox="32"/>
+    <brick x="256" y="192" col="0" row="1" widthbbox="64" heightbbox="32"/>
+    <brick x="288" y="224" col="0" row="1" widthbbox="32" heightbbox="32"/>
+    <brick x="448" y="192" col="0" row="1" widthbbox="64" heightbbox="32"/>
+    <brick x="320" y="320" col="0" row="2" widthbbox="320" heightbbox="32"/>
+    <brick x="704" y="320" col="0" row="2" widthbbox="64" heightbbox="32"/>
+    <brick x="832" y="256" col="0" row="1" widthbbox="64" heightbbox="32"/>
+    <brick x="896" y="320" col="0" row="2" widthbbox="64" heightbbox="32"/>
+    <brick x="960" y="224" col="0" row="1" widthbbox="64" heightbbox="32"/>
+    <brick x="960" y="352" col="0" row="2" widthbbox="128" heightbbox="32"/>
+    <brick x="1088" y="192" col="0" row="1" widthbbox="64" heightbbox="32"/>
+    <brick x="1216" y="320" col="0" row="2" widthbbox="128" heightbbox="32"/>
+    <brick x="1344" y="288" col="0" row="2" widthbbox="64" heightbbox="32"/>
+    <brick x="1408" y="224" col="0" row="1" widthbbox="64" heightbbox="32"/>
+    <brick x="1472" y="256" col="0" row="1" widthbbox="64" heightbbox="32"/>
+  </bricks> 
+
+  <stairs>
+    <stair x="240" y="128" col="0" row="1" stairDirection="4"/>  
+    <stair x="112" y="316" col="0" row="2" stairDirection="5"/>  
+
+    <stair x="752" y="316" col="0" row="2" stairDirection="1"/>  
+    <stair x="816" y="194" col="0" row="1" stairDirection="4"/>  
+
+    <stair x="1136" y="130" col="0" row="1" stairDirection="3"/>  
+    <stair x="1264" y="316" col="0" row="2" stairDirection="2"/>  
+  </stairs>
+
+  <candles>
+    <candle x="312" y="128" col="0" row="1" itemId="1" state="1"/>
+    <candle x="440" y="256" col="0" row="1" itemId="2" state="1"/>
+    <candle x="568" y="256" col="0" row="1" itemId="2" state="1"/>
+    <candle x="696" y="256" col="0" row="1" itemId="2" state="1"/>
+    <candle x="824" y="192" col="0" row="1" itemId="7" state="1"/>
+    <candle x="952" y="288" col="0" row="2" itemId="2" state="1"/>
+    <candle x="1080" y="288" col="0" row="2" itemId="2" state="1"/>
+    <candle x="1208" y="256" col="0" row="1" itemId="9" state="1"/>
+    <candle x="1336" y="256" col="0" row="1" itemId="2" state="1"/>
+    <candle x="1464" y="160" col="0" row="1" itemId="5" state="1"/>
+  </candles>
+
+  <enemies>
+    <ghost x="192" y="80" col="0" row="1" beginPositionX="256" lastPositionX="1312" bboxEnemyWidth="30" bboxEnemyHeight="30" bboxEnemyActiveWidth="32" bboxEnemyActiveHeight="192"/>
+
+    <skeletons>
+      <skeleton x="720" y="254" col="0" row="1" beginPositionX="65" lastPositionX="284" bboxEnemyWidth="32" bboxEnemyHeight="64" bboxEnemyActiveWidth="200" bboxEnemyActiveHeight="100"/>
+      <skeleton x="1289" y="254" col="0" row="1" beginPositionX="65" lastPositionX="284" bboxEnemyWidth="32" bboxEnemyHeight="64" bboxEnemyActiveWidth="200" bboxEnemyActiveHeight="100"/>
+    </skeletons>
+
+    <crows>
+      <crow x="544" y="72" col="0" row="1" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="100" bboxEnemyActiveHeight="256"/>
+      <crow x="832" y="192" col="0" row="1" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="100" bboxEnemyActiveHeight="256"/>
+      <crow x="960" y="95" col="0" row="1" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="100" bboxEnemyActiveHeight="256"/>
+      <crow x="1040" y="320" col="0" row="2" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="100" bboxEnemyActiveHeight="256"/>
+    </corws>
+  </enemies>
+
+  <changeScene x="1504" y="248" col="0" row="1" idChangeScene="6"/>
+   <changeScene x="198" y="384" col="0" row="2" idChangeScene="7"/>
+</grid>

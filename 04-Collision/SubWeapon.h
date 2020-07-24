@@ -16,6 +16,7 @@ class CSubWeapon : public CGameObject
 	DWORD burning_start;
 public:
 	bool fight;
+	bool isColliWithBoss = false;
 	CSubWeapon() : CGameObject()
 	{
 		AddAnimation("boomerang_ani");

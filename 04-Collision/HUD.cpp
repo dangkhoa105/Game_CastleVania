@@ -78,4 +78,7 @@ void HUD::Render()
 			CSprites::GetInstance()->Get("bossHp")->DrawHud(109 + i * 9, 52, 255);
 		else
 			CSprites::GetInstance()->Get("subHp")->DrawHud(109 + i * 9, 52, 255);
+
+	if (simon->isDoubleShot)
+		CSprites::GetInstance()->Get("item_double_shot")->DrawHud(464, 40, 255);
 }

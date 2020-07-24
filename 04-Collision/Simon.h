@@ -86,7 +86,7 @@ public:
 	{
 		hp = 16;
 		score = 0;
-		heart = 5;
+		heart = 99;
 		whip = new CWhip();
 		subWeapon = new CSubWeapon();
 
@@ -143,6 +143,8 @@ public:
 			heart--;
 		else
 			heart -= 5;
+		if (heart <= 0)
+			heart = 0;
 	}
 	void ResetHPHeart() { hp = 16; heart = 5; }
 	//int GetIdChangeScene() { return idChangeScene; }

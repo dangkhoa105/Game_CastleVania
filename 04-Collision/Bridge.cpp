@@ -23,20 +23,6 @@ void CBridge::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	coEvents.clear();
 	CalcPotentialCollisions(coObjects, coEvents);
 
-	
-
-	//if (vx < 0 && x < this->beginPositionX) {
-	//	x = beginPositionX;
-	//	vx = -vx;
-	//	nx = 1;
-	//}
-
-	//if (vx > 0 && x > lastPositionX) {
-	//	x = lastPositionX;
-	//	vx = vx;
-	//	nx = -1;
-	//}
-
 	if (coEvents.size() == 0)
 	{
 		x += dx;

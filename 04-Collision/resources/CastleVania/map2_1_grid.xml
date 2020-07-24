@@ -1,0 +1,43 @@
+<grid cellSize="256" numCol="2" numRow="2" >
+  <bricks>
+    <brick x="32" y="352" col="1" row="2" widthbbox="416" heightbbox="32"/>
+    <brick x="352" y="224" col="2" row="1" widthbbox="96" heightbbox="32"/>
+    <brick x="64" y="160" col="1" row="1" widthbbox="252" heightbbox="32"/>
+    <brick x="0" y="256" col="0" row="1" widthbbox="32" heightbbox="96"/>
+    <brick x="32" y="224" col="1" row="1" widthbbox="32" heightbbox="32"/>
+    <brick x="448" y="0" col="2" row="0" widthbbox="32" heightbbox="160"/>
+    <brick x="448" y="224" col="2" row="1" widthbbox="32" heightbbox="128"/>
+    <brick x="480" y="160" col="2" row="1" widthbbox="32" heightbbox="64"/>
+    <brick x="32" y="128" col="1" row="1" widthbbox="32" heightbbox="32"/>
+    <brick x="0" y="0" col="0" row="0" widthbbox="32" heightbbox="128"/>
+  </bricks>
+
+  <candles>
+    <candle x="152" y="224" col="1" row="1" itemId="11" state="1"/>
+    <candle x="408" y="226" col="2" row="1" itemId="2" state="1"/>
+    <candle x="284" y="24" col="2" row="1" itemId="2" state="1"/>
+  </candles>
+
+  <stairs>
+    <stair x="208" y="349" col="1" row="2" stairDirection="1"/>  
+    <stair x="334" y="160" col="2" row="1" stairDirection="4"/>
+    <stair x="144" y="158" col="1" row="1" stairDirection="1"/>
+  </stairs>
+
+  <breakWalls>
+    <breakWall x="448" y="162" col="2" row="1" />
+    <breakWall x="448" y="194" col="2" row="1" />
+  </breakWalls>
+
+  <enemies>
+    <spearGuards>
+      <spearGuard x="96" y="96" col="1" row="1" beginPositionX="65" lastPositionX="284" bboxEnemyWidth="32" bboxEnemyHeight="64" bboxEnemyActiveWidth="80" bboxEnemyActiveHeight="96"/>
+    </spearGuards>   
+    
+    <bat x="80" y="16" col="1" row="1" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="224" bboxEnemyActiveHeight="96"/>
+  </enemies>
+
+  <changeScene x="272" y="0" col="2" row="0" idChangeScene="2"/>
+
+  <breakWallTrigger x="450" y="216" col="2" row="1"/>
+</grid>

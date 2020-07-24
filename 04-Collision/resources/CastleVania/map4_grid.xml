@@ -1,0 +1,52 @@
+<grid cellSize="256" numCol="6" numRow="2" >
+  <bricks>
+    <brick x="0" y="64" col="0" row="1" widthbbox="5" heightbbox="96"/>
+    <brick x="0" y="288" col="0" row="2" widthbbox="5" heightbbox="96"/>
+    <brick x="0" y="352" col="0" row="2" widthbbox="1536" heightbbox="32"/>
+    <brick x="0" y="160" col="0" row="1" widthbbox="224" heightbbox="32"/>
+    <brick x="256" y="224" col="1" row="1" widthbbox="352" heightbbox="32"/>
+    <brick x="1344" y="288" col="6" row="2" widthbbox="32" heightbbox="32"/>
+    <brick x="1442" y="226" col="6" row="1" widthbbox="96" heightbbox="32"/>
+    <brick x="1536" y="96" col="6" row="1" widthbbox="32" heightbbox="96"/>
+    <brick x="1536" y="192" col="6" row="1" widthbbox="32" heightbbox="96"/>
+  </bricks> 
+
+  <stairs>
+    <stair x="208" y="98" col="1" row="1" stairDirection="3"/>  
+    <stair x="274" y="222" col="2" row="1" stairDirection="2"/>
+
+    <stair x="594" y="162" col="3" row="1" stairDirection="3"/>
+    <stair x="722" y="350" col="3" row="2" stairDirection="2"/>
+  </stairs>
+
+  <candles>
+    <candle x="54" y="224" col="0" row="1" itemId="1" state="1"/>
+    <candle x="182" y="96" col="0" row="1" itemId="2" state="1"/>
+    <candle x="310" y="160" col="1" row="1" itemId="2" state="1"/>
+    <candle x="438" y="96" col="1" row="1" itemId="15" state="1"/>
+    <candle x="556" y="288" col="2" row="2" itemId="2" state="1"/>
+    <candle x="694" y="224" col="2" row="1" itemId="9" state="1"/>
+    <candle x="822" y="288" col="3" row="2" itemId="2" state="1"/>
+    <candle x="950" y="288" col="3" row="2" itemId="2" state="1"/>
+    <candle x="1078" y="224" col="4" row="1" itemId="1" state="1"/>
+    <candle x="1206" y="288" col="4" row="2" itemId="2" state="1"/>
+    <candle x="1334" y="224" col="5" row="1" itemId="2" state="1"/>
+    <candle x="1462" y="228" col="5" row="1" itemId="1" state="1"/>
+  </candles>
+
+  <breakWalls>
+    <breakWall x="1376" y="288" col="5" row="2"/>
+  </breakWalls>
+
+  <setLastSceneTrigger x="1312" y="336" col="5" row="2"/>
+
+  <enemies>
+    <zombies>
+      <zombie x="32" y="286" col="1" row="1" nx="1" bboxEnemyWidth="32" bboxEnemyHeight="64"/>
+      <zombie x="737" y="286" col="3" row="1" nx="-1" bboxEnemyWidth="32" bboxEnemyHeight="64"/>
+      <zombie x="543" y="158" col="3" row="0" nx="-1" bboxEnemyWidth="32" bboxEnemyHeight="64"/>
+    </zombies>
+
+    <boss x="1152" y="32" col="4" row="1" bboxEnemyWidth="100" bboxEnemyHeight="46" bboxEnemyActiveWidth="200" bboxEnemyActiveHeight="200"/>
+  </enemies>
+</grid>

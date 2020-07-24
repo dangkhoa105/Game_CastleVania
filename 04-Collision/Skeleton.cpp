@@ -7,6 +7,10 @@
 
 void CSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (freezeEnemy)
+	{
+		return;
+	}
 	CEnemy::Update(dt);
 
 	if (IsRespawn())
@@ -35,7 +39,7 @@ void CSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (state == SKELETON_STATE_JUMPING)
 		vy += SKELETON_GRAVITY * dt;
 
-	if (throw_start != 0 && GetTickCount() - throw_start > 500)
+	if (throw_start != 0 && GetTickCount() - throw_start > SKELETON_THROW_TIME)
 		throw_start = 0;
 
 	for (UINT i = 0; i < coObjects->size(); i++)
@@ -85,6 +89,7 @@ void CSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				auto bone = new CBone();
 				bone->nx = this->nx;
 				bone->SetPosition(this->x, this->y);
+				bone->SetCellIndex(1, 1);
 				pScene->AddtoGrid(bone);
 				throw_start = GetTickCount();
 			}
@@ -117,7 +122,7 @@ void CSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					{
 						onGround_start = GetTickCount();
 					}
-					if (onGround_start != 0 && GetTickCount() - onGround_start > 300)
+					if (onGround_start != 0 && GetTickCount() - onGround_start > SKELETON_JUMP_TIME)
 					{
 						if (simonPos.x > x)
 							vx = SKELETON_JUMPING_SPEED_X * 2;

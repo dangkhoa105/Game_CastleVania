@@ -18,9 +18,9 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	auto hud = pScene->GetHud();
 	coObjects->push_back(simon);
 	
-	if (this->isDestroy)
-		hud->SetBossHp(0);
 	hud->SetBossHp(this->hp);
+	if (this->isDestroy)
+		this->hp = 0;
 
 	float l, t, r, b;
 	float sl, st, sr, sb;
@@ -37,6 +37,7 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (CGame::AABB(awl, awt, awr, awb, sl, st, sr, sb) == true)
 	{
 		this->SetState(BOSS_STATE_FLYING);
+		this->waiting_start = GetTickCount();
 	}
 
 	float xBoss = l + (r - l) / 2;
@@ -65,7 +66,7 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			this->vy = (targetY - yBoss) / BOSS_FLYING_BACK_TIME;
 		}
 
-		if (waiting_start != 0 && GetTickCount() - waiting_start > this->waiting_time)
+		if (waiting_start != 0 && GetTickCount() - waiting_start > BOSS_WAITING_TIME_SHORT)
 		{
 			this->waiting_start = 0;
 		}

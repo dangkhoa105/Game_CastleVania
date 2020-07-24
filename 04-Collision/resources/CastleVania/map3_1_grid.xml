@@ -1,0 +1,51 @@
+<grid cellSize="256" numCol="6" numRow="2" >
+  <bricks>
+    <brick x="0" y="352" col="0" row="2" widthbbox="64" heightbbox="32"/>
+    <brick x="256" y="352" col="1" row="2" widthbbox="1088" heightbbox="32"/>
+    <brick x="1344" y="320" col="6" row="2" widthbbox="192" heightbbox="32"/>
+    <brick x="128" y="320" col="1" row="2" widthbbox="128" heightbbox="32"/>
+    <brick x="64" y="256" col="1" row="1" widthbbox="64" heightbbox="32"/>
+    <brick x="192" y="192" col="1" row="1" widthbbox="192" heightbbox="32"/>
+    <brick x="32" y="160" col="1" row="1" widthbbox="32" heightbbox="96"/>
+    <brick x="577" y="256" col="3" row="1" widthbbox="64" heightbbox="32"/>
+    <brick x="865" y="256" col="4" row="1" widthbbox="32" heightbbox="32"/>
+  </bricks> 
+
+  <candles>
+    <candle x="1460" y="256" col="6" row="1" itemId="10" state="1"/>
+    <candle x="1332" y="289" col="6" row="2" itemId="2" state="1"/>
+    <candle x="1204" y="289" col="5" row="2" itemId="2" state="1"/>
+    <candle x="1076" y="289" col="5" row="2" itemId="11" state="1"/>
+    <candle x="948" y="289" col="4" row="2" itemId="2" state="1"/>
+    <candle x="820" y="289" col="4" row="2" itemId="2" state="1"/>
+    <candle x="692" y="289" col="3" row="2" itemId="2" state="1"/>
+    <candle x="564" y="289" col="3" row="2" itemId="2" state="1"/>
+    <candle x="436" y="289" col="2" row="2" itemId="2" state="1"/>
+    <candle x="192" y="256" col="1" row="1" itemId="2" state="1"/>
+    <candle x="320" y="128" col="2" row="1" itemId="1" state="1"/>
+  </candles>
+
+  <breakWalls>
+    <breakWall x="833" y="256" col="4" row="1"/>
+  </breakWalls>
+
+  <stairs>
+    <stair x="306" y="188" col="2" row="1" stairDirection="2"/>  
+  </stairs>
+
+  <enemies> 
+    <ghost x="1306" y="289" col="6" row="2" beginPositionX="256" lastPositionX="1312" bboxEnemyWidth="30" bboxEnemyHeight="30" bboxEnemyActiveWidth="128" bboxEnemyActiveHeight="64"/>
+
+    <monkeys>
+      <monkey x="849" y="224" col="4" row="1" beginPositionX="640" lastPositionX="1088" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="224" bboxEnemyActiveHeight="96"/>
+      <monkey x="593" y="224" col="3" row="1" beginPositionX="65" lastPositionX="284" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="224" bboxEnemyActiveHeight="96"/>
+      <monkey x="320" y="160" col="2" row="1" beginPositionX="65" lastPositionX="284" bboxEnemyWidth="32" bboxEnemyHeight="32" bboxEnemyActiveWidth="224" bboxEnemyActiveHeight="96"/>
+    </monkeys>
+
+    <skeletons>
+      <skeleton x="96" y="180" col="1" row="1" beginPositionX="65" lastPositionX="284" bboxEnemyWidth="32" bboxEnemyHeight="64" bboxEnemyActiveWidth="128" bboxEnemyActiveHeight="256"/>
+    </skeletons>
+  </enemies>
+
+  <changeScene x="192" y="0" col="1" row="0" idChangeScene="5"/>
+</grid>

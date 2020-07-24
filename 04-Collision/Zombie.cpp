@@ -4,6 +4,10 @@
 
 void CZombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (freezeEnemy)
+	{
+		return;
+	}
 	CEnemy::Update(dt);
 	auto simon = CPlayScene::GetInstance()->GetSimon();
 	coObjects->push_back(simon);

@@ -25,6 +25,11 @@ void CSpearGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CEnemy::Update(dt, coObjects);
 
+	if (freezeEnemy)
+	{
+		return;
+	}
+
 	if (IsRespawn())
 	{
 		if (count_start == 0)
@@ -51,35 +56,38 @@ void CSpearGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//
 	// TO-DO: make sure Goomba can interact with the world and to each of them too!
 	// 
-	if (nx == 1) vx = SPEAR_GUARD_WALKING_SPEED;
-	else if (nx == -1) vx = -SPEAR_GUARD_WALKING_SPEED;
-	
-	float l, t, r, b;
-	this->GetBoundingBoxActive(l, t, r, b);
-
-	if (vx < 0 && x < this->beginPositionX) {
-		x = beginPositionX;
-		vx = -vx;
-		nx = 1;
-	}
-
-	if (vx > 0 && x > lastPositionX) {
-		x = lastPositionX;
-		vx = vx;
-		nx = -1;
-	}
-
-	if (coEvents.size() == 0)
+	if (!this->isDestroy)
 	{
-		x += dx;
-		y += dy;
-	}
-	else
-	{
-		x += dx;
-	}
+		if (nx == 1) vx = SPEAR_GUARD_WALKING_SPEED;
+		else if (nx == -1) vx = -SPEAR_GUARD_WALKING_SPEED;
 
-	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+		float l, t, r, b;
+		this->GetBoundingBoxActive(l, t, r, b);
+
+		if (vx < 0 && x < this->beginPositionX) {
+			x = beginPositionX;
+			vx = -vx;
+			nx = 1;
+		}
+
+		if (vx > 0 && x > lastPositionX) {
+			x = lastPositionX;
+			vx = vx;
+			nx = -1;
+		}
+
+		if (coEvents.size() == 0)
+		{
+			x += dx;
+			y += dy;
+		}
+		else
+		{
+			x += dx;
+		}
+
+		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	}
 }
 
 void CSpearGuard::Render()

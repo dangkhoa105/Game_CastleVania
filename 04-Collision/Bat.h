@@ -9,6 +9,8 @@ class CBat : public CEnemy
 	DWORD attack_start;
 	float time_x = 0;
 public:
+
+	D3DXVECTOR2 simonPos = { 0, 0 };
 	CBat()
 	{
 		hp = 1;
@@ -26,6 +28,9 @@ public:
 	virtual void GetBoundingBoxActive(float& left, float& top, float& right, float& bottom);
 	
 	void SetDrop() { this->drop = this->y; }
+
+	void SetTimeX(float time_x) { this->time_x = time_x; }
+	float GetTimeX() { return this->time_x; }
 
 	void SetAttackTime(DWORD time) { this->attack_start = time; }
 	DWORD GetAttackTime() { return this->attack_start; }

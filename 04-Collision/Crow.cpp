@@ -6,6 +6,10 @@
 
 void CCrow::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (freezeEnemy)
+	{
+		return;
+	}
 	CEnemy::Update(dt);
 
 	if (IsRespawn())
@@ -64,14 +68,12 @@ void CCrow::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 
-	DebugOut(L"simonX=%f, simonY=%f, growX=%f, growY=%f \n", simonPos.x, simonPos.y, this->x, this->y);
-
-	if (flyingWaiting_start != 0 && GetTickCount() - flyingWaiting_start > 300)
+	if (flyingWaiting_start != 0 && GetTickCount() - flyingWaiting_start > CROW_TIME)
 	{
 		this->SetState(CROW_STATE_WAITING);
 	}
 
-	if (flying_start != 0 && GetTickCount() - flying_start > 300)
+	if (flying_start != 0 && GetTickCount() - flying_start > CROW_TIME)
 	{
 		this->SetState(CROW_STATE_FLYING);
 	}
@@ -115,7 +117,7 @@ void CCrow::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			flying_start = GetTickCount();
 		}
 
-		if (flying_start != 0 && GetTickCount() - flying_start > 500)
+		if (flying_start != 0 && GetTickCount() - flying_start > CROW_ATTACK_TIME)
 		{
 			int random = rand() % (2 + 1 - 1) + 1;
 			nx = random == 1 ? 1 : -1;

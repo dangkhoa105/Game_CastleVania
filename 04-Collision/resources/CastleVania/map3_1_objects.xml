@@ -12,7 +12,7 @@
   </bricks> 
 
   <candles>
-    <candle x="1460" y="256" itemId="6" state="1"/>
+    <candle x="1460" y="256" itemId="10" state="1"/>
     <candle x="1332" y="289" itemId="2" state="1"/>
     <candle x="1204" y="289" itemId="2" state="1"/>
     <candle x="1076" y="289" itemId="11" state="1"/>

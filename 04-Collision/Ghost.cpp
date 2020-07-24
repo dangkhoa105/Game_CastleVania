@@ -5,6 +5,10 @@
 
 void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (freezeEnemy)
+	{
+		return;
+	}
 	if (state == GHOST_STATE_IDLE)
 	{
 		vx = 0;
@@ -14,6 +18,8 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CEnemy::Update(dt);
 	auto simon = CPlayScene::GetInstance()->GetSimon();
 	coObjects->push_back(simon);
+
+	
 
 	if (IsRespawn())
 	{		
@@ -29,6 +35,12 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	D3DXVECTOR2 simonPos = { 0, 0 };
 	D3DXVECTOR2 ghostPos = { 0, 0 };
+
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+	
+
 	for (size_t i = 0; i < coObjects->size(); i++)
 	{
 		if (dynamic_cast<CSimon*>(coObjects->at(i)))
@@ -54,6 +66,9 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (!isDestroy)
 	{
+		coEvents.clear();
+		CalcPotentialCollisions(coObjects, coEvents);
+
 		if (simonPos.x > ghostPos.x + 32)
 		{
 			nx = 1;
@@ -68,7 +83,9 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		x += dx;
 
 		y = GHOST_DROP * sin(x * BAT_FLYING_SPEED_Y) + this->GetEntryPositionY();
-	}
+
+		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	}	
 }
 
 void CGhost::Render()

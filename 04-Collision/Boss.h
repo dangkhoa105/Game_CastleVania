@@ -30,6 +30,7 @@ public:
 		waiting_start = 0;
 		flyBack_start = 0;
 		reSpawnWaitingTime = ENEMY_SPAWN_TIME;
+		count_start = 0;
 	}
 
 	int GetHp() { return this->hp; }

@@ -3,6 +3,10 @@
 
 void CMonkey::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (freezeEnemy)
+	{
+		return;
+	}
 	CEnemy::Update(dt);
 
 	if (IsRespawn())
@@ -42,7 +46,7 @@ void CMonkey::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	CalcPotentialCollisions(coObjects, coEvents);// bắt đầu tính toán va chạm
 
-	if (this->GetJumpStartTime() && GetTickCount() - this->GetJumpStartTime() > 1000)
+	if (this->GetJumpStartTime() && GetTickCount() - this->GetJumpStartTime() > MONKEY_START_TIME)
 	{
 		if (simonPos.x < this->x)
 			vx = -MONKEY_JUMPING_SPEED;

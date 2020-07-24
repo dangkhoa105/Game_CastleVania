@@ -3,6 +3,14 @@
 
 void CItem::Render()
 {
+	if (state!= ID_IMONEYBAG_SPECIAL && state!= ID_ICROWN)
+	{
+		if (wait_time != 0 && GetTickCount() - wait_time < 500)
+		{
+			return;
+		}
+	}
+	
 	switch (idItem)
 	{
 	case ID_IHEART:
@@ -136,6 +144,13 @@ void CItem::GetBoundingBox(float& l, float& t, float& r, float& b)
 
 void CItem::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (state != ID_IMONEYBAG_SPECIAL && state != ID_ICROWN)
+	{
+		if (wait_time != 0 && GetTickCount() - wait_time < 500)
+		{
+			return;
+		}
+	}
 	CGameObject::Update(dt);
 
 	vy += GRAVITY_ITEM * dt;

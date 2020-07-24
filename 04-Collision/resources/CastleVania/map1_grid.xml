@@ -1,0 +1,22 @@
+<grid cellSize="256" numCol="6" numRow="2" >
+  <bricks>
+    <brick x="0" y="288" col="0" row="2" widthbbox="1536" heightbbox="32"/>
+    <brick x="0" y="214" col="0" row="1" widthbbox="5" heightbbox="32"/>
+  </bricks>
+
+  <candles>
+    <candle x="160" y="224" col="1" row="1" itemId="1" state="0"/>
+    <candle x="430" y="224" col="2" row="1" itemId="3" state="0"/>
+    <candle x="700" y="224" col="3" row="1" itemId="3" state="0"/>
+    <candle x="970" y="224" col="4" row="1" itemId="1" state="0"/>
+    <candle x="1240" y="224" col="5" row="1" itemId="4" state="0"/>
+  </candles>
+
+  <entrace x="1375" y="274" col="5" row="2"/>
+
+  <changeScene x="1500" y="274" col="5" row="2" idChangeScene="1"/>
+
+  <moneyBagTrigger x="1402" y="274" col="5" row="2"/>
+
+  <wall x="1408" y="2" col="5" row="2"/> 
+</grid>

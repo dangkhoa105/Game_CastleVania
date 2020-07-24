@@ -5,6 +5,7 @@
 
 class CItem : public CGameObject
 {
+	DWORD wait_time = 0;
 public:
 	int idItem;
 	int positionInitX;
@@ -26,6 +27,7 @@ public:
 		AddAnimation("item_double_shot");
 		AddAnimation("item_kfc");
 		AddAnimation("item_potion");
+		wait_time = GetTickCount();
 	}
 	int GetId() { return idItem; }
 	void SetId(int id) { this->idItem = id; }

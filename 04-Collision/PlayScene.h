@@ -37,7 +37,7 @@ class CPlayScene
 	HUD* hud;
 	CSimon* simon;
 	CGoomba* goomba;
-	CWall* wall;
+	
 	CChangeScene* changeScene;
 	CEffect* effect;
 
@@ -71,8 +71,11 @@ class CPlayScene
 	void GetListobjectFromGrid();
 	void UpdateGrid();
 
-public:
 
+	bool lockCam = false;
+
+public:
+	CWall* wall;
 	CPlayScene() {};
 	static CPlayScene* GetInstance();
 
@@ -82,6 +85,7 @@ public:
 	void LoadResource();
 	void LoadMap();
 	void LoadObject();
+	void LoadGrids();
 	void AddNewObject(LPGAMEOBJECT obj) {
 		newObjectList.push(obj);
 	}
